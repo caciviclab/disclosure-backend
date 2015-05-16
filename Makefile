@@ -1,4 +1,4 @@
-.PHONY: bootstrap docs load rs sh test
+.PHONY: bootstrap install install-yes docs load rs sh test
 
 bootstrap:
 	mysqladmin -h localhost -u root -pmysql drop calaccess
@@ -8,12 +8,25 @@ bootstrap:
 	python example/manage.py collectstatic --noinput
 	python example/manage.py runserver
 
+install:
+	python setup.py sdist
+	/usr/local/bin/pip uninstall django-calaccess-raw-data
+	/usr/local/bin/pip install --user dist/django-calaccess-raw-data-0.1.2.tar.gz
+
+install-yes:
+	python setup.py sdist
+	/usr/local/bin/pip uninstall django-calaccess-raw-data --yes
+	/usr/local/bin/pip install --user dist/django-calaccess-raw-data-0.1.2.tar.gz
+
+install-only:
+	python setup.py sdist
+	/usr/local/bin/pip install --user dist/django-calaccess-raw-data-0.1.2.tar.gz
+
 docs:
-	python example/manage.py createcalaccessrawmodeldocs
 	cd docs && make livehtml
 
 load:
-	python  example/manage.py downloadcalaccessrawdata --skip-download --skip-unzip --skip-prep --skip-clear --skip-clean
+	python example/manage.py downloadcalaccessrawdata --skip-download --skip-unzip --skip-prep --skip-clear --skip-clean
 
 rs:
 	python example/manage.py runserver
