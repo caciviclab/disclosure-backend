@@ -8,8 +8,10 @@ cache:
 
 python:
  - "2.7"
- - "3.3"
- - "3.4"
+ # disabled due to error:
+ # TypeError: 'SafeText' does not support the buffer interface
+ #- "3.3"
+ #- "3.4"
 
 env:
  - DJANGO_VERSION=1.7 DATABASE_SETTINGS='settings_test_mysql.py'
