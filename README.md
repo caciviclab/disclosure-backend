@@ -1,6 +1,6 @@
 # disclosure-backend
 
-[![Build Status](https://travis-ci.org/opencalifornia/disclosure-backend?branch=master)](https://travis-ci.org/opencalifornia/disclosure-backend)
+[![Build Status](https://travis-ci.org/opencalifornia/disclosure-backend.png?branch=master)](https://travis-ci.org/opencalifornia/disclosure-backend)
 [![PyPI version](https://badge.fury.io/py/disclosure-backend.png)](http://badge.fury.io/py/disclosure-backend)
 [![Coverage Status](https://coveralls.io/repos/opencalifornia/disclosure-backend/badge.png?branch=master)](https://coveralls.io/r/opencalifornia/disclosure-backend?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/disclosure-backend/badge/?version=latest)](https://readthedocs.org/projects/disclosure-backend/?badge=latest)
