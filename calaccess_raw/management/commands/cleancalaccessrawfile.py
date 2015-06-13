@@ -10,11 +10,8 @@ from calaccess_raw.management.commands import CalAccessCommand
 
 
 class Command(CalAccessCommand, LabelCommand):
-    help = 'Clean CAL-ACCESS TSV files'
-    missing_args_message = 'Please include at least one tsv_filename'
-
-    def add_arguments(self, parser):
-        parser.add_argument('tsv_filename', nargs='+', type=str)
+    help = 'Clean a source CAL-ACCESS file and reformat it as a CSV'
+    args = '<file name>'
 
     def handle_label(self, label, **options):
         # Set options
@@ -28,7 +25,7 @@ class Command(CalAccessCommand, LabelCommand):
 
     def clean(self, name):
         """
-        Cleans the provided source TSV file
+        Cleans the provided source TSV file and writes it out in CSV format
         """
         if self.verbosity > 2:
             self.log(" Cleaning %s" % name)
