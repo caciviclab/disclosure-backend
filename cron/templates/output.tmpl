@@ -1,0 +1,21 @@
+{% autoescape off %}
+Report for module '{{name}}'
+
+Date:
+  {{now}}
+
+Command:
+  {{args}}
+
+Return code:
+  {{retvalue}}
+
+Stdout (if any):
+
+{{stdout}}
+
+Stderr (if any):
+
+{{stderr}}
+
+{% endautoescape %} 
