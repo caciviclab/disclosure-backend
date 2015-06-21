@@ -71,7 +71,7 @@ if __name__ == '__main__':
       symlink_dir = val
     elif opt == '-n':
       name = val
-    elif opt == 'o':
+    elif opt == '-o':
       output_dir = val
 
   if not args:
