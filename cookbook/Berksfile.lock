@@ -1,0 +1,6 @@
+DEPENDENCIES
+  disclosure-backend
+    path: .
+
+GRAPH
+  disclosure-backend (0.1.0)
