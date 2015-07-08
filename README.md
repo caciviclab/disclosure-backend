@@ -11,11 +11,29 @@ repository. Whereas django-calaccess-raw-data supports only state-level data, we
 aim to add support for importing data from local jurisdictions who use Netfile
 to host their data.
 
+## Dependancies
+```
+python, pip, virtualenv
+Python 2.7.9 includes pip:
+    Mac:
+      brew install python
+      pip install virtualenv
+
+mysql:
+    Mac: brew install mysql
+```
+
 ## Installation
 ```
 virtualenv env
 . env/bin/activate
 pip install -r requirements_dev.txt
+## create the database calaccess_raw
+mysql --user root 
+mysql> create database calaccess_raw;
+mysql> \q
+python example/manage.py migrate
+## load data
 python example/manage.py downloadcalaccessrawdata --use-test-data
 ```
 
