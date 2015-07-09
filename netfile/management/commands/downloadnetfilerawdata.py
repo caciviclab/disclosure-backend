@@ -69,13 +69,13 @@ class Command(CalAccessCommand):
         if self.verbosity:
             self.log('Writing %s...' % (csv_path))
 
-        with open(os.path.join(DATA_DIR, csv_path), 'w') as csv_handle:
-            try:
-                item = iterator.next()
-            except StopIteration:
-                self.failure('No data')
-                return
+        try:
+            item = iterator.next()
+        except StopIteration:
+            self.failure('No data')
+            return
 
+        with open(os.path.join(DATA_DIR, csv_path), 'w') as csv_handle:
             headers = item.keys()
             writer = csv.DictWriter(csv_handle, headers)
             writer.writeheader()
