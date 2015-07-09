@@ -19,10 +19,9 @@ class Command(CalAccessCommand):
     option_list = CalAccessCommand.option_list + custom_options
 
     def set_options(self, *args, **kwargs):
-        self.query_url = 'https://netfile.com:443/Connect2/api/public/campaign/search/transaction/query'
+        self.query_url = 'https://netfile.com:443/' \
+            + 'Connect2/api/public/campaign/search/transaction/query'
         self.verbosity = int(kwargs['verbosity'])
 
     def handle(self, *args, **options):
         pass
-
-
