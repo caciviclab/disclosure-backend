@@ -152,11 +152,12 @@ class Command(CalAccessCommand, LabelCommand):
         # Insert CSV data into the temporary table
         temp_insert = """
             COPY "temporary_table"
-            FROM '%s'
+            FROM STDIN
             CSV
             HEADER;
-        """ % (csv_path)
-        self.cursor.execute(temp_insert)
+        """
+        with open(csv_path, 'r') as csv_file:
+            self.cursor.copy_expert(temp_insert, csv_file)
 
         # For tables where we create cases for every column and
         # we need a dummy column in order to migrate from table to table
