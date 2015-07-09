@@ -58,7 +58,7 @@ class Connect2API(object):
 
     def getpubliccampaignagencies(self):
         """
-        GET /pubic/campaign/agencies
+        GET /public/campaign/agencies
         """
         response = self.api.public.getpubliccampaignagencies()
         assert response.status_code == 200
@@ -77,7 +77,7 @@ class Connect2API(object):
 
     def getpubliccampaignlisttransactiontypes(self):
         """
-        GET /pubic/campaign/list/transaction/types
+        GET /public/campaign/list/transaction/types
         """
         response = self.api.public.getpubliccampaignlisttransactiontypes()
         assert response.status_code == 200
