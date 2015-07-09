@@ -19,6 +19,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'toolbox',
     'calaccess_raw',
+    'netfile',
 )
 
 MIDDLEWARE_CLASSES = (
