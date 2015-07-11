@@ -5,7 +5,19 @@ from django.conf import settings
 from django.db.models.loading import get_model
 from calaccess_raw.management.commands import CalAccessCommand
 from django.core.management.base import LabelCommand, CommandError
+from optparse import make_option
+import os
+import tempfile
 
+custom_options = {
+    make_option(
+        "--max_lines_per_load_operation",
+        action="store_false",
+        dest="load",
+        default="500000",
+        help="Break data loading into segments of this size"
+    ),
+}
 
 class Command(CalAccessCommand, LabelCommand):
     help = 'Load clean CAL-ACCESS file into its corresponding database model'
@@ -18,6 +30,7 @@ class Command(CalAccessCommand, LabelCommand):
 
     def handle_label(self, label, **options):
         self.verbosity = options.get("verbosity")
+        self.max_lines_per_load = options.get("max_lines_per_load_operation")
         self.cursor = connection.cursor()
         self.load(label)
 
@@ -33,17 +46,46 @@ class Command(CalAccessCommand, LabelCommand):
 
         engine = settings.DATABASES['default']['ENGINE']
         if engine == 'django.db.backends.mysql':
-            self.load_mysql(model, csv_path)
+            loader = self.load_mysql
         elif engine in (
             'django.db.backends.postgresql_psycopg2'
             'django.contrib.gis.db.backends.postgis'
                 ):
-            self.load_postgresql(model, csv_path)
+            loader = self.load_postgresql
         else:
             self.failure("Sorry your database engine is unsupported")
             raise CommandError(
                 "Only MySQL and PostgresSQL backends supported."
             )
+
+        # skip header, and break input into chunks of lines to load one
+        # at a time through tempfiles (this avoids having to load a single
+        # 2G file in one go.
+        csv_input = file(csv_path, 'r')
+        header = csv_input.readline()
+        lines_written = 0
+        chunk_number = 0
+
+        tmp_outfile = tempfile.NamedTemporaryFile(delete=False)
+        tmp_outfile.write(header)
+        for line in csv_input:
+            tmp_outfile.write(line)
+            lines_written += 1
+            if lines_written >= self.max_lines_per_load:
+                print 'loading chunk %s' % chunk_number
+                chunk_number += 1
+                tmp_outfile.close()
+                loader(model, tmp_outfile.name)
+                os.unlink(tmp_outfile.name)
+                tmp_outfile = tempfile.NamedTemporaryFile(delete=False)
+                tmp_outfile.write(header)
+                lines_written = 0
+
+        if lines_written > 0:
+            tmp_outfile.close()
+            loader(model, tmp_outfile.name)
+        os.unlink(tmp_outfile.name)
+
 
     def load_mysql(self, model, csv_path):
         import warnings
@@ -60,7 +102,6 @@ class Command(CalAccessCommand, LabelCommand):
             FIELDS TERMINATED BY ','
             OPTIONALLY ENCLOSED BY '"'
             LINES TERMINATED BY '\\n'
-            IGNORE 1 LINES
             (
         """ % (
             csv_path,
@@ -153,8 +194,7 @@ class Command(CalAccessCommand, LabelCommand):
         temp_insert = """
             COPY "temporary_table"
             FROM STDIN
-            CSV
-            HEADER;
+            CSV;
         """
         with open(csv_path, 'r') as csv_file:
             self.cursor.copy_expert(temp_insert, csv_file)
