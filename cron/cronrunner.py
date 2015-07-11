@@ -38,13 +38,21 @@ def RunCommand(args, name, output_dir):
   timestamp = datetime.datetime.strftime(now, '%Y%m%d-%H%M%S')
   output_filename = '%s-%s.txt' % (name, timestamp)
   output_path = os.path.sep.join([output_dir, output_filename])
-  proc = subprocess.Popen(args, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-  stdout, stderr = proc.communicate()
-  retvalue = proc.returncode
+  stdout_path = os.path.sep.join([
+      output_dir,
+      '%s-%s.STDOUT' % (name, timestamp)])
+  stderr_path = os.path.sep.join([
+      output_dir,
+      '%s-%s.STDERR' % (name, timestamp)])
+
+  with file(stdout_path, 'w') as stdout_fh, file(stderr_path, 'w') as stderr_fh:
+    proc = subprocess.Popen(args, stderr=stderr_fh, stdout=stdout_fh)
+    retvalue = proc.wait()
   template = django.template.loader.get_template('output.tmpl')
   context = django.template.Context(dict(
-      args=args, name=name, now=now, retvalue=retvalue, stderr=stderr,
-      stdout=stdout))
+      args=args, name=name, now=now, retvalue=retvalue,
+      stderr=file(stderr_path, 'r').read(),
+      stdout=file(stdout_path, 'r').read()))
   rendered = template.render(context)
   file(output_path, 'w').write(rendered)
   return output_path
