@@ -9,19 +9,18 @@ from optparse import make_option
 import os
 import tempfile
 
-custom_options = {
+custom_options = (
     make_option(
-        "--max_lines_per_load_operation",
-        action="store_false",
-        dest="load",
+        "--max_lines_per_load",
         default="500000",
         help="Break data loading into segments of this size"
     ),
-}
+)
 
 class Command(CalAccessCommand, LabelCommand):
     help = 'Load clean CAL-ACCESS file into its corresponding database model'
     args = '<model name>'
+    option_list = CalAccessCommand.option_list + custom_options
     # Trick for reformating date strings in source data so that they can
     # be gobbled up by MySQL. You'll see how below.
     date_sql = "DATE_FORMAT(str_to_date(@`%s`, '%%c/%%e/%%Y'), '%%Y-%%m-%%d')"
@@ -30,7 +29,7 @@ class Command(CalAccessCommand, LabelCommand):
 
     def handle_label(self, label, **options):
         self.verbosity = options.get("verbosity")
-        self.max_lines_per_load = options.get("max_lines_per_load_operation")
+        self.max_lines_per_load = int(options.get("max_lines_per_load"))
         self.cursor = connection.cursor()
         self.load(label)
 
@@ -72,7 +71,8 @@ class Command(CalAccessCommand, LabelCommand):
             tmp_outfile.write(line)
             lines_written += 1
             if lines_written >= self.max_lines_per_load:
-                print 'loading chunk %s' % chunk_number
+                if self.verbosity > 2:
+                    self.log('  Loading chunk %s' % chunk_number)
                 chunk_number += 1
                 tmp_outfile.close()
                 loader(model, tmp_outfile.name)
@@ -102,6 +102,7 @@ class Command(CalAccessCommand, LabelCommand):
             FIELDS TERMINATED BY ','
             OPTIONALLY ENCLOSED BY '"'
             LINES TERMINATED BY '\\n'
+            IGNORE 1 LINES
             (
         """ % (
             csv_path,
@@ -194,7 +195,8 @@ class Command(CalAccessCommand, LabelCommand):
         temp_insert = """
             COPY "temporary_table"
             FROM STDIN
-            CSV;
+            CSV
+            HEADER;
         """
         with open(csv_path, 'r') as csv_file:
             self.cursor.copy_expert(temp_insert, csv_file)
