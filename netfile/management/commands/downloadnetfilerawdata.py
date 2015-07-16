@@ -4,6 +4,8 @@ Command to download and load California campaign finance data from Netfile.
 
 import os
 import csv
+import cStringIO
+import codecs
 
 from calaccess_raw.management.commands import CalAccessCommand
 from optparse import make_option
@@ -28,6 +30,45 @@ custom_options = (
         help="Skip loading up the raw data files"
     ),
 )
+
+class UnicodeDictWriter(object):
+    """
+    A CSV DictWriter which will write rows to CSV file "f",
+    which is encoded in the given encoding.
+
+    Adapted from https://docs.python.org/2/library/csv.html#examples
+    """
+
+    def __init__(self, f, headers, dialect=csv.excel, encoding="utf-8", **kwds):
+        # Redirect output to a queue
+        self.queue = cStringIO.StringIO()
+        self.writer = csv.DictWriter(self.queue, headers, dialect=dialect, **kwds)
+        self.stream = f
+        self.encoder = codecs.getincrementalencoder(encoding)()
+
+    def writeheader(self):
+        self.writer.writeheader()
+
+    def writerow(self, row):
+        utf8_row = dict()
+        for k, v in row.iteritems():
+            utf8_row[k] = codecs.encode(unicode(v), 'utf-8')
+
+        self.writer.writerow(utf8_row)
+        # Fetch UTF-8 output from the queue ...
+        data = self.queue.getvalue()
+        data = data.decode("utf-8")
+        # ... and reencode it into the target encoding
+        data = self.encoder.encode(data)
+        # write to the target stream
+        self.stream.write(data)
+        # empty queue
+        self.queue.truncate(0)
+
+    def writerows(self, rows):
+        for row in rows:
+            self.writerow(row)
+
 
 class Command(CalAccessCommand):
     help = 'Download and load the Netfile raw data'
@@ -77,7 +118,7 @@ class Command(CalAccessCommand):
 
         with open(os.path.join(DATA_DIR, csv_path), 'w') as csv_handle:
             headers = item.keys()
-            writer = csv.DictWriter(csv_handle, headers)
+            writer = UnicodeDictWriter(csv_handle, headers)
             writer.writeheader()
             writer.writerow(item)
             for item in iterator:
