@@ -17,6 +17,7 @@ custom_options = (
     ),
 )
 
+
 class Command(CalAccessCommand, LabelCommand):
     help = 'Load clean CAL-ACCESS file into its corresponding database model'
     args = '<model name>'
@@ -85,7 +86,6 @@ class Command(CalAccessCommand, LabelCommand):
             tmp_outfile.close()
             loader(model, tmp_outfile.name)
         os.unlink(tmp_outfile.name)
-
 
     def load_mysql(self, model, csv_path):
         import warnings
