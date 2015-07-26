@@ -28,7 +28,6 @@ def paginated_query(func):
 
         pages = response.json()['totalMatchingPages']
         logger.info("Fetching page %d of %d pages available" % (page_index, pages))
-        pages = min(pages, 2) #TODO Once the queries are set, unlimit this. For now, limit to two pages of data
 
         results = response.json()['results']
         while True:
