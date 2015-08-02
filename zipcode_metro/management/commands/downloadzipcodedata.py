@@ -7,12 +7,11 @@ import csv
 import requests
 import zipfile
 
+from calaccess_raw import get_download_directory
 from calaccess_raw.management.commands import loadcalaccessrawfile
 from django.db import connection
 from optparse import make_option
 
-
-DATA_DIR = 'zipcode_raw_data'
 
 custom_options = (
     make_option(
@@ -39,7 +38,8 @@ class Command(loadcalaccessrawfile.Command):
     def handle(self, *args, **options):
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options.get('max_lines_per_load'))
-        self.zip_path = os.path.join(DATA_DIR, 'zipcode_metro.zip')
+        self.data_dir = os.path.join(get_download_directory(), 'csv')
+        self.zip_path = os.path.join(self.data_dir, 'zipcode_metro.zip')
 
         if not options['skip_download']:
             self.download()
@@ -53,8 +53,8 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             self.header("Downloading/unzipping raw data files")
 
-        if not os.path.isdir(DATA_DIR):
-            os.makedirs(DATA_DIR)
+        if not os.path.isdir(self.data_dir):
+            os.makedirs(self.data_dir)
 
         r = requests.get(self.url)
         with open(self.zip_path, 'wb') as f:
@@ -62,7 +62,7 @@ class Command(loadcalaccessrawfile.Command):
             f.close()
 
         with zipfile.ZipFile(self.zip_path) as zf:
-            zf.extract('zipcode_metro.csv', DATA_DIR)
+            zf.extract('zipcode_metro.csv', self.data_dir)
 
         if self.verbosity:
             self.success('ok.')
