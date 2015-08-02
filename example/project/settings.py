@@ -20,6 +20,7 @@ INSTALLED_APPS = (
     'toolbox',
     'calaccess_raw',
     'netfile',
+    'zipcode_metro',
 )
 
 MIDDLEWARE_CLASSES = (

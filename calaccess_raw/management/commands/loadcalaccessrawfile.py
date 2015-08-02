@@ -32,7 +32,7 @@ class Command(CalAccessCommand, LabelCommand):
         self.verbosity = options.get("verbosity")
         self.max_lines_per_load = int(options.get("max_lines_per_load"))
         self.cursor = connection.cursor()
-        self.load(label)
+        self.load("calaccess_raw.%s" % label)
 
     def load(self, model_name):
         """
@@ -41,7 +41,7 @@ class Command(CalAccessCommand, LabelCommand):
         if self.verbosity > 2:
             self.log(" Loading %s" % model_name)
 
-        model = get_model("calaccess_raw", model_name)
+        model = get_model(model_name)
         csv_path = model.objects.get_csv_path()
 
         engine = settings.DATABASES['default']['ENGINE']

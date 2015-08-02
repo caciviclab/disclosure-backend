@@ -35,6 +35,7 @@ mysql> \q
 python example/manage.py migrate
 ## load data
 python example/manage.py downloadcalaccessrawdata --use-test-data
+python example/manage.py downloadzipcodedata
 ```
 
 ## Helpful Links from the CCDC
