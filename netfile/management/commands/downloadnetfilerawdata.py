@@ -7,26 +7,27 @@ import csv
 import cStringIO
 import codecs
 
-from calaccess_raw.management.commands import CalAccessCommand
+from calaccess_raw import get_download_directory
+from calaccess_raw.management.commands import loadcalaccessrawfile
+from django.db import connection
 from optparse import make_option
 
 from netfile.connect2_api import Connect2API
 
-DATA_DIR = 'netfile_raw_data'
 
 custom_options = (
     make_option(
         "--skip-download",
-        action="store_false",
-        dest="download",
-        default=True,
+        action="store_true",
+        dest="skip_download",
+        default=False,
         help="Skip downloading of the raw data"
     ),
     make_option(
         "--skip-load",
-        action="store_false",
-        dest="load",
-        default=True,
+        action="store_true",
+        dest="skip_load",
+        default=False,
         help="Skip loading up the raw data files"
     ),
 )
@@ -70,41 +71,50 @@ class UnicodeDictWriter(object):
             self.writerow(row)
 
 
-class Command(CalAccessCommand):
+class Command(loadcalaccessrawfile.Command):
     help = 'Download and load the Netfile raw data'
-    option_list = CalAccessCommand.option_list + custom_options
+    option_list = loadcalaccessrawfile.Command.option_list + custom_options
 
     def handle(self, *args, **options):
         self.verbosity = int(options['verbosity'])
+        self.max_lines_per_load = int(options.get('max_lines_per_load'))
+        self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.connect2 = Connect2API()
 
-        if options['download']:
+        if not options['skip_download']:
             self.download()
 
-        if options['load']:
+        if not options['skip_load']:
+            self.cursor = connection.cursor()
             self.load()
 
     def download(self):
         if self.verbosity:
             self.header("Downloading raw data files")
 
-        if not os.path.isdir(DATA_DIR):
-            os.mkdir(DATA_DIR)
+        if not os.path.isdir(self.data_dir):
+            os.makedirs(self.data_dir)
 
         # Fetch agencies
         agencies = self.fetch_agencies()
         print "Found %s agencies" %  (len(agencies))
-        self._write_csv('agencies.csv', iter(agencies))
+        self._write_csv('netfile_agency.csv', iter(agencies))
 
         for agency in agencies:
 
             for year in ['2014']:
-                csv_path = '%s_%s_cal201_export.csv' % (year, agency['shortcut'])
+                csv_path = 'netfile_%s_%s_cal201_export.csv' % (year, agency['shortcut'])
                 transactions = self.fetch_transactions_agency_year(agency, year)
                 self._write_csv(csv_path, transactions)
 
+
     def load(self):
-        pass
+        if self.verbosity:
+            self.header("Loading Agency CSV file")
+        super(Command, self).load('netfile.NetFileAgency')
+        if self.verbosity:
+            self.success("ok.")
+
 
     def _write_csv(self, csv_path, iterator):
         if self.verbosity:
@@ -116,7 +126,7 @@ class Command(CalAccessCommand):
             self.failure('No data')
             return
 
-        with open(os.path.join(DATA_DIR, csv_path), 'w') as csv_handle:
+        with open(os.path.join(self.data_dir, csv_path), 'w') as csv_handle:
             headers = item.keys()
             writer = UnicodeDictWriter(csv_handle, headers)
             writer.writeheader()
