@@ -21,4 +21,3 @@ example/test-data/csv
 example/project/settings_local.py
 example/.static/
 /netfile_raw_data
-/zipcode_raw_data
