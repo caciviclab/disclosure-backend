@@ -6,6 +6,7 @@ import os
 import csv
 import cStringIO
 import codecs
+import glob
 
 from calaccess_raw import get_download_directory
 from calaccess_raw.management.commands import loadcalaccessrawfile
@@ -24,6 +25,13 @@ custom_options = (
         help="Skip downloading of the raw data"
     ),
     make_option(
+        "--skip-combine",
+        action="store_true",
+        dest="skip_combine",
+        default=False,
+        help="Skip combining of the downloaded data"
+    ),
+    make_option(
         "--skip-load",
         action="store_true",
         dest="skip_load",
@@ -39,7 +47,6 @@ class UnicodeDictWriter(object):
 
     Adapted from https://docs.python.org/2/library/csv.html#examples
     """
-
     def __init__(self, f, headers, dialect=csv.excel, encoding="utf-8", **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
@@ -74,19 +81,45 @@ class UnicodeDictWriter(object):
 class Command(loadcalaccessrawfile.Command):
     help = 'Download and load the Netfile raw data'
     option_list = loadcalaccessrawfile.Command.option_list + custom_options
+    # netfile gives us ISO8601 formatted dates, so we have to override the
+    # calaccess_raw date hack with a slightly different one :)
+    date_sql = "DATE_FORMAT(str_to_date(@`%s`, '%%Y-%%m-%%d'), '%%Y-%%m-%%d')"
 
     def handle(self, *args, **options):
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options.get('max_lines_per_load'))
         self.data_dir = os.path.join(get_download_directory(), 'csv')
+        self.combined_csv_path = os.path.join(
+            self.data_dir, 'netfile_cal201_transaction.csv')
         self.connect2 = Connect2API()
 
         if not options['skip_download']:
             self.download()
 
+        if not options['skip_combine']:
+            self.combine()
+
         if not options['skip_load']:
             self.cursor = connection.cursor()
             self.load()
+
+    def combine(self):
+        headers_written = False
+        with file(self.combined_csv_path, 'w') as combined_csv:
+            for path in glob.glob(os.path.join(self.data_dir, 'netfile_*_*_cal201_export.csv')):
+                agency_shortcut = path.split('_')[2]
+                with file(path, 'r') as agency_csv:
+                    headers = ','.join(
+                        ['agency_shortcut', agency_csv.readline()])
+                    if not headers_written:
+                        combined_csv.write(headers)
+                        headers_written = headers
+                    else:
+                        # make sure things don't go all wierd between files.
+                        assert headers == headers_written
+                    for line in agency_csv.readlines():
+                        combined_csv.write(','.join([agency_shortcut, line]))
+
 
     def download(self):
         if self.verbosity:
@@ -114,6 +147,11 @@ class Command(loadcalaccessrawfile.Command):
         super(Command, self).load('netfile.NetFileAgency')
         if self.verbosity:
             self.success("ok.")
+        if self.verbosity:
+            self.header("Loading Cal201 Transaction Data")
+        super(Command, self).load('netfile.NetFileCal201Transaction')
+        if self.verbosity:
+            self.success("ok.")
 
 
     def _write_csv(self, csv_path, iterator):
@@ -137,6 +175,7 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             self.success('OK')
 
+
     def fetch_transactions_agency_year(self, agency, year):
         # Break this up by transaction type?
         query = {
@@ -151,4 +190,3 @@ class Command(loadcalaccessrawfile.Command):
     def fetch_agencies(self):
         """Fetches agencies from Netfile API"""
         return self.connect2.getpubliccampaignagencies()
-
