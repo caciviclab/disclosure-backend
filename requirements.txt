@@ -1,0 +1,2 @@
+-e git+ssh://git@github.com/california-civic-data-coalition/django-calaccess-raw-data.git@master#egg=django-calaccess-raw-data
+mysqlclient
