@@ -11,3 +11,9 @@ California Civic Lab Disclosure Backend
 5. `pip install -r requirements.txt`
 6. install mysql
 7. `python disclosure-backend/manage.py downloadcalaccessrawdata --use-test-data`
+
+## Deploying
+
+```
+ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
+```
