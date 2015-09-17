@@ -1,5 +1,5 @@
 env
-.pyc
+*.pyc
 example/data/
 example/test-data/csv/
 disclosure-backend/test-data/csv
