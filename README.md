@@ -42,7 +42,7 @@ pip install virtualenv
 mysql --user root
 mysql> create database calaccess_raw;
 mysql> \q
-python example/manage.py migrate
+python disclosure-backend/manage.py migrate
 ```
 
 
@@ -54,7 +54,7 @@ First, a basic data check to make sure things are working:
 
 ### Zipcode/metro data
 
-    $ python example/manage.py downloadzipcodedata
+    $ python disclosure-backend/manage.py downloadzipcodedata
 
 ### Netfile
 
