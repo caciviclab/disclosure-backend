@@ -87,7 +87,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def handle(self, *args, **options):
         self.verbosity = int(options['verbosity'])
-        self.max_lines_per_load = int(options.get('max_lines_per_load'))
+        self.max_lines_per_load = int(options.get('max_lines_per_load', 1000))
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
