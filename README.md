@@ -1,3 +1,14 @@
+[![Build Status](https://travis-ci.org/opencalifornia/disclosure-frontend-alpha.svg)](https://travis-ci.org/opencalifornia/disclosure-frontend-alpha)
+
+# Open Disclosure California
+
+Don't forget to run the tests.
+
+    $ npm test
+
+
+--
+
 ##Unofficial Fork of the [AngularJS-Gulp-Browserify Starter App](https://github.com/goodbomb/angular-gulp-browserify-starter) written by [@goodbomb](https://github.com/goodbomb)
 
 This Angular starter app is built with best practices in mind. The folder structure is intended to be different than the standard official AngularJS application. The application architecture follows modern design conventions from the proposal outlined here:
