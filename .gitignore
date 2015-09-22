@@ -3,6 +3,9 @@ env
 example/data/
 example/test-data/csv/
 disclosure-backend/test-data/csv
+disclosure-backend/.static
+settings_local.py
+
 npm-debug.log
 # Compiled Server Files
 static
