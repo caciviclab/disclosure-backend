@@ -6,13 +6,13 @@ describe('HomeController', function() {
 
     var ctrl, scope;
 
-    beforeEach(angular.mock.module('myApp'));
+    beforeEach(angular.mock.module('campaignFinanceApp'));
 
     beforeEach(function() {
 
         angular.mock.inject(function($controller, $rootScope) {
             scope = $rootScope.$new();
-            ctrl = $controller('HomeCtrl', {
+            ctrl = $controller('HomePageController', {
                 $scope: scope
             });
         });
