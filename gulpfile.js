@@ -59,25 +59,25 @@ var filePath = {
             dest: './dist/images/'
         },
         fonts: {
-            src: ['./libs/font-awesome/fonts/*'],
+            src: ['./js/libs/font-awesome/fonts/*'],
             dest: './dist/fonts/'
         }
     },
     vendorJS: {
         // These files will be bundled into a single vendor.js file that's called at the bottom of index.html
         src: [
-            './libs/angular/angular.js',
-            './libs/angular-animate/angular-animate.js',
-            './libs/angular-bootstrap/ui-bootstrap-tpls.js',
-            './libs/angular-cookies/angular-cookies.js',
-            './libs/angular-resource/angular-resource.js',
-            './libs/angular-sanitize/angular-sanitize.js',
-            './libs/angular-ui-router/release/angular-ui-router.js',
-            './libs/jquery/dist/jquery.js',
-            './libs/bootstrap/dist/js/bootstrap.js',
-            './libs/domready/ready.js',
-            './libs/lodash/lodash.js',
-            './libs/restangular/dist/restangular.js'
+            './js/libs/angular/angular.js',
+            './js/libs/angular-animate/angular-animate.js',
+            './js/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+            './js/libs/angular-cookies/angular-cookies.js',
+            './js/libs/angular-resource/angular-resource.js',
+            './js/libs/angular-sanitize/angular-sanitize.js',
+            './js/libs/angular-ui-router/release/angular-ui-router.js',
+            './js/libs/jquery/dist/jquery.js',
+            './js/libs/bootstrap/dist/js/bootstrap.js',
+            './js/libs/domready/ready.js',
+            './js/libs/lodash/lodash.js',
+            './js/libs/restangular/dist/restangular.js'
         ]
     },
     //vendorCSS: {

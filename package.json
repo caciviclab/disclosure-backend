@@ -29,7 +29,7 @@
     ]
   },
   "browser": {
-    "angular": "./libs/angular/angular.js"
+    "angular": "./js/libs/angular/angular.js"
   },
   "jscsConfig": ".jscsrc",
   "devDependencies": {

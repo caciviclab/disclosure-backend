@@ -9,7 +9,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: './',
+        basePath: './js/',
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -19,7 +19,7 @@ module.exports = function (config) {
         files: [
             './libs/angular/angular.js',
             './libs/angular-mocks/angular-mocks.js', // for angular.mock.module and inject.
-            './js/app/**/*.js'
+            './app/**/*.js'
         ],
 
         // list of files to exclude
@@ -28,7 +28,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './js/app/**/!(*spec)*.js': ['browserify']
+            './app/**/!(*spec)*.js': ['browserify']
         },
 
         // karma-browserify configuration
@@ -50,7 +50,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'html',
-            dir: './reports/coverage'
+            dir: '../reports/coverage'
         },
 
         // web server port

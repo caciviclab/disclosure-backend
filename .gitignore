@@ -5,7 +5,7 @@ reports
 # Third Party Dependencies
 bower_components
 node_modules
-libs/*
+/js/libs
 
 # Webstorm Files
 .idea
