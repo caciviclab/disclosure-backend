@@ -8,7 +8,7 @@ var server = express();
 var API_URL = process.env.API_URL || 'http://localhost:3000/';
 
 server.set('port', (process.env.PORT || 5000));
-server.use(express.static(__dirname + '/dist'));
+server.use(express.static(__dirname + '/static'));
 
 server.listen(server.get('port'), function() {
   console.log("Node app is running at localhost:" + server.get('port'));

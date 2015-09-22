@@ -33,7 +33,7 @@ var gulp = require('gulp'),
 // =======================================================================
 var filePath = {
     build: {
-        dest: './dist'
+        dest: './static'
     },
     lint: {
         src: ['./js/app/*.js', './js/app/**/*.js']
@@ -56,11 +56,11 @@ var filePath = {
         images: {
             src: './js/app/assets/images/**/*',
             watch: ['./js/app/assets/images', './js/app/assets/images/**/*'],
-            dest: './dist/images/'
+            dest: './static/images/'
         },
         fonts: {
             src: ['./js/libs/font-awesome/fonts/*'],
-            dest: './dist/fonts/'
+            dest: './static/fonts/'
         }
     },
     vendorJS: {
@@ -143,19 +143,19 @@ gulp.task('server', function() {
 // Clean out dist folder contents on build
 // =======================================================================
 gulp.task('clean-dev', function() {
-    del(['./dist/*.js',
-        './dist/*.css',
-        '!./dist/vendor.js',
-        '!./dist/vendor.css',
-        './dist/*.html',
-        './dist/*.png',
-        './dist/*.ico',
+    del(['./static/*.js',
+        './static/*.css',
+        '!./static/vendor.js',
+        '!./static/vendor.css',
+        './static/*.html',
+        './static/*.png',
+        './static/*.ico',
         './reports/**/*',
         './reports']);
 });
 
 gulp.task('clean-full', function() {
-    del(['./dist/*',
+    del(['./static/*',
         './reports/**/*',
         './reports']);
 });
