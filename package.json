@@ -13,7 +13,8 @@
     "node": "0.10.38"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "gulp test"
   },
   "browserify-shim": {
     "angular": {
@@ -34,8 +35,8 @@
   "devDependencies": {
     "bower": "latest",
     "browserify": "^9.0.3",
-    "browserify-shim": "^3.8.5",
     "browserify-istanbul": "^0.2.1",
+    "browserify-shim": "^3.8.5",
     "chai": "^2.2.0",
     "debowerify": "^1.2.1",
     "del": "^0.1.3",
@@ -71,7 +72,8 @@
     "sinon": "^1.14.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.1.1"
+    "watchify": "^3.1.1",
+    "yargs": "^3.25.0"
   },
   "dependencies": {
     "connect": "^3.2.0",
