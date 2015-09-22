@@ -36,26 +36,26 @@ var filePath = {
         dest: './dist'
     },
     lint: {
-        src: ['./app/*.js', './app/**/*.js']
+        src: ['./js/app/*.js', './js/app/**/*.js']
     },
     browserify: {
-        src: './app/app.js',
+        src: './js/app/app.js',
         watch: [
-            '!./app/assets/libs/*.js',
-            '!./app/assets/libs/**/*.js',
-            '!./app/**/*.spec.js',
-            './app/*.js', './app/**/*.js',
-            '/app/**/*.html'
+            '!./js/app/assets/libs/*.js',
+            '!./js/app/assets/libs/**/*.js',
+            '!./js/app/**/*.spec.js',
+            './js/app/*.js', './js/app/**/*.js',
+            './js/app/**/*.html'
         ]
     },
     styles: {
-        src: './app/app.less',
-        watch: ['./app/app.less', './app/**/*.less']
+        src: './js/app/app.less',
+        watch: ['./js/app/app.less', './js/app/**/*.less']
     },
     assets: {
         images: {
-            src: './app/assets/images/**/*',
-            watch: ['./app/assets/images', './app/assets/images/**/*'],
+            src: './js/app/assets/images/**/*',
+            watch: ['./js/app/assets/images', './js/app/assets/images/**/*'],
             dest: './dist/images/'
         },
         fonts: {
@@ -87,11 +87,11 @@ var filePath = {
     //    ]
     //},
     copyIndex: {
-        src: './app/index.html',
-        watch: './app/index.html'
+        src: './js/app/index.html',
+        watch: './js/app/index.html'
     },
     copyFavicon: {
-        src: './app/favicon.png'
+        src: './js/app/favicon.png'
     }
 };
 

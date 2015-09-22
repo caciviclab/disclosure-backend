@@ -19,7 +19,7 @@ module.exports = function (config) {
         files: [
             './libs/angular/angular.js',
             './libs/angular-mocks/angular-mocks.js', // for angular.mock.module and inject.
-            './app/**/*.js'
+            './js/app/**/*.js'
         ],
 
         // list of files to exclude
@@ -28,7 +28,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './app/**/!(*spec)*.js': ['browserify']
+            './js/app/**/!(*spec)*.js': ['browserify']
         },
 
         // karma-browserify configuration
