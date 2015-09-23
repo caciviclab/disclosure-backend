@@ -75,7 +75,7 @@ Build the assets.
 
 Run the app.
 
-    $ python runserver
+    $ python disclosure-backend/manage.py runserver
 
 Tests can be run with:
 
