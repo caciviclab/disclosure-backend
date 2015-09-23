@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     prefix = require('gulp-autoprefixer'),
     minifyCSS = require('gulp-minify-css'),
     notify = require('gulp-notify'),
+    webserver = require('gulp-webserver'),
     browserify = require('browserify'),
     watchify = require('watchify'),
     del = require('del'),
@@ -361,6 +362,17 @@ gulp.task('watch', function() {
     console.log('Watching...');
 });
 
+// =======================================================================
+// Start a webserver to serve the assets to developers directly
+// =======================================================================
+gulp.task('webserver', function() {
+  gulp.src('app')
+  .pipe(webserver({
+    livereload: true,
+    directoryListing: true,
+    open: true
+  }));
+});
 
 // =======================================================================
 // Karma Configuration
