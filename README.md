@@ -59,14 +59,9 @@ Install your first version of node, and set your default.
     $ nvm alias default v0.10.39
     $ nvm use default
 
-Install bower and gulp.
-
-    $ npm install -g bower gulp
-
-Install the project dependencies.
+Install the project dependencies, including gulp.
 
     $ npm install
-    $ bower install
 
 Build the assets.
 
