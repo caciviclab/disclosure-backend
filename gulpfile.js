@@ -36,48 +36,48 @@ var filePath = {
         dest: './static'
     },
     lint: {
-        src: ['./js/app/*.js', './js/app/**/*.js']
+        src: ['./frontend/app/*.js', './frontend/app/**/*.js']
     },
     browserify: {
-        src: './js/app/app.js',
+        src: './frontend/app/app.js',
         watch: [
-            '!./js/app/assets/libs/*.js',
-            '!./js/app/assets/libs/**/*.js',
-            '!./js/app/**/*.spec.js',
-            './js/app/*.js', './js/app/**/*.js',
-            './js/app/**/*.html'
+            '!./frontend/app/assets/libs/*.js',
+            '!./frontend/app/assets/libs/**/*.js',
+            '!./frontend/app/**/*.spec.js',
+            './frontend/app/*.js', './frontend/app/**/*.js',
+            './frontend/app/**/*.html'
         ]
     },
     styles: {
-        src: './js/app/app.less',
-        watch: ['./js/app/app.less', './js/app/**/*.less']
+        src: './frontend/app/app.less',
+        watch: ['./frontend/app/app.less', './frontend/app/**/*.less']
     },
     assets: {
         images: {
-            src: './js/app/assets/images/**/*',
-            watch: ['./js/app/assets/images', './js/app/assets/images/**/*'],
+            src: './frontend/app/assets/images/**/*',
+            watch: ['./frontend/app/assets/images', './frontend/app/assets/images/**/*'],
             dest: './static/images/'
         },
         fonts: {
-            src: ['./js/libs/font-awesome/fonts/*'],
+            src: ['./frontend/libs/font-awesome/fonts/*'],
             dest: './static/fonts/'
         }
     },
     vendorJS: {
         // These files will be bundled into a single vendor.js file that's called at the bottom of index.html
         src: [
-            './js/libs/angular/angular.js',
-            './js/libs/angular-animate/angular-animate.js',
-            './js/libs/angular-bootstrap/ui-bootstrap-tpls.js',
-            './js/libs/angular-cookies/angular-cookies.js',
-            './js/libs/angular-resource/angular-resource.js',
-            './js/libs/angular-sanitize/angular-sanitize.js',
-            './js/libs/angular-ui-router/release/angular-ui-router.js',
-            './js/libs/jquery/dist/jquery.js',
-            './js/libs/bootstrap/dist/js/bootstrap.js',
-            './js/libs/domready/ready.js',
-            './js/libs/lodash/lodash.js',
-            './js/libs/restangular/dist/restangular.js'
+            './frontend/libs/angular/angular.js',
+            './frontend/libs/angular-animate/angular-animate.js',
+            './frontend/libs/angular-bootstrap/ui-bootstrap-tpls.js',
+            './frontend/libs/angular-cookies/angular-cookies.js',
+            './frontend/libs/angular-resource/angular-resource.js',
+            './frontend/libs/angular-sanitize/angular-sanitize.js',
+            './frontend/libs/angular-ui-router/release/angular-ui-router.js',
+            './frontend/libs/jquery/dist/jquery.js',
+            './frontend/libs/bootstrap/dist/frontend/bootstrap.js',
+            './frontend/libs/domready/ready.js',
+            './frontend/libs/lodash/lodash.js',
+            './frontend/libs/restangular/dist/restangular.js'
         ]
     },
     //vendorCSS: {
@@ -87,11 +87,11 @@ var filePath = {
     //    ]
     //},
     copyIndex: {
-        src: './js/app/index.html',
-        watch: './js/app/index.html'
+        src: './frontend/app/index.html',
+        watch: './frontend/app/index.html'
     },
     copyFavicon: {
-        src: './js/app/favicon.png'
+        src: './frontend/app/favicon.png'
     }
 };
 
