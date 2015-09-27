@@ -24,19 +24,16 @@
   "browserify": {
     "transform": [
       "browserify-shim",
-      "partialify",
-      "debowerify"
+      "partialify"
     ]
   },
   "jscsConfig": ".jscsrc",
   "devDependencies": {
     "angular-mocks": "^1.4.2",
-    "bower": "latest",
     "browserify": "^9.0.3",
     "browserify-istanbul": "^0.2.1",
     "browserify-shim": "^3.8.5",
     "chai": "^2.2.0",
-    "debowerify": "^1.2.1",
     "del": "^0.1.3",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^0.0.8",
