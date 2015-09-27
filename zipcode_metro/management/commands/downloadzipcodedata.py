@@ -70,6 +70,6 @@ class Command(loadcalaccessrawfile.Command):
     def load(self):
         if self.verbosity:
             self.header("Loading CSV files")
-        super(Command, self).load('zipcode_metro.ZipCodeMetro')
+        super(Command, self).load('ZipCodeMetro', app='zipcode_metro')
         if self.verbosity:
             self.success('ok.')
