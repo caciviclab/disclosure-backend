@@ -66,20 +66,7 @@ var filePath = {
     },
     vendorJS: {
         // These files will be bundled into a single vendor.js file that's called at the bottom of index.html
-        src: [
-          './node_modules/angular/angular.js',
-          './node_modules/angular-animate/angular-animate.js',
-          './node_modules/angular-bootstrap/ui-bootstrap-tpls.js',
-          './node_modules/angular-cookies/angular-cookies.js',
-          './node_modules/angular-resource/angular-resource.js',
-          './node_modules/angular-sanitize/angular-sanitize.js',
-          './node_modules/angular-ui-router/release/angular-ui-router.js',
-          './node_modules/jquery/dist/jquery.js',
-          './node_modules/bootstrap/dist/js/bootstrap.js',
-          './node_modules/domready/ready.js',
-          './node_modules/lodash/index.js',
-          './node_modules/restangular/dist/restangular.js'
-        ]
+        src: ['./frontend/thirdparty/index.js']
     },
     //vendorCSS: {
     //    src: [

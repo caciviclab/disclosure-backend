@@ -28,9 +28,6 @@
       "debowerify"
     ]
   },
-  "browser": {
-    "angular": "./js/libs/angular/angular.js"
-  },
   "jscsConfig": ".jscsrc",
   "devDependencies": {
     "angular-mocks": "^1.4.2",
