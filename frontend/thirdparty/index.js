@@ -5,7 +5,7 @@ require('angular-cookies');
 require('angular-resource');
 require('angular-sanitize');
 require('angular-ui-router');
-require('jquery');
+window.jQuery = require('jquery');
 require('bootstrap');
 require('domready');
 require('lodash');
