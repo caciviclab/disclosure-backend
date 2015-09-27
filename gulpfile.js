@@ -60,7 +60,7 @@ var filePath = {
             dest: './static/images/'
         },
         fonts: {
-            src: ['./frontend/libs/font-awesome/fonts/*'],
+            src: ['./node_modules/font-awesome/fonts/*'],
             dest: './static/fonts/'
         }
     },
