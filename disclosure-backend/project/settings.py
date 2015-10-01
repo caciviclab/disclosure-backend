@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'calaccess_raw',
     'netfile',
+    'project',
     'zipcode_metro',
 )
 
