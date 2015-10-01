@@ -44,8 +44,18 @@ MIDDLEWARE_CLASSES = (
 )
 
 PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
     'pipeline_browserify.compiler.BrowserifyCompiler',
 )
+
+PIPELINE_CSS = {
+    'app': {
+        'source_filenames' : (
+            'app/app.less',
+        ),
+        'output_filename': 'app.css',
+    },
+}
 
 PIPELINE_JS = {
     'bundle': {
@@ -62,6 +72,7 @@ PIPELINE_JS = {
     },
 }
 
+PIPELINE_LESS_BINARY = os.path.join(REPO_DIR, 'node_modules', '.bin', 'lessc')
 PIPELINE_BROWSERIFY_BINARY = os.path.join(REPO_DIR, 'node_modules', '.bin', 'browserify')
 PIPELINE_CSS_COMPRESSOR = None
 PIPELINE_JS_COMPRESSOR = None
