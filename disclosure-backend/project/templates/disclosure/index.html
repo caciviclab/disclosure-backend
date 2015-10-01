@@ -1,3 +1,5 @@
+{% load static from staticfiles %}
+{% load pipeline %}
 <!DOCTYPE html>
 <!--<html ng-app="myApp">-->
 <html ng-app="campaignFinanceApp">
@@ -11,7 +13,7 @@
         <meta name="description" content="{{pageDescription}}">
 
         <!--<link href="/vendor.css" rel="stylesheet">-->
-        <link href="/app.css" rel="stylesheet">
+        <link href="{% static 'app.css' %}" rel="stylesheet">
     </head>
 
     <!--<body ng-class="bodyClasses" ng-controller="MainCtrl">-->
@@ -19,9 +21,8 @@
 
 			<campaign-finance-app></campaign-finance-app>
 
-			<script src="/vendor.js"></script>
-			<script src="/bundle.js"></script>
-
+                        {% javascript 'vendor' %}
+                        {% javascript 'bundle' %}
     </body>
 
 </html>

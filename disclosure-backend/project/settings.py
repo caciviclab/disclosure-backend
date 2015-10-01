@@ -2,15 +2,22 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 REPO_DIR = os.path.join(BASE_DIR, os.pardir)
 SECRET_KEY = 'w11nbg_3n4+e@qk^b55qgo5qygesn^3=&s1kwtlbpkai$(1jv3'
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, ".static")
+STATIC_ROOT = os.path.join(REPO_DIR, 'static')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(REPO_DIR, 'frontend'),
+)
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 INSTALLED_APPS = (
@@ -20,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pipeline',
     'calaccess_raw',
     'netfile',
     'project',
@@ -34,6 +42,32 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+PIPELINE_COMPILERS = (
+    'pipeline_browserify.compiler.BrowserifyCompiler',
+)
+
+PIPELINE_JS = {
+    'bundle': {
+        'source_filenames' : (
+            'app/app.browserify.js',
+        ),
+        'output_filename': 'bundle.js',
+    },
+    'vendor': {
+        'source_filenames' : (
+            'thirdparty/index.browserify.js',
+        ),
+        'output_filename': 'vendor.js',
+    },
+}
+
+PIPELINE_BROWSERIFY_BINARY = os.path.join(REPO_DIR, 'node_modules', '.bin', 'browserify')
+PIPELINE_CSS_COMPRESSOR = None
+PIPELINE_JS_COMPRESSOR = None
+
+if DEBUG:
+    PIPELINE_BROWSERIFY_ARGUMENTS = '-d'
 
 ROOT_URLCONF = 'project.urls'
 WSGI_APPLICATION = 'project.wsgi.application'

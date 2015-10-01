@@ -1,3 +1,5 @@
 -e git://github.com/california-civic-data-coalition/django-calaccess-raw-data.git@master#egg=django-calaccess-raw-data
+django-pipeline==1.5.4
+django-pipeline-browserify==0.2.0
 mysqlclient
 -e git+https://github.com/adborden/swagger-py.git@dab635c6c242b11c81add0069c7d9ee1c842e866#egg=swaggerpy-master
