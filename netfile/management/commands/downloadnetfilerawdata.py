@@ -144,12 +144,12 @@ class Command(loadcalaccessrawfile.Command):
     def load(self):
         if self.verbosity:
             self.header("Loading Agency CSV file")
-        super(Command, self).load('netfile.NetFileAgency')
+        super(Command, self).load('NetFileAgency', app='netfile')
         if self.verbosity:
             self.success("ok.")
         if self.verbosity:
             self.header("Loading Cal201 Transaction Data")
-        super(Command, self).load('netfile.NetFileCal201Transaction')
+        super(Command, self).load('NetFileCal201Transaction', app='netfile')
         if self.verbosity:
             self.success("ok.")
 
