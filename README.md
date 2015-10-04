@@ -1,3 +1,6 @@
+[![Build
+Status](https://travis-ci.org/caciviclab/disclosure-backend.svg?branch=master)](https://travis-ci.org/caciviclab/disclosure-backend)
+
 California Civic Lab Disclosure Backend
 ==================================================
 
@@ -44,6 +47,10 @@ mysql> create database calaccess_raw;
 mysql> \q
 python disclosure-backend/manage.py migrate
 ```
+
+## Run the tests
+
+    $ make test
 
 
 ## Download the data
