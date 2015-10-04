@@ -8,8 +8,6 @@ cache:
 
 python:
  - "2.7"
- - "3.3"
- - "3.4"
 
 install:
  - export XDG_CACHE_HOME=$HOME/.cache/
