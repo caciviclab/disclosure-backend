@@ -1,5 +1,6 @@
 env
 *.pyc
-example/data/
-example/test-data/csv/
+disclosure-backend/data/
 disclosure-backend/test-data/csv
+project/test-data/csv/
+settings_local.py
