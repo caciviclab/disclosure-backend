@@ -6,8 +6,6 @@ from django.db import models, migrations
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'ballot', '0001_first'), (b'ballot', '0002_pretty_admin_display'), (b'ballot', '0003_pretty_admin_display'), (b'ballot', '0004_pretty_admin_display'), (b'ballot', '0005_pretty_admin_display'), (b'ballot', '0006_pretty_admin_display'), (b'ballot', '0007_pretty_admin_display'), (b'ballot', '0008_pretty_admin_display')]
-
     dependencies = [
     ]
 
