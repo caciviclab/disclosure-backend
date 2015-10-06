@@ -82,3 +82,25 @@ trim, clean and process.
 ```
 ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
 ```
+
+To run in the local directory:
+
+```
+pip install uwsgi
+
+if [ ! -f backend.ini ]; then
+cat - >backend.ini <<HERE
+
+[uwsgi]
+http = localhost:8080
+module = disclosure-backend.project.wsgi
+env = DJANGO_SETTINGS_MODULE=disclosure-backend.project.settings
+pythonpath = ./disclosure-backend/
+master = true
+stats = 127.0.0.1:8181
+
+HERE
+fi
+./env/bin/uwsgi ./backend.ini
+```
+
