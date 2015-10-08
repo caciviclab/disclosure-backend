@@ -52,7 +52,6 @@ Files are grouped structurally (each section of the app being self contained wit
 ------ /images
 ------ /icons
 /dist (this is the gulp pipeline file output destination)
-/libs (bower components install here)
 /node_modules (npm installations go here)
 ```
 
@@ -60,23 +59,34 @@ Each Module is self-contained and the js files are exported, combined, and minif
 
 ### Setup Instructions
 
-*NOTE:* This starter kit assumes that you already have bower (http://bower.io/) and gulp (http://gulpjs.com/) installed locally. If you don't, then run the following command first: ```npm install -g bower gulp```
+_*NOTE:* This starter kit assumes that you already have gulp (http://gulpjs.com/)
+installed locally. If you don't, then run the following command first: ```npm
+install -g gulp```_
 
 1) Node Modules and Bower Components are not included in this repository to keep it light weight. After cloning or pulling changes from this repository, make sure to run the following command in terminal: ```npm install```
-
-Bower dependencies should install automatically at the end of the NPM install process. If the dependencies don't install correctly you may need to manually run ```bower install``` as well.
 
 2) Once everything is installed all you have to do is run ```gulp build``` and your new server will be running at ```http://localhost:5000``` (you can edit the port in the gulpFile). To speed up gulp times, the standard ```gulp``` task does not include copying over static files. Using the standard ```gulp``` task will be useful for most cases, but if you need to rebuild the whole ```dist``` folder, use ```gulp build```.
 
 
 ### Working with this application structure
-1) All pipeline, automation, and testing dependencies are in the ```node_modules``` folder (installed using npm), while all third party application libraries are located in the ```libs``` folder (installed using bower).
+1. All pipeline, automation, and testing dependencies are in the
+   ```node_modules``` folder (installed using npm), while all third party
+   application libraries are located in the ```thirdparty``` folder.
 
-2) Any additional third party modules and plugins should always be installed automatically whenever possible using ```npm install module_name``` or ```bower install module_name``` with the ```--save``` or ```--save-dev``` suffixes to save the dependencies in the ```package.json``` and ```bower.json``` files.
+2. Any additional third party modules and plugins should always be installed
+   automatically whenever possible using ```npm install module_name``` with the
+   ```--save``` or ```--save-dev``` suffixes to save the dependencies in the
+   ```package.json``` file.
 
-3) All development takes place in the ```app``` folder. Production files are generated with gulp automatically and pushed to the ```dist``` folder (it will automatically be created the first time the ```gulp``` task is run in terminal post-installation).
+3. All development takes place in the ```app``` folder. Production files are
+   generated with gulp automatically and pushed to the ```dist``` folder (it
+   will automatically be created the first time the ```gulp``` task is run in
+   terminal post-installation).
 
-4) The ```gulpfile.js``` is clearly commented, defining each task that takes place during pipeline automation. Every file change is watched and new files are automatically pushed to the ```dist``` folder. All files are concatenated into individual files for use on production servers.
+4. The ```gulpfile.js``` is clearly commented, defining each task that takes
+   place during pipeline automation. Every file change is watched and new files
+   are automatically pushed to the ```dist``` folder. All files are concatenated
+   into individual files for use on production servers.
 
 
 ### Development, Test, Production, and Deployment
@@ -197,16 +207,38 @@ After those steps are complete, you should be able to see the contents of your n
 NOTE: This same process applies to sub-modules, except you will treat the module directory as the root path, create a ```moduleRoutes.js``` file where you will define module-specific states and options, and then require the sub-module in the module's ```index.js``` file. You could actually do this with the main ```modules``` directory, and use it to "require" all of your modules instead of app.js and simply call ```require('./modules').name``` instead of ```require('./modules/moduleName').name```. It's all up to you and how deep you want to go with the modularity.
 
 ### Adding Third Party Vendor JS and CSS files to your app
-NOTE: As of version 1.2 of this project, the behaviour of the ```vendor.js``` file has changed.
 
-Instead of bloating the index.html file with a list of scripts and link tags, all CSS and Javascript files from Vendors are bundled and concatenated into single ```vendor.css``` and ```vendor.js``` files using the Gulp pipeline. To add vendor files to your workflow, all you have to do is access the ```Gulpfile.js``` file and add the relative path to the vendor file (found in the ```libs``` or ```node_modules``` directories) to the appropriate location in the *"File Paths"* section.
+Instead of bloating the index.html file with a list of scripts and link tags,
+all CSS and Javascript files from Vendors are bundled and concatenated into
+single `vendor.css` and `vendor.js` files using the Gulp pipeline. To
+add vendor files to your workflow, all you have to do is access the
+`gulpfile.js` file and add the relative path to the vendor file (found in
+the `thirdparty` or `node_modules` directories) to the appropriate
+location in the *"File Paths"* section.
 
-* For CSS files, add the path to the *VendorCSS* workflow.
-* For JS files, add the path to the *VendorJS* workflow.
+#### Third-party CSS
 
-The ```vendor.js``` contains uses browserify to bundle all of the third party libraries installed via ```npm install``` or ```bower install``` into a single javascript file that is separate from the main ```bundle.js``` file. The ```bundle.js``` file is only for your application code. You aren't necessarily required to use the ```vendor.js``` file and you can bundle everything into a single ```bundle.js``` file, but by doing so you will miss out on the significant speed improvements that a separated ```vendor.js``` file provides.
+Add the path to the *VendorCSS* workflow in the `gulpfile.js`
 
-While the ```bundle.js``` file is your continuously evolving application, the ```vendor.js``` file is largely static and unchanging (except when you update third party modules or add new ones). As such, your bundle.js file can remain signficiantly smaller in file size, and thus improves the speed of your browserify bundling.
+
+#### Third-party Javascript
+
+Require the file from `thirdparty/index.js`.
+
+The `vendor.js` contains uses browserify to bundle all of the third party
+libraries installed via `npm install` into a single javascript file that is
+separate from the main `bundle.js` file. The `bundle.js` file is only for your
+application code. You aren't necessarily required to use the `vendor.js` file
+and you can bundle everything into a single `bundle.js` file, but by doing so
+you will miss out on the significant speed improvements that a separated
+`vendor.js` file provides.
+
+While the `bundle.js` file is your continuously evolving application, the
+`vendor.js` file is largely static and unchanging (except when you update
+third party modules or add new ones). As such, your bundle.js file can remain
+signficiantly smaller in file size, and thus improves the speed of your
+browserify bundling.
+
 
 ### Contributing
 This project is open source so collaboration is welcome. If you see a way to improve something in this project, please feel free to open a Pull Request to the *develop* branch so we can discuss your code.

@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 // This is the PROD server config file used to serve your AngularJS app on a service like Heroku
 
 var express = require('express');

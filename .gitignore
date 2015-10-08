@@ -12,9 +12,7 @@ static
 reports
 
 # Third Party Dependencies
-bower_components
 node_modules
-/js/libs
 
 # Webstorm Files
 .idea
