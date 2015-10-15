@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.conf import settings
 from django.contrib import admin
+from rest_framework.routers import SimpleRouter
 
 import views
 
@@ -13,4 +14,10 @@ urlpatterns = patterns('',
         'document_root': settings.STATIC_ROOT,
         'show_indexes': True,
     }),
+    url(r'^docs/', include('rest_framework_swagger.urls'))
 )
+
+# Register all API Viewsets:
+api = SimpleRouter()
+api.register(r'contributions', views.Contribution)
+urlpatterns += api.urls
