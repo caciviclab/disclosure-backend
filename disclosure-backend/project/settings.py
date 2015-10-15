@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'ballot',
     'netfile',
     'zipcode_metro',
+    'rest_framework_swagger'
 )
 
 MIDDLEWARE_CLASSES = (
