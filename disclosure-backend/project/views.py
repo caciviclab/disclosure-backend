@@ -12,10 +12,6 @@ class Contribution(viewsets.ViewSet):
     ---
     retrieve:
       response_serializer: ContributionSerializer
-      parameters:
-        - name: id
-          required: true
-          paramType: query
     list:
       response_serializer: ContributionSerializer
     """
@@ -27,9 +23,9 @@ class Contribution(viewsets.ViewSet):
         obj = RcptCd.objects.all()[1:10]
         return Response(ContributionSerializer(obj, many=True).data)
 
-    def retrieve(self, request, format=None):
+    def retrieve(self, request, pk=None, format=None):
         """ Get a single contribution """
-        obj = RcptCd.objects.get(id=request.GET['id'])
+        obj = RcptCd.objects.get(id=pk)
         return Response(ContributionSerializer(obj).data)
 
 
