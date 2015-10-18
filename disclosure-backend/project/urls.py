@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 
+import ballot.views
 import views
 
 admin.autodiscover()
@@ -20,4 +21,5 @@ urlpatterns = patterns('',
 # Register all API Viewsets:
 api = SimpleRouter()
 api.register(r'contributions', views.Contribution)
+api.register(r'elections', ballot.views.Election)
 urlpatterns += api.urls
