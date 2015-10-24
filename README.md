@@ -12,33 +12,37 @@ California Civic Lab Disclosure Backend
 [![Mockup](/mockups/odca-mobile-09-ballot_measure 7-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 7.jpeg)
 [![Mockup](/mockups/odca-mobile-09-ballot_measure 8-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 8.jpeg)
 
-
-## Setup
-
-1. Install python and pip
-2. `sudo pip install virtualenv`
-3. `virtualenv env`
-4. `source env/bin/activate` (you will have to do this every time you want to
-   start working)
-5. `pip install -r requirements.txt`
-6. install mysql
-
 ## Dependencies
 
 If you've worked with Django and python before, these steps should be familiar to you.
+We're going to create an environment with Python 2.7.9 for the project
 
-### Virtualenv
+## Clone it to your system
 
-You'll need python, pip, virtualenv.
+First, clone `disclosure-backend` (or your own fork of it) to your own local copy.
 
-#### Mac
+## Setup
 
-Python 2.7.9 includes pip:
+1. Install python and pip (if using Anaconda, pip is already installed)
+2. Create an environment for this project:
+  * For non-Anaconda Python distribution 
+    ```
+    sudo pip install virtualenv
+    virtualenv env
+    source env/bin/activate
+    ```
 
-```
-brew install python
-pip install virtualenv
-```
+  * For Anaconda (we'll make an environment called ODB with Python 2.7.9 in it)
+    ```
+    conda create --name ODB python=2.7.9
+    source activate ODB
+    ```
+
+  (you will have to activate this environment (or virtualenv) every time you want to start working)
+
+3. `pip install -r requirements.txt`
+4. install mysql 
+  * When prompted for a password, remember it because you'll need it.
 
 ### MySQL
 
@@ -56,6 +60,27 @@ mysql> create database calaccess_raw;
 mysql> \q
 python disclosure-backend/manage.py migrate
 ```
+
+#### Modify `settings.py` (or create `settings_local.py`)
+In `disclosure-backend\project\settings.py` you'll find the database specification 
+```
+DATABASES = {
+    'default': {
+        'NAME': 'calaccess_raw',
+        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'local_infile': 1,
+        }
+    }
+```
+Change the password field to the password you chose when you installed MySQL. 
+Alterntively, you can copy `settings.py` to `settings_local.py` and modify that local version of it.
+django will use `settings_local.py` if it's there.
+
 
 ## Run the tests
 
