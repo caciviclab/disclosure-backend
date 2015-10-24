@@ -40,7 +40,9 @@ First, clone `disclosure-backend` (or your own fork of it) to your own local cop
 
   (you will have to activate this environment (or virtualenv) every time you want to start working)
 
-3. `pip install -r requirements.txt`
+3. Install project requirements with:
+   `pip install -r requirements.txt`
+
 4. install mysql 
   * When prompted for a password, remember it because you'll need it.
 
@@ -60,10 +62,12 @@ mysql> create database calaccess_raw;
 mysql> \q
 python disclosure-backend/manage.py migrate
 ```
+(If mysql exits with a complaint about a password, use `mysql -p --user root`)
+
 
 #### Modify `settings.py` (or create `settings_local.py`)
 In `disclosure-backend\project\settings.py` you'll find the database specification 
-```
+```json
 DATABASES = {
     'default': {
         'NAME': 'calaccess_raw',
@@ -86,12 +90,14 @@ django will use `settings_local.py` if it's there.
 
     $ make test
 
+It should load and clean some files in a few seconds.
 
 ## Download the data
 
 First, a basic data check to make sure things are working:
 
     $ python disclosure-backend/manage.py downloadcalaccessrawdata --use-test-data
+(this appears to do the same thing as `make test`)
 
 ### Zipcode/metro data
 
