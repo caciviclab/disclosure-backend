@@ -1,0 +1,2170 @@
+{
+  "counties": [
+    {
+      "countyName": "alameda",
+      "type": "county",
+      "id": "5_1",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "alpine",
+      "type": "county",
+      "id": "5_2",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "amador",
+      "type": "county",
+      "id": "5_3",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "butte",
+      "type": "county",
+      "id": "5_4",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "calaveras",
+      "type": "county",
+      "id": "5_5",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "colusa",
+      "type": "county",
+      "id": "5_6",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "contra costa",
+      "type": "county",
+      "id": "5_7",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "del norte",
+      "type": "county",
+      "id": "5_8",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "el dorado",
+      "type": "county",
+      "id": "5_9",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "fresno",
+      "type": "county",
+      "id": "5_10",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "glenn",
+      "type": "county",
+      "id": "5_11",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "humboldt",
+      "type": "county",
+      "id": "5_12",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "imperial",
+      "type": "county",
+      "id": "5_13",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "inyo",
+      "type": "county",
+      "id": "5_14",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "kern",
+      "type": "county",
+      "id": "5_15",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "kings",
+      "type": "county",
+      "id": "5_16",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "lake",
+      "type": "county",
+      "id": "5_17",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "lassen",
+      "type": "county",
+      "id": "5_18",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "los angeles",
+      "type": "county",
+      "id": "5_19",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "marin",
+      "type": "county",
+      "id": "5_21",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "mariposa",
+      "type": "county",
+      "id": "5_22",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "mendocino",
+      "type": "county",
+      "id": "5_23",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "merced",
+      "type": "county",
+      "id": "5_24",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "modoc",
+      "type": "county",
+      "id": "5_25",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "mono",
+      "type": "county",
+      "id": "5_26",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "monterey",
+      "type": "county",
+      "id": "5_27",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "napa",
+      "type": "county",
+      "id": "5_28",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "nevada",
+      "type": "county",
+      "id": "5_29",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "orange",
+      "type": "county",
+      "id": "5_30",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "placer",
+      "type": "county",
+      "id": "5_31",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "plumas",
+      "type": "county",
+      "id": "5_32",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "riverside",
+      "type": "county",
+      "id": "5_33",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "sacramento",
+      "type": "county",
+      "id": "5_34",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san benito",
+      "type": "county",
+      "id": "5_35",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san bernardino",
+      "type": "county",
+      "id": "5_36",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san diego",
+      "type": "county",
+      "id": "5_37",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san francisco",
+      "type": "county",
+      "id": "5_38",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san joaquin",
+      "type": "county",
+      "id": "5_39",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san luis obispo",
+      "type": "county",
+      "id": "5_40",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "san mateo",
+      "type": "county",
+      "id": "5_41",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "santa barbara",
+      "type": "county",
+      "id": "5_42",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "santa clara",
+      "type": "county",
+      "id": "5_43",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "santa cruz",
+      "type": "county",
+      "id": "5_44",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "shasta",
+      "type": "county",
+      "id": "5_45",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "sierra",
+      "type": "county",
+      "id": "5_46",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "siskiyou",
+      "type": "county",
+      "id": "5_47",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "solano",
+      "type": "county",
+      "id": "5_48",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "sonoma",
+      "type": "county",
+      "id": "5_49",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "stanislaus",
+      "type": "county",
+      "id": "5_50",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "sutter",
+      "type": "county",
+      "id": "5_51",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "tehama",
+      "type": "county",
+      "id": "5_52",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "trinity",
+      "type": "county",
+      "id": "5_53",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "tulare",
+      "type": "county",
+      "id": "5_54",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "tuolumne",
+      "type": "county",
+      "id": "5_55",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "ventura",
+      "type": "county",
+      "id": "5_56",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "yolo",
+      "type": "county",
+      "id": "5_57",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    },
+    {
+      "countyName": "yuba",
+      "type": "county",
+      "id": "5_58",
+      "ofState": {
+        "stateName": "california",
+        "type": "state",
+        "id": "5"
+      },
+      "collectsCampaignFinanceData": "",
+      "campaignFinanceDataSources": [{"name": "", "href": ""}],
+      "electionDataSummary": {
+        "hasElectionData": "",
+        "isOnline": "",
+        "isPubliclyAccessible": "",
+        "isMachineReadable": "",
+        "pastElectionData": {
+          "hasPastElectionData": "",
+          "yearsPastElectionDataCollected": [
+            {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
+          ],
+          "pastElectionDataSources": [{"name": "", "href": ""}]
+        },
+        "upcomingElectionData": {
+          "hasUpcomingElectionData": "",
+          "isCollectingUpcomingElectionData": "",
+          "dataCollectionStartDate": "DD/MM/YYYY",
+          "dataCollectionEndDate": "DD/MM/YYYY",
+          "dataFiledOnline": "",
+          "dataPubliclyAccessible": "",
+          "dataMachineReadable": "",
+          "dataUpdateFrequency": ""
+        }
+      },
+      "hasCities": [
+        {"cityName": "", "type": "city", "id": "5_**_**"}
+      ]
+    }
+  ]
+}
