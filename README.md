@@ -66,7 +66,7 @@ python disclosure-backend/manage.py migrate
 
 
 #### Modify `settings.py` (or create `settings_local.py`)
-In `disclosure-backend\project\settings.py` you'll find the database specification 
+In `disclosure-backend/project/settings.py` you'll find the database specification 
 ```
 DATABASES = {
     'default': {
