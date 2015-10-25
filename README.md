@@ -19,7 +19,7 @@ We're going to create an environment with Python 2.7.9 for the project
 
 ## Clone it to your system
 
-First, clone `disclosure-backend` (or your own fork of it) to your own local copy.
+First, clone `disclosure-backend` (or your fork of it) to your own local copy.
 
 ## Setup
 
@@ -112,7 +112,7 @@ jurisdictions will have data.
 
 ### Cal-Access
 
-Cal-Access is the state data. It's ~750MB of data and takes about an hour to
+Cal-Access is the state data. It's ~750MB of data and takes over an hour to
 trim, clean and process.
 
     $ python disclosure-backend/manage.py downloadcalaccessrawdata
