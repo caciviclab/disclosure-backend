@@ -60,7 +60,7 @@ First, clone `disclosure-backend` (or your fork of it) to your own local copy.
 mysql --user root
 mysql> create database calaccess_raw;
 mysql> \q
-python disclosure-backend/manage.py migrate
+python manage.py migrate
 ```
 (If mysql exits with a complaint about a password, use `mysql -p --user root`)
 
@@ -96,26 +96,26 @@ It should load and clean some files in a few seconds.
 
 First, a basic data check to make sure things are working:
 
-    $ python disclosure-backend/manage.py downloadcalaccessrawdata --use-test-data
+    $ python manage.py downloadcalaccessrawdata --use-test-data
 (this appears to do the same thing as `make test`)
 
 ### Zipcode/metro data
 
-    $ python disclosure-backend/manage.py downloadzipcodedata
+    $ python manage.py downloadzipcodedata
 
 ### Netfile
 
 Netfile contains campaign finance data for a number of jurisdictions. Not all
 jurisdictions will have data.
 
-    $ python disclosure-backend/manage.py downloadnetfilerawdata
+    $ python manage.py downloadnetfilerawdata
 
 ### Cal-Access
 
 Cal-Access is the state data. It's ~750MB of data and takes over an hour to
 trim, clean and process.
 
-    $ python disclosure-backend/manage.py downloadcalaccessrawdata
+    $ python manage.py downloadcalaccessrawdata
 
 ## Deploying
 
@@ -126,10 +126,10 @@ ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
 To run for the purposes of development, accessing Django's admin interface:
 
 ```
-python disclosure-backend/manage.py createsuperuser
+python manage.py createsuperuser
 < and create a username/password for yourself>
 
-python disclosure-backend/manage.py runserver
+python manage.py runserver
 ```
 
 Then go to http://127.0.0.1:8000/admin to log in and see data.
