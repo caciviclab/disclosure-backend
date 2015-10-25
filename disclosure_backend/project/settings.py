@@ -21,7 +21,8 @@ INSTALLED_APPS = (
     'ballot',
     'netfile',
     'zipcode_metro',
-    'rest_framework_swagger'
+    'rest_framework_swagger',
+    'disclosure_backend'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -33,8 +34,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'project.urls'
-WSGI_APPLICATION = 'project.wsgi.application'
+ROOT_URLCONF = 'disclosure_backend.project.urls'
+WSGI_APPLICATION = 'disclosure_backend.project.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -58,6 +59,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from project.settings_local import *
+    from disclosure_backend.project.settings_local import *
 except ImportError:
     pass
