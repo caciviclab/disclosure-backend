@@ -1,5 +1,5 @@
--e git://github.com/caciviclab/django-calaccess-raw-data.git#egg=django-calaccess-raw-data
+-e git://github.com/caciviclab/django-calaccess-raw-data.git@0dd6b6913e4a00b49d1b9c9bf9829ed83f4587a3#egg=django-calaccess-raw-data
 mysqlclient
 Pillow==3.0.0
--e git+https://github.com/adborden/swagger-py.git#egg=swaggerpy-master
+-e git+https://github.com/adborden/swagger-py.git@dab635c6c242b11c81add0069c7d9ee1c842e866#egg=swaggerpy-master
 django-rest-swagger
