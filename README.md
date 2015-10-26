@@ -97,7 +97,6 @@ It should load and clean some files in a few seconds.
 First, a basic data check to make sure things are working:
 
     $ python manage.py downloadcalaccessrawdata --use-test-data
-(this appears to do the same thing as `make test`)
 
 ### Zipcode/metro data
 
