@@ -57,16 +57,14 @@ First, clone `disclosure-backend` (or your fork of it) to your own local copy.
 #### Prepare the database
 
 ```
-mysql --user root
+mysql -p --user root
 mysql> create database calaccess_raw;
 mysql> \q
 python manage.py migrate
 ```
-(If mysql exits with a complaint about a password, use `mysql -p --user root`)
-
 
 #### Modify `settings.py` (or create `settings_local.py`)
-In `disclosure-backend/project/settings.py` you'll find the database specification 
+In `disclosure-backend/project/settings.py` you'll find the database specification dictionary 
 ```
 DATABASES = {
     'default': {
