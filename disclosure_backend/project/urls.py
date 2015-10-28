@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 
+import ballot.views
 import views
 
 admin.autodiscover()
@@ -14,10 +15,13 @@ urlpatterns = patterns('',
         'document_root': settings.STATIC_ROOT,
         'show_indexes': True,
     }),
+    url(r'^search/', views.search_view),
+    url(r'^locations/(?P<fip_id>.*)', views.location_view),
     url(r'^docs/', include('rest_framework_swagger.urls'))
 )
 
 # Register all API Viewsets:
 api = SimpleRouter()
 api.register(r'contributions', views.Contribution)
+api.register(r'elections', ballot.views.Election)
 urlpatterns += api.urls

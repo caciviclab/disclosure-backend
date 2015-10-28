@@ -4,6 +4,7 @@ Models are influenced from http://votinginfoproject.github.io/vip-specification/
 """
 from django.db import models
 
+
 class Election(models.Model):
     """
     A single election day.
