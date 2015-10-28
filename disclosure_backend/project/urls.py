@@ -15,6 +15,8 @@ urlpatterns = patterns('',
         'document_root': settings.STATIC_ROOT,
         'show_indexes': True,
     }),
+    url(r'^search/', views.search_view),
+    url(r'^locations/(?P<fip_id>.*)', views.location_view),
     url(r'^docs/', include('rest_framework_swagger.urls'))
 )
 
