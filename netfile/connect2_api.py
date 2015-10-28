@@ -59,7 +59,7 @@ class Connect2API(object):
         """
         GET /public/campaign/agencies
         """
-        response = self.api.public.getpubliccampaignagencies()
+        response = self.api.public.Agencies()
         assert response.status_code == 200
 
         data = response.json()
@@ -72,13 +72,13 @@ class Connect2API(object):
         """
         POST /public/campaign/search/transaction/query
         """
-        return self.api.public.postpubliccampaignsearchtransactionquery(Query=query)
+        return self.api.public.Query(Query=query)
 
     def getpubliccampaignlisttransactiontypes(self):
         """
         GET /public/campaign/list/transaction/types
         """
-        response = self.api.public.getpubliccampaignlisttransactiontypes()
+        response = self.api.public.Types()
         assert response.status_code == 200
 
         data = response.json()
@@ -91,4 +91,4 @@ class Connect2API(object):
         """
         POST /public/campaign/export/cal201/transaction/year
         """
-        return self.api.public.postpubliccampaignexportcal201transactionyear(ByYear=query)
+        return self.api.public.ByYear(Year=query)
