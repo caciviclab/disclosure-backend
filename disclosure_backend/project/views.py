@@ -97,4 +97,4 @@ def search_view(request):
         type: string
         paramType: query
     """
-    return Response([{"name": "San Francisco", "fip_id": "6075"}])
+    return Response([{"name": "San Francisco", "type": "county", "fip_id": "6075"}])
