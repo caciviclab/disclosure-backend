@@ -3,3 +3,4 @@ mysqlclient
 Pillow==3.0.0
 -e git+https://github.com/adborden/swagger-py.git@4edd44884c56c8ac41e91c6505e8ace734bd6b75#egg=swaggerpy-master
 django-rest-swagger
+django-cors-headers==1.1.0
