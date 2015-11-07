@@ -39,6 +39,9 @@ MIDDLEWARE_CLASSES = (
 CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'disclosure_backend.project.urls'
 WSGI_APPLICATION = 'disclosure_backend.project.wsgi.application'
+REST_FRAMEWORK = {
+    'VIEW_NAME_FUNCTION': 'disclosure_backend.project.swagger_nickname.view_name'
+}
 
 DATABASES = {
     'default': {
