@@ -42,42 +42,24 @@ def location_view(request, fip_id=None):
     response_serializer: LocationSerializer
     """
     return Response({
-        "countyName": "san francisco",
-        "type": "county",
-        "fip_id": "6075",
-        "ofState": {
-            "stateName": "california",
-            "type": "state",
-            "id": "6"
+        "location": {
+            "name": "San Francisco",
+            "fip_id": "1234",
+            "next_election": "2015-11-04"
         },
-        "collectsCampaignFinanceData": "",
-        "campaignFinanceDataSources": [{"name": "", "href": ""}],
-        "electionDataSummary": {
-            "hasElectionData": "",
-            "isOnline": "",
-            "isPubliclyAccessible": "",
-            "isMachineReadable": "",
-            "pastElectionData": {
-                "hasPastElectionData": "",
-                "yearsPastElectionDataCollected": [
-                    {"year": "", "isFiledOnline": "", "isPubliclyAccessible": "", "isMachineReadable": ""}
-                ],
-                "pastElectionDataSources": [{"name": "", "href": ""}]
-            },
-            "upcomingElectionData": {
-                "hasUpcomingElectionData": "",
-                "isCollectingUpcomingElectionData": "",
-                "dataCollectionStartDate": "DD/MM/YYYY",
-                "dataCollectionEndDate": "DD/MM/YYYY",
-                "dataFiledOnline": "",
-                "dataPubliclyAccessible": "",
-                "dataMachineReadable": "",
-                "dataUpdateFrequency": ""
-            }
+        "contribution_total": 21425389,
+        "contribution_by_type": {
+            "individual": 11134547,
+            "political_party": 6426112,
+            "unitemized": 2916394,
+            "recipient_committee": 986229,
+            "self_funded": 512554
         },
-        "hasCities": [
-            {"cityName": "", "type": "city", "id": "6_**_**"}
-        ]
+        "contribution_by_area": {
+            "inside_location": 0.56,
+            "inside_state": 0.38,
+            "outside_state": 0.06
+        }
     }, content_type='application/json')
 
 
