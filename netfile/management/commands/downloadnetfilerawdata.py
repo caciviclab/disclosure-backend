@@ -135,7 +135,7 @@ class Command(loadcalaccessrawfile.Command):
 
         for agency in agencies:
 
-            for year in ['2014']:
+            for year in ['2014','2015']:
                 csv_path = 'netfile_%s_%s_cal201_export.csv' % (year, agency['shortcut'])
                 transactions = self.fetch_transactions_agency_year(agency, year)
                 self._write_csv(csv_path, transactions)
