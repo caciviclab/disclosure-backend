@@ -60,6 +60,9 @@ class Locality(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
+    class Meta:
+        verbose_name_plural = 'localities'
+
 
 class Ballot(models.Model):
     """
@@ -107,6 +110,9 @@ class Contest(models.Model):
             prefix = 'Prop '
 
         return '%s%s' % (prefix, self.name)
+
+    class Meta:
+        verbose_name = 'race'
 
 
 class Precinct(models.Model):
@@ -159,3 +165,6 @@ class Referendum(models.Model):
 
     def __unicode__(self):
         return 'Prop %s %s' % (self.number, self.title)
+
+    class Meta:
+        verbose_name = 'ballot measure'
