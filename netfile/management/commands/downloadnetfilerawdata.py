@@ -107,7 +107,7 @@ class Command(loadcalaccessrawfile.Command):
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
             for path in glob.glob(os.path.join(self.data_dir, 'netfile_*_*_cal201_export.csv')):
-                agency_shortcut = path.split('_')[2]
+                agency_shortcut = os.path.basename(path).split('_')[2]
                 with file(path, 'r') as agency_csv:
                     headers = ','.join(
                         ['agency_shortcut', agency_csv.readline()])
