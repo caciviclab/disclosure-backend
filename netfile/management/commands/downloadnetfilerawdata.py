@@ -166,7 +166,7 @@ class Command(loadcalaccessrawfile.Command):
 
         with open(os.path.join(self.data_dir, csv_path), 'w') as csv_handle:
             headers = item.keys()
-            writer = UnicodeDictWriter(csv_handle, headers)
+            writer = UnicodeDictWriter(csv_handle, headers, lineterminator='\n')
             writer.writeheader()
             writer.writerow(item)
             for item in iterator:
