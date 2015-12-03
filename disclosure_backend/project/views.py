@@ -31,14 +31,17 @@ class Contribution(viewsets.ViewSet):
 
 
 @api_view(['GET'])
-def location_view(request, fip_id=None):
+def location_view(request, fips_id):
     """
     Display summarized information about a location
     NOTE: This is stubbed to always return the same thing.
     ---
     parameters:
-      - name: fip_id
-        type: string
+      - name: fips_id
+        description: The Federal Information Processing Standards (FIPS) code for this locality.
+        paramType: path
+        type: integer
+        required: true
     response_serializer: LocationSerializer
     """
     return Response({
