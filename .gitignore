@@ -1,6 +1,13 @@
-env
 *.pyc
+
+# Data
 disclosure_backend/data/
 disclosure_backend/test-data/csv
 project/test-data/csv/
+
+# Django
 settings_local.py
+
+# Virtualenv
+env/
+src/

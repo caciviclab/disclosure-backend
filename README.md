@@ -3,27 +3,37 @@ Status](https://travis-ci.org/caciviclab/disclosure-backend.svg?branch=master)](
 
 California Civic Lab Disclosure Backend
 ==================================================
-[![Mockup](/mockups/odca-mobile-09-ballot_measure-small.jpeg)](/mockups/odca-mobile-09-ballot_measure.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 2-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 2.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 3-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 3.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 4-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 4.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 5-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 5.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 6-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 6.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 7-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 7.jpeg)
-[![Mockup](/mockups/odca-mobile-09-ballot_measure 8-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 8.jpeg)
 
-## Dependencies
+## Overview
+
+This is the back-end Django application for scraping ballot measure funding data (from NetFile and CalAccess), pushing it to our database, and exposing the data to our front-end apps via a RESTful API.
+
+Helpful links:
+* [Technical Overview](https://github.com/caciviclab/caciviclab.github.io/wiki/Technical%20Overview) - gives details on the overall app technical design and status.
+* [Mock-ups](https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups) - example tables and visualizations representing information we want to share with users.
+* [Branch summary](https://github.com/caciviclab/caciviclab.github.io/wiki/Branch%20summary) - summarizes what each code branch is doing, and where it's at.
+
+See below for server setup. Here are mock-ups for data tables that this app intends to support:
+
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure-small.jpeg)](/mockups/odca-mobile-09-ballot_measure.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 2-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 2.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 3-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 3.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 4-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 4.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 5-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 5.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 6-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 6.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 7-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 7.jpeg)
+-[![Mockup](/mockups/odca-mobile-09-ballot_measure 8-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 8.jpeg)
+
+## Setting up the app.
 
 If you've worked with Django and python before, these steps should be familiar to you.
 We're going to create an environment with Python 2.7.9 for the project
 
-## Clone it to your system
 
-First, clone `disclosure-backend` (or your fork of it) to your own local copy.
+### Software Installation
 
-## Setup
-
-1. Install python and pip (if using Anaconda, pip is already installed)
+0. Clone `disclosure-backend` (or your fork of it) to your own local copy.
+1. Install `python` and `pip` (if using Anaconda, pip is already installed)
 2. Create an environment for this project:
   * For non-Anaconda Python distribution 
     ```
@@ -40,33 +50,34 @@ First, clone `disclosure-backend` (or your fork of it) to your own local copy.
 
   (you will have to activate this environment (or virtualenv) every time you want to start working)
 
-3. Install project requirements with:
-   `pip install -r requirements.txt`
+3. Install mysql
 
-4. install mysql 
+  OSX:
+   ```
+   brew install mysql
+   brew install libssl
+   ```
   * When prompted for a password, remember it because you'll need it.
 
-### MySQL
+4. Install project requirements with:
+   ```
+   pip install -r requirements.txt
+   ```
 
-#### Install mysql
 
-```
-    Mac: brew install mysql
-```
+### Database setup
 
-#### Prepare the database
+1. Create the database
+  ```
+  mysql -p --user root
+  mysql> create database calaccess_raw;
+  mysql> \q
+  ```
 
-```
-mysql -p --user root
-mysql> create database calaccess_raw;
-mysql> \q
-python manage.py migrate
-```
+2. Create `disclosure-backend/project/settings_local.py`
 
-#### Modify `settings.py` (or create `settings_local.py`)
-In `disclosure-backend/project/settings.py` you'll find the database specification dictionary 
-```
-DATABASES = {
+  ```
+  DATABASES = {
     'default': {
         'NAME': 'calaccess_raw',
         'PASSWORD': '',
@@ -78,56 +89,91 @@ DATABASES = {
             'local_infile': 1,
         }
     }
+  }
+  ```
+
+  Change the password field to the password you chose when you installed MySQL. 
+
+
+3. Run the database migration scripts
+  ```
+  python manage.py migrate
+  ```
+  
+  OSX: If you get the following error `django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: dlopen(_mysql.so, 2): Library not loaded: libssl.1.0.0.dylib`
+  
+  Then, you need to add openssl to your `DYLD_LIBRARY_PATH`:
+  1. Go to `/usr/local/Cellar/openssl/`, and locate your directory (e.g. 1.0.2d_1)
+  2. Add the following to your `~/.bash_profile`:
+   ```
+   export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/Cellar/openssl/1.0.2d_1/lib
+   ```
+
+
+### Validate your install
+
+#### Run the tests
+
 ```
-Change the password field to the password you chose when you installed MySQL. 
-Alterntively, you can copy `settings.py` to `settings_local.py` and modify that local version of it.
-django will use `settings_local.py` if it's there.
-
-
-## Run the tests
-
-    $ make test
+python manage.py test
+```
 
 It should load and clean some files in a few seconds.
 
-## Download the data
+Note: if this fails with an SSL error and you are using conda/miniconda, use virtualenv instead. See [this link](https://groups.google.com/a/continuum.io/forum/#!topic/conda/Fqv93VKQXAc) for details about the conda issue. 
 
-First, a basic data check to make sure things are working:
+#### Run with test data
 
-    $ python manage.py downloadcalaccessrawdata --use-test-data
+A basic data check to make sure things are working:
 
-### Zipcode/metro data
+```
+python manage.py downloadcalaccessrawdata --use-test-data
+```
 
-    $ python manage.py downloadzipcodedata
 
-### Netfile
+### Download data
+
+#### Zipcode/metro data
+
+```
+python manage.py downloadzipcodedata
+```
+
+#### Netfile
 
 Netfile contains campaign finance data for a number of jurisdictions. Not all
 jurisdictions will have data.
 
-    $ python manage.py downloadnetfilerawdata
+```
+python manage.py downloadnetfilerawdata
+```
 
-### Cal-Access
+#### Cal-Access
 
 Cal-Access is the state data. It's ~750MB of data and takes over an hour to
 trim, clean and process.
 
-    $ python manage.py downloadcalaccessrawdata
-
-## Deploying
-
 ```
-ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
+python manage.py downloadcalaccessrawdata
 ```
+
+
+### Run the server
 
 To run for the purposes of development, accessing Django's admin interface:
 
 ```
-python manage.py createsuperuser
-< and create a username/password for yourself>
-
+python manage.py createsuperuser  # create a username/password for yourself
 python manage.py runserver
 ```
 
 Then go to http://127.0.0.1:8000/admin to log in and see data.
 
+
+## Deploying the app
+
+For deployment to the official website:
+
+```
+ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
+```

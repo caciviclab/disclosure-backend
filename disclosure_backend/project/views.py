@@ -67,7 +67,11 @@ def location_view(request, fips_id):
 
 
 def homepage_view(request):
-    return HttpResponse("<a href='/docs/'>Check out the API Documentation</a>")
+    return HttpResponse("""
+        <a href='/docs/'>Check out the API Documentation</a>
+        <br/>
+        <a href='/admin/'>View the admin interface / database data.</a>
+    """)
 
 
 @api_view(['GET'])
