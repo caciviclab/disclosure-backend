@@ -80,6 +80,7 @@ class UnicodeDictWriter(object):
 
 class Command(loadcalaccessrawfile.Command):
     help = 'Download and load the Netfile raw data'
+    app_name = 'netfile'
     option_list = loadcalaccessrawfile.Command.option_list + custom_options
     # netfile gives us ISO8601 formatted dates, so we have to override the
     # calaccess_raw date hack with a slightly different one :)
@@ -144,12 +145,12 @@ class Command(loadcalaccessrawfile.Command):
     def load(self):
         if self.verbosity:
             self.header("Loading Agency CSV file")
-        super(Command, self).load('NetFileAgency', app='netfile')
+        super(Command, self).load('NetFileAgency')
         if self.verbosity:
             self.success("ok.")
         if self.verbosity:
             self.header("Loading Cal201 Transaction Data")
-        super(Command, self).load('NetFileCal201Transaction', app='netfile')
+        super(Command, self).load('NetFileCal201Transaction')
         if self.verbosity:
             self.success("ok.")
 
