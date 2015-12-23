@@ -7,6 +7,9 @@ disclosure_backend/test-data/csv
 # Django
 settings_local.py
 
+# Generated docs
+docs/
+
 # Virtualenv
 env/
 src/
