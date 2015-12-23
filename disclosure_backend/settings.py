@@ -1,5 +1,6 @@
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+BASE_DIR = os.path.dirname(__file__)
 REPO_DIR = os.path.join(BASE_DIR, os.pardir)
 SECRET_KEY = 'w11nbg_3n4+e@qk^b55qgo5qygesn^3=&s1kwtlbpkai$(1jv3'
 DEBUG = True
@@ -47,10 +48,11 @@ MIDDLEWARE_CLASSES = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
-ROOT_URLCONF = 'disclosure_backend.project.urls'
-WSGI_APPLICATION = 'disclosure_backend.project.wsgi.application'
+ROOT_URLCONF = 'disclosure_backend.urls'
+WSGI_APPLICATION = 'disclosure_backend.wsgi.application'
 REST_FRAMEWORK = {
-    'VIEW_NAME_FUNCTION': 'disclosure_backend.project.swagger_nickname.view_name'
+    'VIEW_NAME_FUNCTION': ('disclosure_backend.'
+                           'swagger_nickname.view_name')
 }
 
 DATABASES = {
@@ -75,6 +77,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from disclosure_backend.project.settings_local import *
+    from disclosure_backend.settings_local import *
 except ImportError:
     pass
