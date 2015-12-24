@@ -10,6 +10,16 @@ ALLOWED_HOSTS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, ".static")
 
+try:
+    # Set CALACCESS_TEST_DOWNLOAD_DIR for testing calaccess data commands.
+    import calaccess_raw
+    _calaccess_repo_dir = os.path.join(os.path.dirname(calaccess_raw.__file__),
+                                       os.pardir)
+    CALACCESS_TEST_DOWNLOAD_DIR = os.path.join(_calaccess_repo_dir,
+                                               'example', 'test-data')
+except:
+    pass
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
