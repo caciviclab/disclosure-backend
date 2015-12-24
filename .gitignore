@@ -10,6 +10,9 @@ settings_local.py
 # Generated docs
 docs/
 
+# Test docs
+.coverage
+
 # Virtualenv
 env/
 src/
