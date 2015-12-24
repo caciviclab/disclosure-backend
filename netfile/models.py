@@ -11,7 +11,7 @@ class NetFileAgency(CalAccessBaseModel):
     """
     agency_id = models.IntegerField(
         db_column='id',
-        primary_key = True
+        primary_key=True
 
     )
     shortcut_name = models.CharField(

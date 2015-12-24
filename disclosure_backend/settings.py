@@ -77,6 +77,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from disclosure_backend.settings_local import *
+    from .settings_local import *  # noqa
 except ImportError:
     pass

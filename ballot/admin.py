@@ -8,6 +8,7 @@ admin.site.register(models.Referendum)
 admin.site.register(models.Locality)
 admin.site.register(models.Precinct)
 
+
 @admin.register(models.Election)
 class ElectionAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'

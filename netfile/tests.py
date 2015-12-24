@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-import models
-import connect2_api
+# from . import models
+from . import connect2_api
 
 
 class NetfileTests(TestCase):

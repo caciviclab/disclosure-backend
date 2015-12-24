@@ -1,6 +1,7 @@
 """
 Ballot related models. Everything a voter needs to vote on.
-Models are influenced from http://votinginfoproject.github.io/vip-specification/
+Models are influenced from
+http://votinginfoproject.github.io/vip-specification/
 """
 from django.db import models
 
@@ -39,19 +40,22 @@ class Locality(models.Model):
     LOCALITY_TYPES = (
         ('CO', 'County'),
         ('CI', 'City'),
-        #TODO but maybe other things (township, borough, region, etc.)
+        # TODO but maybe other things (township, borough, region, etc.)
     )
-    name = models.CharField(max_length=255, help_text='Name of the juristiction.')
+    name = models.CharField(
+        max_length=255, help_text='Name of the juristiction.')
     locality_type = models.CharField(
         max_length=2,
         choices=LOCALITY_TYPES,
-        help_text='One of county, city, township, borough, parish, village, or region.'
+        help_text='One of county, city, township, borough, parish, '
+                  'village, or region.'
     )
-    #TODO Make this a proper foreign key to netfile agency
+    # TODO Make this a proper foreign key to netfile agency
     netfile_agency = models.CharField(
         max_length=10,
         blank=True,
-        help_text='The netfile agency administering the elections in this locality.'
+        help_text='The netfile agency administering the elections in this '
+                  'locality.'
     )
 
     def __str__(self):
@@ -73,10 +77,12 @@ class Ballot(models.Model):
     locality = models.ForeignKey('Locality')
 
     def __str__(self):
-        return '%s election for %s' % (str(self.election.date), self.locality.name)
+        return '%s election for %s' % (
+            str(self.election.date), self.locality.name)
 
     def __unicode__(self):
-        return '%s election for %s' % (str(self.election.date), self.locality.name)
+        return '%s election for %s' % (
+            str(self.election.date), self.locality.name)
 
 
 class Contest(models.Model):
@@ -91,11 +97,12 @@ class Contest(models.Model):
     contest_type = models.CharField(
         max_length=1,
         choices=CONTEST_TYPES,
-        help_text='''
-        Office if the contest is for a person, referendum if the contest is for an issue.
-        '''
+        help_text='Office if the contest is for a person, referendum if '
+                  'the contest is for an issue.'
     )
-    name = models.CharField(max_length=255, help_text='The referendum number or the name of the office.')
+    name = models.CharField(
+        max_length=255, help_text='The referendum number or the name '
+                                  'of the office.')
 
     def __str__(self):
         prefix = ''
@@ -120,10 +127,12 @@ class Precinct(models.Model):
     The smallest unit of geographic area for voters. Your precinct determines
     who and what you vote on.
     """
-    name = models.CharField(max_length=30, help_text="The precinct's name or number.")
+    name = models.CharField(
+        max_length=30, help_text="The precinct's name or number.")
     number = models.CharField(
         max_length=5,
-        help_text="the precinct's number e.g., 32 or 32A (alpha characters are legal)."
+        help_text="the precinct's number e.g., 32 or 32A "
+                  "(alpha characters are legal)."
     )
     locality = models.ForeignKey('Locality')
 
@@ -133,12 +142,16 @@ class Candidate(models.Model):
     A person running for office.
     """
     contest = models.ForeignKey('Contest', blank=True, null=True)
-    name = models.CharField(max_length=255, help_text='The candidate\'s full name.')
+    name = models.CharField(
+        max_length=255, help_text='The candidate\'s full name.')
     biography = models.TextField(blank=True)
     photo_url = models.ImageField(blank=True)
-    candidate_url = models.URLField(help_text='URL for the candidate\'s official website.', blank=True)
-    facebook_url = models.URLField(help_text='URL for the candidate\'s Facebook page.', blank=True)
-    twitter_url = models.URLField(help_text='URL for the candidate\'s Twitter page.', blank=True)
+    candidate_url = models.URLField(
+        help_text='URL for the candidate\'s official website.', blank=True)
+    facebook_url = models.URLField(
+        help_text='URL for the candidate\'s Facebook page.', blank=True)
+    twitter_url = models.URLField(
+        help_text='URL for the candidate\'s Twitter page.', blank=True)
 
     def __str__(self):
         return self.name
@@ -152,7 +165,8 @@ class Referendum(models.Model):
     A ballot measure, proposition, or referendum.
     """
     contest = models.ForeignKey('Contest', blank=True, null=True)
-    number = models.CharField(max_length=5, help_text="The referendum's number or letter.")
+    number = models.CharField(
+        max_length=5, help_text="The referendum's number or letter.")
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)
     brief = models.TextField(blank=True)

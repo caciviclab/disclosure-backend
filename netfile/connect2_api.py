@@ -1,13 +1,11 @@
-import json
-import csv
 import logging
-import sys
-
-logger = logging.getLogger(__name__)
 
 from swaggerpy.client import SwaggerClient
 
+logger = logging.getLogger(__name__)
+
 CONNECT2_SPEC = "https://netfile.com/Connect2/api/resources"
+
 
 def paginated_query(func):
     """
@@ -21,13 +19,14 @@ def paginated_query(func):
         page_index = 0
         query.update({
             'currentPageIndex': page_index,
-            })
+        })
 
         response = func(self, query)
         assert response.status_code == 200
 
         pages = response.json()['totalMatchingPages']
-        logger.info("Fetching page %d of %d pages available" % (page_index, pages))
+        logger.info("Fetching page %d of %d pages available" %
+                    (page_index, pages))
 
         results = response.json()['results']
         while True:
@@ -40,13 +39,13 @@ def paginated_query(func):
 
             # Fetch another page
             query['currentPageIndex'] = page_index
-            logger.info("Fetching page %d of %d pages available" % (page_index, pages))
+            logger.info("Fetching page %d of %d pages available" %
+                        (page_index, pages))
             response = func(self, query)
             assert response.status_code == 200
             results = response.json()['results']
 
     return _paginated_query
-
 
 
 class Connect2API(object):
@@ -63,7 +62,7 @@ class Connect2API(object):
         assert response.status_code == 200
 
         data = response.json()
-        assert data.has_key('agencies')
+        assert 'agencies' in data
 
         return data['agencies']
 
@@ -82,7 +81,7 @@ class Connect2API(object):
         assert response.status_code == 200
 
         data = response.json()
-        assert data.has_key('items')
+        assert 'items' in data
 
         return data['items']
 
