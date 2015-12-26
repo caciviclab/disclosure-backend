@@ -77,7 +77,7 @@ We're going to create an environment with Python 2.7.9 for the project
   mysql> \q
   ```
 
-2. Create `disclosure_backend/settings_local.py`
+2. Create `disclosure/settings_local.py`
 
   ```
   DATABASES = {

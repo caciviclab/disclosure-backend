@@ -36,10 +36,10 @@ INSTALLED_APPS = (
     'rest_framework_swagger',
     'corsheaders',
     'calaccess_raw',
-    'ballot',
     'netfile_raw',
     'zipcode_metro_raw',
-    'disclosure_backend',
+    'ballot',
+    'disclosure'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,10 +53,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
-ROOT_URLCONF = 'disclosure_backend.urls'
-WSGI_APPLICATION = 'disclosure_backend.wsgi.application'
+ROOT_URLCONF = 'disclosure.urls'
+WSGI_APPLICATION = 'disclosure.wsgi.application'
 REST_FRAMEWORK = {
-    'VIEW_NAME_FUNCTION': ('disclosure_backend.'
+    'VIEW_NAME_FUNCTION': ('disclosure.'
                            'swagger_nickname.view_name')
 }
 
