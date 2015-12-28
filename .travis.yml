@@ -19,8 +19,7 @@ install:
   - pip install -r requirements.txt
 
 script: # Run test
-  - flake8 . --exclude cron,migrations,wsgi.py
-  - coverage run --source='.' manage.py test
+  - make test
 
 after_success: # Upload coverage to coveralls.io
   - coveralls
