@@ -18,6 +18,14 @@ from netfile.connect2_api import Connect2API
 
 custom_options = (
     make_option(
+        "--max-lines",
+        action="store",
+        dest="max_lines_per_load",
+        default=1000,
+        type=int,
+        help="Max # lines to load, per query"
+    ),
+    make_option(
         "--skip-download",
         action="store_true",
         dest="skip_download",
@@ -92,7 +100,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def handle(self, *args, **options):
         self.verbosity = int(options['verbosity'])
-        self.max_lines_per_load = int(options.get('max_lines_per_load', 1000))
+        self.max_lines_per_load = int(options['max_lines_per_load'])
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
