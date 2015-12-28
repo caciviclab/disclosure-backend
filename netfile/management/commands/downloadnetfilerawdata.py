@@ -3,6 +3,7 @@ Command to download and load California campaign finance data from Netfile.
 """
 
 import os
+import os.path as op
 import csv
 import cStringIO
 import codecs
@@ -39,6 +40,13 @@ custom_options = (
         default=1000,
         type=int,
         help="Max # lines to load, per query"
+    ),
+    make_option(
+        "--force",
+        action="store_true",
+        dest="force",
+        default=False,
+        help="Re-download files that already exist?"
     ),
     make_option(
         "--skip-download",
@@ -113,6 +121,7 @@ class Command(loadcalaccessrawfile.Command):
     date_sql = "DATE_FORMAT(str_to_date(@`%s`, '%%Y-%%m-%%d'), '%%Y-%%m-%%d')"
 
     def handle(self, *args, **options):
+        # Parse command-line options
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options['max_lines_per_load'])
         if options['agencies'] is None:
@@ -123,12 +132,15 @@ class Command(loadcalaccessrawfile.Command):
             self.years = []
         else:
             self.years = options['years'].split(',')
+        self.force = options['force']
 
+        # Compute properties
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
         self.connect2 = Connect2API()
 
+        # Run the thing!
         if not options['skip_download']:
             self.download()
 
@@ -176,9 +188,12 @@ class Command(loadcalaccessrawfile.Command):
             for year in self.years:
                 csv_path = 'netfile_%s_%s_cal201_export.csv' % (
                     year, agency['shortcut'])
-                transactions = self.fetch_transactions_agency_year(
-                    agency, year)
-                self._write_csv(csv_path, transactions)
+                csv_path = os.path.join(self.data_dir, csv_path)
+                # Only download on demand.
+                if self.force or not op.exists(csv_path):
+                    transactions = self.fetch_transactions_agency_year(
+                        agency, year)
+                    self._write_csv(csv_path, transactions)
 
     def combine(self):
         headers_written = False
@@ -211,6 +226,9 @@ class Command(loadcalaccessrawfile.Command):
             self.success("ok.")
 
     def _write_csv(self, csv_path, iterator):
+        if not csv_path.startswith(self.data_dir):
+            os.path.join(self.data_dir, csv_path)
+
         if self.verbosity:
             self.log('Writing %s...' % (csv_path))
 
@@ -220,7 +238,7 @@ class Command(loadcalaccessrawfile.Command):
             self.failure('No data')
             return
 
-        with open(os.path.join(self.data_dir, csv_path), 'w') as csv_handle:
+        with open(csv_path, 'w') as csv_handle:
             headers = item.keys()
             writer = UnicodeDictWriter(
                 csv_handle, headers, lineterminator='\n')
