@@ -32,7 +32,7 @@ custom_options = (
 
 class Command(loadcalaccessrawfile.Command):
     help = 'Download and load the Zipcode raw data'
-    app_name = 'zipcode_metro'
+    app_name = 'zipcode_metro_raw'
     url = ("https://s3-us-west-1.amazonaws.com/zipcodemetro/"
            "zipcode_metro.csv.zip")
     option_list = loadcalaccessrawfile.Command.option_list + custom_options

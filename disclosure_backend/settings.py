@@ -33,13 +33,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_swagger',
     'corsheaders',
     'calaccess_raw',
     'ballot',
     'netfile_raw',
-    'zipcode_metro',
-    'rest_framework_swagger',
-    'disclosure_backend'
+    'zipcode_metro_raw',
+    'disclosure_backend',
 )
 
 MIDDLEWARE_CLASSES = (
