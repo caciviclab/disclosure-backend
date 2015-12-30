@@ -3,10 +3,12 @@
 # Data
 disclosure_backend/data/
 disclosure_backend/test-data/csv
-project/test-data/csv/
 
 # Django
 settings_local.py
+
+# Generated docs
+docs/
 
 # Virtualenv
 env/

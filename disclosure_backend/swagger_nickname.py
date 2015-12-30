@@ -2,6 +2,7 @@
 Provides the swagger "nickname" field, a friendly name for the swagger client methods.
 """
 
+
 def view_name(cls, suffix=None):
     if suffix:
         return suffix.lower()
