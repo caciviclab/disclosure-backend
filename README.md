@@ -12,6 +12,8 @@ Helpful links:
 * [Technical Overview](https://github.com/caciviclab/caciviclab.github.io/wiki/Technical%20Overview) - gives details on the overall app technical design and status.
 * [Mock-ups](https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups) - example tables and visualizations representing information we want to share with users.
 * [Branch summary](https://github.com/caciviclab/caciviclab.github.io/wiki/Branch%20summary) - summarizes what each code branch is doing, and where it's at.
+* [Django REST Swagger](http://django-rest-swagger.readthedocs.org/en/latest/index.html)
+* [Django REST Framework](http://www.django-rest-framework.org/)
 
 See below for server setup. Here are mock-ups for data tables that this app intends to support:
 
