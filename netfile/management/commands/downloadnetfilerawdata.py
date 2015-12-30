@@ -3,10 +3,12 @@ Command to download and load California campaign finance data from Netfile.
 """
 
 import os
+import os.path as op
 import csv
 import cStringIO
 import codecs
 import glob
+import warnings
 
 from calaccess_raw import get_download_directory
 from calaccess_raw.management.commands import loadcalaccessrawfile
@@ -17,6 +19,35 @@ from netfile.connect2_api import Connect2API
 
 
 custom_options = (
+    make_option(
+        "--agencies",
+        action="store",
+        dest="agencies",
+        default=None,
+        help="Agency names to query (comma-separated)"
+    ),
+    make_option(
+        "--years",
+        action="store",
+        dest="years",
+        default=None,
+        help="Years to query (comma-separated)"
+    ),
+    make_option(
+        "--max-lines",
+        action="store",
+        dest="max_lines_per_load",
+        default=1000,
+        type=int,
+        help="Max # lines to load, per query"
+    ),
+    make_option(
+        "--force",
+        action="store_true",
+        dest="force",
+        default=False,
+        help="Re-download files that already exist?"
+    ),
     make_option(
         "--skip-download",
         action="store_true",
@@ -48,7 +79,6 @@ class UnicodeDictWriter(object):
 
     Adapted from https://docs.python.org/2/library/csv.html#examples
     """
-
     def __init__(self, f, headers, dialect=csv.excel, encoding="utf-8",
                  **kwds):
         # Redirect output to a queue
@@ -91,13 +121,26 @@ class Command(loadcalaccessrawfile.Command):
     date_sql = "DATE_FORMAT(str_to_date(@`%s`, '%%Y-%%m-%%d'), '%%Y-%%m-%%d')"
 
     def handle(self, *args, **options):
+        # Parse command-line options
         self.verbosity = int(options['verbosity'])
-        self.max_lines_per_load = int(options.get('max_lines_per_load', 1000))
+        self.max_lines_per_load = int(options['max_lines_per_load'])
+        if options['agencies'] is None:
+            self.agencies = []
+        else:
+            self.agencies = options['agencies'].split(',')
+        if options['years'] is None:
+            self.years = []
+        else:
+            self.years = options['years'].split(',')
+        self.force = options['force']
+
+        # Compute properties
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
         self.connect2 = Connect2API()
 
+        # Run the thing!
         if not options['skip_download']:
             self.download()
 
@@ -107,6 +150,50 @@ class Command(loadcalaccessrawfile.Command):
         if not options['skip_load']:
             self.cursor = connection.cursor()
             self.load()
+
+    def download(self):
+        if self.verbosity:
+            self.header("Downloading raw data files")
+
+        if not os.path.isdir(self.data_dir):
+            os.makedirs(self.data_dir)
+
+        # Fetch agencies
+        agencies = self.fetch_agencies()
+        agency_keys = [ag['shortcut'] for ag in agencies]
+        agencies_not_found = set(self.agencies) - set(agency_keys)
+
+        if len(self.agencies) == 0:
+            self.agencies = agency_keys
+        elif len(agencies_not_found) > 0:
+            warnings.warn('Could not find these agencies: %s' % (
+                ','.join(agencies_not_found)))
+            self.agencies = list(set(self.agencies) - agencies_not_found)
+        agencies = filter(lambda ag: ag['shortcut'] in self.agencies,
+                          agencies)  # filter agencies by shortcut
+
+        # Scrub years
+        years = ['2014', '2015']
+        years_not_found = set(self.years) - set(years)
+        if len(self.years) == 0:
+            self.years = years
+        elif len(years_not_found) > 0:
+            warnings.warn('Could not find these years: %s' % (
+                ','.join(years_not_found)))
+            self.years = list(set(self.years) - years_not_found)
+
+        print("Downloading data for %d agencies in years %s" % (
+            len(agencies), ','.join(self.years)))
+        for agency in agencies:
+            for year in self.years:
+                csv_path = 'netfile_%s_%s_cal201_export.csv' % (
+                    year, agency['shortcut'])
+                csv_path = os.path.join(self.data_dir, csv_path)
+                # Only download on demand.
+                if self.force or not op.exists(csv_path):
+                    transactions = self.fetch_transactions_agency_year(
+                        agency, year)
+                    self._write_csv(csv_path, transactions)
 
     def combine(self):
         headers_written = False
@@ -126,27 +213,6 @@ class Command(loadcalaccessrawfile.Command):
                     for line in agency_csv.readlines():
                         combined_csv.write(','.join([agency_shortcut, line]))
 
-    def download(self):
-        if self.verbosity:
-            self.header("Downloading raw data files")
-
-        if not os.path.isdir(self.data_dir):
-            os.makedirs(self.data_dir)
-
-        # Fetch agencies
-        agencies = self.fetch_agencies()
-        print "Found %s agencies" % (len(agencies))
-        self._write_csv('netfile_agency.csv', iter(agencies))
-
-        for agency in agencies:
-
-            for year in ['2014', '2015']:
-                csv_path = 'netfile_%s_%s_cal201_export.csv' % (
-                    year, agency['shortcut'])
-                transactions = self.fetch_transactions_agency_year(
-                    agency, year)
-                self._write_csv(csv_path, transactions)
-
     def load(self):
         if self.verbosity:
             self.header("Loading Agency CSV file")
@@ -160,6 +226,9 @@ class Command(loadcalaccessrawfile.Command):
             self.success("ok.")
 
     def _write_csv(self, csv_path, iterator):
+        if not csv_path.startswith(self.data_dir):
+            os.path.join(self.data_dir, csv_path)
+
         if self.verbosity:
             self.log('Writing %s...' % (csv_path))
 
@@ -169,7 +238,7 @@ class Command(loadcalaccessrawfile.Command):
             self.failure('No data')
             return
 
-        with open(os.path.join(self.data_dir, csv_path), 'w') as csv_handle:
+        with open(csv_path, 'w') as csv_handle:
             headers = item.keys()
             writer = UnicodeDictWriter(
                 csv_handle, headers, lineterminator='\n')
@@ -194,4 +263,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def fetch_agencies(self):
         """Fetches agencies from Netfile API"""
-        return self.connect2.getpubliccampaignagencies()
+        agencies = self.connect2.getpubliccampaignagencies()
+        print "Found %s agencies" % (len(agencies))
+        self._write_csv('netfile_agency.csv', iter(agencies))
+        return agencies
