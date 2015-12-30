@@ -1,6 +1,6 @@
 from calaccess_raw.models.campaign import RcptCd
 from django.http import HttpResponse
-from serializers import ContributionSerializer
+from serializers import ContributionSerializer, LocationSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -45,6 +45,8 @@ def location_view(request, fips_id):
         required: true
     response_serializer: LocationSerializer
     """
+    # XXX: no-op so flake8 doesn't consider this an unused import
+    LocationSerializer()
     return Response({
         "location": {
             "name": "San Francisco",
