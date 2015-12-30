@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from calaccess_raw.models.base import CalAccessBaseModel
 
+
 @python_2_unicode_compatible
 class ZipCodeMetro(CalAccessBaseModel):
     """
@@ -39,4 +40,3 @@ class ZipCodeMetro(CalAccessBaseModel):
 
     def __str__(self):
         return "%d: %s" % (self.zip_code, self.city_name)
-

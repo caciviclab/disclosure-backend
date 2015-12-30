@@ -40,6 +40,7 @@ custom_options = (
     ),
 )
 
+
 class UnicodeDictWriter(object):
     """
     A CSV DictWriter which will write rows to CSV file "f",
@@ -47,10 +48,13 @@ class UnicodeDictWriter(object):
 
     Adapted from https://docs.python.org/2/library/csv.html#examples
     """
-    def __init__(self, f, headers, dialect=csv.excel, encoding="utf-8", **kwds):
+
+    def __init__(self, f, headers, dialect=csv.excel, encoding="utf-8",
+                 **kwds):
         # Redirect output to a queue
         self.queue = cStringIO.StringIO()
-        self.writer = csv.DictWriter(self.queue, headers, dialect=dialect, **kwds)
+        self.writer = csv.DictWriter(
+            self.queue, headers, dialect=dialect, **kwds)
         self.stream = f
         self.encoder = codecs.getincrementalencoder(encoding)()
 
@@ -107,7 +111,8 @@ class Command(loadcalaccessrawfile.Command):
     def combine(self):
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
-            for path in glob.glob(os.path.join(self.data_dir, 'netfile_*_*_cal201_export.csv')):
+            for path in glob.glob(os.path.join(self.data_dir,
+                                  'netfile_*_*_cal201_export.csv')):
                 agency_shortcut = os.path.basename(path).split('_')[2]
                 with file(path, 'r') as agency_csv:
                     headers = ','.join(
@@ -121,7 +126,6 @@ class Command(loadcalaccessrawfile.Command):
                     for line in agency_csv.readlines():
                         combined_csv.write(','.join([agency_shortcut, line]))
 
-
     def download(self):
         if self.verbosity:
             self.header("Downloading raw data files")
@@ -131,16 +135,17 @@ class Command(loadcalaccessrawfile.Command):
 
         # Fetch agencies
         agencies = self.fetch_agencies()
-        print "Found %s agencies" %  (len(agencies))
+        print "Found %s agencies" % (len(agencies))
         self._write_csv('netfile_agency.csv', iter(agencies))
 
         for agency in agencies:
 
-            for year in ['2014','2015']:
-                csv_path = 'netfile_%s_%s_cal201_export.csv' % (year, agency['shortcut'])
-                transactions = self.fetch_transactions_agency_year(agency, year)
+            for year in ['2014', '2015']:
+                csv_path = 'netfile_%s_%s_cal201_export.csv' % (
+                    year, agency['shortcut'])
+                transactions = self.fetch_transactions_agency_year(
+                    agency, year)
                 self._write_csv(csv_path, transactions)
-
 
     def load(self):
         if self.verbosity:
@@ -154,7 +159,6 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             self.success("ok.")
 
-
     def _write_csv(self, csv_path, iterator):
         if self.verbosity:
             self.log('Writing %s...' % (csv_path))
@@ -167,7 +171,8 @@ class Command(loadcalaccessrawfile.Command):
 
         with open(os.path.join(self.data_dir, csv_path), 'w') as csv_handle:
             headers = item.keys()
-            writer = UnicodeDictWriter(csv_handle, headers, lineterminator='\n')
+            writer = UnicodeDictWriter(
+                csv_handle, headers, lineterminator='\n')
             writer.writeheader()
             writer.writerow(item)
             for item in iterator:
@@ -176,17 +181,16 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             self.success('OK')
 
-
     def fetch_transactions_agency_year(self, agency, year):
         # Break this up by transaction type?
         query = {
             'Aid': agency['id'],
             'Year': year,
-            'sortOrder': 1, # DateDescending
-            }
+            'sortOrder': 1,  # DateDescending
+        }
 
-        return self.connect2.postpubliccampaignexportcal201transactionyear(query)
-
+        return self.connect2.postpubliccampaignexportcal201transactionyear(
+            query)
 
     def fetch_agencies(self):
         """Fetches agencies from Netfile API"""

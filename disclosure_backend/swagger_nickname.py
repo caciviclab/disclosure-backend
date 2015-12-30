@@ -1,5 +1,6 @@
 """
-Provides the swagger "nickname" field, a friendly name for the swagger client methods.
+Provides the swagger "nickname" field, a friendly name for
+the swagger client methods.
 """
 
 

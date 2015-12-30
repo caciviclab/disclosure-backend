@@ -9,9 +9,17 @@ cache:
 python:
  - "2.7"
 
-install:
- - export XDG_CACHE_HOME=$HOME/.cache/
- - pip install -r requirements.txt
+env:
+    global:
+         - XDG_CACHE_HOME=$HOME/.cache/
 
-script:
-    - make test
+install:
+  - pip install flake8 pyflakes coverage
+  - pip install python-coveralls nose-cov
+  - pip install -r requirements.txt
+
+script: # Run test
+  - make test
+
+after_success: # Upload coverage to coveralls.io
+  - coveralls

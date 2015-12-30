@@ -4,6 +4,7 @@ from django.core.management import call_command
 
 
 class ContributionTests(APITestCase):
+
     @classmethod
     def setUpClass(cls):
         super(APITestCase, cls).setUpClass()
@@ -21,5 +22,6 @@ class ContributionTests(APITestCase):
 
     def test_retrieve_contains_data(self):
         first_contribution_id = RcptCd.objects.all()[0].id
-        resp = self.client.get('/contributions/{0}/'.format(first_contribution_id))
+        resp = self.client.get(
+            '/contributions/{0}/'.format(first_contribution_id))
         self.assertIn('amount', resp.data)

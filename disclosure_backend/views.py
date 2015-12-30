@@ -1,6 +1,6 @@
 from calaccess_raw.models.campaign import RcptCd
 from django.http import HttpResponse
-from serializers import ContributionSerializer, LocationSerializer
+from serializers import ContributionSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -38,7 +38,8 @@ def location_view(request, fips_id):
     ---
     parameters:
       - name: fips_id
-        description: The Federal Information Processing Standards (FIPS) code for this locality.
+        description: The Federal Information Processing Standards (FIPS)
+                     code for this locality.
         paramType: path
         type: integer
         required: true
@@ -86,4 +87,5 @@ def search_view(request):
         type: string
         paramType: query
     """
-    return Response([{"name": "San Francisco", "type": "county", "fip_id": "6075"}])
+    return Response([{
+        "name": "San Francisco", "type": "county", "fip_id": "6075"}])

@@ -3,7 +3,6 @@ Command to download and load ZipCode/Metro/PSA data
 """
 
 import os
-import csv
 import requests
 import zipfile
 
@@ -30,10 +29,12 @@ custom_options = (
     ),
 )
 
+
 class Command(loadcalaccessrawfile.Command):
     help = 'Download and load the Zipcode raw data'
     app_name = 'zipcode_metro'
-    url = "https://s3-us-west-1.amazonaws.com/zipcodemetro/zipcode_metro.csv.zip"
+    url = ("https://s3-us-west-1.amazonaws.com/zipcodemetro/"
+           "zipcode_metro.csv.zip")
     option_list = loadcalaccessrawfile.Command.option_list + custom_options
 
     def handle(self, *args, **options):
@@ -48,7 +49,6 @@ class Command(loadcalaccessrawfile.Command):
         if not options['skip_load']:
             self.cursor = connection.cursor()
             self.load()
-
 
     def download(self):
         if self.verbosity:
