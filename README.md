@@ -64,6 +64,7 @@ We're going to create an environment with Python 2.7.9 for the project
 4. Install project requirements with:
    ```
    pip install -r requirements.txt
+   pip install -r requirements_dev.txt
    ```
 
 
