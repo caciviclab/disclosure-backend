@@ -202,8 +202,11 @@ class Command(loadcalaccessrawfile.Command):
                                   'netfile_*_*_cal201_export.csv')):
                 agency_shortcut = os.path.basename(path).split('_')[2]
                 with file(path, 'r') as agency_csv:
+                    header_line = agency_csv.readline()
+                    if header_line == '':
+                        continue
                     headers = ','.join(
-                        ['agency_shortcut', agency_csv.readline()])
+                        ['agency_shortcut', header_line])
                     if not headers_written:
                         combined_csv.write(headers)
                         headers_written = headers
@@ -236,19 +239,20 @@ class Command(loadcalaccessrawfile.Command):
             item = iterator.next()
         except StopIteration:
             self.failure('No data')
-            return
-
-        with open(csv_path, 'w') as csv_handle:
-            headers = item.keys()
-            writer = UnicodeDictWriter(
-                csv_handle, headers, lineterminator='\n')
-            writer.writeheader()
-            writer.writerow(item)
-            for item in iterator:
+            with open(csv_path, 'w') as csv_handle:
+                pass  # create empty csv, to enable caching.
+        else:
+            with open(csv_path, 'w') as csv_handle:
+                headers = item.keys()
+                writer = UnicodeDictWriter(
+                    csv_handle, headers, lineterminator='\n')
+                writer.writeheader()
                 writer.writerow(item)
+                for item in iterator:
+                    writer.writerow(item)
 
-        if self.verbosity:
-            self.success('OK')
+            if self.verbosity:
+                self.success('OK')
 
     def fetch_transactions_agency_year(self, agency, year):
         # Break this up by transaction type?
