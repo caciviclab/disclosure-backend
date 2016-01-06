@@ -227,7 +227,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def _write_csv(self, csv_path, iterator):
         if not csv_path.startswith(self.data_dir):
-            os.path.join(self.data_dir, csv_path)
+            csv_path = os.path.join(self.data_dir, csv_path)
 
         if self.verbosity:
             self.log('Writing %s...' % (csv_path))
