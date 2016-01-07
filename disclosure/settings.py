@@ -40,7 +40,8 @@ INSTALLED_APPS = (
     'netfile_raw',
     'zipcode_metro_raw',
     'locality',
-    'ballot',
+    'ballot_measure',
+    'election_day',
     'disclosure'
 )
 
