@@ -100,7 +100,6 @@ We're going to create an environment with Python 2.7.9 for the project
    export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/usr/local/Cellar/openssl/1.0.2d_1/lib
    ```
 
-
 ### Validate your install
 
 #### Run the tests

@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ballot', '0002_load_ballot_data'),
+        ('ballot', '0001_initial'),
     ]
 
     operations = [

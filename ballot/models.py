@@ -33,48 +33,13 @@ class Election(models.Model):
         return unicode(self.date)
 
 
-class Locality(models.Model):
-    """
-    Represents a jurisdiction under the state level, could be county or city.
-    """
-    LOCALITY_TYPES = (
-        ('CO', 'County'),
-        ('CI', 'City'),
-        # TODO but maybe other things (township, borough, region, etc.)
-    )
-    name = models.CharField(
-        max_length=255, help_text='Name of the juristiction.')
-    locality_type = models.CharField(
-        max_length=2,
-        choices=LOCALITY_TYPES,
-        help_text='One of county, city, township, borough, parish, '
-                  'village, or region.'
-    )
-    # TODO Make this a proper foreign key to netfile agency
-    netfile_agency = models.CharField(
-        max_length=10,
-        blank=True,
-        help_text='The netfile agency administering the elections in this '
-                  'locality.'
-    )
-
-    def __str__(self):
-        return str(self.name)
-
-    def __unicode__(self):
-        return unicode(self.name)
-
-    class Meta:
-        verbose_name_plural = 'localities'
-
-
 class Ballot(models.Model):
     """
     A voter's ballot, containing all the BallotItems that the voter will vote
     on in the voting booth on election day.
     """
     election = models.ForeignKey('Election')
-    locality = models.ForeignKey('Locality')
+    locality = models.ForeignKey('locality.Locality')
 
     def __str__(self):
         return '%s election for %s' % (
@@ -120,44 +85,6 @@ class Contest(models.Model):
 
     class Meta:
         verbose_name = 'race'
-
-
-class Precinct(models.Model):
-    """
-    The smallest unit of geographic area for voters. Your precinct determines
-    who and what you vote on.
-    """
-    name = models.CharField(
-        max_length=30, help_text="The precinct's name or number.")
-    number = models.CharField(
-        max_length=5,
-        help_text="the precinct's number e.g., 32 or 32A "
-                  "(alpha characters are legal)."
-    )
-    locality = models.ForeignKey('Locality')
-
-
-class Candidate(models.Model):
-    """
-    A person running for office.
-    """
-    contest = models.ForeignKey('Contest', blank=True, null=True)
-    name = models.CharField(
-        max_length=255, help_text='The candidate\'s full name.')
-    biography = models.TextField(blank=True)
-    photo_url = models.ImageField(blank=True)
-    candidate_url = models.URLField(
-        help_text='URL for the candidate\'s official website.', blank=True)
-    facebook_url = models.URLField(
-        help_text='URL for the candidate\'s Facebook page.', blank=True)
-    twitter_url = models.URLField(
-        help_text='URL for the candidate\'s Twitter page.', blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def __unicode__(self):
-        return self.name
 
 
 class Referendum(models.Model):

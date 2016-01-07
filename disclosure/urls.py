@@ -4,7 +4,8 @@ from django.contrib import admin
 from rest_framework.routers import SimpleRouter
 
 import ballot.views
-import views
+from . import views
+print(dir(views))
 
 admin.autodiscover()
 
@@ -16,7 +17,7 @@ urlpatterns = patterns('',
                                'document_root': settings.STATIC_ROOT,
                                'show_indexes': True,
                            }),
-                       url(r'^search/', views.search_view),
+                       url(r'', include('locality.urls')),
                        url(r'^locations/(?P<fips_id>[0-9]+)$',
                            views.location_view),
                        url(r'^docs/', include('rest_framework_swagger.urls'))
