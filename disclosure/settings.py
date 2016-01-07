@@ -42,8 +42,9 @@ INSTALLED_APPS = (
     'locality',  # dep: none
     'ballot_measure',  # dep: locality
     'candidate',  # dep: locality, ballot_measure
+    'finance',  # dep: locality, ballot_measure
     'election_day',  # dep: ballot_measure
-    'disclosure'  # dep: locality, ballot_measure, candidate
+    'disclosure'  # dep: locality, ballot_measure, candidate, finance
 )
 
 MIDDLEWARE_CLASSES = (
