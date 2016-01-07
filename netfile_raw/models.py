@@ -24,8 +24,7 @@ class NetFileAgency(CalAccessBaseModel):
     )
 
     class Meta:
-        app_label = 'netfile'
-        db_table = 'netfile_agency'
+        db_table = 'NETFILE_AGENCY'
         verbose_name = 'NETFILE_AGENCY'
         verbose_name_plural = 'NETFILE_AGENCY'
 
@@ -330,7 +329,6 @@ class NetFileCal201Transaction(CalAccessBaseModel):
         db_column='tran_ST')
 
     class Meta:
-        app_label = 'netfile'
-        db_table = 'netfile_cal201_transaction'
+        db_table = 'NETFILE_CAL201_TRANSACTION'
         verbose_name = 'NETFILE_CAL201_TRANSACTION'
         verbose_name_plural = 'NETFILE_CAL201_TRANSACTION'

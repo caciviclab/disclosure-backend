@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'calaccess_raw',
     'ballot',
-    'netfile',
+    'netfile_raw',
     'zipcode_metro',
     'rest_framework_swagger',
     'disclosure_backend'
