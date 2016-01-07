@@ -39,10 +39,11 @@ INSTALLED_APPS = (
     'calaccess_raw',
     'netfile_raw',
     'zipcode_metro_raw',
-    'locality',
-    'ballot_measure',
-    'election_day',
-    'disclosure'
+    'locality',  # dep: none
+    'ballot_measure',  # dep: locality
+    'candidate',  # dep: locality, ballot_measure
+    'election_day',  # dep: ballot_measure
+    'disclosure'  # dep: locality, ballot_measure, candidate
 )
 
 MIDDLEWARE_CLASSES = (
