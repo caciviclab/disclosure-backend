@@ -1,7 +1,8 @@
 import os
+import os.path as op
 
-BASE_DIR = os.path.dirname(__file__)
-REPO_DIR = os.path.join(BASE_DIR, os.pardir)
+BASE_DIR = op.dirname(__file__)
+REPO_DIR = op.join(BASE_DIR, os.pardir)
 SECRET_KEY = 'w11nbg_3n4+e@qk^b55qgo5qygesn^3=&s1kwtlbpkai$(1jv3'
 DEBUG = True
 TEMPLATE_DEBUG = True
@@ -9,18 +10,19 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, ".static")
+STATIC_ROOT = op.join(BASE_DIR, ".static")
 
 try:
     # Set CALACCESS_TEST_DOWNLOAD_DIR for testing calaccess data commands.
     import calaccess_raw
-    _calaccess_repo_dir = os.path.join(os.path.dirname(calaccess_raw.__file__),
-                                       os.pardir)
-    CALACCESS_TEST_DOWNLOAD_DIR = os.path.join(_calaccess_repo_dir,
-                                               'example', 'test-data')
+    _calaccess_repo_dir = op.join(op.dirname(calaccess_raw.__file__),
+                                  os.pardir)
+    CALACCESS_TEST_DOWNLOAD_DIR = op.join(_calaccess_repo_dir,
+                                          'example', 'test-data')
 except:
     pass
 
+CALACCESS_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'calaccess')
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
