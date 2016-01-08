@@ -160,7 +160,6 @@ class Command(loadcalaccessrawfile.Command):
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
-        self.connect2 = Connect2API()
 
         # Run the thing!
         if not options['skip_download']:
@@ -277,6 +276,13 @@ class Command(loadcalaccessrawfile.Command):
             if self.verbosity:
                 self.success('OK')
 
+    @property
+    def connect2(self):
+        """ Connecting to netfile is slow, so only do it on demand."""
+        if getattr(self, '_connect2', None) is None:
+            self._connect2 = Connect2API()
+        return self._connect2
+
     def fetch_transactions_agency_year(self, agency, year):
         # Break this up by transaction type?
         query = {
@@ -290,7 +296,19 @@ class Command(loadcalaccessrawfile.Command):
 
     def fetch_agencies(self):
         """Fetches agencies from Netfile API"""
-        agencies = self.connect2.getpubliccampaignagencies()
-        print "Found %s agencies" % (len(agencies))
-        self._write_csv('netfile_agency.csv', iter(agencies))
+        agency_csv_path = op.join(self.data_dir, 'netfile_agency.csv')
+        agencies = None
+        if not self.force and op.exists(agency_csv_path):
+            import pandas as pd
+            try:
+                agencies = pd.read_csv(agency_csv_path)
+                agencies = agencies.T.to_dict().values()
+            except:
+                os.remove(agency_csv_path)
+
+        if agencies is None:
+            agencies = self.connect2.getpubliccampaignagencies()
+            self._write_csv(agency_csv_path, iter(agencies))
+
+        print("Found %s agencies" % (len(agencies)))
         return agencies
