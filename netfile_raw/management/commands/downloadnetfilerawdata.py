@@ -203,8 +203,9 @@ class Command(loadcalaccessrawfile.Command):
                 ','.join(years_not_found)))
             self.years = list(set(self.years) - years_not_found)
 
-        print("Downloading data for %d agencies in years %s" % (
-            len(agencies), ','.join(self.years)))
+        if self.verbosity:
+            print("Downloading data for %d agencies in years %s" % (
+                len(agencies), ','.join(self.years)))
         self.csv_paths = []
         for agency in agencies:
             for year in self.years:
@@ -219,6 +220,9 @@ class Command(loadcalaccessrawfile.Command):
                 self.csv_paths.append(csv_path)
 
     def combine(self):
+        if self.verbosity:
+            self.header("Combining %s csv files." % len(self.csv_paths))
+
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
             for path in self.csv_paths:
@@ -310,5 +314,6 @@ class Command(loadcalaccessrawfile.Command):
             agencies = self.connect2.getpubliccampaignagencies()
             self._write_csv(agency_csv_path, iter(agencies))
 
-        print("Found %s agencies" % (len(agencies)))
+        if self.verbosity:
+            print("Found %s agencies" % (len(agencies)))
         return agencies
