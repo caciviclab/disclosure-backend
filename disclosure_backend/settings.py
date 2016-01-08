@@ -23,6 +23,9 @@ except:
     pass
 
 CALACCESS_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'calaccess')
+NETFILE_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'netfile')
+
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
