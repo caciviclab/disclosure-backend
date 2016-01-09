@@ -9,9 +9,10 @@ import cStringIO
 import codecs
 import warnings
 
-from calaccess_raw import get_download_directory
+import calaccess_raw
 from calaccess_raw.management.commands import loadcalaccessrawfile
 from django.db import connection
+from django.conf import settings
 from optparse import make_option
 
 from netfile.connect2_api import Connect2API
@@ -69,6 +70,28 @@ custom_options = (
         help="Skip loading up the raw data files"
     ),
 )
+
+
+def get_download_directory():
+    """
+    Returns the download directory where we will store downloaded data.
+    """
+    if hasattr(settings, 'NETFILE_DOWNLOAD_DIR'):
+        return getattr(settings, 'NETFILE_DOWNLOAD_DIR')
+    else:
+        return calaccess_raw.get_download_directory()
+
+
+def get_test_download_directory():
+    """
+    Returns the download directory where we will store test data.
+    """
+    if hasattr(settings, 'CALACCESS_TEST_DOWNLOAD_DIR'):
+        return getattr(settings, 'CALACCESS_TEST_DOWNLOAD_DIR')
+    elif hasattr(settings, 'BASE_DIR'):
+        return os.path.join(getattr(settings, 'BASE_DIR'), 'test-data')
+    raise ValueError("CAL-ACCESS test download directory not configured. \
+Set either CALACCESS_TEST_DOWNLOAD_DIR or BASE_DIR in settings.py")
 
 
 class UnicodeDictWriter(object):
