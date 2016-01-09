@@ -133,6 +133,14 @@ class Command(downloadnetfilerawdata.Command):
             import pdb
             pdb.set_trace()
 
+    def get_agency(self, agency_shortcut):
+        agency_matches = filter(lambda a: a['shortcut'] == agency_shortcut,
+                                self.agencies_metadata)
+        if len(agency_matches) == 0:
+            return None
+        else:
+            return agency_matches[0]
+
     def load_f460A_row(self, row):  # noqa
         """ Loads an individual row from Form 460 Schedule A. # noqa
         This is where most of the magic happens!
@@ -237,9 +245,21 @@ class Command(downloadnetfilerawdata.Command):
 
         def parse_beneficiary(row):
             # Parse and save the beneficiary, contribution.
+            agency_shortcut = row['filerId'].split('-')[0]
+            agency = self.get_agency(agency_shortcut)
+            if agency:
+                state, _ = State.objects.get_or_create(short_name='CA')
+                if state.name is None or state.name == '':
+                    state.name = 'California'
+                    state.save()
+                locality, _ = City.objects.get_or_create(
+                    short_name=agency['shortcut'], name=agency['name'],
+                    state=state)
+            else:
+                locality = None
+
             beneficiary = self.get_committee_beneficiary(row)
-            # agency_shortcut = row['filerId'].split('-')[0]
-            beneficiary.locality = None  # self.get_agency(agency_shortcut)
+            beneficiary.locality = locality
             beneficiary.name = row['filerName'].strip()
             beneficiary.type = 'PF'  # ok
             # beneficiary.address = '?'  # TODO: fix
