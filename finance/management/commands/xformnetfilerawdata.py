@@ -268,7 +268,7 @@ class Command(downloadnetfilerawdata.Command):
         beneficiary = parse_beneficiary(row)
 
         def parse_ballot_info(row, locality):
-            ballot, _ = Ballot.objects.get_or_create(
+            ballot = Ballot.from_date(
                 date=date_parse(row['tran_Date']), locality=locality)
             ballot_measure, _ = BallotMeasure.objects.get_or_create(
                 contest_type='O', name='?', number='?', ballot=ballot)

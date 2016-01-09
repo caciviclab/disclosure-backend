@@ -18,6 +18,15 @@ class Ballot(models.Model):
                             default=None)  # None when auto-create; manual fix
     locality = models.ForeignKey('locality.Locality')
 
+    @classmethod
+    def from_date(cls, date, locality):
+        """
+        Find the best matching ballot to the given date.
+        """
+        ballot, _ = cls.objects.get_or_create(
+            locality=locality)
+        return ballot
+
     def __str__(self):
         return '%s election for %s' % (
             str(self.date), str(self.locality))
