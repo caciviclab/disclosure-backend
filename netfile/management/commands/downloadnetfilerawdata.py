@@ -7,7 +7,6 @@ import os.path as op
 import csv
 import cStringIO
 import codecs
-import glob
 import warnings
 
 from calaccess_raw import get_download_directory
@@ -184,22 +183,23 @@ class Command(loadcalaccessrawfile.Command):
 
         print("Downloading data for %d agencies in years %s" % (
             len(agencies), ','.join(self.years)))
+        self.csv_paths = []
         for agency in agencies:
             for year in self.years:
                 csv_path = 'netfile_%s_%s_cal201_export.csv' % (
-                    year, agency['shortcut'])
+                    year, str(agency['shortcut']))
                 csv_path = os.path.join(self.data_dir, csv_path)
                 # Only download on demand.
                 if self.force or not op.exists(csv_path):
                     transactions = self.fetch_transactions_agency_year(
                         agency, year)
                     self._write_csv(csv_path, transactions)
+                self.csv_paths.append(csv_path)
 
     def combine(self):
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
-            for path in glob.glob(os.path.join(self.data_dir,
-                                  'netfile_*_*_cal201_export.csv')):
+            for path in self.csv_paths:
                 agency_shortcut = os.path.basename(path).split('_')[2]
                 with file(path, 'r') as agency_csv:
                     headers = ','.join(
@@ -230,7 +230,7 @@ class Command(loadcalaccessrawfile.Command):
             csv_path = os.path.join(self.data_dir, csv_path)
 
         if self.verbosity:
-            self.log('Writing %s...' % (csv_path))
+            self.log('Writing %s...' % op.abspath(csv_path))
 
         try:
             item = iterator.next()
