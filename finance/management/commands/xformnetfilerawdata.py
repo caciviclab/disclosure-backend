@@ -76,7 +76,6 @@ class Command(downloadnetfilerawdata.Command):
             self.header("Loading disclosure data into database.")
 
         self.data = pd.read_csv(self.combined_csv_path)
-        # self.data = self.join_data_descr(self.data)  # add field descriptions
         if self.verbosity:
             print("There are %d rows in %s" % (
                 len(self.data), self.combined_csv_path))
@@ -121,7 +120,7 @@ class Command(downloadnetfilerawdata.Command):
             try:
                 self.load_f460A_row(minimal_row)
             except Exception as e:
-                # raise
+                raise
                 if self.verbosity:
                     print("%d: \n\n%s\n\n" % (len(error_rows) + 1, e))
                     time.sleep(0.5)
@@ -165,94 +164,116 @@ class Command(downloadnetfilerawdata.Command):
         tran_Type      : Transaction Type (T=Third Part, nan,R,X
         tran_Zip4      : Transaction Entity's Zip Code, 63105,75702,75711,90036,90040,
         """
-        bf_state, _ = State.objects.get_or_create(
-            short_name=row.get('tran_ST', 'Unknown'))
-        bf_city, _ = City.objects.get_or_create(
-            short_name=row.get('tran_City', 'Unknown'), state=bf_state)
-        bf_zip_code, _ = ZipCode.objects.get_or_create(
-            short_name=row.get('tran_Zip4', 'Unknown'), state=bf_state)
-        bf_address, _ = Address.objects.get_or_create(
-            city=bf_city, state=bf_state, zip_code=bf_zip_code)
 
-        if row['entity_Cd'] == 'IND':  # individual
-            benefactor = models.IndividualBenefactor(
-                first_name=row.get('tran_NamF', ''),
-                last_name=row['tran_NamL'],
-                occupation=row.get('tran_Occ'))
-            benefactor.save()
+        def parse_benefactor(row):
+            # Benefactor info
+            bf_state, _ = State.objects.get_or_create(
+                short_name=row.get('tran_ST', 'Unknown'))
+            bf_city, _ = City.objects.get_or_create(
+                short_name=row.get('tran_City', 'Unknown'), state=bf_state)
+            bf_zip_code, _ = ZipCode.objects.get_or_create(
+                short_name=row.get('tran_Zip4', 'Unknown'), state=bf_state)
+            bf_address, _ = Address.objects.get_or_create(
+                city=bf_city, state=bf_state, zip_code=bf_zip_code)
 
-        elif row['entity_Cd'] == 'OTH':  # company
-            benefactor, _ = models.CompanyBenefactor.objects.get_or_create(
-                name=row['tran_NamL'])
+            if row['entity_Cd'] == 'IND':  # individual
+                benefactor = models.IndividualBenefactor(
+                    first_name=row.get('tran_NamF', ''),
+                    last_name=row['tran_NamL'],
+                    occupation=row.get('tran_Occ'))
+                benefactor.save()
 
-        elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
-            # Get by name
-            benefactor = self.get_committee_benefactor(row)
-            cmte_id = self.clean_cmte_id(row.get('cmte_Id', ''))
-            if cmte_id != '' and benefactor.committee_id != cmte_id:
-                if benefactor.faked:
-                    if self.verbosity:
-                        print("\n\nFIXED ID for %s\n\n" % benefactor.name)
-                    benefactor.committee_id = cmte_id
-                    benefactor.faked = False
-                else:
-                    raise Exception("Conflicting committee ID for %s: "
-                                    "%s (saved) vs. %s (current)" % (
-                                        benefactor.name,
-                                        benefactor.committee_id,
-                                        cmte_id))
+            elif row['entity_Cd'] == 'OTH':  # company
+                benefactor, _ = models.CompanyBenefactor.objects.get_or_create(
+                    name=row['tran_NamL'])
 
-            # of=official, pf=primarily, ic=independent
-            benefactor.name = row['tran_NamL'].strip()
-            benefactor.type = benefactor.type or 'PF'  # TODO: figure this out.
-            benefactor.address = bf_address
-            benefactor.locality = bf_city
-            benefactor.save()
+            elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
+                # Get by name
+                benefactor = self.get_committee_benefactor(row)
+                cmte_id = self.clean_cmte_id(row.get('cmte_Id', ''))
+                if cmte_id != '' and benefactor.committee_id != cmte_id:
+                    if benefactor.faked:
+                        if self.verbosity:
+                            print("\n\nFIXED ID for %s\n\n" % benefactor.name)
+                        benefactor.committee_id = cmte_id
+                        benefactor.faked = False
+                    else:
+                        raise Exception("Conflicting committee ID for %s: "
+                                        "%s (saved) vs. %s (current)" % (
+                                            benefactor.name,
+                                            benefactor.committee_id,
+                                            cmte_id))
 
-        elif row['entity_Cd'] == 'PTY':  # political party
-            raise NotImplementedError("Form 460 Sched. A contributions "
-                                      "from political parties.")
+                # of=official, pf=primarily, ic=independent
+                benefactor.name = row['tran_NamL'].strip()
+                benefactor.type = benefactor.type or 'PF'  # TODO: fix
+                benefactor.address = bf_address
+                benefactor.locality = bf_city
+                benefactor.save()
 
-        else:
-            raise ValueError("Entity type not expected: %s" % row['entity_Cd'])
+            elif row['entity_Cd'] == 'PTY':  # political party
+                raise NotImplementedError("Form 460 Sched. A contributions "
+                                          "from political parties.")
 
-        # Create/get the relevant form objects.
-        f460A, _ = models.Form.objects.get_or_create(  # noqa
-            name='460 Schedule A', text_id='460A', submission_frequency='SA')
+            else:
+                raise ValueError("Entity type not expected: %s" % (
+                    row['entity_Cd']))
 
-        # Parse and save the beneficiary, contribution.
-        beneficiary = self.get_committee_beneficiary(row)
-        beneficiary.name = row['filerName'].strip()
-        beneficiary.locality = None  # TODO: use self.agencies & row['filerId']
-        beneficiary.type = 'PF'  # ok
-        # beneficiary.address = '?'  # TODO: figure this out.
-        beneficiary.save()
+            return benefactor, bf_zip_code
+        benefactor, bf_zip_code = parse_benefactor(row)
 
-        reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
-            period_start=date_parse(row['tran_Date']),
-            period_end=date_parse(row['tran_Date']))
-        ballot, _ = Ballot.objects.get_or_create(
-            date=date_parse(row['tran_Date']), locality=bf_city)
-        ballot_measure, _ = BallotMeasure.objects.get_or_create(
-            contest_type='O', name='?', number='?', ballot=ballot)
+        def parse_form_and_report_period(row):
+            # Create/get the relevant form objects.
+            f460A, _ = models.Form.objects.get_or_create(  # noqa
+                name='460 Schedule A', text_id='460A',
+                submission_frequency='SA')
 
-        candidate_person, _ = Person.objects.get_or_create(
-            first_name='?', last_name='?')
-        candidate_office, _ = Office.objects.get_or_create(
-            name='?', description='?', locality=bf_city)
-        candidate_election, _ = Election.objects.get_or_create(
-            office=candidate_office, ballot_measure=ballot_measure)
+            reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
+                period_start=date_parse(row['tran_Date']),
+                period_end=date_parse(row['tran_Date']))
 
-        candidate, _ = Candidate.objects.get_or_create(
-            person=candidate_person, election=candidate_election,
-            ballot_measure=ballot_measure
-            # title = models.CharField(max_length=255)
-            # subtitle = models.CharField(max_length=255, blank=True)
-            # brief = models.TextField(blank=True)
-            # full_text = models.TextField(blank=True)
-            # pro_statement = models.TextField(blank=True)
-            # con_statement = models.TextField(blank=True)
-        )
+            return f460A, reporting_period
+        f460A, reporting_period = parse_form_and_report_period(row)  # noqa
+
+        def parse_beneficiary(row):
+            # Parse and save the beneficiary, contribution.
+            beneficiary = self.get_committee_beneficiary(row)
+            # agency_shortcut = row['filerId'].split('-')[0]
+            beneficiary.locality = None  # self.get_agency(agency_shortcut)
+            beneficiary.name = row['filerName'].strip()
+            beneficiary.type = 'PF'  # ok
+            # beneficiary.address = '?'  # TODO: fix
+            beneficiary.save()
+            return beneficiary
+        beneficiary = parse_beneficiary(row)
+
+        def parse_ballot_info(row, locality):
+            ballot, _ = Ballot.objects.get_or_create(
+                date=date_parse(row['tran_Date']), locality=locality)
+            ballot_measure, _ = BallotMeasure.objects.get_or_create(
+                contest_type='O', name='?', number='?', ballot=ballot)
+
+            candidate_person, _ = Person.objects.get_or_create(
+                first_name='?', last_name='?')
+            candidate_office, _ = Office.objects.get_or_create(
+                name='?', description='?', locality=locality)
+            candidate_election, _ = Election.objects.get_or_create(
+                office=candidate_office, ballot_measure=ballot_measure)
+
+            candidate, _ = Candidate.objects.get_or_create(
+                person=candidate_person, election=candidate_election,
+                ballot_measure=ballot_measure
+                # title = models.CharField(max_length=255)
+                # subtitle = models.CharField(max_length=255, blank=True)
+                # brief = models.TextField(blank=True)
+                # full_text = models.TextField(blank=True)
+                # pro_statement = models.TextField(blank=True)
+                # con_statement = models.TextField(blank=True)
+            )
+            return candidate
+        candidate = parse_ballot_info(row, locality=beneficiary.locality)
+
+        # Now we have all the parts, save!
         money = models.IndependentMoney(  # or calculated_Amount
             amount=row['tran_Amt1'], support=True,  # TODO
             benefactor_zip=bf_zip_code,
@@ -262,6 +283,7 @@ class Command(downloadnetfilerawdata.Command):
             filing_id=row['filingId'],
             source='NF', source_xact_id=row['netFileKey'])
         money.save()
+
         if self.verbosity:
             print(str(money)[:75])
 
