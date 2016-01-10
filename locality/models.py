@@ -15,12 +15,6 @@ class Locality(models.Model):
     def __str__(self):
         return self.name or self.short_name or str(self.id)
 
-    def dereference(self):
-        for rel in self._meta.get_all_related_objects():
-            if hasattr(self, rel.name):
-                return getattr(self, rel.name)
-        raise Exception("Abstract locality? %s" % self)
-
     class Meta:
         verbose_name_plural = 'localities'
 

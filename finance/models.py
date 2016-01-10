@@ -55,9 +55,6 @@ class Form(models.Model):
         help_text=''
     )
 
-    def dereference(self):
-        pass
-
     def __str__(self):
         return self.name
 
@@ -87,12 +84,6 @@ class Benefactor(models.Model):
     tran_Zip4      : Transaction Entity's Zip Code, 92126-1531,95814,92119,92115,9
     """
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
-
-    def dereference(self):
-        for rel in self._meta.get_all_related_objects():
-            if hasattr(self, rel.name):
-                return getattr(self, rel.name)
-        raise Exception("Abstract benefactor? %s" % self)
 
 
 class IndividualBenefactor(Benefactor, PersonMixin):
