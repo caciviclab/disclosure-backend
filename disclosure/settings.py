@@ -33,13 +33,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_swagger',
     'corsheaders',
     'calaccess_raw',
+    'netfile_raw',
+    'zipcode_metro_raw',
     'ballot',
-    'netfile',
-    'zipcode_metro',
-    'rest_framework_swagger',
-    'disclosure_backend'
+    'disclosure'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,10 +53,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
-ROOT_URLCONF = 'disclosure_backend.urls'
-WSGI_APPLICATION = 'disclosure_backend.wsgi.application'
+ROOT_URLCONF = 'disclosure.urls'
+WSGI_APPLICATION = 'disclosure.wsgi.application'
 REST_FRAMEWORK = {
-    'VIEW_NAME_FUNCTION': ('disclosure_backend.'
+    'VIEW_NAME_FUNCTION': ('disclosure.'
                            'swagger_nickname.view_name')
 }
 

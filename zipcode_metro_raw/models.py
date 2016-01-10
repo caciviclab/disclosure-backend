@@ -33,7 +33,6 @@ class ZipCodeMetro(CalAccessBaseModel):
     )
 
     class Meta:
-        app_label = 'zipcode_metro'
         db_table = 'ZIPCODE_METRO'
         verbose_name = 'ZIPCODE_METRO'
         verbose_name_plural = 'ZIPCODE_METRO'
