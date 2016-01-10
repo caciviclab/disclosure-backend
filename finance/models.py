@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from candidate.models import SocialMediaModel, Person
+from office_election.models import SocialMediaModel, Person
 
 
 @python_2_unicode_compatible
@@ -27,7 +27,7 @@ class Committee(SocialMediaModel):
 
 
 @python_2_unicode_compatible
-class Company(SocialMediaModel):
+class Corporation(SocialMediaModel):
     name = models.CharField(max_length=255)
     address = models.ForeignKey('locality.Address', null=True)
     # locality = models.ForeignKey('locality.Locality', null=True)
@@ -99,7 +99,7 @@ class IndividualBenefactor(Benefactor, Person):
     occupation = models.CharField(max_length=64, null=True)
 
 
-class CompanyBenefactor(Benefactor, Company):
+class CorporationBenefactor(Benefactor, Corporation):
     pass
 
 
@@ -130,8 +130,8 @@ class IndependentMoney(models.Model):
         'Benefactor', help_text='They gave the money')
     beneficiary = models.ForeignKey(
         'Beneficiary', help_text='They got the money')
-    ballot_measure_choice = models.ForeignKey(
-        'ballot_measure.BallotItemChoice')
+    ballot_item_response = models.ForeignKey(
+        'ballot.BallotItemResponse')
     filing_id = models.CharField(max_length=16)
     source = models.CharField(max_length=2)
     source_xact_id = models.CharField(max_length=32)
@@ -141,5 +141,5 @@ class IndependentMoney(models.Model):
             self.benefactor, self.beneficiary, self.amount,
             self.benefactor_zip,
             'support of' if self.support else 'opposition to',
-            self.ballot_measure_choice,
+            self.ballot_item_response,
             self.form)
