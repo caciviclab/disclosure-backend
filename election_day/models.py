@@ -20,4 +20,4 @@ class ElectionDay(models.Model):
         (e.g., federal, state, county, city, town, etc.)
         '''
     )
-    ballot = models.ForeignKey('ballot_measure.Ballot')
+    ballot = models.ForeignKey('ballot.Ballot')

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot.models import BallotItemChoice
+from ballot.models import BallotItemResponse
 
 
 class SocialMediaModel(models.Model):
@@ -80,7 +80,8 @@ class Election(models.Model):
             self.office.name, str(self.office.locality))
 
 
-class Candidate(BallotItemChoice, SocialMediaModel):
+@python_2_unicode_compatible
+class Candidate(BallotItemResponse, SocialMediaModel):
     """
     A person running for office.
     """
@@ -90,4 +91,4 @@ class Candidate(BallotItemChoice, SocialMediaModel):
     # Should alias biography = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return self.title
