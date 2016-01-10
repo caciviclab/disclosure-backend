@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot_measure.models import BallotItemChoice
+from ballot.models import BallotItemChoice
 
 
 class SocialMediaModel(models.Model):
@@ -34,13 +34,13 @@ class Person(SocialMediaModel):
     """
     """
     first_name = models.CharField(
-        max_length=255, help_text='The candidate\'s first name.')
+        max_length=255, help_text="The person's first name.")
     middle_name = models.CharField(
         max_length=255, blank=True, null=True,
-        help_text='The candidate\'s middle name.')
+        help_text="The person's middle name.")
     last_name = models.CharField(
         max_length=255, blank=True, null=True,
-        help_text='The candidate\'s last name.')
+        help_text="The person's last name.")
     party = models.ForeignKey('Party', blank=True, null=True)
 
     def __str__(self):
@@ -61,7 +61,7 @@ class Office(models.Model):
 
     def __str__(self):
         return "Office for %s in %s" % (
-            self.name, self.locality.dereference())
+            self.name, str(self.locality))
 
 
 @python_2_unicode_compatible
@@ -69,15 +69,15 @@ class Election(models.Model):
     """
     """
     office = models.ForeignKey('Office')
-    ballot_measure = models.ForeignKey(
-        'ballot_measure.BallotItem')
+    ballot_item = models.ForeignKey(
+        'ballot.BallotItem')
 
     def locality(self):
-        return self.ballot_measure.ballot.locality
+        return self.ballot_item.ballot.locality
 
     def __str__(self):
         return "Election of %s in %s" % (
-            self.office.name, self.locality().dereference())
+            self.office.name, str(self.office.locality))
 
 
 class Candidate(BallotItemChoice, SocialMediaModel):

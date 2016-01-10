@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'zipcode_metro_raw',
     'locality',  # dep: none
     'ballot',  # dep: locality
-    'candidate',  # dep: locality, ballot_measure
+    'office_election',  # dep: locality, ballot
     'finance',  # dep: locality, ballot
     'election_day',  # dep: ballot
     'disclosure'  # dep: locality, ballot, office_election, finance

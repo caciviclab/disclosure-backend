@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
-from ballot_measure.models import Ballot
+from ballot.models import Ballot
 from .serializers import ElectionDaySerializer
 
 
