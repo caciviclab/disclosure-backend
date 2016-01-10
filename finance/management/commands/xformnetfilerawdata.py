@@ -12,8 +12,8 @@ import numpy as np
 import pandas as pd
 
 from ... import models
-from ballot_measure.models import Ballot, BallotMeasure
-from candidate.models import Person, Office, Election, Candidate
+from ballot.models import Ballot
+from office_election.models import Office, OfficeElection, Candidate
 from locality.models import Address, City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
 
@@ -191,26 +191,26 @@ class Command(downloadnetfilerawdata.Command):
                     occupation=row.get('tran_Occ'))
                 benefactor.save()
 
-            elif row['entity_Cd'] == 'OTH':  # company
-                benefactor, _ = models.CompanyBenefactor.objects.get_or_create(
-                    name=row['tran_NamL'])
+            elif row['entity_Cd'] == 'OTH':  # corporation
+                benefactor, _ = models.CorporationBenefactor.objects \
+                    .get_or_create(name=row['tran_NamL'])
 
             elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
                 # Get by name
                 benefactor = self.get_committee_benefactor(row)
-                cmte_id = self.clean_cmte_id(row.get('cmte_Id', ''))
-                if cmte_id != '' and benefactor.committee_id != cmte_id:
+                filer_id = self.clean_filer_id(row.get('cmte_Id', ''))
+                if filer_id != '' and benefactor.filer_id != filer_id:
                     if benefactor.faked:
                         if self.verbosity:
                             print("\n\nFIXED ID for %s\n\n" % benefactor.name)
-                        benefactor.committee_id = cmte_id
+                        benefactor.filer_id = filer_id
                         benefactor.faked = False
                     else:
                         raise Exception("Conflicting committee ID for %s: "
                                         "%s (saved) vs. %s (current)" % (
                                             benefactor.name,
-                                            benefactor.committee_id,
-                                            cmte_id))
+                                            benefactor.filer_id,
+                                            filer_id))
 
                 # of=official, pf=primarily, ic=independent
                 benefactor.name = row['tran_NamL'].strip()
@@ -267,31 +267,24 @@ class Command(downloadnetfilerawdata.Command):
             return beneficiary
         beneficiary = parse_beneficiary(row)
 
-        def parse_ballot_info(row, locality):
-            ballot = Ballot.from_date(
-                date=date_parse(row['tran_Date']), locality=locality)
-            ballot_measure, _ = BallotMeasure.objects.get_or_create(
-                contest_type='O', name='?', number='?', ballot=ballot)
+        def is_candidate(row):
+            return True
 
-            candidate_person, _ = Person.objects.get_or_create(
-                first_name='?', last_name='?')
+        def parse_candidate_info(row, ballot):
             candidate_office, _ = Office.objects.get_or_create(
-                name='?', description='?', locality=locality)
-            candidate_election, _ = Election.objects.get_or_create(
-                office=candidate_office, ballot_measure=ballot_measure)
-
+                name='?', description='?', locality=ballot.locality)
+            office_election, _ = OfficeElection.objects.get_or_create(
+                office=candidate_office, ballot=ballot)
             candidate, _ = Candidate.objects.get_or_create(
-                person=candidate_person, election=candidate_election,
-                ballot_measure=ballot_measure
-                # title = models.CharField(max_length=255)
-                # subtitle = models.CharField(max_length=255, blank=True)
-                # brief = models.TextField(blank=True)
-                # full_text = models.TextField(blank=True)
-                # pro_statement = models.TextField(blank=True)
-                # con_statement = models.TextField(blank=True)
-            )
+                first_name="?", last_name="?",
+                office_election=office_election)
             return candidate
-        candidate = parse_ballot_info(row, locality=beneficiary.locality)
+        ballot = Ballot.from_date(
+            date=date_parse(row['tran_Date']), locality=beneficiary.locality)
+        if is_candidate(row):
+            ballot_item_response = parse_candidate_info(row, ballot=ballot)
+        else:
+            raise NotImplementedError("Referendum parsing.")
 
         # Now we have all the parts, save!
         money = models.IndependentMoney(  # or calculated_Amount
@@ -299,7 +292,7 @@ class Command(downloadnetfilerawdata.Command):
             benefactor_zip=bf_zip_code,
             form=f460A, reporting_period=reporting_period,
             benefactor=benefactor, beneficiary=beneficiary,
-            ballot_measure_choice=candidate,
+            ballot_item_response=ballot_item_response,
             filing_id=row['filingId'],
             source='NF', source_xact_id=row['netFileKey'])
         money.save()
@@ -316,7 +309,7 @@ class Command(downloadnetfilerawdata.Command):
         if id:
             # Use committee ID first.
             benefactor, _ = model.objects.get_or_create(
-                committee_id=self.clean_cmte_id(id))
+                filer_id=self.clean_filer_id(id))
         else:
             # Try by name second.
             try:
@@ -324,7 +317,7 @@ class Command(downloadnetfilerawdata.Command):
             except model.DoesNotExist:
                 # Make a new committee based on name only, third
                 benefactor = model(name=name)
-                benefactor.committee_id = name
+                benefactor.filer_id = name
                 benefactor.faked = True
                 if self.verbosity:
                     print('\n\nFaked benefactor %s :(\n\n' % benefactor.name)
@@ -343,22 +336,22 @@ class Command(downloadnetfilerawdata.Command):
         """
         filer_id = row['filerId']
         if '-' in filer_id:
-            committee_id = '-'.join(filer_id.split('-')[1:])
+            filer_id = '-'.join(filer_id.split('-')[1:])
         else:
-            committee_id = filer_id
+            filer_id = filer_id
 
         return self.get_committee(model=models.Beneficiary,
                                   name=row['filerName'].strip(),
-                                  id=committee_id)
+                                  id=filer_id)
 
     @staticmethod
-    def clean_cmte_id(cmte_id):
+    def clean_filer_id(filer_id):
         """ Utility function to scrub committee IDs."""
-        if isinstance(cmte_id, Number):
-            return str(int(cmte_id))
-        elif np.any([cmte_id.startswith(c) for c in ('C', '#')]):
-            cmte_id = cmte_id[1:]
-        return cmte_id
+        if isinstance(filer_id, Number):
+            return str(int(filer_id))
+        elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
+            filer_id = filer_id[1:]
+        return filer_id
 
     def load_f497_data(self):
         """ Loads data from Form 460 Schedule A:
