@@ -82,6 +82,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 try:
-    from .settings_local import *  # noqa
-except ImportError:
+    script_dir = os.path.dirname(__file__)
+    with open(os.path.join(script_dir, 'settings_local.py')) as fp:
+        exec(fp.read())
+except:
     pass

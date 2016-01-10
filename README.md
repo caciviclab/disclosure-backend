@@ -80,19 +80,7 @@ We're going to create an environment with Python 2.7.9 for the project
 2. Create `disclosure/settings_local.py`
 
   ```
-  DATABASES = {
-    'default': {
-        'NAME': 'calaccess_raw',
-        'PASSWORD': '',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {
-            'local_infile': 1,
-        }
-    }
-  }
+  DATABASES['default']['PASSWORD'] = ''
   ```
 
   Change the password field to the password you chose when you installed MySQL.
