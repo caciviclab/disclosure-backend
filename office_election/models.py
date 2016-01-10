@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot.models import BallotItemResponse
+from ballot.models import BallotItem, BallotItemResponse
 
 
 class SocialMediaModel(models.Model):
@@ -65,15 +65,16 @@ class Office(models.Model):
 
 
 @python_2_unicode_compatible
-class Election(models.Model):
+class OfficeElection(BallotItem):
     """
     """
     office = models.ForeignKey('Office')
-    ballot_item = models.ForeignKey(
-        'ballot.BallotItem')
 
-    def locality(self):
-        return self.ballot_item.ballot.locality
+    def __init__(self, *args, **kwargs):
+        super(OfficeElection, self).__init__(*args, **kwargs)
+        self.contest_type = 'O'
+        # set BallotItem fields from Office
+        self.name = str(self)
 
     def __str__(self):
         return "Election of %s in %s" % (
@@ -86,9 +87,14 @@ class Candidate(BallotItemResponse, SocialMediaModel):
     A person running for office.
     """
     person = models.ForeignKey('Person')
-    election = models.ForeignKey('Election')
+    office_election = models.ForeignKey('OfficeElection')
 
-    # Should alias biography = models.TextField(blank=True)
+    def __init__(self, *args, **kwargs):
+        super(Candidate, self).__init__(*args, **kwargs)
+        # set BallotItemResponse fields from Person, Office
+        self.title = str(self.person)
+        self.subtitle = str(self.office_election)
+        self.ballot_item = self.office_election
 
     def __str__(self):
         return self.title
