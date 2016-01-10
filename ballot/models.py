@@ -24,7 +24,7 @@ class Ballot(models.Model):
 
 
 @python_2_unicode_compatible
-class BallotMeasure(models.Model):
+class BallotItem(models.Model):
     """
     A single referendum or candidate office which appears on a voter's Ballot.
     """
@@ -54,8 +54,8 @@ class BallotMeasure(models.Model):
 
 
 @python_2_unicode_compatible
-class BallotMeasureChoice(models.Model):
-    ballot_measure = models.ForeignKey('BallotMeasure')
+class BallotItemChoice(models.Model):
+    ballot_item = models.ForeignKey('BallotItem')
 
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, blank=True)

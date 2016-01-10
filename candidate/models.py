@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot_measure.models import BallotMeasureChoice
+from ballot_measure.models import BallotItemChoice
 
 
 class SocialMediaModel(models.Model):
@@ -70,7 +70,7 @@ class Election(models.Model):
     """
     office = models.ForeignKey('Office')
     ballot_measure = models.ForeignKey(
-        'ballot_measure.BallotMeasure')
+        'ballot_measure.BallotItem')
 
     def locality(self):
         return self.ballot_measure.ballot.locality
@@ -80,7 +80,7 @@ class Election(models.Model):
             self.office.name, self.locality().dereference())
 
 
-class Candidate(BallotMeasureChoice, SocialMediaModel):
+class Candidate(BallotItemChoice, SocialMediaModel):
     """
     A person running for office.
     """

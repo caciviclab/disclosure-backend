@@ -131,7 +131,7 @@ class IndependentMoney(models.Model):
     beneficiary = models.ForeignKey(
         'Beneficiary', help_text='They got the money')
     ballot_measure_choice = models.ForeignKey(
-        'ballot_measure.BallotMeasureChoice')
+        'ballot_measure.BallotItemChoice')
     filing_id = models.CharField(max_length=16)
     source = models.CharField(max_length=2)
     source_xact_id = models.CharField(max_length=32)

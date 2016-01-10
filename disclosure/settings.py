@@ -40,11 +40,11 @@ INSTALLED_APPS = (
     'netfile_raw',
     'zipcode_metro_raw',
     'locality',  # dep: none
-    'ballot_measure',  # dep: locality
+    'ballot',  # dep: locality
     'candidate',  # dep: locality, ballot_measure
-    'finance',  # dep: locality, ballot_measure
-    'election_day',  # dep: ballot_measure
-    'disclosure'  # dep: locality, ballot_measure, candidate, finance
+    'finance',  # dep: locality, ballot
+    'election_day',  # dep: ballot
+    'disclosure'  # dep: locality, ballot, office_election, finance
 )
 
 MIDDLEWARE_CLASSES = (
