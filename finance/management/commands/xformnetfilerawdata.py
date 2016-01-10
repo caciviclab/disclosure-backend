@@ -12,10 +12,11 @@ import numpy as np
 import pandas as pd
 
 from ... import models
-from ballot.models import Ballot
-from office_election.models import Office, OfficeElection, Candidate
+from ballot.models import Ballot, BallotItemResponse
 from locality.models import Address, City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
+from office_election.models import Office, OfficeElection, Candidate
+from referendum.models import Referendum
 
 
 class Command(downloadnetfilerawdata.Command):
@@ -107,6 +108,7 @@ class Command(downloadnetfilerawdata.Command):
 
         # Parse out the contributor information.
         error_rows = []
+        self.misses = []
         for ri, (_, raw_row) in enumerate(self.f460A_data.T.iteritems()):
             assert raw_row['rec_Type'] == 'RCPT'
             minimal_row = raw_row.copy()
@@ -267,24 +269,73 @@ class Command(downloadnetfilerawdata.Command):
             return beneficiary
         beneficiary = parse_beneficiary(row)
 
-        def is_candidate(row):
-            return True
+        def parse_candidate_and_office(row):
+            import re
+            res = (
+                # David Alvarez for Mayor 2014
+                '^(?P<name>.*?)\s+for\s+(?P<office>.*?)(?P<year>[0-9]+).*$',
+                # Scott Sanborn City Council 2016
+                '^(?P<name>.*? .*?)\s+(?P<office>.*?)(?P<year>[0-9]+).*$',
+            )
+
+            # Either find a match, or raise an error.
+            for re_str in res:
+                matches = re.match(re_str, row['filerName'])
+                if matches is not None:
+                    matches = matches.groupdict()
+                    break
+            if matches is None:
+                raise ValueError("Could not parse a Candidate.")
+
+            name_parts = matches['name'].strip().split(" ")
+            last_name = name_parts[-1]
+            first_name = " ".join(name_parts[:-1])
+            office = matches['office'].strip()
+            return last_name, first_name, office
 
         def parse_candidate_info(row, ballot):
+            # Try to get candidate name from beneficiary name.
+            last_name, first_name, office_name = \
+                parse_candidate_and_office(row)
             candidate_office, _ = Office.objects.get_or_create(
-                name='?', description='?', locality=ballot.locality)
+                name=office_name, locality=ballot.locality)
             office_election, _ = OfficeElection.objects.get_or_create(
                 office=candidate_office, ballot=ballot)
             candidate, _ = Candidate.objects.get_or_create(
-                first_name="?", last_name="?",
+                first_name=first_name, last_name=last_name,
                 office_election=office_election)
             return candidate
-        ballot = Ballot.from_date(
-            date=date_parse(row['tran_Date']), locality=beneficiary.locality)
-        if is_candidate(row):
-            ballot_item_response = parse_candidate_info(row, ballot=ballot)
-        else:
-            raise NotImplementedError("Referendum parsing.")
+
+        def parse_referendum_info(row, ballot):
+            referendum, _ = Referendum.objects.get_or_create(
+                name='Unknown', ballot=ballot)
+            response, _ = BallotItemResponse.objects.get_or_create(
+                ballot_item=referendum,
+                title="YES")
+            return response
+
+        def parse_ballot_info(row):
+            ballot = Ballot.from_date(date=date_parse(row['tran_Date']),
+                                      locality=beneficiary.locality)
+
+            # Figure out beneficiary from past entries.
+            past_money = models.IndependentMoney.objects.filter(
+                beneficiary__name=row['filerName'],
+                ballot_item_response__ballot_item__ballot=ballot)
+            if past_money.count() > 0:
+                # Figure it out from past contributions.
+                ballot_item_response = past_money[0].ballot_item_response
+            else:
+                # Figure out beneficiary from item text.
+                try:
+                    ballot_item_response = parse_candidate_info(
+                        row, ballot=ballot)
+                except:
+                    ballot_item_response = parse_referendum_info(
+                        row, ballot=ballot)
+
+            return ballot, ballot_item_response
+        ballot, ballot_item_response = parse_ballot_info(row)
 
         # Now we have all the parts, save!
         money = models.IndependentMoney(  # or calculated_Amount
@@ -298,7 +349,7 @@ class Command(downloadnetfilerawdata.Command):
         money.save()
 
         if self.verbosity:
-            print(str(money)[:75])
+            print(str(money))
 
     def get_committee(self, model, name, id=None):
         """ Utility function to identify a committee benefactor.
