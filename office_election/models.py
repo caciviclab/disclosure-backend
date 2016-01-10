@@ -98,4 +98,4 @@ class Candidate(PersonMixin, BallotItemResponse):
         self.ballot_item = self.office_election
 
     def __str__(self):
-        return self.title
+        return "%s for %s" % (self.title, self.subtitle)
