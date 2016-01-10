@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'locality',  # dep: none
     'ballot',  # dep: locality
     'office_election',  # dep: locality, ballot
+    'referendum',  # dep: ballot
     'finance',  # dep: locality, ballot
     'election_day',  # dep: ballot
     'disclosure'  # dep: locality, ballot, office_election, finance
