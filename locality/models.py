@@ -25,7 +25,7 @@ class Locality(models.Model):
         verbose_name_plural = 'localities'
 
 
-class FipsLocality(Locality):
+class FipsMixin(Locality):
     """
     Abstract class, for any model that has a fips_id
     """
@@ -35,7 +35,7 @@ class FipsLocality(Locality):
         abstract = True
 
 
-class City(FipsLocality):
+class City(FipsMixin):
     """
     City
     """
@@ -43,14 +43,14 @@ class City(FipsLocality):
     state = models.ForeignKey('State')
 
 
-class County(FipsLocality):
+class County(FipsMixin):
     """
     County
     """
     state = models.ForeignKey('State')
 
 
-class State(FipsLocality):
+class State(FipsMixin):
     """
     State
     """

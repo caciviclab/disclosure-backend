@@ -5,7 +5,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from ballot.models import BallotItem, BallotItemResponse
 
 
-class SocialMediaModel(models.Model):
+class SocialMediaMixin(models.Model):
     photo_url = models.ImageField(blank=True)
     website_url = models.URLField(
         help_text='URL for the official website.', blank=True)
@@ -19,7 +19,7 @@ class SocialMediaModel(models.Model):
 
 
 @python_2_unicode_compatible
-class Party(SocialMediaModel):
+class Party(SocialMediaMixin):
     """
     """
     name = models.CharField(
@@ -85,23 +85,15 @@ class OfficeElection(BallotItem):
 
 
 @python_2_unicode_compatible
-class Candidate(BallotItemResponse, SocialMediaModel):
+class Candidate(PersonMixin, BallotItemResponse):
     """
     A person running for office.
     """
-    person = models.ForeignKey('Person')
     office_election = models.ForeignKey('OfficeElection')
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)
-        # set BallotItemResponse fields from Person, Office
-        self.title = str(self.person)
-        self.subtitle = str(self.office_election)
-        self.ballot_item = self.office_election
-
-    def __init__(self, *args, **kwargs):
-        super(Candidate, self).__init__(*args, **kwargs)
-        self.title = str(self.person)
+        self.title = str(PersonMixin.__unicode__(self))
         self.subtitle = str(self.office_election)
         self.ballot_item = self.office_election
 

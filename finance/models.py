@@ -2,11 +2,11 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from office_election.models import SocialMediaModel, Person
+from office_election.models import SocialMediaMixin, PersonMixin
 
 
 @python_2_unicode_compatible
-class Committee(SocialMediaModel):
+class Committee(SocialMediaMixin):
     COMMITTEE_TYPES = (
         ('OF', 'Primarily-formed Official Committee'),
         ('PF', 'Primariliy-formed Committee'),
@@ -27,7 +27,7 @@ class Committee(SocialMediaModel):
 
 
 @python_2_unicode_compatible
-class Corporation(SocialMediaModel):
+class Corporation(SocialMediaMixin):
     name = models.CharField(max_length=255)
     address = models.ForeignKey('locality.Address', null=True)
     # locality = models.ForeignKey('locality.Locality', null=True)
@@ -95,7 +95,7 @@ class Benefactor(models.Model):
         raise Exception("Abstract benefactor? %s" % self)
 
 
-class IndividualBenefactor(Benefactor, Person):
+class IndividualBenefactor(Benefactor, PersonMixin):
     occupation = models.CharField(max_length=64, null=True)
 
 

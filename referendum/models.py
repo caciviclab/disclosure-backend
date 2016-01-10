@@ -1,10 +1,10 @@
 from __future__ import unicode_literals
 
 from ballot.models import BallotItem
-from office_election.models import SocialMediaModel
+from office_election.models import SocialMediaMixin
 
 
-class Referendum(BallotItem, SocialMediaModel):
+class Referendum(BallotItem, SocialMediaMixin):
     """
     A referendum on the ballot. Can be YES/NO or multiple choice.
     """
