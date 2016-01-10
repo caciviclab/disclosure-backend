@@ -15,7 +15,7 @@ class Committee(SocialMediaModel):
     name = models.CharField(max_length=255)
     address = models.ForeignKey('locality.Address', null=True)
     locality = models.ForeignKey('locality.Locality', null=True)
-    committee_id = models.CharField(max_length=16, unique=True)
+    filer_id = models.CharField(max_length=16, unique=True)
     type = models.CharField(
         max_length=2,
         choices=COMMITTEE_TYPES,
