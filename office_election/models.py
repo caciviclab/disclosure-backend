@@ -96,5 +96,10 @@ class Candidate(BallotItemResponse, SocialMediaModel):
         self.subtitle = str(self.office_election)
         self.ballot_item = self.office_election
 
+    def __init__(self, *args, **kwargs):
+        super(Candidate, self).__init__(*args, **kwargs)
+        self.title = str(self.person)
+        self.subtitle = str(self.office_election)
+
     def __str__(self):
         return self.title
