@@ -6,9 +6,6 @@ from ballot.models import BallotItem, BallotItemResponse
 
 
 class SocialMediaModel(models.Model):
-    class Meta:
-        abstract = True
-
     photo_url = models.ImageField(blank=True)
     website_url = models.URLField(
         help_text='URL for the official website.', blank=True)
@@ -16,6 +13,9 @@ class SocialMediaModel(models.Model):
         help_text='URL for the Facebook page.', blank=True)
     twitter_url = models.URLField(
         help_text='URL for the Twitter page.', blank=True)
+
+    class Meta:
+        abstract = True
 
 
 @python_2_unicode_compatible
@@ -30,7 +30,7 @@ class Party(SocialMediaModel):
 
 
 @python_2_unicode_compatible
-class Person(SocialMediaModel):
+class PersonMixin(SocialMediaMixin):
     """
     """
     first_name = models.CharField(
@@ -47,6 +47,9 @@ class Person(SocialMediaModel):
         return "%s, %s%s" % (
             self.last_name, self.first_name,
             '' if self.middle_name is None else ' %s.' % self.middle_name[0])
+
+    class Meta:
+        abstract = True
 
 
 @python_2_unicode_compatible
@@ -100,6 +103,7 @@ class Candidate(BallotItemResponse, SocialMediaModel):
         super(Candidate, self).__init__(*args, **kwargs)
         self.title = str(self.person)
         self.subtitle = str(self.office_election)
+        self.ballot_item = self.office_election
 
     def __str__(self):
         return self.title
