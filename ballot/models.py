@@ -54,7 +54,7 @@ class BallotItem(models.Model):
 
 
 @python_2_unicode_compatible
-class BallotItemChoice(models.Model):
+class BallotItemResponse(models.Model):
     ballot_item = models.ForeignKey('BallotItem')
 
     title = models.CharField(max_length=255)
@@ -65,4 +65,4 @@ class BallotItemChoice(models.Model):
     con_statement = models.TextField(blank=True)
 
     def __str__(self):
-        return 'Option: %s%s' % (self.title, self.subtitle)
+        return 'Response: %s%s' % (self.title, self.subtitle)
