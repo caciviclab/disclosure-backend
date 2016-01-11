@@ -3,7 +3,6 @@ Command to download and load California campaign finance data from Netfile.
 """
 
 import datetime
-import os.path as op
 import time
 import warnings
 from dateutil.parser import parse as date_parse
@@ -23,39 +22,6 @@ from referendum.models import Referendum
 
 class Command(downloadnetfilerawdata.Command):
     help = 'Download and load the netfile raw data into the clean database.'
-
-    def join_data_descr(self, df):
-        """ Used to print column descriptions; helpful for devs.
-
-        You can get this csv file from:
-        https://data.sfgov.org/City-Management-and-Ethics/Campaign-Finance-Data-Key/wygs-cc76
-        """
-        descr_csv = op.join(self.data_dir, 'Campaign_Finance_-_Data_Key.csv')
-        if not op.exists(descr_csv):
-            return df
-
-        all_descr = pd.read_csv(descr_csv)
-        cols = all_descr['Column'].str.lower().tolist()
-
-        our_descr = dict()
-        for key in df:
-            our_descr[key] = None
-            lkey = key.lower()
-            if lkey not in cols:
-                # print("%s: no description found." % key)
-                continue
-            our_descr[key] = all_descr['Description'].iloc[cols.index(lkey)]
-
-        # Print the results
-        for key in sorted(our_descr.keys()):
-            vals = [str(v) for v in sorted(df[key].unique())]
-            if len(vals) > 1:
-                print('%-15s: %s, %s' % (
-                    key, (str(our_descr[key]) or '')[:30],
-                    (','.join(vals))[:30]))
-            # else:
-            #     print('Skipping: %s' % key)
-        return df
 
     def load(self):
         """
@@ -100,7 +66,6 @@ class Command(downloadnetfilerawdata.Command):
 
         # Split data by type, add column defs.
         self.f460A_data = self.data[self.data['form_Type'] == 'A']
-        self.f460A_data = self.join_data_descr(self.f460A_data)
 
         def isnan(val):
             return isinstance(val, Number) and np.isnan(val)
@@ -130,12 +95,10 @@ class Command(downloadnetfilerawdata.Command):
                     time.sleep(0.5)
                 error_rows.append((ri, raw_row, minimal_row, e))
 
-        # Report errors.
+        # Report errors  TODO: push to the database.
         if len(error_rows) > 0:
             if self.verbosity:
                 print("Encountered %d errors; debug!" % len(error_rows))
-            import pdb
-            pdb.set_trace()
 
     def get_agency(self, agency_shortcut):
         agency_matches = filter(lambda a: a['shortcut'] == agency_shortcut,
