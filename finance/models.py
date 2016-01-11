@@ -34,15 +34,19 @@ class Committee(SocialMediaMixin):
 
 
 @python_2_unicode_compatible
-class Corporation(SocialMediaMixin):
+class CorporationMixin(SocialMediaMixin):
     """
     Information about a corporation.
     """
     name = models.CharField(max_length=255)
     address = models.ForeignKey('locality.Address', null=True, default=None)
+    locality = models.ForeignKey('locality.Locality', null=True, default=None)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        abstract = True
 
 
 @python_2_unicode_compatible
@@ -61,6 +65,9 @@ class Form(models.Model):
     text_id = models.CharField(max_length=32, help_text='e.g. 460 Schedule A')
     submission_frequency = models.CharField(
         max_length=2, choices=FREQUENCY_TYPES)
+    locality = models.ForeignKey('locality.Locality', null=True, default=None,
+                                 help_text="Only set when a form is specific "
+                                           "to a locality.")
 
     def __str__(self):
         return self.name
@@ -73,14 +80,14 @@ class Benefactor(models.Model):
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
 
 
-class IndividualBenefactor(Benefactor, PersonMixin):
+class PersonBenefactor(Benefactor, PersonMixin):
     """
     Individual who contributes to a committee.
     """
     occupation = models.CharField(max_length=64, null=True)
 
 
-class CorporationBenefactor(Benefactor, Corporation):
+class CorporationBenefactor(Benefactor, CorporationMixin):
     """
     Corporation that contributes to a committee.
     """
@@ -88,11 +95,11 @@ class CorporationBenefactor(Benefactor, Corporation):
 
 
 class CommitteeBenefactor(Benefactor, Committee):
-    faked = models.BooleanField(default=False)
     """
     Committee that contributes to another committee, or
     spends on behalf of another committee.
     """
+    pass
 
 
 class Beneficiary(Committee):
@@ -101,39 +108,47 @@ class Beneficiary(Committee):
     on their behalf. The benefits must be in relation
     to a specific ballit item response.
     """
-    pass
+    support = models.NullBooleanField(null=True, default=None,
+                                      help_text="Whether funds are to support "
+                                                "(Y) or oppose (N)")
+    ballot_item_response = models.ForeignKey(
+        'ballot.BallotItemResponse', null=True, default=None)
 
 
 class ReportingPeriod(models.Model):
     """Model tracking form reporting periods."""
     period_start = models.DateField()
     period_end = models.DateField()
+    form = models.ForeignKey('Form')
 
 
 @python_2_unicode_compatible
 class IndependentMoney(models.Model):
     """
     """
-    support = models.BooleanField()  # Y/N
+    SOURCE_TYPES = (
+        ('NF', 'Netfile'),
+    )
     amount = models.FloatField(help_text="Monetary value of the benefit.")
     reporting_period = models.ForeignKey('ReportingPeriod')
+    report_date = models.DateField()
+
     benefactor_zip = models.ForeignKey('locality.ZipCode')
     benefactor = models.ForeignKey('Benefactor', help_text='Gave the benefit')
     beneficiary = models.ForeignKey('Beneficiary', help_text='Got the benefit')
 
-    form = models.ForeignKey('Form')
-    ballot_item_response = models.ForeignKey(
-        'ballot.BallotItemResponse')
-    filing_id = models.CharField(max_length=16)
     source = models.CharField(
         max_length=2, choices=SOURCE_TYPES, help_text="e.g. Netfile")
     source_xact_id = models.CharField(
         max_length=32, help_text="Transaction ID (specific to data source)")
 
     def __str__(self):
-        return '%s gave %s to %s @ %s, in %s %s, reported via %s' % (
-            self.benefactor, self.beneficiary, self.amount,
-            self.benefactor_zip,
-            'support of' if self.support else 'opposition to',
-            self.ballot_item_response,
-            self.form)
+        val = "%s gave %s to %s @ %s" % (self.benefactor, self.amount,
+                                         self.beneficiary, self.benefactor_zip)
+        if self.beneficiary.ballot_item_response is not None:
+            val += " in %s %s" % (
+                'support of' if self.beneficiary.support else 'opposition to',
+                self.beneficiary.ballot_item_response)
+        val += ", reported via %s on %s" % (
+            self.reporting_period.form, self.report_date)
+        return val

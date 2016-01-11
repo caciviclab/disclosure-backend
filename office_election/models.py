@@ -47,7 +47,6 @@ class PersonMixin(SocialMediaMixin):
                                    help_text="The person's middle name.")
     last_name = models.CharField(max_length=255,
                                  help_text="The person's last name.")
-    party = models.ForeignKey('Party', blank=True, null=True)
 
     def __str__(self):
         name = self.last_name
@@ -101,11 +100,11 @@ class Candidate(BallotItemResponse, PersonMixin):
     A person running for office.
     """
     office_election = models.ForeignKey('OfficeElection')
+    party = models.ForeignKey('Party', null=True, default=None)
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)
         self.title = str(PersonMixin.__unicode__(self))
-        self.subtitle = str(self.office_election)
         self.ballot_item = self.office_election
 
     def __str__(self):
