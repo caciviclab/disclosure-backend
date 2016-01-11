@@ -158,6 +158,7 @@ class Command(loadcalaccessrawfile.Command):
 
         # Compute properties
         self.data_dir = os.path.join(get_download_directory(), 'csv')
+        self.agency_csv_path = op.join(self.data_dir, 'netfile_agency.csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
 
@@ -245,12 +246,14 @@ class Command(loadcalaccessrawfile.Command):
     def load(self):
         if self.verbosity:
             self.header("Loading Agency CSV file")
-        super(Command, self).load('NetFileAgency')
+        super(Command, self).load(
+            'NetFileAgency', csv_path=self.agency_csv_path)
         if self.verbosity:
             self.success("ok.")
         if self.verbosity:
             self.header("Loading Cal201 Transaction Data")
-        super(Command, self).load('NetFileCal201Transaction')
+        super(Command, self).load(
+            'NetFileCal201Transaction', csv_path=self.combined_csv_path)
         if self.verbosity:
             self.success("ok.")
 
@@ -300,19 +303,18 @@ class Command(loadcalaccessrawfile.Command):
 
     def fetch_agencies(self):
         """Fetches agencies from Netfile API"""
-        agency_csv_path = op.join(self.data_dir, 'netfile_agency.csv')
         agencies = None
-        if not self.force and op.exists(agency_csv_path):
+        if not self.force and op.exists(self.agency_csv_path):
             import pandas as pd
             try:
-                agencies = pd.read_csv(agency_csv_path)
+                agencies = pd.read_csv(self.agency_csv_path)
                 agencies = agencies.T.to_dict().values()
             except:
-                os.remove(agency_csv_path)
+                os.remove(self.agency_csv_path)
 
         if agencies is None:
             agencies = self.connect2.getpubliccampaignagencies()
-            self._write_csv(agency_csv_path, iter(agencies))
+            self._write_csv(self.agency_csv_path, iter(agencies))
 
         if self.verbosity:
             print("Found %s agencies" % (len(agencies)))
