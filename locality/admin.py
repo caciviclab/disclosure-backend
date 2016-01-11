@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from . import models
 
-admin.site.register(models.Address)
 admin.site.register(models.Locality)
 admin.site.register(models.City)
 admin.site.register(models.County)

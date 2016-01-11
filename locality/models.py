@@ -66,24 +66,23 @@ class ZipCode(Locality):
     state = models.ForeignKey('State', null=True, default=None)
 
 
-@python_2_unicode_compatible
-class Address(models.Model):
+class AddressMixin(models.Model):
     """
     A street address.
     """
     street = models.CharField(max_length=1024, null=True, default=None)
-    city = models.ForeignKey('City', null=True, default=None)
-    county = models.ForeignKey('County', null=True, default=None)
-    state = models.ForeignKey('State', null=True, default=None)
-    zip_code = models.ForeignKey('ZipCode', null=True, default=None)
-
-    def __str__(self):
-        return '%s, %s, %s %s' % (
-            self.street, self.city, self.state, self.zip_code)
+    city = models.ForeignKey(
+        'City', null=True, default=None,
+        related_name='%(app_label)s_%(class)s_address_city')
+    state = models.ForeignKey(
+        'State', null=True, default=None,
+        related_name='%(app_label)s_%(class)s_address_state')
+    zip_code = models.ForeignKey(
+        'ZipCode', null=True, default=None,
+        related_name='%(app_label)s_%(class)s_address_zip_code')
 
     class Meta:
-        verbose_name_plural = 'addresses'
-
+        abstract = True
 
 '''
 class Precinct(Locality):

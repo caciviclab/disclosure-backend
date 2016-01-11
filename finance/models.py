@@ -6,11 +6,12 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from locality.models import AddressMixin
 from office_election.models import SocialMediaMixin, PersonMixin
 
 
 @python_2_unicode_compatible
-class Committee(SocialMediaMixin):
+class Committee(SocialMediaMixin, AddressMixin):
     """
     Official entity that spends money in support or
     opposition to a ballot item response. Primarily-formed
@@ -26,7 +27,6 @@ class Committee(SocialMediaMixin):
                                 help_text="Official government ID "
                                           "(none if unknown)")
     type = models.CharField(max_length=2, choices=COMMITTEE_TYPES)
-    address = models.ForeignKey('locality.Address', null=True, default=None)
     locality = models.ForeignKey('locality.Locality', null=True, default=None)
 
     def __str__(self):
@@ -34,12 +34,11 @@ class Committee(SocialMediaMixin):
 
 
 @python_2_unicode_compatible
-class CorporationMixin(SocialMediaMixin):
+class CorporationMixin(SocialMediaMixin, AddressMixin):
     """
     Information about a corporation.
     """
     name = models.CharField(max_length=255)
-    address = models.ForeignKey('locality.Address', null=True, default=None)
     locality = models.ForeignKey('locality.Locality', null=True, default=None)
 
     def __str__(self):
