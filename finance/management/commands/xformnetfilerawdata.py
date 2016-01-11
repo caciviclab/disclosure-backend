@@ -2,6 +2,7 @@
 Command to download and load California campaign finance data from Netfile.
 """
 
+import datetime
 import os.path as op
 import time
 import warnings
@@ -239,10 +240,11 @@ class Command(downloadnetfilerawdata.Command):
                 name='460 Schedule A', text_id='460A',
                 submission_frequency='SA')
 
+            report_date = date_parse(row['tran_Date'])
             reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
                 form=f460A,
-                period_start=date_parse(row['tran_Date']),
-                period_end=date_parse(row['tran_Date']))
+                period_start=datetime.datetime(report_date.year, 1, 1),
+                period_end=datetime.datetime(report_date.year, 12, 31))
 
             return reporting_period
         reporting_period = parse_form_and_report_period(row)  # noqa
