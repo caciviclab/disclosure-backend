@@ -189,8 +189,8 @@ class Command(downloadnetfilerawdata.Command):
                 city=bf_city, state=bf_state, zip_code=bf_zip_code)
 
             if row['entity_Cd'] == 'IND':  # individual
-                benefactor = models.IndividualBenefactor(
-                    first_name=row.get('tran_NamF', ''),
+                benefactor = models.PersonBenefactor(
+                    first_name=row.get('tran_NamF', None),
                     last_name=row['tran_NamL'],
                     occupation=row.get('tran_Occ'))
                 benefactor.save()
@@ -203,12 +203,11 @@ class Command(downloadnetfilerawdata.Command):
                 # Get by name
                 benefactor = self.get_committee_benefactor(row)
                 filer_id = self.clean_filer_id(row.get('cmte_Id', ''))
-                if filer_id != '' and benefactor.filer_id != filer_id:
-                    if benefactor.faked:
+                if filer_id is not None and benefactor.filer_id != filer_id:
+                    if benefactor.filer_id is None:
                         if self.verbosity:
                             print("\n\nFIXED ID for %s\n\n" % benefactor.name)
                         benefactor.filer_id = filer_id
-                        benefactor.faked = False
                     else:
                         raise Exception("Conflicting committee ID for %s: "
                                         "%s (saved) vs. %s (current)" % (
@@ -241,11 +240,12 @@ class Command(downloadnetfilerawdata.Command):
                 submission_frequency='SA')
 
             reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
+                form=f460A,
                 period_start=date_parse(row['tran_Date']),
                 period_end=date_parse(row['tran_Date']))
 
-            return f460A, reporting_period
-        f460A, reporting_period = parse_form_and_report_period(row)  # noqa
+            return reporting_period
+        reporting_period = parse_form_and_report_period(row)  # noqa
 
         def parse_beneficiary(row):
             # Parse and save the beneficiary, contribution.
@@ -291,7 +291,7 @@ class Command(downloadnetfilerawdata.Command):
 
             name_parts = matches['name'].strip().split(" ")
             last_name = name_parts[-1]
-            first_name = " ".join(name_parts[:-1])
+            first_name = " ".join(name_parts[:-1]).strip() or None
             office = matches['office'].strip()
             return last_name, first_name, office
 
@@ -323,10 +323,11 @@ class Command(downloadnetfilerawdata.Command):
             # Figure out beneficiary from past entries.
             past_money = models.IndependentMoney.objects.filter(
                 beneficiary__name=row['filerName'],
-                ballot_item_response__ballot_item__ballot=ballot)
+                beneficiary__ballot_item_response__ballot_item__ballot=ballot)
             if past_money.count() > 0:
                 # Figure it out from past contributions.
-                ballot_item_response = past_money[0].ballot_item_response
+                ballot_item_response = past_money[0] \
+                    .beneficiary.ballot_item_response
             else:
                 # Figure out beneficiary from item text.
                 try:
@@ -336,53 +337,32 @@ class Command(downloadnetfilerawdata.Command):
                     ballot_item_response = parse_referendum_info(
                         row, ballot=ballot)
 
-            return ballot, ballot_item_response
-        ballot, ballot_item_response = parse_ballot_info(row)
+            return ballot_item_response, True
+        beneficiary.ballot_item_response, beneficiary.support = \
+            parse_ballot_info(row)
+        beneficiary.save()
 
         # Now we have all the parts, save!
         money = models.IndependentMoney(  # or calculated_Amount
-            amount=row['tran_Amt1'], support=True,  # TODO
+            amount=row['tran_Amt1'],
+            report_date=date_parse(row['tran_Date']),
+            reporting_period=reporting_period,
             benefactor_zip=bf_zip_code,
-            form=f460A, reporting_period=reporting_period,
-            benefactor=benefactor, beneficiary=beneficiary,
-            ballot_item_response=ballot_item_response,
-            filing_id=row['filingId'],
-            source='NF', source_xact_id=row['netFileKey'])
+            benefactor=benefactor,
+            beneficiary=beneficiary,
+            source='NF',
+            source_xact_id=row['netFileKey'])
         money.save()
 
         if self.verbosity:
             print(str(money))
 
-    def get_committee(self, model, name, id=None):
-        """ Utility function to identify a committee benefactor.
-
-        This is hard because sometimes the committee ID is missing!
-        """
-
-        if id:
-            # Use committee ID first.
-            benefactor, _ = model.objects.get_or_create(
-                filer_id=self.clean_filer_id(id))
-        else:
-            # Try by name second.
-            try:
-                benefactor = model.objects.get(name=name)
-            except model.DoesNotExist:
-                # Make a new committee based on name only, third
-                benefactor = model(name=name)
-                benefactor.filer_id = name
-                benefactor.faked = True
-                if self.verbosity:
-                    print('\n\nFaked benefactor %s :(\n\n' % benefactor.name)
-
-        return benefactor
-
     def get_committee_benefactor(self, row):
         """ Utility function to identify a committee benefactor.
         """
-        return self.get_committee(model=models.CommitteeBenefactor,
-                                  name=row['tran_NamL'].strip(),
-                                  id=row.get('cmte_Id'))
+        return models.CommitteeBenefactor.objects.get_or_create(
+            name=row['tran_NamL'].strip(),
+            filer_id=self.clean_filer_id(row.get('cmte_Id', '')))[0]
 
     def get_committee_beneficiary(self, row):
         """ Utility function to identify a committee beneficiary.
@@ -393,9 +373,8 @@ class Command(downloadnetfilerawdata.Command):
         else:
             filer_id = filer_id
 
-        return self.get_committee(model=models.Beneficiary,
-                                  name=row['filerName'].strip(),
-                                  id=filer_id)
+        return models.Beneficiary.objects.get_or_create(
+            name=row['filerName'].strip(), filer_id=filer_id)[0]
 
     @staticmethod
     def clean_filer_id(filer_id):
@@ -404,7 +383,7 @@ class Command(downloadnetfilerawdata.Command):
             return str(int(filer_id))
         elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
             filer_id = filer_id[1:]
-        return filer_id
+        return filer_id or None  # don't do blank.
 
     def load_f497_data(self):
         """ Loads data from Form 460 Schedule A:
