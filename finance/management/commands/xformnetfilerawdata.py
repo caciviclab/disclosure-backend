@@ -14,7 +14,7 @@ from django.db import transaction
 
 from ... import models
 from ballot.models import Ballot, BallotItemResponse
-from locality.models import Address, City, State, ZipCode
+from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
 from office_election.models import Office, OfficeElection, Candidate
 from referendum.models import Referendum
@@ -149,8 +149,6 @@ class Command(downloadnetfilerawdata.Command):
                 short_name=row.get('tran_City', 'Unknown'), state=bf_state)
             bf_zip_code, _ = ZipCode.objects.get_or_create(
                 short_name=row.get('tran_Zip4', 'Unknown'), state=bf_state)
-            bf_address, _ = Address.objects.get_or_create(
-                city=bf_city, state=bf_state, zip_code=bf_zip_code)
 
             if row['entity_Cd'] == 'IND':  # individual
                 benefactor = models.PersonBenefactor(
@@ -182,7 +180,9 @@ class Command(downloadnetfilerawdata.Command):
                 # of=official, pf=primarily, ic=independent
                 benefactor.name = row['tran_NamL'].strip()
                 benefactor.type = benefactor.type or 'PF'  # TODO: fix
-                benefactor.address = bf_address
+                benefactor.city = bf_city
+                benefactor.state = bf_state
+                benefactor.zip_code = bf_zip_code
                 benefactor.locality = bf_city
                 benefactor.save()
 
