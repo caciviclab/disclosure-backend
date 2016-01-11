@@ -10,6 +10,7 @@ from numbers import Number
 
 import numpy as np
 import pandas as pd
+from django.db import transaction
 
 from ... import models
 from ballot.models import Ballot, BallotItemResponse
@@ -143,6 +144,7 @@ class Command(downloadnetfilerawdata.Command):
         else:
             return agency_matches[0]
 
+    @transaction.atomic
     def load_f460A_row(self, row):  # noqa
         """ Loads an individual row from Form 460 Schedule A. # noqa
         This is where most of the magic happens!
