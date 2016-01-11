@@ -9,8 +9,8 @@ class Locality(models.Model):
     A base table that gives a globally unique ID to any
     location (city, state, etc)
     """
-    name = models.CharField(max_length=128)
-    short_name = models.CharField(max_length=32)
+    name = models.CharField(max_length=128, null=True, default=None)
+    short_name = models.CharField(max_length=32, null=True, default=None)
 
     def __str__(self):
         return self.name or self.short_name or str(self.id)
@@ -23,7 +23,7 @@ class FipsMixin(Locality):
     """
     Abstract class, for any model that has a fips_id
     """
-    fips_id = models.IntegerField(null=True)
+    fips_id = models.IntegerField(null=True, default=None)
 
     class Meta:
         abstract = True
@@ -33,7 +33,7 @@ class City(FipsMixin):
     """
     City
     """
-    county = models.ForeignKey('County', null=True)
+    county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State')
 
 
@@ -55,18 +55,21 @@ class ZipCode(Locality):
     """
     A Static set of ZIP code to "metro" name mappings.
     """
-    city = models.ForeignKey('City', null=True)
-    county = models.ForeignKey('County', null=True)
-    state = models.ForeignKey('State', null=True)
+    city = models.ForeignKey('City', null=True, default=None)
+    county = models.ForeignKey('County', null=True, default=None)
+    state = models.ForeignKey('State', null=True, default=None)
 
 
 @python_2_unicode_compatible
 class Address(models.Model):
-    street = models.CharField(max_length=1024, null=True)
-    city = models.ForeignKey('City', null=True)
-    county = models.ForeignKey('County', null=True)
-    state = models.ForeignKey('State', null=True)
-    zip_code = models.ForeignKey('ZipCode', null=True)
+    """
+    A street address.
+    """
+    street = models.CharField(max_length=1024, null=True, default=None)
+    city = models.ForeignKey('City', null=True, default=None)
+    county = models.ForeignKey('County', null=True, default=None)
+    state = models.ForeignKey('State', null=True, default=None)
+    zip_code = models.ForeignKey('ZipCode', null=True, default=None)
 
     def __str__(self):
         return '%s, %s, %s %s' % (

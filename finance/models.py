@@ -1,3 +1,7 @@
+"""
+Models related to campaign finance for referendum choices and candidates.
+"""
+
 from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -7,20 +11,23 @@ from office_election.models import SocialMediaMixin, PersonMixin
 
 @python_2_unicode_compatible
 class Committee(SocialMediaMixin):
+    """
+    Official entity that spends money in support or
+    opposition to a ballot item response. Primarily-formed
+    committees have official designations.
+    """
     COMMITTEE_TYPES = (
         ('OF', 'Primarily-formed Official Committee'),
-        ('PF', 'Primariliy-formed Committee'),
+        ('PF', 'Primarily-formed Committee'),
         ('IC', 'Independent Committee')
     )
     name = models.CharField(max_length=255)
-    address = models.ForeignKey('locality.Address', null=True)
-    locality = models.ForeignKey('locality.Locality', null=True)
-    filer_id = models.CharField(max_length=16, unique=True)
-    type = models.CharField(
-        max_length=2,
-        choices=COMMITTEE_TYPES,
-        help_text=''
-    )
+    filer_id = models.CharField(max_length=16, null=True, default=None,
+                                help_text="Official government ID "
+                                          "(none if unknown)")
+    type = models.CharField(max_length=2, choices=COMMITTEE_TYPES)
+    address = models.ForeignKey('locality.Address', null=True, default=None)
+    locality = models.ForeignKey('locality.Locality', null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -28,9 +35,11 @@ class Committee(SocialMediaMixin):
 
 @python_2_unicode_compatible
 class Corporation(SocialMediaMixin):
+    """
+    Information about a corporation.
+    """
     name = models.CharField(max_length=255)
-    address = models.ForeignKey('locality.Address', null=True)
-    # locality = models.ForeignKey('locality.Locality', null=True)
+    address = models.ForeignKey('locality.Address', null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -39,70 +48,64 @@ class Corporation(SocialMediaMixin):
 @python_2_unicode_compatible
 class Form(models.Model):
     """
+    Information about finance reporting forms.
     """
-    name = models.CharField(max_length=255)
-    text_id = models.CharField(
-        max_length=32, help_text='e.g. 460 Schedule A')
     FREQUENCY_TYPES = (
         ('24', '24 hours'),
         ('SA', 'Semi-annual'),
         ('QU', 'Quarterly'),
         ('OT', 'Other')
     )
+
+    name = models.CharField(max_length=255)
+    text_id = models.CharField(max_length=32, help_text='e.g. 460 Schedule A')
     submission_frequency = models.CharField(
-        max_length=2,
-        choices=FREQUENCY_TYPES,
-        help_text=''
-    )
+        max_length=2, choices=FREQUENCY_TYPES)
 
     def __str__(self):
         return self.name
 
 
 class Benefactor(models.Model):
-    """  # noqa
-    Skipping: tran_Adr1
-    Skipping: tran_Adr2
-    tran_Amt1      : Transaction Amount, 3000.0,12032.56,5000.0,4950.0,
-    tran_Amt2      : Cumulative Year-To-Date, 15032.56,5000.0,4950.0,100.0,1
-    Skipping: tran_ChkNo
-    tran_City      : Transaction Entity's City, San Diego,Sacramento,Los Angel
-    Skipping: tran_Code
-    tran_Date      : Transaction Date, 2015-01-15T00:00:00.0000000-08
-    Skipping: tran_Date1
-    tran_Dscr      : Transaction Description, nan,Forgiven Loan Received,Con
-    tran_Emp       : Transaction Entity's Employer, nan,retired,Retired,Self emplo
-    tran_Id        : Transaction ID # (not necessar, A-C702,A-C706,A37,A40,gYfv3kGK
-    tran_NamF      : Transaction Entity's First Nam, Mitz S.,nan,Marie,Barbara,Stev
-    tran_NamL      : Transaction Entity's Last Name, Lee,California Restaurant Asso
-    tran_NamS      : Transaction Entity's Suffix, nan,Jr,Sr,Jr.,III,MD,IV,II,`,D
-    tran_NamT      : Transaction Entity's Prefix or, nan,Mr.,Ms.,Dr.
-    tran_Occ       : Transaction Entity's Occupatio, City Council Candidate,nan,ret
-    tran_ST        : None, CA,NY,AZ,CO,TX,FL,AE,IL,KS,VA,
-    Skipping: tran_Self
-    tran_Type      : Transaction Type (T=Third Part, nan,I,F,R
-    tran_Zip4      : Transaction Entity's Zip Code, 92126-1531,95814,92119,92115,9
+    """
+    Main list of benefactors.
     """
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
 
 
 class IndividualBenefactor(Benefactor, PersonMixin):
+    """
+    Individual who contributes to a committee.
+    """
     occupation = models.CharField(max_length=64, null=True)
 
 
 class CorporationBenefactor(Benefactor, Corporation):
+    """
+    Corporation that contributes to a committee.
+    """
     pass
 
 
 class CommitteeBenefactor(Benefactor, Committee):
     faked = models.BooleanField(default=False)
+    """
+    Committee that contributes to another committee, or
+    spends on behalf of another committee.
+    """
 
 
 class Beneficiary(Committee):
+    """
+    Committee that receives contributions or spending
+    on their behalf. The benefits must be in relation
+    to a specific ballit item response.
+    """
     pass
 
 
 class ReportingPeriod(models.Model):
+    """Model tracking form reporting periods."""
     period_start = models.DateField()
     period_end = models.DateField()
 
@@ -111,21 +114,21 @@ class ReportingPeriod(models.Model):
 class IndependentMoney(models.Model):
     """
     """
-    amount = models.FloatField()
     support = models.BooleanField()  # Y/N
+    amount = models.FloatField(help_text="Monetary value of the benefit.")
+    reporting_period = models.ForeignKey('ReportingPeriod')
     benefactor_zip = models.ForeignKey('locality.ZipCode')
+    benefactor = models.ForeignKey('Benefactor', help_text='Gave the benefit')
+    beneficiary = models.ForeignKey('Beneficiary', help_text='Got the benefit')
 
     form = models.ForeignKey('Form')
-    reporting_period = models.ForeignKey('ReportingPeriod')
-    benefactor = models.ForeignKey(
-        'Benefactor', help_text='They gave the money')
-    beneficiary = models.ForeignKey(
-        'Beneficiary', help_text='They got the money')
     ballot_item_response = models.ForeignKey(
         'ballot.BallotItemResponse')
     filing_id = models.CharField(max_length=16)
-    source = models.CharField(max_length=2)
-    source_xact_id = models.CharField(max_length=32)
+    source = models.CharField(
+        max_length=2, choices=SOURCE_TYPES, help_text="e.g. Netfile")
+    source_xact_id = models.CharField(
+        max_length=32, help_text="Transaction ID (specific to data source)")
 
     def __str__(self):
         return '%s gave %s to %s @ %s, in %s %s, reported via %s' % (

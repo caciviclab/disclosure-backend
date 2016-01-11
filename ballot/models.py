@@ -14,8 +14,8 @@ class Ballot(models.Model):
     A voter's ballot, containing all the BallotItems that the voter will vote
     on in the voting booth on election day.
     """
-    date = models.DateField(help_text='The day of the election.',
-                            null=True, default=None)
+    date = models.DateField(help_text='The day of the election.', null=True,
+                            default=None)  # None when auto-create; manual fix
     locality = models.ForeignKey('locality.Locality')
 
     def __str__(self):
@@ -33,36 +33,33 @@ class BallotItem(models.Model):
         ('O', 'Office'),
     )
     contest_type = models.CharField(
-        max_length=1,
-        choices=CONTEST_TYPES,
+        max_length=1, choices=CONTEST_TYPES,
         help_text='Office if the contest is for a person, referendum if '
-                  'the contest is for an issue.'
-    )
+                  'the contest is for an issue.')
     name = models.CharField(
         max_length=255, help_text='The referendum number or the name '
                                   'of the office.')
     number = models.CharField(
-        max_length=5, help_text="The referendum's number or letter.")
-
+        max_length=5, null=True, default=None,
+        help_text="The referendum's number or letter.")
     ballot = models.ForeignKey('Ballot')
 
     def __str__(self):
-        return 'Prop %s %s' % (self.number, self.title)
-
-    class Meta:
-        verbose_name = 'ballot measure'
+        return self.name
 
 
 @python_2_unicode_compatible
 class BallotItemResponse(models.Model):
+    """
+    YES/NO to a referendum, or a candidate.
+    """
+    # None indicates auto-set and needs manual intervention.
+    title = models.CharField(max_length=255)
+    brief = models.TextField(null=True, blank=True, default=None)
+    full_text = models.TextField(null=True, blank=True, default=None)
+    pro_statement = models.TextField(null=True, blank=True, default=None)
+    con_statement = models.TextField(null=True, blank=True, default=None)
     ballot_item = models.ForeignKey('BallotItem')
 
-    title = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255, blank=True)
-    brief = models.TextField(blank=True)
-    full_text = models.TextField(blank=True)
-    pro_statement = models.TextField(blank=True)
-    con_statement = models.TextField(blank=True)
-
     def __str__(self):
-        return 'Response: %s%s' % (self.title, self.subtitle)
+        return "%s on %s" % (self.title, self.ballot_item.name)

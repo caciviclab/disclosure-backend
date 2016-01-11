@@ -1,4 +1,10 @@
+"""
+Models related to elections for a specific office
+in a specific locality.
+"""
+
 from __future__ import unicode_literals
+
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
@@ -6,13 +12,13 @@ from ballot.models import BallotItem, BallotItemResponse
 
 
 class SocialMediaMixin(models.Model):
-    photo_url = models.ImageField(blank=True)
-    website_url = models.URLField(
-        help_text='URL for the official website.', blank=True)
-    facebook_url = models.URLField(
-        help_text='URL for the Facebook page.', blank=True)
-    twitter_url = models.URLField(
-        help_text='URL for the Twitter page.', blank=True)
+    """
+    Abstract class to represent social media information.
+    """
+    photo_url = models.ImageField(null=True, default=None)
+    website_url = models.URLField(null=True, default=None)
+    facebook_url = models.URLField(null=True, default=None)
+    twitter_url = models.URLField(null=True, default=None)
 
     class Meta:
         abstract = True
@@ -21,6 +27,7 @@ class SocialMediaMixin(models.Model):
 @python_2_unicode_compatible
 class Party(SocialMediaMixin):
     """
+    Political party
     """
     name = models.CharField(
         max_length=255, help_text='The party name.')
@@ -32,21 +39,23 @@ class Party(SocialMediaMixin):
 @python_2_unicode_compatible
 class PersonMixin(SocialMediaMixin):
     """
+    Abstract class representing a person.
     """
-    first_name = models.CharField(
-        max_length=255, help_text="The person's first name.")
-    middle_name = models.CharField(
-        max_length=255, blank=True, null=True,
-        help_text="The person's middle name.")
-    last_name = models.CharField(
-        max_length=255, blank=True, null=True,
-        help_text="The person's last name.")
+    first_name = models.CharField(max_length=255, null=True, default=None,
+                                  help_text="The person's first name.")
+    middle_name = models.CharField(max_length=255, null=True, default=None,
+                                   help_text="The person's middle name.")
+    last_name = models.CharField(max_length=255,
+                                 help_text="The person's last name.")
     party = models.ForeignKey('Party', blank=True, null=True)
 
     def __str__(self):
-        return "%s, %s%s" % (
-            self.last_name, self.first_name,
-            '' if self.middle_name is None else ' %s.' % self.middle_name[0])
+        name = self.last_name
+        if self.first_name:
+            name += ", %s" % self.first_name
+            if self.middle_name:
+                name += " %s." % self.middle_name[0]
+        return name
 
     class Meta:
         abstract = True
@@ -55,6 +64,7 @@ class PersonMixin(SocialMediaMixin):
 @python_2_unicode_compatible
 class Office(models.Model):
     """
+    A political office in a specific locality.
     """
     name = models.CharField(
         max_length=255, help_text='The office name.')
@@ -70,6 +80,7 @@ class Office(models.Model):
 @python_2_unicode_compatible
 class OfficeElection(BallotItem):
     """
+    A specific ballot item to elect a candidate to an office.
     """
     office = models.ForeignKey('Office')
 
@@ -85,7 +96,7 @@ class OfficeElection(BallotItem):
 
 
 @python_2_unicode_compatible
-class Candidate(PersonMixin, BallotItemResponse):
+class Candidate(BallotItemResponse, PersonMixin):
     """
     A person running for office.
     """
@@ -98,4 +109,4 @@ class Candidate(PersonMixin, BallotItemResponse):
         self.ballot_item = self.office_election
 
     def __str__(self):
-        return "%s for %s" % (self.title, self.subtitle)
+        return "%s for %s" % (self.title, str(self.office_election))

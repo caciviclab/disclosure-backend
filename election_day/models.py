@@ -1,3 +1,7 @@
+"""
+Models representing the election event.
+"""
+
 from django.db import models
 
 
