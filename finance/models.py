@@ -114,6 +114,9 @@ class Beneficiary(Committee):
     ballot_item_response = models.ForeignKey(
         'ballot.BallotItemResponse', null=True, default=None)
 
+    class Meta:
+        verbose_name_plural = 'beneficiaries'
+
 
 class ReportingPeriod(models.Model):
     """Model tracking form reporting periods."""
@@ -152,3 +155,6 @@ class IndependentMoney(models.Model):
         val += ", reported via %s on %s" % (
             self.reporting_period.form, self.report_date)
         return val
+
+    class Meta:
+        verbose_name_plural = 'independent money'

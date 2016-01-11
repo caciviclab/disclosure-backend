@@ -36,12 +36,18 @@ class City(FipsMixin):
     county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State')
 
+    class Meta:
+        verbose_name_plural = 'cities'
+
 
 class County(FipsMixin):
     """
     County
     """
     state = models.ForeignKey('State')
+
+    class Meta:
+        verbose_name_plural = 'counties'
 
 
 class State(FipsMixin):
@@ -74,6 +80,9 @@ class Address(models.Model):
     def __str__(self):
         return '%s, %s, %s %s' % (
             self.street, self.city, self.state, self.zip_code)
+
+    class Meta:
+        verbose_name_plural = 'addresses'
 
 
 '''

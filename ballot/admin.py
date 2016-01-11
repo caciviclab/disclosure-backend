@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-admin.autodiscover()
+from . import models
+
+admin.site.register(models.Ballot)
+admin.site.register(models.BallotItem)
+admin.site.register(models.BallotItemResponse)

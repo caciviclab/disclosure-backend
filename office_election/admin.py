@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-admin.autodiscover()
+from . import models
+
+admin.site.register(models.Party)
+admin.site.register(models.Office)
+admin.site.register(models.Candidate)

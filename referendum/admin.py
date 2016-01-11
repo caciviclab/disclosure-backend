@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-admin.autodiscover()
+from . import models
+
+admin.site.register(models.Referendum)

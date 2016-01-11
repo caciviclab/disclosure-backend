@@ -35,6 +35,9 @@ class Party(SocialMediaMixin):
     def __str__(self):
         return "The %s party" % self.name
 
+    class Meta:
+        verbose_name_plural = 'parties'
+
 
 @python_2_unicode_compatible
 class PersonMixin(SocialMediaMixin):
