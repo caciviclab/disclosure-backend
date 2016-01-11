@@ -62,6 +62,17 @@ REST_FRAMEWORK = {
 
 DATABASES = {
     'default': {
+        'NAME': 'opendisclosure',
+        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'local_infile': 1,
+        },
+    },
+    'calaccess_raw': {
         'NAME': 'calaccess_raw',
         'PASSWORD': '',
         'ENGINE': 'django.db.backends.mysql',
@@ -70,9 +81,11 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'local_infile': 1,
-        }
-    }
+        },
+    },
 }
+
+DATABASE_ROUTERS = ['disclosure.routers.DisclosureRouter']
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
