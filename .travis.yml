@@ -5,6 +5,8 @@ sudo: false
 cache:
   directories:
     - $HOME/.cache/pip
+    - $HOME/data
+    - $HOME/disclosure-backend/data
 
 python:
  - "2.7"

@@ -8,7 +8,6 @@ import zipfile
 
 from calaccess_raw import get_download_directory
 from calaccess_raw.management.commands import loadcalaccessrawfile
-from django.db import connection
 from optparse import make_option
 
 
@@ -38,6 +37,7 @@ class Command(loadcalaccessrawfile.Command):
     option_list = loadcalaccessrawfile.Command.option_list + custom_options
 
     def handle(self, *args, **options):
+        self.database = options['database']
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options.get('max_lines_per_load', 1000))
         self.data_dir = os.path.join(get_download_directory(), 'csv')
@@ -47,7 +47,6 @@ class Command(loadcalaccessrawfile.Command):
             self.download()
 
         if not options['skip_load']:
-            self.cursor = connection.cursor()
             self.load()
 
     def download(self):

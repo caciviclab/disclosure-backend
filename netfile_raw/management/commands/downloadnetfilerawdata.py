@@ -11,7 +11,6 @@ import warnings
 
 import calaccess_raw
 from calaccess_raw.management.commands import loadcalaccessrawfile
-from django.db import connection
 from django.conf import settings
 from optparse import make_option
 
@@ -144,6 +143,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def handle(self, *args, **options):
         # Parse command-line options
+        self.database = options['database']
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options['max_lines_per_load'])
         if options['agencies'] is None:
@@ -170,7 +170,6 @@ class Command(loadcalaccessrawfile.Command):
             self.combine()
 
         if not options['skip_load']:
-            self.cursor = connection.cursor()
             self.load()
 
     def download(self):
