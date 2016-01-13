@@ -2,4 +2,4 @@ from django.contrib import admin
 
 from . import models
 
-admin.site.register(models.ZipCodeMetro)
+admin.site.register(models.Referendum)

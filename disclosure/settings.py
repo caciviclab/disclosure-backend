@@ -33,13 +33,19 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'rest_framework_swagger',
     'corsheaders',
     'calaccess_raw',
     'netfile_raw',
     'zipcode_metro_raw',
-    'ballot',
-    'disclosure'
+    'locality',  # dep: none
+    'ballot',  # dep: locality
+    'office_election',  # dep: locality, ballot
+    'referendum',  # dep: ballot
+    'finance',  # dep: locality, ballot
+    'election_day',  # dep: ballot
+    'disclosure'  # dep: locality, ballot, office_election, finance
 )
 
 MIDDLEWARE_CLASSES = (

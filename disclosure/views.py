@@ -1,10 +1,10 @@
 from calaccess_raw.models.campaign import RcptCd
 from django.http import HttpResponse
-from serializers import ContributionSerializer, LocationSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from .serializers import ContributionSerializer
 
 
 class Contribution(viewsets.ViewSet):
@@ -43,10 +43,7 @@ def location_view(request, fips_id):
         paramType: path
         type: integer
         required: true
-    response_serializer: LocationSerializer
     """
-    # XXX: no-op so flake8 doesn't consider this an unused import
-    LocationSerializer()
     return Response({
         "location": {
             "name": "San Francisco",
@@ -75,19 +72,3 @@ def homepage_view(request):
         <br/>
         <a href='/admin/'>View the admin interface / database data.</a>
     """)
-
-
-@api_view(['GET'])
-def search_view(request):
-    """
-    Search for a location (or later, a person or ballot measure).
-    NOTE: This endpoint is currently stubbed.
-    ---
-    parameters:
-      - name: q
-        description: The user's search query
-        type: string
-        paramType: query
-    """
-    return Response([{
-        "name": "San Francisco", "type": "county", "fip_id": "6075"}])
