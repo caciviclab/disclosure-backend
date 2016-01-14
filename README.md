@@ -74,6 +74,7 @@ We're going to create an environment with Python 2.7.9 for the project
 1. Create the database
   ```
   mysql -p --user root
+  mysql> create database opendisclosure;
   mysql> create database calaccess_raw;
   mysql> \q
   ```
@@ -81,7 +82,8 @@ We're going to create an environment with Python 2.7.9 for the project
 2. Create `disclosure/settings_local.py`
 
   ```
-  DATABASES['default']['PASSWORD'] = ''
+  DATABASES['default']['PASSWORD'] = ''  # replace with your password.
+  DATABASES['calaccess_raw']['PASSWORD'] = ''  # replace with your password.
   ```
 
   Change the password field to the password you chose when you installed MySQL.
@@ -90,6 +92,7 @@ We're going to create an environment with Python 2.7.9 for the project
 3. Run the database migration scripts
   ```
   python manage.py migrate
+  python manage.py migrate --database calaccess_raw
   ```
 
   OSX: If you get the following error `django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: dlopen(_mysql.so, 2): Library not loaded: libssl.1.0.0.dylib`
