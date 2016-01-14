@@ -104,11 +104,17 @@ class Candidate(BallotItemResponse, PersonMixin):
     """
     office_election = models.ForeignKey('OfficeElection')
     party = models.ForeignKey('Party', null=True, default=None)
+    con_statement = models.TextField(null=True, blank=True, default=None)
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)
-        self.title = str(PersonMixin.__unicode__(self))
-        self.ballot_item = self.office_election
+        if getattr(self, 'ballot_item', None) is None:
+            self.ballot_item = self.office_election
+        elif getattr(self, 'office_election', None) is None:
+            self.office_election = self.ballot_item
+        else:
+            assert self.ballot_item.id == self.office_election.id
 
     def __str__(self):
-        return "%s for %s" % (self.title, str(self.office_election))
+        return "%s for %s" % (
+            PersonMixin.__str__(self), self.office_election)
