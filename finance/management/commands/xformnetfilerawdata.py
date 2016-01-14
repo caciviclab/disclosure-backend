@@ -185,7 +185,7 @@ def parse_ballot_info(row, locality, verbosity=1):
         try:
             ballot_item_response = parse_candidate_info(
                 row, ballot=ballot, verbosity=verbosity)
-        except:
+        except ValueError:
             ballot_item_response = parse_referendum_info(
                 row, ballot=ballot, verbosity=verbosity)
 
@@ -301,7 +301,7 @@ def load_f460A_data(data, agency_fn, verbosity=1):  # noqa
             agency = agency_fn(minimal_row)
             load_f460A_row(minimal_row, agency=agency, verbosity=verbosity)
         except Exception as ex:
-            raise ex
+            raise
             error_rows.append((ri, raw_row, minimal_row, ex))
 
     return error_rows
