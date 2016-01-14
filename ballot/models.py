@@ -48,7 +48,7 @@ class BallotItem(models.Model):
         return self.name
 
 
-class BallotItemResponse(models.Model):
+class BallotItemSelection(models.Model):
     """
     YES/NO to a referendum, or a candidate.
 

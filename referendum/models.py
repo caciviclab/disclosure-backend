@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot.models import BallotItem, BallotItemResponse
+from ballot.models import BallotItem, BallotItemSelection
 from office_election.models import SocialMediaMixin
 
 
@@ -17,7 +17,7 @@ class Referendum(BallotItem, SocialMediaMixin):
     A referendum on the ballot.
     """
     # TODO: Set up a save() event, or overload save(), to auto-populate
-    #   BallotItemResponses (YES/NO)
+    #   BallotItemSelections (YES/NO)
 
     def __init__(self, *args, **kwargs):
         super(Referendum, self).__init__(*args, **kwargs)
@@ -28,7 +28,7 @@ class Referendum(BallotItem, SocialMediaMixin):
 
 
 @python_2_unicode_compatible
-class ReferendumResponse(BallotItemResponse, SocialMediaMixin):
+class ReferendumSelection(BallotItemSelection, SocialMediaMixin):
     """
     A referendum response on the ballot (usually YES or NO)
     """

@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot.models import BallotItem, BallotItemResponse
+from ballot.models import BallotItem, BallotItemSelection
 
 
 class SocialMediaMixin(models.Model):
@@ -98,7 +98,7 @@ class OfficeElection(BallotItem):
 
 
 @python_2_unicode_compatible
-class Candidate(BallotItemResponse, PersonMixin):
+class Candidate(BallotItemSelection, PersonMixin):
     """
     A person running for office.
     """
