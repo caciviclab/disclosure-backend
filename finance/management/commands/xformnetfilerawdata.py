@@ -16,7 +16,7 @@ from ballot.models import Ballot
 from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
 from office_election.models import Office, OfficeElection, Candidate
-from referendum.models import Referendum, ReferendumResponse
+from referendum.models import Referendum, ReferendumSelection
 
 
 def isnan(val):
@@ -162,10 +162,10 @@ def parse_candidate_info(row, ballot, verbosity=1):
 def parse_referendum_info(row, ballot, verbosity=1):
     referendum, _ = Referendum.objects.get_or_create(
         name='Unknown', ballot=ballot)
-    response, _ = ReferendumResponse.objects.get_or_create(
+    selection, _ = ReferendumSelection.objects.get_or_create(
         ballot_item=referendum,
-        title="YES")
-    return response
+        in_favor=True)
+    return selection
 
 
 def parse_ballot_info(row, locality, verbosity=1):
@@ -175,7 +175,7 @@ def parse_ballot_info(row, locality, verbosity=1):
     # Figure out beneficiary from past entries.
     past_money = models.IndependentMoney.objects.filter(
         beneficiary__name=row['filerName'],
-        beneficiary__ballot_item_response__ballot_item__ballot=ballot)
+        beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
     if past_money.count() > 0:
         # Figure it out from past contributions.
         ballot_item_response = past_money[0] \
