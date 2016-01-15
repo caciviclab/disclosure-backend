@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
-from .models import Locality
-
 
 class LocalitySerializer(serializers.Serializer):
-    class Meta:
-        model = Locality
+    name = serializers.CharField(max_length=1024)
+    id = serializers.IntegerField()
