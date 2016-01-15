@@ -66,6 +66,7 @@ def parse_benefactor(row, verbosity=1):
         # of=official, pf=primarily, ic=independent
         benefactor.name = row['tran_NamL'].strip()
         benefactor.type = benefactor.type or 'PF'  # TODO: fix
+        benefactor.benefactor_type = benefactor.type
         benefactor.city = bf_city
         benefactor.state = bf_state
         benefactor.zip_code = bf_zip_code
