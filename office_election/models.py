@@ -116,5 +116,5 @@ class Candidate(BallotItemSelection, PersonMixin):
             assert self.ballot_item.id == self.office_election.id
 
     def __str__(self):
-        return "%s for %s" % (
-            PersonMixin.__str__(self), self.office_election)
+        return "%s for %s" % (  # use unicode to avoid recursion error
+            PersonMixin.__unicode__(self), self.office_election)
