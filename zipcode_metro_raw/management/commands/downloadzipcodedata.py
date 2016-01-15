@@ -37,6 +37,7 @@ class Command(loadcalaccessrawfile.Command):
     option_list = loadcalaccessrawfile.Command.option_list + custom_options
 
     def handle(self, *args, **options):
+        self.csv = None
         self.database = options['database']
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options.get('max_lines_per_load', 1000))

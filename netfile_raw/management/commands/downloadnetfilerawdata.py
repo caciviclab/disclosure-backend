@@ -143,6 +143,7 @@ class Command(loadcalaccessrawfile.Command):
 
     def handle(self, *args, **options):
         # Parse command-line options
+        self.csv = None
         self.database = options['database']
         self.verbosity = int(options['verbosity'])
         self.max_lines_per_load = int(options['max_lines_per_load'])
