@@ -1,5 +1,5 @@
-from django.http import HttpResponse
 from django.db.models import Q
+from django.http import HttpResponse, Http404
 
 from calaccess_raw.models.campaign import RcptCd
 from rest_framework import viewsets
@@ -53,33 +53,56 @@ def search_view(request):
 
 
 @api_view(['GET'])
-def location_view(request, fips_id):
+def location_view(request, locality_id):
     """
-    Display summarized information about a location
-    NOTE: This is stubbed to always return the same thing.
+    Display summarized disclosure information about a location
     ---
     parameters:
-      - name: fips_id
-        description: The Federal Information Processing Standards (FIPS)
-                     code for this locality.
+      - name: locality_id
+        description: The locality_id (arbitrary, can be obtained via 'search')
         paramType: path
         type: integer
         required: true
     """
+    from locality.models import City
+    from ballot.models import Ballot
+    from finance.models import (IndependentMoney)
+    from django.db.models import Sum, F
+
+    # TODO: set up ElectionDay app.
+    try:
+        locality = City.objects.get(id=locality_id)
+    except City.DoesNotExist:
+        raise Http404()
+    ballots = Ballot.objects.filter(locality=locality)
+    if not ballots:
+        ballot = None
+        total_benefits = 0
+        benefits_by_type = dict()
+        num_contributions = 0
+    else:
+        ballot = ballots[0]
+        benefits = IndependentMoney.objects.filter(
+            beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
+        num_contributions = benefits.count()
+        total_benefits = benefits.aggregate(total=Sum(F('amount')))['total']
+        benefits_groupedby_type = benefits.values(
+            'benefactor__benefactor_type').annotate(
+            total=Sum(F('amount')))
+        key_dict = dict(IN='individual', CO='corporation',
+                        PF='recipient_committee')
+        benefits_by_type = dict([(key_dict[group_data['benefactor__benefactor_type']],
+                                  group_data['total'])
+                                 for group_data in benefits_groupedby_type])
     return Response({
         "location": {
-            "name": "San Francisco",
-            "fip_id": "1234",
-            "next_election": "2015-11-04"
+            "name": locality.name or locality.short_name,
+            "fip_id": locality.id,
+            "next_election": ballot.date if ballot else None
         },
-        "contribution_total": 21425389,
-        "contribution_by_type": {
-            "individual": 11134547,
-            "political_party": 6426112,
-            "unitemized": 2916394,
-            "recipient_committee": 986229,
-            "self_funded": 512554
-        },
+        "contribution_total": total_benefits,
+        "contribution_count": num_contributions,
+        "contribution_by_type": benefits_by_type,
         "contribution_by_area": {
             "inside_location": 0.56,
             "inside_state": 0.38,
