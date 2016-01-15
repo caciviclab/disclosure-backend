@@ -41,11 +41,16 @@ def parse_benefactor(row, verbosity=1):
             first_name=row.get('tran_NamF', None),
             last_name=row['tran_NamL'],
             occupation=row.get('tran_Occ'))
+        # TODO: get_or_create?
+        # TODO: parse benefactor locality
         benefactor.save()
 
     elif row['entity_Cd'] == 'OTH':  # corporation
         benefactor, _ = models.CorporationBenefactor.objects \
             .get_or_create(name=row['tran_NamL'])
+        # Todo: parse corporation locality
+        # benefactor.benefactor_locality = benefactor.locality
+        # benefactor.save()
 
     elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
         # Get by name
@@ -70,7 +75,7 @@ def parse_benefactor(row, verbosity=1):
         benefactor.city = bf_city
         benefactor.state = bf_state
         benefactor.zip_code = bf_zip_code
-        benefactor.locality = bf_city
+        benefactor.locality = benefactor.benefactor_locality = bf_city
         benefactor.save()
 
     elif row['entity_Cd'] == 'PTY':  # political party

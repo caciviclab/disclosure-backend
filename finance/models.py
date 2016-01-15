@@ -85,6 +85,8 @@ class Benefactor(models.Model):
     )
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
     benefactor_type = models.CharField(max_length=2, choices=BENEFACTOR_TYPES)
+    benefactor_locality = models.ForeignKey(
+        'locality.Locality', null=True, default=None)
 
 
 class PersonBenefactor(Benefactor, PersonMixin):
@@ -105,6 +107,7 @@ class CorporationBenefactor(Benefactor, CorporationMixin):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = 'CO'
+        self.benefactor_locality = self.locality
 
 
 class CommitteeBenefactor(Benefactor, Committee):
@@ -115,6 +118,7 @@ class CommitteeBenefactor(Benefactor, Committee):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = self.type
+        self.benefactor_locality = self.locality
 
 
 class Beneficiary(Committee):
