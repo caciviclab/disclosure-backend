@@ -5,7 +5,7 @@ from django.test import TestCase, override_settings
 
 from ballot.models import Ballot, BallotItem, BallotItemResponse
 from office_election.models import OfficeElection, Candidate
-from referendum.models import Referendum, ReferendumResponse
+from referendum.models import Referendum, ReferendumSelection
 from finance.models import IndependentMoney
 
 
@@ -23,7 +23,7 @@ class XformNetfileRawDataTest(TestCase):
 
         # Check data
         for model in [Ballot, BallotItem, BallotItemResponse,
-                      Referendum, ReferendumResponse,
+                      Referendum, ReferendumSelection,
                       OfficeElection, Candidate,
                       IndependentMoney]:
 
