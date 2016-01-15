@@ -72,28 +72,44 @@ def location_view(request, locality_id):
     # TODO: set up ElectionDay app.
     try:
         locality = City.objects.get(id=locality_id)
-    except City.DoesNotExist:
-        raise Http404()
-    ballots = Ballot.objects.filter(locality=locality)
-    if not ballots:
-        ballot = None
-        total_benefits = 0
-        benefits_by_type = dict()
-        num_contributions = 0
-    else:
+        ballots = Ballot.objects.filter(locality=locality)
         ballot = ballots[0]
-        benefits = IndependentMoney.objects.filter(
-            beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
-        num_contributions = benefits.count()
-        total_benefits = benefits.aggregate(total=Sum(F('amount')))['total']
-        benefits_groupedby_type = benefits.values(
-            'benefactor__benefactor_type').annotate(
-            total=Sum(F('amount')))
-        key_dict = dict(IN='individual', CO='corporation',
-                        PF='recipient_committee')
-        benefits_by_type = dict([(key_dict[group_data['benefactor__benefactor_type']],
-                                  group_data['total'])
-                                 for group_data in benefits_groupedby_type])
+    except (City.DoesNotExist, IndexError):
+        # No locality found, or no ballot exists.
+        raise Http404()
+
+    # Get all relevant rows of IndependentMoney
+    benefits = IndependentMoney.objects.filter(
+        beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
+
+    # Simple measures
+    num_contributions = benefits.count()
+    total_benefits = benefits.aggregate(total=Sum(F('amount')))['total']
+
+    # Summary measures by benefactor type
+    key_map = dict(IN='individual', CO='corporation',
+                   PF='recipient_committee')
+    benefits_groupedby_type = benefits \
+        .values_list('benefactor__benefactor_type') \
+        .annotate(total=Sum(F('amount')))
+    benefits_by_type = dict([(key_map[vals[0]], vals[1])  # alias keys
+                             for vals in benefits_groupedby_type])
+
+    # Summarize by locality.
+    results_by_locality = dict(
+        unknown_location=benefits
+        .filter(benefactor__benefactor_locality=None),
+        inside_location=benefits
+        .filter(benefactor__benefactor_locality=locality),
+        inside_state=benefits
+        .filter(benefactor__benefactor_locality__city__state=locality.state),
+        outside_state=benefits
+        .exclude(benefactor__benefactor_locality=None)
+        .exclude(benefactor__benefactor_locality__city__state=locality.state))
+    total_by_locality = dict(
+        [(key, val.aggregate(tot=Sum(F('amount')))['tot'] or 0)  # 0 for empty
+         for key, val in results_by_locality.items()])
+
     return Response({
         "location": {
             "name": locality.name or locality.short_name,
@@ -103,11 +119,7 @@ def location_view(request, locality_id):
         "contribution_total": total_benefits,
         "contribution_count": num_contributions,
         "contribution_by_type": benefits_by_type,
-        "contribution_by_area": {
-            "inside_location": 0.56,
-            "inside_state": 0.38,
-            "outside_state": 0.06
-        }
+        "contribution_by_area": total_by_locality,
     }, content_type='application/json')
 
 
