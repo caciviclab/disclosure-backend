@@ -1,5 +1,5 @@
 Django==1.8.1
--e git://github.com/bcipolli/django-calaccess-raw-data.git@cd559899e783f6e754743713771d465d242807f2#egg=django-calaccess-raw-data
+-e git://github.com/caciviclab/django-calaccess-raw-data.git#egg=django-calaccess-raw-data
 mysqlclient
 Pillow==3.0.0
 -e git+https://github.com/adborden/swagger-py.git@4edd44884c56c8ac41e91c6505e8ace734bd6b75#egg=swaggerpy-master
