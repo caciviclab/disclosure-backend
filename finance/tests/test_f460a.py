@@ -1,13 +1,27 @@
+import numpy as np
+
 from django.test import TestCase
+
+from finance.management.commands import xformnetfilerawdata as cmd
 
 
 class FinanceParseTests(TestCase):
 
     def test_isnan(self):
-        pass  # return isinstance(val, Number) and np.isnan(val)
+        self.assertTrue(cmd.isnan(np.nan), "Test np.nan")
+
+        self.assertFalse(cmd.isnan(1), "Test int")
+        self.assertFalse(cmd.isnan(1.), "Test float")
+        self.assertFalse(cmd.isnan(""), "Test empty string")
+        self.assertFalse(cmd.isnan("str"), "Test string")
 
     def test_isnone(self):
-        pass  # return val is None or val == 'None'
+        self.assertTrue(cmd.isnone(None), "Test None")
+        self.assertTrue(cmd.isnone('None'), "Test 'None'")
+
+        self.assertFalse(cmd.isnone('Non'), "Test 'Non'")
+        self.assertFalse(cmd.isnone(0), "Test zero")
+        self.assertFalse(cmd.isnone(''), "Test empty string")
 
     def test_parse_benefactor(self):
         # must use the different entity_Cd
