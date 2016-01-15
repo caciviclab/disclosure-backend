@@ -178,18 +178,18 @@ def parse_ballot_info(row, locality, verbosity=1):
         beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
     if past_money.count() > 0:
         # Figure it out from past contributions.
-        ballot_item_response = past_money[0] \
-            .beneficiary.ballot_item_response
+        ballot_item_selection = past_money[0] \
+            .beneficiary.ballot_item_selection
     else:
         # Figure out beneficiary from item text.
         try:
-            ballot_item_response = parse_candidate_info(
+            ballot_item_selection = parse_candidate_info(
                 row, ballot=ballot, verbosity=verbosity)
         except ValueError:
-            ballot_item_response = parse_referendum_info(
+            ballot_item_selection = parse_referendum_info(
                 row, ballot=ballot, verbosity=verbosity)
 
-    return ballot_item_response, True
+    return ballot_item_selection, True
 
 
 def get_committee_benefactor(row):
@@ -261,7 +261,7 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
         row, verbosity=verbosity)
     beneficiary = parse_beneficiary(
         row, agency=agency, verbosity=verbosity)
-    beneficiary.ballot_item_response, beneficiary.support = parse_ballot_info(
+    beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
         row, locality=beneficiary.locality, verbosity=verbosity)
     beneficiary.save()
 
