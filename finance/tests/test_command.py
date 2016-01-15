@@ -3,7 +3,7 @@ import tempfile
 from django.core.management import call_command
 from django.test import TestCase, override_settings
 
-from ballot.models import Ballot, BallotItem, BallotItemResponse
+from ballot.models import Ballot, BallotItem, BallotItemSelection
 from office_election.models import OfficeElection, Candidate
 from referendum.models import Referendum, ReferendumSelection
 from finance.models import IndependentMoney
@@ -22,7 +22,7 @@ class XformNetfileRawDataTest(TestCase):
                      agencies=test_agency, years=test_year)
 
         # Check data
-        for model in [Ballot, BallotItem, BallotItemResponse,
+        for model in [Ballot, BallotItem, BallotItemSelection,
                       Referendum, ReferendumSelection,
                       OfficeElection, Candidate,
                       IndependentMoney]:
