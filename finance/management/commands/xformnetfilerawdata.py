@@ -30,11 +30,11 @@ def isnone(val):
 def parse_benefactor(row, verbosity=1):
     # Benefactor info
     bf_state, _ = State.objects.get_or_create(
-        short_name=row.get('tran_ST', 'Unknown'))
+        short_name=row.get('tran_ST', 'Unknown-State'))
     bf_city, _ = City.objects.get_or_create(
-        short_name=row.get('tran_City', 'Unknown'), state=bf_state)
+        name=row.get('tran_City', 'Unknown-City'), state=bf_state)
     bf_zip_code, _ = ZipCode.objects.get_or_create(
-        short_name=str(row.get('tran_Zip4', 'Unknown')), state=bf_state)
+        short_name=str(row.get('tran_Zip4', 'Unknown-Zip')), state=bf_state)
 
     if row['entity_Cd'] == 'IND':  # individual
         benefactor = models.PersonBenefactor(
@@ -112,8 +112,10 @@ def parse_beneficiary(row, agency, verbosity=1):
             state.name = 'California'
             state.save()
         locality, _ = City.objects.get_or_create(
-            short_name=agency['shortcut'], name=agency['name'],
+            name=agency['name'],
             state=state)
+        locality.short_name = agency['shortcut']
+        locality.save()
     else:
         locality = None
 
@@ -369,5 +371,10 @@ class Command(downloadnetfilerawdata.Command):
                                 self.agencies_metadata)
         if len(agency_matches) == 0:
             return None
-        else:
-            return agency_matches[0]
+        agency = agency_matches[0]
+
+        # Scrub it
+        if agency['name'].endswith(', City of'):
+            agency['name'] = agency['name'][:-9]
+
+        return agency
