@@ -110,8 +110,8 @@ class Beneficiary(Committee):
     support = models.NullBooleanField(null=True, default=None,
                                       help_text="Whether funds are to support "
                                                 "(Y) or oppose (N)")
-    ballot_item_response = models.ForeignKey(
-        'ballot.BallotItemResponse', null=True, default=None)
+    ballot_item_selection = models.ForeignKey(
+        'ballot.BallotItemSelection', null=True, default=None)
 
     class Meta:
         verbose_name_plural = 'beneficiaries'
@@ -147,10 +147,10 @@ class IndependentMoney(models.Model):
     def __str__(self):
         val = "%s gave %s to %s @ %s" % (self.benefactor, self.amount,
                                          self.beneficiary, self.benefactor_zip)
-        if self.beneficiary.ballot_item_response is not None:
+        if self.beneficiary.ballot_item_selection is not None:
             val += " in %s %s" % (
                 'support of' if self.beneficiary.support else 'opposition to',
-                self.beneficiary.ballot_item_response)
+                self.beneficiary.ballot_item_selection)
         val += ", reported via %s on %s" % (
             self.reporting_period.form, self.report_date)
         return val

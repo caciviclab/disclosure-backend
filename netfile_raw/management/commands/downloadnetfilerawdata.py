@@ -181,8 +181,8 @@ class Command(loadcalaccessrawfile.Command):
             os.makedirs(self.data_dir)
 
         # Fetch agencies
-        agencies = self.fetch_agencies()
-        agency_keys = [ag['shortcut'] for ag in agencies]
+        self.agencies_metadata = self.fetch_agencies()
+        agency_keys = [ag['shortcut'] for ag in self.agencies_metadata]
         agencies_not_found = set(self.agencies) - set(agency_keys)
 
         if len(self.agencies) == 0:
@@ -192,7 +192,7 @@ class Command(loadcalaccessrawfile.Command):
                 ','.join(agencies_not_found)))
             self.agencies = list(set(self.agencies) - agencies_not_found)
         agencies = filter(lambda ag: ag['shortcut'] in self.agencies,
-                          agencies)  # filter agencies by shortcut
+                          self.agencies_metadata)  # filter by shortcut
 
         # Scrub years
         years = ['2014', '2015']

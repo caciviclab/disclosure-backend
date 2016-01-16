@@ -18,6 +18,15 @@ class Ballot(models.Model):
                             default=None)  # None when auto-create; manual fix
     locality = models.ForeignKey('locality.Locality')
 
+    @classmethod
+    def from_date(cls, date, locality):
+        """
+        Find the best matching ballot to the given date.
+        """
+        ballot, _ = cls.objects.get_or_create(
+            locality=locality)
+        return ballot
+
     def __str__(self):
         return '%s election for %s' % (
             str(self.date), str(self.locality))
@@ -48,18 +57,13 @@ class BallotItem(models.Model):
         return self.name
 
 
-@python_2_unicode_compatible
-class BallotItemResponse(models.Model):
+class BallotItemSelection(models.Model):
     """
     YES/NO to a referendum, or a candidate.
-    """
-    # None indicates auto-set and needs manual intervention.
-    title = models.CharField(max_length=255)
-    brief = models.TextField(null=True, blank=True, default=None)
-    full_text = models.TextField(null=True, blank=True, default=None)
-    pro_statement = models.TextField(null=True, blank=True, default=None)
-    con_statement = models.TextField(null=True, blank=True, default=None)
-    ballot_item = models.ForeignKey('BallotItem')
 
-    def __str__(self):
-        return "%s on %s" % (self.title, self.ballot_item.name)
+    This is a *conceptually* abstract class, but exists
+    as a Django model so that finance can point to propositions
+    and candidates equally.
+    """
+    pro_statement = models.TextField(null=True, blank=True, default=None)
+    ballot_item = models.ForeignKey('BallotItem')
