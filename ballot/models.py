@@ -65,5 +65,4 @@ class BallotItemSelection(models.Model):
     as a Django model so that finance can point to propositions
     and candidates equally.
     """
-    pro_statement = models.TextField(null=True, blank=True, default=None)
     ballot_item = models.ForeignKey('BallotItem')

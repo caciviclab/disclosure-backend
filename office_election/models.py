@@ -104,7 +104,6 @@ class Candidate(BallotItemSelection, PersonMixin):
     """
     office_election = models.ForeignKey('OfficeElection')
     party = models.ForeignKey('Party', null=True, default=None)
-    con_statement = models.TextField(null=True, blank=True, default=None)
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)
