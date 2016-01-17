@@ -150,6 +150,20 @@ def contributor_view(request):
     ], content_type='application/json')
 
 
+@api_view(['GET'])
+def supporting_view(request):
+    """
+    Display summarized contributor information
+    """
+    return Response([
+        {'name': 'Citizens for a Better Oakland', 'contributions': 185859},
+        {'name': 'Oaklanders for Ethical Government', 'contributions': 152330},
+        {'name': 'Americans for Liberty', 'contributions': 83199},
+        {'name': 'Golden State Citizens for Positive Reform',
+         'contributions': 23988}
+    ], content_type='application/json')
+
+
 def homepage_view(request):
     return HttpResponse("""
         <a href='/docs/'>Check out the API Documentation</a>
