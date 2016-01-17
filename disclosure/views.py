@@ -96,6 +96,36 @@ def location_view(request, locality_id):
     }, content_type='application/json')
 
 
+@api_view(['GET'])
+def committee_view(request, committee_id):
+    """
+    Display summarized disclosure information about a committee
+    ---
+    parameters:
+      - name: committee_id
+        description: The committee_id
+        paramType: path
+        type: integer
+        required: true
+    """
+    return Response({
+        'committee_id': 1234,
+        'name': 'Americans for Liberty',
+        'contribution_by_type': {
+            'unitemized': 2916394,
+            'self_funded': 512554,
+            'political_party': 6426112,
+            'individual': 11134547,
+            'recipient_committee': 986229
+        },
+        'contribution_by_area': {
+            'inside_location': 0.56,
+            'inside_state': 0.38,
+            'outside_state': 0.06
+        }
+    }, content_type='application/json')
+
+
 def homepage_view(request):
     return HttpResponse("""
         <a href='/docs/'>Check out the API Documentation</a>
