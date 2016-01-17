@@ -11,8 +11,11 @@ class ApiDocsTests(APITestCase):
     def setUpClass(cls):
         APITestCase.setUpClass()
 
-    def test_list_contains_data(self):
-        resp = self.client.get('/docs/api-docs')
+    def test_docs(self):
+        self.client.get('/docs/')  # smoke test
+
+    def test_api_docs(self):
+        resp = self.client.get('/docs/api-docs/')
         self.assertIn('apis', resp.data)
 
         for api in resp.data['apis']:
