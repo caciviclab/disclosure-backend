@@ -1,10 +1,15 @@
-from calaccess_raw.models.campaign import RcptCd
 from django.http import HttpResponse
+from django.db.models import Q
+
+from calaccess_raw.models.campaign import RcptCd
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+
 from .serializers import ContributionSerializer
+from locality.models import City
+from locality.serializers import LocalitySerializer
 
 
 class Contribution(viewsets.ViewSet):
@@ -28,6 +33,23 @@ class Contribution(viewsets.ViewSet):
         """ Get a single contribution """
         obj = RcptCd.objects.get(id=pk)
         return Response(ContributionSerializer(obj).data)
+
+
+@api_view(['GET'])
+def search_view(request):
+    """
+    Search for a location with ballot/disclosure data.
+    ---
+    parameters:
+      - name: q
+        description: The user's search query
+        type: string
+        paramType: query
+    """
+    query = request.query_params.get('q', '')
+    query_set = City.objects.filter(~Q(ballot=None), name__icontains=query)
+    serializer = LocalitySerializer(query_set, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])

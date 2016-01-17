@@ -34,7 +34,7 @@ def parse_benefactor(row, verbosity=1):
     bf_city, _ = City.objects.get_or_create(
         short_name=row.get('tran_City', 'Unknown'), state=bf_state)
     bf_zip_code, _ = ZipCode.objects.get_or_create(
-        short_name=row.get('tran_Zip4', 'Unknown'), state=bf_state)
+        short_name=str(row.get('tran_Zip4', 'Unknown')), state=bf_state)
 
     if row['entity_Cd'] == 'IND':  # individual
         benefactor = models.PersonBenefactor(
@@ -254,7 +254,6 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
     tran_Type      : Transaction Type (T=Third Part, nan,R,X
     tran_Zip4      : Transaction Entity's Zip Code, 63105,75702,75711,90036,90040,
     """
-
     benefactor, bf_zip_code = parse_benefactor(
         row, verbosity=verbosity)
     reporting_period = parse_form_and_report_period(
@@ -267,7 +266,7 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
 
     # Now we have all the parts, save!
     money = models.IndependentMoney(  # or calculated_Amount
-        amount=row['tran_Amt1'],
+        amount=float(row['tran_Amt1']),
         report_date=date_parse(row['tran_Date']),
         reporting_period=reporting_period,
         benefactor_zip=bf_zip_code,
@@ -284,6 +283,8 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
 def load_f460A_data(data, agency_fn, verbosity=1):  # noqa
     """ Loads data from Form 460 Schedule A:
     contributions to primarily formed committees."""
+
+    print("Loading %d rows of Form 460 Sched. A data." % len(data))
 
     # Parse out the contributor information.
     error_rows = []

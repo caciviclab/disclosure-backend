@@ -10,6 +10,17 @@ from finance.models import IndependentMoney
 
 
 @override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
+class WithForm460ADataTest(TestCase):
+    """
+    """
+    @classmethod
+    def setUpClass(cls, test_agency='CMA', test_year='2015'):
+        call_command('xformnetfilerawdata',
+                     agencies=test_agency, years=test_year,
+                     verobsity=0)
+
+
+@override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
 class XformNetfileRawDataTest(TestCase):
 
     def test_xformnetfilerawdata(self, test_agency='CSA', test_year='2015'):
