@@ -16,9 +16,8 @@ urlpatterns = patterns(
         'document_root': settings.STATIC_ROOT,
         'show_indexes': True}),
     url(r'^search/', views.search_view),
-    url(r'^locations/(?P<fips_id>[0-9]+)$', views.location_view),
+    url(r'^locations/(?P<locality_id>[0-9]+)$', views.location_view),
     url(r'^docs/', include('rest_framework_swagger.urls')),
-    url(r'', include('locality.urls')),
 )
 
 # Register all API Viewsets:
