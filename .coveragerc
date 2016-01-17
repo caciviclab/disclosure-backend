@@ -4,3 +4,4 @@ source = nidata
 omit =
     cron/*
     manage.py
+    disclosure/wsgi.py
