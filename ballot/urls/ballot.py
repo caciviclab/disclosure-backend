@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 from django.contrib import admin
 
-from . import views
+from ..views import ballot as views
 
 admin.autodiscover()
 
