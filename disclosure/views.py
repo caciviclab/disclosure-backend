@@ -164,6 +164,19 @@ def supporting_view(request):
     ], content_type='application/json')
 
 
+@api_view(['GET'])
+def opposing_view(request):
+    """
+    Display summarized contributor information
+    """
+    return Response([
+        {'name': 'The Public Commission for Ethical Civic Reform',
+         'contributions': 15040},
+        {'name': 'The Committee of True Americans who Dearly Love America '
+                 'and Liberty', 'contributions': 7943}
+    ], content_type='application/json')
+
+
 def homepage_view(request):
     return HttpResponse("""
         <a href='/docs/'>Check out the API Documentation</a>

@@ -24,4 +24,5 @@ urlpatterns = patterns(
     url(r'^committee/(?P<committee_id>[0-9]+)$', views.committee_view),
     url(r'^contributors/$', views.contributor_view),
     url(r'^supporting/$', views.supporting_view),
+    url(r'^opposing/$', views.opposing_view),
     url(r'^docs/', include('rest_framework_swagger.urls')))
