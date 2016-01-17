@@ -126,6 +126,30 @@ def committee_view(request, committee_id):
     }, content_type='application/json')
 
 
+@api_view(['GET'])
+def contributor_view(request):
+    """
+    Display summarized contributor information
+    """
+    return Response([
+        {
+            'name': 'Samantha Brooks',
+            'amount': 700,
+            'date': '2015-04-12'
+        },
+        {
+            'name': 'Lisa Sheppards',
+            'amount': 700,
+            'date': '2015-01-13'
+        },
+        {
+            'name': 'Raoul Esponsito',
+            'amount': 700,
+            'date': '2015-04-04'
+        }
+    ], content_type='application/json')
+
+
 def homepage_view(request):
     return HttpResponse("""
         <a href='/docs/'>Check out the API Documentation</a>
