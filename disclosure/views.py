@@ -1,38 +1,11 @@
 from django.db.models import Q
 from django.http import HttpResponse, Http404
 
-from calaccess_raw.models.campaign import RcptCd
-from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.renderers import JSONRenderer
 
-from .serializers import ContributionSerializer
 from locality.models import City
 from locality.serializers import LocalitySerializer
-
-
-class Contribution(viewsets.ViewSet):
-    """
-    A contribution is money that an filing committee has received.
-    ---
-    retrieve:
-      response_serializer: ContributionSerializer
-    list:
-      response_serializer: ContributionSerializer
-    """
-    renderer_classes = [JSONRenderer]
-    queryset = RcptCd.objects.all()
-
-    def list(self, request):
-        """ List all contributions """
-        obj = RcptCd.objects.all()[1:10]
-        return Response(ContributionSerializer(obj, many=True).data)
-
-    def retrieve(self, request, pk=None, format=None):
-        """ Get a single contribution """
-        obj = RcptCd.objects.get(id=pk)
-        return Response(ContributionSerializer(obj).data)
 
 
 @api_view(['GET'])
@@ -113,7 +86,7 @@ def location_view(request, locality_id):
     return Response({
         "location": {
             "name": locality.name or locality.short_name,
-            "fip_id": locality.id,
+            "id": locality.id,
             "next_election": ballot.date if ballot else None
         },
         "contribution_total": total_benefits,
