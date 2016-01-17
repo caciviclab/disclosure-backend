@@ -12,7 +12,7 @@ class SearchTests(WithForm460ADataTest, APITestCase):
         WithForm460ADataTest.setUpClass()
         APITestCase.setUpClass()
 
-    def test_list_contains_data(self):
+    def test_search_city(self):
         # Get first city with non-None name
         city = City.objects.filter(~Q(name=None))[0]
 
