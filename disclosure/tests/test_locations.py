@@ -23,7 +23,7 @@ class LocationTests(WithForm460ADataTest, APITestCase):
                          IndependentMoney.objects.all().count())
 
         self.assertEqual(data['location']['name'], city.name)
-        self.assertEqual(data['location']['fip_id'], city.id)
+        self.assertEqual(data['location']['id'], city.id)
 
         self.assertIn('contribution_by_type', data)
         self.assertIn('contribution_by_area', data)
