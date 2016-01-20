@@ -33,14 +33,6 @@ custom_options = (
         help="Years to query (comma-separated)"
     ),
     make_option(
-        "--max-lines",
-        action="store",
-        dest="max_lines_per_load",
-        default=1000,
-        type=int,
-        help="Max # lines to load, per query"
-    ),
-    make_option(
         "--force",
         action="store_true",
         dest="force",
@@ -146,7 +138,7 @@ class Command(loadcalaccessrawfile.Command):
         self.csv = None
         self.database = options['database']
         self.verbosity = int(options['verbosity'])
-        self.max_lines_per_load = int(options['max_lines_per_load'])
+
         if options['agencies'] is None:
             self.agencies = []
         else:
