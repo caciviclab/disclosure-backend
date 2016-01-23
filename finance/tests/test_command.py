@@ -4,8 +4,8 @@ from django.core.management import call_command
 from django.test import TestCase, override_settings
 
 from ballot.models import Ballot, BallotItem, BallotItemSelection
-from office_election.models import OfficeElection, Candidate
-from referendum.models import Referendum, ReferendumSelection
+from ballot.models import OfficeElection, Candidate
+from ballot.models import Referendum, ReferendumSelection
 from finance.models import IndependentMoney
 
 
