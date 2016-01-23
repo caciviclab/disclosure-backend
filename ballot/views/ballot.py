@@ -33,7 +33,7 @@ def measure_view(request, measure_id):
 
 
 @api_view(['GET'])
-def ballot_view(request):
+def ballot_view(request, locality_id):
     """
     Display summarized ballot information
     """

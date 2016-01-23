@@ -7,5 +7,5 @@ admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^measure/(?P<measure_id>[0-9]+)$', views.measure_view),
-    url(r'^ballot/$', views.ballot_view))
+    url(r'^locality/(?P<locality_id>[0-9]+)/ballot/$', views.ballot_view,
+        name='locality_ballot'))

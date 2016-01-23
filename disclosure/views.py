@@ -127,9 +127,16 @@ def committee_view(request, committee_id):
 
 
 @api_view(['GET'])
-def contributor_view(request):
+def contributor_view(request, locality_id):
     """
     Display summarized contributor information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
     """
     return Response([
         {
@@ -151,9 +158,16 @@ def contributor_view(request):
 
 
 @api_view(['GET'])
-def supporting_view(request):
+def supporting_view(request, locality_id):
     """
-    Display summarized contributor information
+    Display summarized supporting committee information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
     """
     return Response([
         {'name': 'Citizens for a Better Oakland', 'contributions': 185859},
@@ -165,9 +179,16 @@ def supporting_view(request):
 
 
 @api_view(['GET'])
-def opposing_view(request):
+def opposing_view(request, locality_id):
     """
-    Display summarized contributor information
+    Display summarized opposing committee information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
     """
     return Response([
         {'name': 'The Public Commission for Ethical Civic Reform',

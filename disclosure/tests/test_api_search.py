@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from rest_framework.test import APITestCase
 
@@ -16,8 +17,10 @@ class SearchTests(WithForm460ADataTest, APITestCase):
         # Get first city with non-None name
         city = City.objects.filter(~Q(name=None))[0]
 
-        resp = self.client.get('/search/?q=' + city.name)
+        search_url = '%s?q=%s' % (reverse('search'), city.name)
+        resp = self.client.get(search_url)
         self.assertEqual(len(resp.data), 1)
+
         row = resp.data[0]
         self.assertIn('id', row)
         self.assertEqual(row['name'], city.name)
