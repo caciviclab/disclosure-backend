@@ -73,18 +73,6 @@ def get_download_directory():
         return calaccess_raw.get_download_directory()
 
 
-def get_test_download_directory():
-    """
-    Returns the download directory where we will store test data.
-    """
-    if hasattr(settings, 'CALACCESS_TEST_DOWNLOAD_DIR'):
-        return getattr(settings, 'CALACCESS_TEST_DOWNLOAD_DIR')
-    elif hasattr(settings, 'BASE_DIR'):
-        return os.path.join(getattr(settings, 'BASE_DIR'), 'test-data')
-    raise ValueError("CAL-ACCESS test download directory not configured. \
-Set either CALACCESS_TEST_DOWNLOAD_DIR or BASE_DIR in settings.py")
-
-
 class UnicodeDictWriter(object):
     """
     A CSV DictWriter which will write rows to CSV file "f",
@@ -119,10 +107,6 @@ class UnicodeDictWriter(object):
         self.stream.write(data)
         # empty queue
         self.queue.truncate(0)
-
-    def writerows(self, rows):
-        for row in rows:
-            self.writerow(row)
 
 
 class Command(loadcalaccessrawfile.Command):
@@ -244,10 +228,15 @@ class Command(loadcalaccessrawfile.Command):
             self.success("ok.")
         if self.verbosity:
             self.header("Loading Cal201 Transaction Data")
-        super(Command, self).load(
-            'NetFileCal201Transaction', csv_path=self.combined_csv_path)
-        if self.verbosity:
-            self.success("ok.")
+        try:
+            super(Command, self).load(
+                'NetFileCal201Transaction', csv_path=self.combined_csv_path)
+        except StopIteration:
+            # Blank file; can happen when no relevant data was found.
+            warnings.warn('No data was loaded.')
+        else:
+            if self.verbosity:
+                self.success("ok.")
 
     def _write_csv(self, csv_path, iterator):
         if not csv_path.startswith(self.data_dir):
