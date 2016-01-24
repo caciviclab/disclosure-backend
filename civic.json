@@ -1,0 +1,15 @@
+{
+  "status": "Alpha",
+  "thumbnailUrl": "https://raw.githubusercontent.com/caciviclab/caciviclab.github.io/fc6cd32ef50a8db7da7edc3df1bea2a424263f63/images/logo.png",
+  "geography": "California",
+  "type": "Web App",
+  "needs": [
+    "django",
+    "angular",
+    "campaign finance experts"
+  ],
+  "categories": [
+    "finance",
+    "open data"
+  ]
+}
