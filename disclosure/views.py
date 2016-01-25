@@ -96,6 +96,108 @@ def location_view(request, locality_id):
     }, content_type='application/json')
 
 
+@api_view(['GET'])
+def committee_view(request, committee_id):
+    """
+    Display summarized disclosure information about a committee
+    ---
+    parameters:
+      - name: committee_id
+        description: The committee_id
+        paramType: path
+        type: integer
+        required: true
+    """
+    return Response({
+        'committee_id': 1234,
+        'name': 'Americans for Liberty',
+        'contribution_by_type': {
+            'unitemized': 2916394,
+            'self_funded': 512554,
+            'political_party': 6426112,
+            'individual': 11134547,
+            'recipient_committee': 986229
+        },
+        'contribution_by_area': {
+            'inside_location': 0.56,
+            'inside_state': 0.38,
+            'outside_state': 0.06
+        }
+    }, content_type='application/json')
+
+
+@api_view(['GET'])
+def contributor_view(request, locality_id):
+    """
+    Display summarized contributor information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
+    """
+    return Response([
+        {
+            'name': 'Samantha Brooks',
+            'amount': 700,
+            'date': '2015-04-12'
+        },
+        {
+            'name': 'Lisa Sheppards',
+            'amount': 700,
+            'date': '2015-01-13'
+        },
+        {
+            'name': 'Raoul Esponsito',
+            'amount': 700,
+            'date': '2015-04-04'
+        }
+    ], content_type='application/json')
+
+
+@api_view(['GET'])
+def supporting_view(request, locality_id):
+    """
+    Display summarized supporting committee information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
+    """
+    return Response([
+        {'name': 'Citizens for a Better Oakland', 'contributions': 185859},
+        {'name': 'Oaklanders for Ethical Government', 'contributions': 152330},
+        {'name': 'Americans for Liberty', 'contributions': 83199},
+        {'name': 'Golden State Citizens for Positive Reform',
+         'contributions': 23988}
+    ], content_type='application/json')
+
+
+@api_view(['GET'])
+def opposing_view(request, locality_id):
+    """
+    Display summarized opposing committee information
+    ---
+    parameters:
+      - name: locality_id
+        description: The locality_id (can be city, county, state)
+        paramType: path
+        type: integer
+        required: true
+    """
+    return Response([
+        {'name': 'The Public Commission for Ethical Civic Reform',
+         'contributions': 15040},
+        {'name': 'The Committee of True Americans who Dearly Love America '
+                 'and Liberty', 'contributions': 7943}
+    ], content_type='application/json')
+
+
 def homepage_view(request):
     return HttpResponse("""
         <a href='/docs/'>Check out the API Documentation</a>

@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from rest_framework.test import APITestCase
 
@@ -17,7 +18,9 @@ class LocationTests(WithForm460ADataTest, APITestCase):
         # Get first city with non-None name
         city = City.objects.filter(~Q(name=None))[0]
 
-        resp = self.client.get('/locations/%d' % city.id)
+        supporting_url = reverse('locality_detail',
+                                 kwargs={'locality_id': city.id})
+        resp = self.client.get(supporting_url)
         data = resp.data
         self.assertEqual(data['contribution_count'],
                          IndependentMoney.objects.all().count())
