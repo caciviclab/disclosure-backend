@@ -17,33 +17,28 @@ def paginated_query(func):
 
     def _paginated_query(self, query):
         page_index = 0
-        query.update({
-            'currentPageIndex': page_index,
-        })
+        query.update({'currentPageIndex': page_index})
 
-        response = func(self, query)
-        assert response.status_code == 200
-
-        pages = response.json()['totalMatchingPages']
-        logger.info("Fetching page %d of %d pages available" %
-                    (page_index, pages))
-
-        results = response.json()['results']
         while True:
-            page_index += 1
+            # Fetch the current page
+            query['currentPageIndex'] = page_index
+            response = func(self, query)
+            assert response.status_code == 200
+
+            # Report what was done.
+            pages = response.json()['totalMatchingPages']
+            logger.info("Fetched page %d of %d pages available" %
+                        (page_index + 1, pages))
+
+            # Return the results
+            results = response.json()['results']
             for result in results:
                 yield result
 
+            # Increment the page count
             if page_index >= pages:
                 break
-
-            # Fetch another page
-            query['currentPageIndex'] = page_index
-            logger.info("Fetching page %d of %d pages available" %
-                        (page_index, pages))
-            response = func(self, query)
-            assert response.status_code == 200
-            results = response.json()['results']
+            page_index += 1
 
     return _paginated_query
 
@@ -65,25 +60,6 @@ class Connect2API(object):
         assert 'agencies' in data
 
         return data['agencies']
-
-    @paginated_query
-    def postpubliccampaignsearchtransactionquery(self, query):
-        """
-        POST /public/campaign/search/transaction/query
-        """
-        return self.api.public.Query(Query=query)
-
-    def getpubliccampaignlisttransactiontypes(self):
-        """
-        GET /public/campaign/list/transaction/types
-        """
-        response = self.api.public.Types()
-        assert response.status_code == 200
-
-        data = response.json()
-        assert 'items' in data
-
-        return data['items']
 
     @paginated_query
     def postpubliccampaignexportcal201transactionyear(self, query):
