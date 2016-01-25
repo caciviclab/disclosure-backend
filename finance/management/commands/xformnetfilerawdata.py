@@ -13,10 +13,10 @@ from django.db import transaction
 
 from ... import models
 from ballot.models import Ballot
+from ballot.models import Office, OfficeElection, Candidate
+from ballot.models import Referendum, ReferendumSelection
 from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
-from office_election.models import Office, OfficeElection, Candidate
-from referendum.models import Referendum, ReferendumSelection
 
 
 def isnan(val):

@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from office_election.models import Candidate, OfficeElection, Office
 from ballot.models import Ballot
+from ballot.models import Candidate, OfficeElection, Office
 from locality.models import City, State
 
 

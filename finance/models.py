@@ -6,8 +6,8 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from ballot.models import SocialMediaMixin, PersonMixin
 from locality.models import AddressMixin
-from office_election.models import SocialMediaMixin, PersonMixin
 
 
 @python_2_unicode_compatible
