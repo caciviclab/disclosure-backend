@@ -36,6 +36,9 @@ class City(FipsMixin):
     county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State')
 
+    def __unicode__(self):
+        return '%s, %s' % (self.name or self.short_name, self.state)
+
     class Meta:
         verbose_name_plural = 'cities'
 
@@ -46,6 +49,9 @@ class County(FipsMixin):
     """
     state = models.ForeignKey('State')
 
+    def __unicode__(self):
+        return '%s, %s' % (Locality.__unicode__(self), self.state)
+
     class Meta:
         verbose_name_plural = 'counties'
 
@@ -54,7 +60,8 @@ class State(FipsMixin):
     """
     State
     """
-    pass
+    def __unicode__(self):
+        return self.short_name or self.name
 
 
 class ZipCode(Locality):
@@ -64,6 +71,9 @@ class ZipCode(Locality):
     city = models.ForeignKey('City', null=True, default=None)
     county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State', null=True, default=None)
+
+    def __unicode__(self):
+        return self.short_name or self.name
 
 
 class AddressMixin(models.Model):

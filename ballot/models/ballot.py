@@ -66,3 +66,9 @@ class BallotItemSelection(models.Model):
     and candidates equally.
     """
     ballot_item = models.ForeignKey('BallotItem')
+
+    def __unicode__(self):
+        if self.ballot_item.contest_type == 'R':
+            return unicode(self.referendumselection)
+        else:
+            return unicode(self.candidate)

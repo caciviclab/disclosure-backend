@@ -93,8 +93,9 @@ class OfficeElection(BallotItem):
         self.name = str(self)
 
     def __str__(self):
-        return "Election of %s in %s" % (
-            self.office.name, str(self.office.locality))
+        return "Election of %s in %s (on %s)" % (
+            self.office.name, str(self.office.locality),
+            self.ballot.date)
 
 
 @python_2_unicode_compatible

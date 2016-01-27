@@ -88,6 +88,16 @@ class Benefactor(models.Model):
     benefactor_locality = models.ForeignKey(
         'locality.Locality', null=True, default=None)
 
+    def __unicode__(self):
+        if self.benefactor_type == 'IN':
+            return unicode(self.personbenefactor)
+        elif self.benefactor_type in ['PF', 'IF']:
+            return unicode(self.committeebenefactor)
+        elif self.benefactor_type == 'CO':
+            return unicode(self.corporationbenefactor)
+        else:
+            return self.benefactor_type
+
 
 class PersonBenefactor(Benefactor, PersonMixin):
     """
@@ -99,6 +109,9 @@ class PersonBenefactor(Benefactor, PersonMixin):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = 'IN'
 
+    def __unicode__(self):
+        return PersonMixin.__unicode__(self)
+
 
 class CorporationBenefactor(Benefactor, CorporationMixin):
     """
@@ -108,6 +121,9 @@ class CorporationBenefactor(Benefactor, CorporationMixin):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = 'CO'
         self.benefactor_locality = self.locality
+
+    def __unicode__(self):
+        return CorporationMixin.__unicode__(self)
 
 
 class CommitteeBenefactor(Benefactor, Committee):
@@ -119,6 +135,9 @@ class CommitteeBenefactor(Benefactor, Committee):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = self.type
         self.benefactor_locality = self.locality
+
+    def __unicode__(self):
+        return Committee.__unicode__(self)
 
 
 class Beneficiary(Committee):
@@ -137,11 +156,15 @@ class Beneficiary(Committee):
         verbose_name_plural = 'beneficiaries'
 
 
+@python_2_unicode_compatible
 class ReportingPeriod(models.Model):
     """Model tracking form reporting periods."""
     period_start = models.DateField()
     period_end = models.DateField()
     form = models.ForeignKey('Form')
+
+    def __str__(self):
+        return '%s to %s' % (self.period_start or '', self.period_end or '')
 
 
 @python_2_unicode_compatible
@@ -165,10 +188,11 @@ class IndependentMoney(models.Model):
         max_length=32, help_text="Transaction ID (specific to data source)")
 
     def __str__(self):
-        val = "%s gave %s to %s @ %s" % (self.benefactor, self.amount,
-                                         self.beneficiary, self.benefactor_zip)
+        val = "[%s] gave $%.2f to [%s] @ %s" % (
+            self.benefactor, float(self.amount), self.beneficiary,
+            self.benefactor_zip)
         if self.beneficiary.ballot_item_selection is not None:
-            val += " in %s %s" % (
+            val += " in %s [%s]" % (
                 'support of' if self.beneficiary.support else 'opposition to',
                 self.beneficiary.ballot_item_selection)
         val += ", reported via %s on %s" % (
