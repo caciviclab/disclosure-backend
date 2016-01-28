@@ -1,10 +1,10 @@
 import os
 from django.conf import settings
 from django.core.management import call_command
-from rest_framework.test import APITestCase
+from django.test import TestCase
 
 
-class DocGenerationTest(APITestCase):
+class DocGenerationTest(TestCase):
 
     def test_generate_docs(self):
         """ Test createcalaccessrawmodeldocs"""
