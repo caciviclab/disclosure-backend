@@ -1,24 +1,29 @@
 language: python
 
-sudo: false
+python:
+ - "2.7"
+
+sudo: required
 
 cache:
+  apt: true
+  pip: true
   directories:
     - $HOME/.cache/pip
     - $HOME/data
     - $HOME/disclosure-backend/data
 
-python:
- - "2.7"
-
 env:
     global:
          - XDG_CACHE_HOME=$HOME/.cache/
 
+before_install:
+  - sudo apt-get install graphviz
+
 install:
-  - pip install flake8 pyflakes coverage
   - pip install python-coveralls nose-cov
   - pip install -r requirements.txt
+  - pip install -r requirements_dev.txt
 
 script: # Run test
   - make test
