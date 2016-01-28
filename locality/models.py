@@ -1,10 +1,18 @@
 from __future__ import unicode_literals
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+from django.db.models.fields.related import OneToOneRel
 
 
-@python_2_unicode_compatible
-class Locality(models.Model):
+class ReverseLookupStringMixin(object):
+    def __unicode__(self):
+        for relationship in self._meta.related_objects:
+            attr = relationship.name
+            if (isinstance(relationship, OneToOneRel) and hasattr(self, attr)):
+                return unicode(getattr(self, attr))
+        return ''
+
+
+class Locality(models.Model, ReverseLookupStringMixin):
     """
     A base table that gives a globally unique ID to any
     location (city, state, etc)
@@ -12,8 +20,9 @@ class Locality(models.Model):
     name = models.CharField(max_length=128, null=True, default=None)
     short_name = models.CharField(max_length=32, null=True, default=None)
 
-    def __str__(self):
-        return self.name or self.short_name or str(self.id)
+    def __unicode__(self):
+        return (ReverseLookupStringMixin.__str__(self) or
+                self.name or self.short_name or str(self.id))
 
     class Meta:
         verbose_name_plural = 'localities'

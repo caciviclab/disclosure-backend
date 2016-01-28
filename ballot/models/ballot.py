@@ -7,6 +7,8 @@ http://votinginfoproject.github.io/vip-specification/
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from locality.models import ReverseLookupStringMixin
+
 
 @python_2_unicode_compatible
 class Ballot(models.Model):
@@ -57,7 +59,7 @@ class BallotItem(models.Model):
         return self.name
 
 
-class BallotItemSelection(models.Model):
+class BallotItemSelection(models.Model, ReverseLookupStringMixin):
     """
     YES/NO to a referendum, or a candidate.
 
@@ -68,7 +70,5 @@ class BallotItemSelection(models.Model):
     ballot_item = models.ForeignKey('BallotItem')
 
     def __unicode__(self):
-        if self.ballot_item.contest_type == 'R':
-            return unicode(self.referendumselection)
-        else:
-            return unicode(self.candidate)
+        return (ReverseLookupStringMixin.__str__(self) or
+                str(self.ballot_item))

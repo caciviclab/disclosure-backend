@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
 from ballot.models import SocialMediaMixin, PersonMixin
-from locality.models import AddressMixin
+from locality.models import AddressMixin, ReverseLookupStringMixin
 
 
 @python_2_unicode_compatible
@@ -72,7 +72,7 @@ class Form(models.Model):
         return self.name
 
 
-class Benefactor(models.Model):
+class Benefactor(models.Model, ReverseLookupStringMixin):
     """
     Main list of benefactors.
     """
@@ -89,14 +89,8 @@ class Benefactor(models.Model):
         'locality.Locality', null=True, default=None)
 
     def __unicode__(self):
-        if self.benefactor_type == 'IN':
-            return unicode(self.personbenefactor)
-        elif self.benefactor_type in ['PF', 'IF']:
-            return unicode(self.committeebenefactor)
-        elif self.benefactor_type == 'CO':
-            return unicode(self.corporationbenefactor)
-        else:
-            return self.benefactor_type
+        return (ReverseLookupStringMixin.__str__(self) or
+                self.benefactor_type)
 
 
 class PersonBenefactor(Benefactor, PersonMixin):
