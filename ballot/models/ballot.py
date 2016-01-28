@@ -59,6 +59,7 @@ class BallotItem(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class BallotItemSelection(models.Model, ReverseLookupStringMixin):
     """
     YES/NO to a referendum, or a candidate.
@@ -69,6 +70,6 @@ class BallotItemSelection(models.Model, ReverseLookupStringMixin):
     """
     ballot_item = models.ForeignKey('BallotItem')
 
-    def __unicode__(self):
+    def __str__(self):
         return (ReverseLookupStringMixin.__str__(self) or
                 str(self.ballot_item))

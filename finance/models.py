@@ -72,6 +72,7 @@ class Form(models.Model):
         return self.name
 
 
+@python_2_unicode_compatible
 class Benefactor(models.Model, ReverseLookupStringMixin):
     """
     Main list of benefactors.
@@ -88,11 +89,12 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
     benefactor_locality = models.ForeignKey(
         'locality.Locality', null=True, default=None)
 
-    def __unicode__(self):
+    def __str__(self):
         return (ReverseLookupStringMixin.__str__(self) or
                 self.benefactor_type)
 
 
+@python_2_unicode_compatible
 class PersonBenefactor(Benefactor, PersonMixin):
     """
     Individual who contributes to a committee.
@@ -103,10 +105,12 @@ class PersonBenefactor(Benefactor, PersonMixin):
         super(self.__class__, self).__init__(*args, **kwargs)
         self.benefactor_type = 'IN'
 
-    def __unicode__(self):
+    def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return PersonMixin.__unicode__(self)
 
 
+@python_2_unicode_compatible
 class CorporationBenefactor(Benefactor, CorporationMixin):
     """
     Corporation that contributes to a committee.
@@ -116,10 +120,12 @@ class CorporationBenefactor(Benefactor, CorporationMixin):
         self.benefactor_type = 'CO'
         self.benefactor_locality = self.locality
 
-    def __unicode__(self):
+    def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return CorporationMixin.__unicode__(self)
 
 
+@python_2_unicode_compatible
 class CommitteeBenefactor(Benefactor, Committee):
     """
     Committee that contributes to another committee, or
@@ -130,7 +136,8 @@ class CommitteeBenefactor(Benefactor, Committee):
         self.benefactor_type = self.type
         self.benefactor_locality = self.locality
 
-    def __unicode__(self):
+    def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return Committee.__unicode__(self)
 
 

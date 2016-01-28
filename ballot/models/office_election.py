@@ -116,5 +116,6 @@ class Candidate(BallotItemSelection, PersonMixin):
             assert self.ballot_item.id == self.office_election.id
 
     def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return "%s for %s" % (  # use unicode to avoid recursion error
             PersonMixin.__unicode__(self), self.office_election)
