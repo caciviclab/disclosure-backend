@@ -42,7 +42,7 @@ def parse_benefactor(row, verbosity=1):
             last_name=row['tran_NamL'],
             occupation=row.get('tran_Occ'))
         # TODO: get_or_create?
-        # TODO: parse benefactor locality
+        benefactor.benefactor_locality = bf_city
         benefactor.save()
 
     elif row['entity_Cd'] == 'OTH':  # corporation
