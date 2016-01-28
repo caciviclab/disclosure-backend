@@ -32,6 +32,9 @@ class Committee(SocialMediaMixin, AddressMixin):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name', 'locality__name', 'locality__short_name')
+
 
 @python_2_unicode_compatible
 class CorporationMixin(SocialMediaMixin, AddressMixin):
@@ -46,6 +49,7 @@ class CorporationMixin(SocialMediaMixin, AddressMixin):
 
     class Meta:
         abstract = True
+        ordering = ('name', 'locality__name', 'locality__short_name')
 
 
 @python_2_unicode_compatible
@@ -71,6 +75,9 @@ class Form(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('locality__name', 'locality__short_name', 'name')
+
 
 @python_2_unicode_compatible
 class Benefactor(models.Model, ReverseLookupStringMixin):
@@ -93,6 +100,10 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
         return (ReverseLookupStringMixin.__str__(self) or
                 self.benefactor_type)
 
+    class Meta:
+        ordering = ('benefactor_locality__name',
+                    'benefactor_locality__short_name')
+
 
 @python_2_unicode_compatible
 class PersonBenefactor(Benefactor, PersonMixin):
@@ -109,6 +120,9 @@ class PersonBenefactor(Benefactor, PersonMixin):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return PersonMixin.__unicode__(self)
 
+    class Meta:
+        ordering = Benefactor._meta.ordering + PersonMixin._meta.ordering
+
 
 @python_2_unicode_compatible
 class CorporationBenefactor(Benefactor, CorporationMixin):
@@ -123,6 +137,9 @@ class CorporationBenefactor(Benefactor, CorporationMixin):
     def __str__(self):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return CorporationMixin.__unicode__(self)
+
+    class Meta:
+        ordering = Benefactor._meta.ordering + CorporationMixin._meta.ordering
 
 
 @python_2_unicode_compatible
@@ -140,6 +157,9 @@ class CommitteeBenefactor(Benefactor, Committee):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return Committee.__unicode__(self)
 
+    class Meta:
+        ordering = Benefactor._meta.ordering + Committee._meta.ordering
+
 
 class Beneficiary(Committee):
     """
@@ -155,6 +175,7 @@ class Beneficiary(Committee):
 
     class Meta:
         verbose_name_plural = 'beneficiaries'
+        ordering = Committee._meta.ordering
 
 
 @python_2_unicode_compatible
@@ -166,6 +187,9 @@ class ReportingPeriod(models.Model):
 
     def __str__(self):
         return '%s to %s' % (self.period_start or '', self.period_end or '')
+
+    class Meta:
+        ordering = ('period_start', 'period_end')
 
 
 @python_2_unicode_compatible
@@ -202,3 +226,7 @@ class IndependentMoney(models.Model):
 
     class Meta:
         verbose_name_plural = 'independent money'
+        ordering = ('-reporting_period__period_start',
+                    '-reporting_period__period_end',
+                    '-beneficiary__ballot_item_selection__ballot_item__ballot__date',  # noqa
+                    '-report_date', )

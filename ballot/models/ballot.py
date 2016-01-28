@@ -33,6 +33,9 @@ class Ballot(models.Model):
         return '%s election for %s' % (
             str(self.date), str(self.locality))
 
+    class Meta:
+        ordering = ('date', 'locality__name', 'locality__short_name')
+
 
 @python_2_unicode_compatible
 class BallotItem(models.Model):
@@ -58,6 +61,10 @@ class BallotItem(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('ballot__date', 'ballot__locality__short_name',
+                    'ballot__locality__name', 'number')
+
 
 @python_2_unicode_compatible
 class BallotItemSelection(models.Model, ReverseLookupStringMixin):
@@ -73,3 +80,8 @@ class BallotItemSelection(models.Model, ReverseLookupStringMixin):
     def __str__(self):
         return (ReverseLookupStringMixin.__str__(self) or
                 str(self.ballot_item))
+
+    class Meta:
+        ordering = ('ballot_item__ballot__date',
+                    'ballot_item__ballot__locality__short_name',
+                    'ballot_item__ballot__locality__name')
