@@ -3,13 +3,18 @@
   "thumbnailUrl": "https://raw.githubusercontent.com/caciviclab/caciviclab.github.io/fc6cd32ef50a8db7da7edc3df1bea2a424263f63/images/logo.png",
   "geography": "California",
   "type": "Web App",
+  "tags": [
+    "California",
+    "campaign finance",
+    "open data"
+  ],
   "needs": [
-    "django",
-    "angular",
-    "campaign finance experts"
+    {"need": "django"},
+    {"need": "angular"},
+    {"need": "campaign finance experts"}
   ],
   "categories": [
-    "finance",
-    "open data"
+    {"category": "finance"},
+    {"category": "open data"}
   ]
 }
