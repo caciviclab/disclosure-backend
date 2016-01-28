@@ -28,6 +28,7 @@ class Locality(models.Model, ReverseLookupStringMixin):
 
     class Meta:
         verbose_name_plural = 'localities'
+        ordering = ('name', 'short_name')
 
 
 class FipsMixin(Locality):
@@ -53,6 +54,7 @@ class City(FipsMixin):
 
     class Meta:
         verbose_name_plural = 'cities'
+        ordering = ('state__short_name', 'county', 'name', 'short_name')
 
 
 @python_2_unicode_compatible
@@ -68,6 +70,7 @@ class County(FipsMixin):
 
     class Meta:
         verbose_name_plural = 'counties'
+        ordering = ('state__short_name', 'name', 'short_name')
 
 
 @python_2_unicode_compatible

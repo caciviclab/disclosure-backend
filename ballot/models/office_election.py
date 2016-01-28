@@ -37,6 +37,7 @@ class Party(SocialMediaMixin):
 
     class Meta:
         verbose_name_plural = 'parties'
+        ordering = ('name',)
 
 
 @python_2_unicode_compatible
@@ -61,6 +62,7 @@ class PersonMixin(SocialMediaMixin):
 
     class Meta:
         abstract = True
+        ordering = ('last_name', 'first_name', 'middle_name')
 
 
 @python_2_unicode_compatible
@@ -77,6 +79,10 @@ class Office(models.Model):
     def __str__(self):
         return "Office for %s in %s" % (
             self.name, str(self.locality))
+
+    class Meta:
+        ordering = ('locality__short_name', 'locality__name',
+                    'name')
 
 
 @python_2_unicode_compatible
@@ -96,6 +102,9 @@ class OfficeElection(BallotItem):
         return "Election of %s in %s (on %s)" % (
             self.office.name, str(self.office.locality),
             self.ballot.date)
+
+    class Meta:
+        ordering = BallotItem._meta.ordering + ('office__name',)
 
 
 @python_2_unicode_compatible
@@ -119,3 +128,8 @@ class Candidate(BallotItemSelection, PersonMixin):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
         return "%s for %s" % (  # use unicode to avoid recursion error
             PersonMixin.__unicode__(self), self.office_election)
+
+    class Meta:
+        ordering = (BallotItemSelection._meta.ordering +
+                    ('office_election__office__name',) +
+                    PersonMixin._meta.ordering)
