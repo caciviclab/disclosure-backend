@@ -6,3 +6,4 @@ Pillow==3.0.0
 django-rest-swagger
 django-cors-headers==1.1.0
 pandas
+django-extensions
