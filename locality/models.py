@@ -1,10 +1,20 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.db.models.fields.related import OneToOneRel
 from django.utils.encoding import python_2_unicode_compatible
 
 
+class ReverseLookupStringMixin(object):
+    def __str__(self):
+        for relationship in self._meta.related_objects:
+            attr = relationship.name
+            if (isinstance(relationship, OneToOneRel) and hasattr(self, attr)):
+                return unicode(getattr(self, attr))
+        return ''
+
+
 @python_2_unicode_compatible
-class Locality(models.Model):
+class Locality(models.Model, ReverseLookupStringMixin):
     """
     A base table that gives a globally unique ID to any
     location (city, state, etc)
@@ -13,7 +23,8 @@ class Locality(models.Model):
     short_name = models.CharField(max_length=32, null=True, default=None)
 
     def __str__(self):
-        return self.name or self.short_name or str(self.id)
+        return (ReverseLookupStringMixin.__str__(self) or
+                self.name or self.short_name or str(self.id))
 
     class Meta:
         verbose_name_plural = 'localities'
@@ -29,6 +40,7 @@ class FipsMixin(Locality):
         abstract = True
 
 
+@python_2_unicode_compatible
 class City(FipsMixin):
     """
     City
@@ -36,27 +48,38 @@ class City(FipsMixin):
     county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State')
 
+    def __str__(self):
+        return '%s, %s' % (self.name or self.short_name, self.state)
+
     class Meta:
         verbose_name_plural = 'cities'
 
 
+@python_2_unicode_compatible
 class County(FipsMixin):
     """
     County
     """
     state = models.ForeignKey('State')
 
+    def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
+        return '%s, %s' % (Locality.__unicode__(self), self.state)
+
     class Meta:
         verbose_name_plural = 'counties'
 
 
+@python_2_unicode_compatible
 class State(FipsMixin):
     """
     State
     """
-    pass
+    def __str__(self):
+        return self.short_name or self.name
 
 
+@python_2_unicode_compatible
 class ZipCode(Locality):
     """
     A Static set of ZIP code to "metro" name mappings.
@@ -64,6 +87,9 @@ class ZipCode(Locality):
     city = models.ForeignKey('City', null=True, default=None)
     county = models.ForeignKey('County', null=True, default=None)
     state = models.ForeignKey('State', null=True, default=None)
+
+    def __str__(self):
+        return self.short_name or self.name
 
 
 class AddressMixin(models.Model):
