@@ -2,3 +2,4 @@ ipython
 flake8
 coverage
 pygraphviz
+graphviz
