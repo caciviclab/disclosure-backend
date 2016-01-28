@@ -1,5 +1,4 @@
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from rest_framework.test import APITestCase
 
 from finance.tests.test_command import WithForm460ADataTest
@@ -13,15 +12,25 @@ class SearchTests(WithForm460ADataTest, APITestCase):
         WithForm460ADataTest.setUpClass()
         APITestCase.setUpClass()
 
-    def test_search_city(self):
+    def test_search_city_with_data(self):
         # Get first city with non-None name
-        city = City.objects.filter(~Q(name=None))[0]
+        city = City.objects.get(name='Murrieta')
 
         search_url = '%s?q=%s' % (reverse('search'), city.name)
         resp = self.client.get(search_url)
+        self.assertEqual(resp.status_code, 200)
         self.assertEqual(len(resp.data), 1)
 
         row = resp.data[0]
         self.assertIn('id', row)
         self.assertEqual(row['name'], city.name)
         self.assertEqual(row['id'], city.id)
+
+    def test_search_city_no_data(self):
+        # Get first city with non-None name
+        city = City.objects.get(name='Anaheim')
+
+        search_url = '%s?q=%s' % (reverse('search'), city.name)
+        resp = self.client.get(search_url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.data), 0)
