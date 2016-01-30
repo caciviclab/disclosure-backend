@@ -1,5 +1,9 @@
+import os
+
+from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponse, Http404
+from django.template import loader
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -199,8 +203,13 @@ def opposing_view(request, locality_id):
 
 
 def homepage_view(request):
-    return HttpResponse("""
-        <a href='/docs/'>Check out the API Documentation</a>
-        <br/>
-        <a href='/admin/'>View the admin interface / database data.</a>
-    """)
+    template = loader.get_template('homepage.html')
+    template_context = {}
+    if settings.CRON_LOGS_DIR:
+        template_context['cronjobs'] = []
+        cronlogs = os.listdir(settings.CRON_LOGS_DIR)
+        for cronlog in cronlogs:
+            cronlog_filepath = os.path.join(settings.CRON_LOGS_DIR, cronlog)
+            with open(cronlog_filepath, 'r') as f:
+                template_context['cronjobs'] += [f.read()]
+    return HttpResponse(template.render(template_context, request))

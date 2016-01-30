@@ -1,0 +1,12 @@
+<a href='/docs/'>Check out the API Documentation</a>
+<br/>
+<a href='/admin/'>View the admin interface / database data.</a>
+<br />
+
+{% if cronjobs %}
+  <h2>Cron Status:</h2>
+  {% for cronjob in cronjobs %}
+    <pre>{{ cronjob }}</pre>
+    <hr />
+  {% endfor %}
+{% endif %}
