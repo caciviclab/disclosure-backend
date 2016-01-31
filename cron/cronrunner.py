@@ -67,7 +67,7 @@ if __name__ == '__main__':
   try:
     opts, args = getopt.getopt(sys.argv[1:], 'hl:n:o:')
   except getopt.GetoptError as e:
-    Usage(error_message=str(e)) 
+    Usage(error_message=str(e))
     sys.exit(1)
 
   name, output_dir, symlink_dir = None, None, None

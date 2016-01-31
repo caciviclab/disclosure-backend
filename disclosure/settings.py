@@ -11,6 +11,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 STATIC_ROOT = op.join(BASE_DIR, ".static")
+# Set this to the path where cronrunner.py is dumping its logs, or "None" to
+# imply that this machine will not be runinng cronjobs.
+CRON_LOGS_DIR = None
 
 try:
     # Set CALACCESS_TEST_DOWNLOAD_DIR for testing calaccess data commands.
