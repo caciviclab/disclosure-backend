@@ -45,10 +45,10 @@ def parse_benefactor(row, verbosity=1):
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
-    elif row['entity_Cd'] == 'OTH':  # corporation
-        benefactor, _ = models.CorporationBenefactor.objects \
+    elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
+        benefactor, _ = models.OtherBenefactor.objects \
             .get_or_create(name=row['tran_NamL'])
-        # Todo: parse corporation locality
+        # Todo: parse Other locality
         # benefactor.benefactor_locality = benefactor.locality
         # benefactor.save()
 

@@ -37,9 +37,9 @@ class Committee(SocialMediaMixin, AddressMixin):
 
 
 @python_2_unicode_compatible
-class CorporationMixin(SocialMediaMixin, AddressMixin):
+class OtherMixin(SocialMediaMixin, AddressMixin):
     """
-    Information about a corporation.
+    Information about a commerical entity (OTH)
     """
     name = models.CharField(max_length=255)
     locality = models.ForeignKey('locality.Locality', null=True, default=None)
@@ -125,9 +125,9 @@ class PersonBenefactor(Benefactor, PersonMixin):
 
 
 @python_2_unicode_compatible
-class CorporationBenefactor(Benefactor, CorporationMixin):
+class OtherBenefactor(Benefactor, OtherMixin):
     """
-    Corporation that contributes to a committee.
+    Other entity that contributes to a committee.
     """
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -136,10 +136,10 @@ class CorporationBenefactor(Benefactor, CorporationMixin):
 
     def __str__(self):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
-        return CorporationMixin.__unicode__(self)
+        return OtherMixin.__unicode__(self)
 
     class Meta:
-        ordering = Benefactor._meta.ordering + CorporationMixin._meta.ordering
+        ordering = Benefactor._meta.ordering + OtherMixin._meta.ordering
 
 
 @python_2_unicode_compatible
