@@ -210,6 +210,12 @@ def homepage_view(request):
         cronlogs = os.listdir(settings.CRON_LOGS_DIR)
         for cronlog in cronlogs:
             cronlog_filepath = os.path.join(settings.CRON_LOGS_DIR, cronlog)
+
+            # On the deploy host, we archive old logs into an "archive" folder.
+            # Skip that folder.
+            if os.path.isdir(cronlog_filepath):
+                continue
+
             with open(cronlog_filepath, 'r') as f:
                 template_context['cronjobs'] += [f.read()]
     return HttpResponse(template.render(template_context, request))
