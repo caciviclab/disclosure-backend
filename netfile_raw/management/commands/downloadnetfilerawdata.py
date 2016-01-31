@@ -7,6 +7,7 @@ import os.path as op
 import csv
 import cStringIO
 import codecs
+import glob
 import warnings
 
 import calaccess_raw
@@ -183,7 +184,7 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             print("Downloading data for %d agencies in years %s" % (
                 len(agencies), ','.join(self.years)))
-        self.csv_paths = []
+
         for agency in agencies:
             for year in self.years:
                 csv_path = 'netfile_%s_%s_cal201_export.csv' % (
@@ -194,22 +195,18 @@ class Command(loadcalaccessrawfile.Command):
                     transactions = self.fetch_transactions_agency_year(
                         agency, year)
                     self._write_csv(csv_path, transactions)
-                self.csv_paths.append(csv_path)
 
     def combine(self):
-        if self.verbosity:
-            self.header("Combining %s csv files." % len(self.csv_paths))
-
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
-            for path in self.csv_paths:
+            for path in glob.glob(op.join(self.data_dir, 'netfile_*_*_cal201_export.csv')):
                 agency_shortcut = os.path.basename(path).split('_')[2]
+
                 with file(path, 'r') as agency_csv:
                     header_line = agency_csv.readline()
                     if header_line == '':
                         continue
-                    headers = ','.join(
-                        ['agency_shortcut', header_line])
+                    headers = ','.join(['agency_shortcut', header_line])
                     if not headers_written:
                         combined_csv.write(headers)
                         headers_written = headers
