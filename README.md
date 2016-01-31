@@ -53,12 +53,13 @@ We're going to create an environment with Python 2.7.9 for the project
 
   (you will have to activate this environment (or virtualenv) every time you want to start working)
 
-3. Install mysql
+3. Install mysql and other system dependencies
 
   OSX:
    ```
    brew install mysql
    brew install libssl
+   brew install graphviz
    ```
   * When prompted for a password, remember it because you'll need it.
 
