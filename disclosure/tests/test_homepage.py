@@ -13,7 +13,6 @@ class HomepageTest(TestCase):
         response = self.client.get('/')
         self.assertNotContains(response, 'Cron Status')
 
-
     def test_works_with_cron_logs_dir(self):
         cron_dir = None
 
