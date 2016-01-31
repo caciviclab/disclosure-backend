@@ -24,6 +24,9 @@ class HomepageTest(TestCase):
             with open(os.path.join(cron_dir, 'cron_log.out'), 'w') as f:
                 f.write(fake_cron_log)
 
+            # create a directory in here to test that we skip it correctly:
+            os.mkdir(os.path.join(cron_dir, 'foo_bar'))
+
             with self.settings(CRON_LOGS_DIR=cron_dir):
                 response = self.client.get('/')
                 self.assertContains(response, 'Cron Status')
