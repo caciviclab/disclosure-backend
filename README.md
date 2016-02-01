@@ -140,7 +140,10 @@ Netfile contains campaign finance data for a number of jurisdictions. Not all
 jurisdictions will have data.
 
 ```
+# Download netfile data and load into calaccess_raw.NETFILE_CAL201_TRANSACTION
 python manage.py downloadnetfilerawdata
+# Process NETFILE_CAL201_TRANSACTION into opendisclosure
+python manage.py xformnetfilerawdata
 ```
 
 #### Cal-Access
