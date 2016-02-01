@@ -7,6 +7,7 @@ import os.path as op
 import csv
 import cStringIO
 import codecs
+from itertools import product
 import warnings
 
 import calaccess_raw
@@ -119,25 +120,46 @@ class Command(loadcalaccessrawfile.Command):
 
     def handle(self, *args, **options):
         # Parse command-line options
-        self.csv = None
         self.database = options['database']
         self.verbosity = int(options['verbosity'])
-
-        if options['agencies'] is None:
-            self.agencies = []
-        else:
-            self.agencies = options['agencies'].split(',')
-        if options['years'] is None:
-            self.years = []
-        else:
-            self.years = options['years'].split(',')
         self.force = options['force']
 
-        # Compute properties
         self.data_dir = os.path.join(get_download_directory(), 'csv')
         self.agency_csv_path = op.join(self.data_dir, 'netfile_agency.csv')
         self.combined_csv_path = os.path.join(
             self.data_dir, 'netfile_cal201_transaction.csv')
+
+        # Process the --agency flag by setting self.agencies to an array of
+        # agency shortcuts that exist and should be processed:
+        self.agencies_metadata = self.fetch_agencies()
+        all_agency_shortcuts = [ag['shortcut']
+                                for ag in self.agencies_metadata]
+        if options['agencies'] is None:
+            self.agencies = []
+        else:
+            self.agencies = options['agencies'].split(',')
+        agencies_not_found = set(self.agencies) - set(all_agency_shortcuts)
+        if len(self.agencies) == 0:
+            self.agencies = all_agency_shortcuts
+        elif len(agencies_not_found) > 0:
+            warnings.warn('Could not find these agencies: %s' % (
+                ','.join(agencies_not_found)))
+            self.agencies = list(set(self.agencies) - agencies_not_found)
+
+        # Process the --years flag by setting self.years to an array of valid
+        # years to process:
+        if options['years'] is None:
+            self.years = []
+        else:
+            self.years = options['years'].split(',')
+        years = ['2014', '2015']
+        years_not_found = set(self.years) - set(years)
+        if len(self.years) == 0:
+            self.years = years
+        elif len(years_not_found) > 0:
+            warnings.warn('Could not find these years: %s' % (
+                ','.join(years_not_found)))
+            self.years = list(set(self.years) - years_not_found)
 
         # Run the thing!
         if not options['skip_download']:
@@ -153,71 +175,47 @@ class Command(loadcalaccessrawfile.Command):
         if self.verbosity:
             self.header("Downloading raw data files")
 
-        if not os.path.isdir(self.data_dir):
-            os.makedirs(self.data_dir)
-
-        # Fetch agencies
-        self.agencies_metadata = self.fetch_agencies()
-        agency_keys = [ag['shortcut'] for ag in self.agencies_metadata]
-        agencies_not_found = set(self.agencies) - set(agency_keys)
-
-        if len(self.agencies) == 0:
-            self.agencies = agency_keys
-        elif len(agencies_not_found) > 0:
-            warnings.warn('Could not find these agencies: %s' % (
-                ','.join(agencies_not_found)))
-            self.agencies = list(set(self.agencies) - agencies_not_found)
-        agencies = filter(lambda ag: ag['shortcut'] in self.agencies,
-                          self.agencies_metadata)  # filter by shortcut
-
-        # Scrub years
-        years = ['2014', '2015']
-        years_not_found = set(self.years) - set(years)
-        if len(self.years) == 0:
-            self.years = years
-        elif len(years_not_found) > 0:
-            warnings.warn('Could not find these years: %s' % (
-                ','.join(years_not_found)))
-            self.years = list(set(self.years) - years_not_found)
-
         if self.verbosity:
             print("Downloading data for %d agencies in years %s" % (
-                len(agencies), ','.join(self.years)))
-        self.csv_paths = []
-        for agency in agencies:
-            for year in self.years:
-                csv_path = 'netfile_%s_%s_cal201_export.csv' % (
-                    year, str(agency['shortcut']))
-                csv_path = os.path.join(self.data_dir, csv_path)
-                # Only download on demand.
-                if self.force or not op.exists(csv_path):
-                    transactions = self.fetch_transactions_agency_year(
-                        agency, year)
-                    self._write_csv(csv_path, transactions)
-                self.csv_paths.append(csv_path)
+                len(self.agencies), ','.join(self.years)))
+
+        for agency, year in product(self.agencies, self.years):
+            csv_path = 'netfile_%s_%s_cal201_export.csv' % (year, agency)
+            csv_path = os.path.join(self.data_dir, csv_path)
+            # Only download on demand.
+            if self.force or not op.exists(csv_path):
+                agency_id = filter(lambda ag: ag['shortcut'] == agency,
+                                   self.agencies_metadata)[0]['id']
+                transactions = self.fetch_transactions_agency_year(
+                    agency_id, year)
+                self._write_csv(csv_path, transactions)
 
     def combine(self):
-        if self.verbosity:
-            self.header("Combining %s csv files." % len(self.csv_paths))
-
         headers_written = False
         with file(self.combined_csv_path, 'w') as combined_csv:
-            for path in self.csv_paths:
-                agency_shortcut = os.path.basename(path).split('_')[2]
-                with file(path, 'r') as agency_csv:
+            for agency, year in product(self.agencies, self.years):
+                csv_path = op.join(self.data_dir,
+                                   'netfile_%s_%s_cal201_export.csv' %
+                                   (year, agency))
+
+                if not os.path.exists(csv_path):
+                    warnings.warn("CSV path %s does not exist!" % csv_path)
+                    continue
+
+                with file(csv_path, 'r') as agency_csv:
                     header_line = agency_csv.readline()
                     if header_line == '':
                         continue
-                    headers = ','.join(
-                        ['agency_shortcut', header_line])
+                    headers = ','.join(['agency_shortcut', header_line])
                     if not headers_written:
                         combined_csv.write(headers)
                         headers_written = headers
                     else:
                         # make sure things don't go all wierd between files.
                         assert headers == headers_written
+
                     for line in agency_csv.readlines():
-                        combined_csv.write(','.join([agency_shortcut, line]))
+                        combined_csv.write(','.join([agency, line]))
 
     def load(self):
         if self.verbosity:
@@ -239,6 +237,9 @@ class Command(loadcalaccessrawfile.Command):
                 self.success("ok.")
 
     def _write_csv(self, csv_path, iterator):
+        if not os.path.isdir(self.data_dir):
+            os.makedirs(self.data_dir)
+
         if not csv_path.startswith(self.data_dir):
             csv_path = os.path.join(self.data_dir, csv_path)
 
@@ -271,10 +272,10 @@ class Command(loadcalaccessrawfile.Command):
             self._connect2 = Connect2API()
         return self._connect2
 
-    def fetch_transactions_agency_year(self, agency, year):
+    def fetch_transactions_agency_year(self, agency_id, year):
         # Break this up by transaction type?
         query = {
-            'Aid': agency['id'],
+            'Aid': agency_id,
             'Year': year,
             'sortOrder': 1,  # DateDescending
         }
