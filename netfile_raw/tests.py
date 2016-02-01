@@ -18,6 +18,17 @@ class NetfileTests(TestCase):
         """
         self.assertIsNotNone(connect2_api)
 
+    def test_combine_agencies_without_download(self, test_agency='CPA',
+                                               test_year='2015'):
+
+        call_command('downloadnetfilerawdata',
+                     skip_combine=True, skip_load=True, agencies=test_agency,
+                     years=test_year)
+
+        call_command('downloadnetfilerawdata',
+                     skip_download=True, skip_load=True, agencies=test_agency,
+                     years=test_year)
+
     def test_download_agencies(self, test_agency='CPA', test_year='2015'):
         """
         Tests a single file download
