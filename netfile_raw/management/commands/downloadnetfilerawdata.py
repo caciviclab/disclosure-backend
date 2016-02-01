@@ -7,7 +7,6 @@ import os.path as op
 import csv
 import cStringIO
 import codecs
-import glob
 from itertools import product
 import warnings
 
