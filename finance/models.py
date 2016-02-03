@@ -212,6 +212,8 @@ class IndependentMoney(models.Model):
     source_xact_id = models.CharField(
         max_length=32, help_text="Transaction ID (specific to data source)")
 
+    unique_together = ("source", "source_xact_id")
+
     def __str__(self):
         val = "[%s] gave $%.2f to [%s] @ %s" % (
             self.benefactor, float(self.amount), self.beneficiary,
