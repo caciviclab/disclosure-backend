@@ -62,8 +62,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'disclosure.urls'
 WSGI_APPLICATION = 'disclosure.wsgi.application'
 REST_FRAMEWORK = {
-    'VIEW_NAME_FUNCTION': ('disclosure.'
-                           'swagger_nickname.view_name')
+    'VIEW_NAME_FUNCTION': ('disclosure.swagger_nickname.view_name')
 }
 
 DATABASES = {
