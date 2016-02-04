@@ -4,7 +4,9 @@ from swagger_nickname_registry import resolve_nicknames
 
 
 def view_name(cls, suffix=None):
-    """Transform the view to a nickname. In the following order
+    """
+    Transform the view to a nickname, in the following order:
+
     1. Return a registered nickname
     2. Rename "retrieve" to "get"
     3. Return just the suffix
