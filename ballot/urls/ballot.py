@@ -1,11 +1,13 @@
 from django.conf.urls import patterns, url
-from django.contrib import admin
 
-from ..views import ballot as views
+from .. import views
 
-admin.autodiscover()
 
 urlpatterns = patterns(
     '',
-    url(r'^locality/(?P<locality_id>[0-9]+)/ballot/$', views.ballot_view,
-        name='locality_ballot'))
+    url(r'ballot/(?P<ballot_id>[0-9]+)$',
+        views.BallotViewSet.as_view(actions={'get': 'retrieve'}),
+        name="ballot_get"),
+    url(r'locality/(?P<locality_id>[0-9]+)/current_ballot$',
+        views.CurrentBallotViewSet.as_view(actions={'get': 'current_ballot'}),
+        name="current_ballot"))
