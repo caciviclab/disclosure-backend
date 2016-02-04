@@ -6,7 +6,7 @@ run:
 	python manage.py runserver
 
 test:
-	flake8 . --exclude cron,migrations,wsgi.py,env
+	flake8 . --exclude cron,migrations,wsgi.py,settings_local.py,env
 	coverage run --source='.' manage.py test
 
 .PHONY: build run test
