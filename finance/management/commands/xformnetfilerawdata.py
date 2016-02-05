@@ -307,7 +307,8 @@ def load_f460A_data(data, agency_fn, verbosity=1):  # noqa
     """ Loads data from Form 460 Schedule A:
     contributions to primarily formed committees."""
 
-    print("Loading %d rows of Form 460 Sched. A data." % len(data))
+    if verbosity > 0:
+        print("Loading %d rows of Form 460 Sched. A data." % len(data))
 
     # Parse out the contributor information.
     error_rows = []
