@@ -38,7 +38,7 @@ class Ballot(models.Model):
 
 
 @python_2_unicode_compatible
-class BallotItem(models.Model):
+class BallotItem(models.Model, ReverseLookupStringMixin):
     """
     A single referendum or candidate office which appears on a voter's Ballot.
     """
@@ -50,20 +50,15 @@ class BallotItem(models.Model):
         max_length=1, choices=CONTEST_TYPES,
         help_text='Office if the contest is for a person, referendum if '
                   'the contest is for an issue.')
-    name = models.CharField(
-        max_length=255, help_text='The referendum number or the name '
-                                  'of the office.')
-    number = models.CharField(
-        max_length=5, null=True, default=None,
-        help_text="The referendum's number or letter.")
     ballot = models.ForeignKey('Ballot')
 
     def __str__(self):
-        return self.name
+        return (ReverseLookupStringMixin.__str__(self) or
+                str(self.ballot_item))
 
     class Meta:
         ordering = ('ballot__date', 'ballot__locality__short_name',
-                    'ballot__locality__name', 'number')
+                    'ballot__locality__name')
 
 
 @python_2_unicode_compatible

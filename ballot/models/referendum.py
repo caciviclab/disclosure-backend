@@ -18,6 +18,12 @@ class Referendum(BallotItem, SocialMediaMixin):
     """
     # TODO: Set up a save() event, or overload save(), to auto-populate
     #   BallotItemSelections (YES/NO)
+    name = models.CharField(
+        max_length=255, help_text='The referendum number or the name '
+                                  'of the office.')
+    number = models.CharField(
+        max_length=5, null=True, default=None,
+        help_text="The referendum's number or letter.")
 
     def __init__(self, *args, **kwargs):
         super(Referendum, self).__init__(*args, **kwargs)
@@ -25,6 +31,9 @@ class Referendum(BallotItem, SocialMediaMixin):
 
     def __str__(self):
         return "Prop %s: %s" % (self.number, self.name)
+
+    class Meta:
+        ordering = BallotItem._meta.ordering + ('number', 'name')
 
 
 @python_2_unicode_compatible
@@ -37,4 +46,4 @@ class ReferendumSelection(BallotItemSelection, SocialMediaMixin):
 
     def __str__(self):
         return "'%s' on %s" % (
-            "FOR" if self.in_favor else "OPPOSED", self.ballot_item.name)
+            "FOR" if self.in_favor else "OPPOSED", self.ballot_item.referendum.name)
