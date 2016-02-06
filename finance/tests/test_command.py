@@ -17,7 +17,7 @@ class WithForm460ADataTest(TestCase):
     def setUpClass(cls, test_agency='CMA', test_year='2015'):
         call_command('xformnetfilerawdata',
                      agencies=test_agency, years=test_year,
-                     verobsity=0)
+                     verbosity=0)
 
 
 @override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
