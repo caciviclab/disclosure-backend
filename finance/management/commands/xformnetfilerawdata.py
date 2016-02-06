@@ -272,16 +272,31 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
         row, locality=beneficiary.locality, verbosity=verbosity)
     beneficiary.save()
 
-    # Now we have all the parts, save!
-    money = models.IndependentMoney(  # or calculated_Amount
-        amount=float(row['tran_Amt1']),
-        report_date=date_parse(row['tran_Date']),
-        reporting_period=reporting_period,
-        benefactor_zip=bf_zip_code,
-        benefactor=benefactor,
-        beneficiary=beneficiary,
-        source='NF',
-        source_xact_id=row['netFileKey'])
+    # Now we have all the parts, see if we have this record.
+    # If not, create.  Then Save it.
+    try:
+        money = models.IndependentMoney.objects.get(
+            source='NF',
+            source_xact_id=row['netFileKey']
+            )
+
+        money.amount = float(row['tran_Amt1'])
+        money.report_date = date_parse(row['tran_Date'])
+        money.reporting_period = reporting_period
+        money.benefactor_zip = bf_zip_code
+        money.benefactor = benefactor
+        money.beneficiary = beneficiary
+    except models.IndependentMoney.DoesNotExist:
+        money = models.IndependentMoney(
+            source='NF',
+            source_xact_id=row['netFileKey'],
+            amount=float(row['tran_Amt1']),
+            report_date=date_parse(row['tran_Date']),
+            reporting_period=reporting_period,
+            benefactor_zip=bf_zip_code,
+            benefactor=benefactor,
+            beneficiary=beneficiary
+            )
     money.save()
 
     if verbosity:
