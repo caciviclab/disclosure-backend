@@ -13,7 +13,7 @@ from django.db import transaction
 
 from ... import models
 from ballot.models import Ballot
-from ballot.models import Office, OfficeElection, Candidate
+from ballot.models import Candidate, Office, OfficeElection
 from ballot.models import Referendum, ReferendumSelection
 from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
@@ -201,7 +201,7 @@ def parse_ballot_info(row, locality, verbosity=1):
 
 
 def get_committee_benefactor(row):
-    """ Utility function to identify a committee benefactor.
+    """Utility function to identify a committee benefactor.
     """
     return models.CommitteeBenefactor.objects.get_or_create(
         name=row['tran_NamL'].strip(),
@@ -209,7 +209,7 @@ def get_committee_benefactor(row):
 
 
 def get_committee_beneficiary(row):
-    """ Utility function to identify a committee beneficiary.
+    """Utility function to identify a committee beneficiary.
     """
     filer_id = row['filerId']
     if '-' in filer_id:
@@ -222,7 +222,7 @@ def get_committee_beneficiary(row):
 
 
 def clean_filer_id(filer_id):
-    """ Utility function to scrub committee IDs."""
+    """Utility function to scrub committee IDs."""
     if isinstance(filer_id, Number):
         return str(int(filer_id))
     elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
@@ -277,8 +277,7 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
     try:
         money = models.IndependentMoney.objects.get(
             source='NF',
-            source_xact_id=row['netFileKey']
-            )
+            source_xact_id=row['netFileKey'])
 
         money.amount = float(row['tran_Amt1'])
         money.report_date = date_parse(row['tran_Date'])
@@ -295,8 +294,7 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
             reporting_period=reporting_period,
             benefactor_zip=bf_zip_code,
             benefactor=benefactor,
-            beneficiary=beneficiary
-            )
+            beneficiary=beneficiary)
     money.save()
 
     if verbosity:
