@@ -1,6 +1,8 @@
 import os
 import os.path as op
 
+import calaccess_raw
+
 BASE_DIR = op.dirname(__file__)
 REPO_DIR = op.join(BASE_DIR, os.pardir)
 SECRET_KEY = 'w11nbg_3n4+e@qk^b55qgo5qygesn^3=&s1kwtlbpkai$(1jv3'
@@ -15,15 +17,11 @@ STATIC_ROOT = op.join(BASE_DIR, ".static")
 # imply that this machine will not be runinng cronjobs.
 CRON_LOGS_DIR = None
 
-try:
-    # Set CALACCESS_TEST_DOWNLOAD_DIR for testing calaccess data commands.
-    import calaccess_raw
-    _calaccess_repo_dir = op.join(op.dirname(calaccess_raw.__file__),
-                                  os.pardir)
-    CALACCESS_TEST_DOWNLOAD_DIR = op.join(_calaccess_repo_dir,
-                                          'example', 'test-data')
-except:
-    pass
+# Set CALACCESS_TEST_DOWNLOAD_DIR for testing calaccess data commands.
+_calaccess_repo_dir = op.join(op.dirname(calaccess_raw.__file__),
+                              os.pardir)
+CALACCESS_TEST_DOWNLOAD_DIR = op.join(_calaccess_repo_dir,
+                                      'example', 'test-data')
 
 CALACCESS_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'calaccess')
 NETFILE_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'netfile')

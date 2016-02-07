@@ -23,7 +23,8 @@ class WithForm460ADataTest(TestCase):
 @override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
 class XformNetfileRawDataTest(TestCase):
 
-    def test_xformnetfilerawdata(self, test_agency='CSA', test_year='2015'):
+    def test_xformnetfilerawdata(self, test_agency='CSA', test_year='2015',
+                                 verbosity=0):
         """
         Tests a single file download
         """
@@ -40,3 +41,9 @@ class XformNetfileRawDataTest(TestCase):
 
             self.assertTrue(model.objects.all().count() > 0,
                             '%ss exist after parse' % model.__class__.__name__)
+
+    def test_xformnetfilerawdata_verbose(self):
+        """
+        Tests a single file download, with verbosity=1
+        """
+        self.test_xformnetfilerawdata(verbosity=1)
