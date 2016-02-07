@@ -19,6 +19,7 @@ urlpatterns = patterns(
 
     # inclusions
     url(r'', include('ballot.urls')),
+    url(r'', include('election_day.urls')),
     url(r'', include('finance.urls')),
     url(r'', include('locality.urls')),  # empty
 
