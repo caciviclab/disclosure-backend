@@ -5,3 +5,4 @@ omit =
     cron/*
     manage.py
     disclosure/wsgi.py
+    *test*
