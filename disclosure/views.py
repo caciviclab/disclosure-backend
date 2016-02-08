@@ -1,27 +1,37 @@
 import os
 
 from django.conf import settings
-from django.db.models import Q
-from django.http import HttpResponse, Http404
+from django.db.models import F, Q, Sum
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.template import loader
 
-from rest_framework.decorators import api_view
+from rest_framework import viewsets
+from rest_framework.decorators import api_view, list_route
 from rest_framework.response import Response
 
+from ballot.models import Ballot
+from finance.models import IndependentMoney
 from locality.models import City
 from locality.serializers import LocalitySerializer
+from swagger_nickname_registry import swagger_nickname
 
 
 @api_view(['GET'])
+@swagger_nickname('search')
 def search_view(request):
     """
     Search for a location with ballot/disclosure data.
     ---
+
     parameters:
       - name: q
         description: The user's search query
         type: string
         paramType: query
+
+    response_serializer:
+        LocalitySerializer
     """
     query = request.query_params.get('q', '')
     query_set = City.objects.filter(~Q(ballot=None), name__icontains=query)
@@ -30,30 +40,21 @@ def search_view(request):
 
 
 @api_view(['GET'])
-def location_view(request, locality_id):
+@swagger_nickname('disclosure_summary')
+def locality_disclosure_summary_view(request, ballot_id):
     """
-    Display summarized disclosure information about a location
+    Display summarized disclosure information for a ballot
     ---
     parameters:
-      - name: locality_id
-        description: The locality_id (arbitrary, can be obtained via 'search')
+      - name: ballot_id
+        description: The ballot_id
         paramType: path
         type: integer
         required: true
     """
-    from locality.models import City
-    from ballot.models import Ballot
-    from finance.models import (IndependentMoney)
-    from django.db.models import Sum, F
-
     # TODO: set up ElectionDay app.
-    try:
-        locality = City.objects.get(id=locality_id)
-        ballots = Ballot.objects.filter(locality=locality)
-        ballot = ballots[0]
-    except (City.DoesNotExist, IndexError):
-        # No locality found, or no ballot exists.
-        raise Http404()
+    ballot = get_object_or_404(Ballot, id=ballot_id)
+    locality = City.objects.get(id=ballot.locality_id)
 
     # Get all relevant rows of IndependentMoney
     benefits = IndependentMoney.objects.filter(
@@ -97,109 +98,75 @@ def location_view(request, locality_id):
         "contribution_count": num_contributions,
         "contribution_by_type": benefits_by_type,
         "contribution_by_area": total_by_locality,
-    }, content_type='application/json')
+    })
 
 
-@api_view(['GET'])
-def committee_view(request, committee_id):
+class BallotItemResponseViewSet(viewsets.ViewSet):
     """
-    Display summarized disclosure information about a committee
-    ---
-    parameters:
-      - name: committee_id
-        description: The committee_id
-        paramType: path
-        type: integer
-        required: true
+    Abstract class serving both candidates and referendums
     """
-    return Response({
-        'committee_id': 1234,
-        'name': 'Americans for Liberty',
-        'contribution_by_type': {
-            'unitemized': 2916394,
-            'self_funded': 512554,
-            'political_party': 6426112,
-            'individual': 11134547,
-            'recipient_committee': 986229
-        },
-        'contribution_by_area': {
-            'inside_location': 0.56,
-            'inside_state': 0.38,
-            'outside_state': 0.06
-        }
-    }, content_type='application/json')
+
+    def supporting(self, request, ballot_item_response_id):
+        """
+        Display summarized supporting committee information
+        """
+        return Response([
+            {'id': 1, 'name': 'Citizens for a Better Oakland', 'contributions': 185859},  # noqa
+            {'id': 2, 'name': 'Oaklanders for Ethical Government', 'contributions': 152330},  # noqa
+            {'id': 3, 'name': 'Americans for Liberty', 'contributions': 83199},
+            {'id': 4, 'name': 'Golden State Citizens for Positive Reform',
+             'contributions': 23988}
+        ], content_type='application/json')
+
+    @list_route(['GET'])
+    def opposing(self, request, ballot_item_response_id):
+        """
+        Display summarized opposing committee information
+        """
+        return Response([
+            {'id': 5, 'name': 'The Public Commission for Ethical Civic Reform',
+             'contributions': 15040},
+            {'id': 6, 'name': 'The Committee of True Americans who Dearly '
+                      'Love America and Liberty', 'contributions': 7943}
+        ])
 
 
-@api_view(['GET'])
-def contributor_view(request, locality_id):
-    """
-    Display summarized contributor information
-    ---
-    parameters:
-      - name: locality_id
-        description: The locality_id (can be city, county, state)
-        paramType: path
-        type: integer
-        required: true
-    """
-    return Response([
-        {
-            'name': 'Samantha Brooks',
-            'amount': 700,
-            'date': '2015-04-12'
-        },
-        {
-            'name': 'Lisa Sheppards',
-            'amount': 700,
-            'date': '2015-01-13'
-        },
-        {
-            'name': 'Raoul Esponsito',
-            'amount': 700,
-            'date': '2015-04-04'
-        }
-    ], content_type='application/json')
+class ReferendumViewSet(BallotItemResponseViewSet):
+    @list_route(['GET'])
+    def supporting(self, request, referendum_id):
+        """
+        Groups making contributions/expenditures in support of a referendum.
+        """
+        # ballot_item_response_id =   # query from referendumresponse model
+        return super(ReferendumViewSet, self).supporting(
+            request, ballot_item_response_id=1)
+
+    @list_route(['GET'])
+    def opposing(self, request, referendum_id):
+        """
+        Groups making contributions/expenditures in opposition to a referendum.
+        """
+        # ballot_item_response_id =   # query from referendumresponse model
+        return super(ReferendumViewSet, self).opposing(
+            request, ballot_item_response_id=1)
 
 
-@api_view(['GET'])
-def supporting_view(request, locality_id):
-    """
-    Display summarized supporting committee information
-    ---
-    parameters:
-      - name: locality_id
-        description: The locality_id (can be city, county, state)
-        paramType: path
-        type: integer
-        required: true
-    """
-    return Response([
-        {'name': 'Citizens for a Better Oakland', 'contributions': 185859},
-        {'name': 'Oaklanders for Ethical Government', 'contributions': 152330},
-        {'name': 'Americans for Liberty', 'contributions': 83199},
-        {'name': 'Golden State Citizens for Positive Reform',
-         'contributions': 23988}
-    ], content_type='application/json')
+class CandidateViewSet(BallotItemResponseViewSet):
+    @list_route(['GET'])
+    def supporting(self, request, candidate_id):
+        """
+        Groups making contributions/expenditures in support of a candidate.
+        """
+        return super(CandidateViewSet, self).supporting(
+            request, ballot_item_response_id=candidate_id)
 
-
-@api_view(['GET'])
-def opposing_view(request, locality_id):
-    """
-    Display summarized opposing committee information
-    ---
-    parameters:
-      - name: locality_id
-        description: The locality_id (can be city, county, state)
-        paramType: path
-        type: integer
-        required: true
-    """
-    return Response([
-        {'name': 'The Public Commission for Ethical Civic Reform',
-         'contributions': 15040},
-        {'name': 'The Committee of True Americans who Dearly Love America '
-                 'and Liberty', 'contributions': 7943}
-    ], content_type='application/json')
+    @list_route(['GET'])
+    def opposing(self, request, candidate_id):
+        """
+        Groups making contributions/expenditures in opposition to a referendum.
+        """
+        return super(CandidateViewSet, self).opposing(
+            request, ballot_item_response_id=candidate_id)
 
 
 def homepage_view(request):

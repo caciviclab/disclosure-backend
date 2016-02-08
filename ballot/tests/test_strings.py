@@ -5,7 +5,7 @@ from ballot.models import (Ballot, BallotItem, BallotItemSelection,
                            Party)
 
 
-class IndependentMoneyStringTests(WithForm460ADataTest, TestCase):
+class BallotStringTests(WithForm460ADataTest, TestCase):
 
     @classmethod
     def setUpClass(cls):

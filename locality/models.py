@@ -5,12 +5,20 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 class ReverseLookupStringMixin(object):
-    def __str__(self):
+    def reverse_lookup(self):
         for relationship in self._meta.related_objects:
             attr = relationship.name
             if (isinstance(relationship, OneToOneRel) and hasattr(self, attr)):
-                return unicode(getattr(self, attr))
-        return ''
+                return getattr(self, attr)
+        return None
+
+    def type(self):
+        obj = self.reverse_lookup()
+        return obj.__class__.__name__.lower() if obj else None
+
+    def __str__(self):
+        obj = self.reverse_lookup()
+        return unicode(obj) if obj else ''
 
 
 @python_2_unicode_compatible

@@ -17,12 +17,9 @@ class CommitteeAPITests(WithForm460ADataTest, APITestCase):
         # Get first committee with non-None name
         committee = Committee.objects.filter(~Q(name=None))[0]
 
-        committee_url = reverse('committee_detail',
-                                kwargs={'committee_id': committee.id})
+        committee_url = reverse('committee_get', kwargs={'committee_id': committee.id})
         resp = self.client.get(committee_url)
 
         # TODO: replace dummy tests with live data tests.
-        self.assertIn('committee_id', resp.data)
+        self.assertIn('filer_id', resp.data)
         self.assertIn('name', resp.data)
-        self.assertIn('contribution_by_type', resp.data)
-        self.assertIn('contribution_by_area', resp.data)

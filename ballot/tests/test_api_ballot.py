@@ -12,10 +12,20 @@ class BallotAPITests(WithForm460ADataTest, APITestCase):
         # WithForm460ADataTest.setUpClass()
         APITestCase.setUpClass()
 
-    def test_ballot_endpoint(self):
-        ballot_url = reverse('locality_ballot', kwargs={'locality_id': 1})
+    def test_ballot(self):
+        ballot_url = reverse('ballot_get', kwargs={'ballot_id': 1})
         resp = self.client.get(ballot_url)
 
+        self.assertIn('date', resp.data)
         self.assertIn('ballot_id', resp.data)
         self.assertIn('locality_id', resp.data)
-        self.assertIn('contests', resp.data)
+        self.assertIn('ballot_items', resp.data)
+
+    def test_current_ballot(self):
+        ballot_url = reverse('current_ballot', kwargs={'locality_id': 1})
+        resp = self.client.get(ballot_url)
+
+        self.assertIn('date', resp.data)
+        self.assertIn('ballot_id', resp.data)
+        self.assertIn('locality_id', resp.data)
+        self.assertIn('ballot_items', resp.data)

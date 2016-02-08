@@ -1,81 +1,91 @@
-from rest_framework.decorators import api_view
+from rest_framework import viewsets
+from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
+from ..serializers import BallotSerializer  # noqa
 
-@api_view(['GET'])
-def measure_view(request, measure_id):
+
+class BallotViewSet(viewsets.ViewSet):
     """
-    Display summarized disclosure information about a committee
+    Any ballot, containing all ballot items
     ---
-    parameters:
-      - name: measure_id
-        description: The measure_id
-        paramType: path
-        type: integer
-        required: true
+
+    retrieve:
+      response_serializer: BallotSerializer
     """
-    return Response({
-        'measure_id': 1,
-        'city': {
-            'fips_id': 6075,
-            'location': {
-                'name': 'San Francisco'
-            }
-        },  # Not sure if city really makes sense here
-        'number': 'BB',
-        'full_text': 'Shall the Charter of the City of Oakland be amended to '
-                     ' provide the Public Ethics Commission greater '
-                     'independence, broader enforcement authority, powers',
-        'title': 'Ethics Commission Authority Increase Charter Amendment',
-        'supporting_count': 4,
-        'opposing_count': 6
-    }, content_type='application/json')
+
+    @detail_route(['GET'])
+    def retrieve(self, request, ballot_id, locality_id=None):
+        """
+        Get metadata and list of ballot items
+        """
+        return Response({
+            'ballot_id': ballot_id,
+            'locality_id': int(locality_id or 1),
+            'date': '2015/11/02',
+            'ballot_items': [
+                {
+                    'id': 1,
+                    'type': 'office',
+                    'name': 'Mayor'
+                },
+                {
+                    'id': 2,
+                    'type': 'office',
+                    'name': 'City Auditor'
+                },
+                {
+                    'id': 3,
+                    'type': 'office',
+                    'name': 'City Treasurer'
+                },
+                {
+                    'id': 4,
+                    'type': 'office',
+                    'name': 'Distrit 1 City Council'
+                },
+                {
+                    'id': 5,
+                    'type': 'office',
+                    'name': 'Distrit 3 City Council'
+                },
+                {
+                    'id': 6,
+                    'type': 'office',
+                    'name': 'Distrit 5 City Council'
+                },
+                {
+                    'id': 7,
+                    'type': 'referendum',
+                    'name': 'Measure AA'
+                },
+                {
+                    'id': 8,
+                    'type': 'referendum',
+                    'name': 'Measure BB'
+                },
+                {
+                    'id': 9,
+                    'type': 'referendum',
+                    'name': 'Measure CC'
+                }
+            ]
+        })
 
 
-@api_view(['GET'])
-def ballot_view(request, locality_id):
+class CurrentBallotViewSet(BallotViewSet):
     """
-    Display summarized ballot information
+    Current ballot, containing all ballot items
+    ---
+
+    current_ballot:
+      response_serializer: BallotSerializer
     """
-    return Response({
-        'ballot_id': 'ballot1',
-        'locality_id': 'locality2',
-        'contests': [
-            {
-                'contest_type': 'office',
-                'name': 'Mayor'
-            },
-            {
-                'contest_type': 'office',
-                'name': 'City Auditor'
-            },
-            {
-                'contest_type': 'office',
-                'name': 'City Treasurer'
-            },
-            {
-                'contest_type': 'office',
-                'name': 'Distrit 1 City Council'
-            },
-            {
-                'contest_type': 'office',
-                'name': 'Distrit 3 City Council'
-            },
-            {
-                'contest_type': 'office',
-                'name': 'Distrit 5 City Council'
-            },
-            {
-                'contest_type': 'referendum',
-                'name': 'Measure AA'
-            },
-            {
-                'contest_type': 'referendum',
-                'name': 'Measure BB'
-            },
-            {
-                'contest_type': 'referendum',
-                'name': 'Measure CC'
-            }
-        ]
-    }, content_type='application/json')
+
+    @detail_route(['GET'])
+    def current_ballot(self, request, locality_id):
+        """
+        Get the currently active ballot
+        """
+        return super(CurrentBallotViewSet, self).retrieve(
+            request=request, ballot_id=1, locality_id=locality_id)
