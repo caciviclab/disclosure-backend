@@ -100,9 +100,8 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 
-try:
-    script_dir = os.path.dirname(__file__)
-    with open(os.path.join(script_dir, 'settings_local.py')) as fp:
-        exec(fp.read())
-except:
-    pass
+_script_dir = op.dirname(__file__)
+_settings_local_path = op.join(_script_dir, 'settings_local.py')
+if op.exists(_settings_local_path):
+    with open(_settings_local_path) as fp:
+        exec(fp.read())  # allow errors to be caught.
