@@ -46,8 +46,8 @@ We have non-technical users who review, modify, and add data through the admin i
 Locally, verify your model changes manually via http://127.0.0.1:8000/admin/ before submitting PRs that change the model schema. 
 
 
-## Style Guide
+## Style Guide & Testing
 
-* `flake8` is installed via `requirements_dev.txt` and is run in our tests to maintain a `pep8`-consistent codebase.
+* [`flake8`](https://flake8.readthedocs.org/en/latest/) is installed via `requirements_dev.txt`. It wraps [`pyflakes`](https://launchpad.net/pyflakes), which detects unusued code and potential errors and [`pep8`](https://pep8.readthedocs.org/en/latest/), which implements the [PEP8 Python style guide](https://www.python.org/dev/peps/pep-0008/).
 * Docstrings in views are used by the Django `rest-framework` and `django-swagger` packages, please see the links for details.
 
