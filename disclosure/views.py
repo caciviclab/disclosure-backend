@@ -110,8 +110,6 @@ class BallotItemResponseViewSet(viewsets.ViewSet):
         """
         Display summarized supporting committee information
         """
-
-
         return Response([
             {'id': 1, 'name': 'Citizens for a Better Oakland', 'contributions': 185859},  # noqa
             {'id': 2, 'name': 'Oaklanders for Ethical Government', 'contributions': 152330},  # noqa
