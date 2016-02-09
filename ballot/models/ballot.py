@@ -53,12 +53,7 @@ class BallotItem(models.Model, ReverseLookupStringMixin):
     ballot = models.ForeignKey(Ballot, related_name='ballot_items')
 
     def __str__(self):
-        #return (ReverseLookupStringMixin.__str__(self) or
-        #        str(self.ballot_item))
-
-        # Not sure what this does... Ask ben.
-        return (ReverseLookupStringMixin.__str__(self) or
-                str(self.contest_type))
+        return (ReverseLookupStringMixin.__str__(self))
 
     class Meta:
         ordering = ('ballot__date', 'ballot__locality__short_name',
