@@ -262,30 +262,33 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
     tran_Type      : Transaction Type (T=Third Part, nan,R,X
     tran_Zip4      : Transaction Entity's Zip Code, 63105,75702,75711,90036,90040,
     """
-    benefactor, bf_zip_code = parse_benefactor(
-        row, verbosity=verbosity)
-    reporting_period = parse_form_and_report_period(
-        row, verbosity=verbosity)
-    beneficiary = parse_beneficiary(
-        row, agency=agency, verbosity=verbosity)
-    beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
-        row, locality=beneficiary.locality, verbosity=verbosity)
-    beneficiary.save()
 
-    # Now we have all the parts, see if we have this record.
-    # If not, create.  Then Save it.
     try:
+        # Get old money. If we have it, don't do anything--fast!!
         money = models.IndependentMoney.objects.get(
             source='NF',
             source_xact_id=row['netFileKey'])
 
-        money.amount = float(row['tran_Amt1'])
-        money.report_date = date_parse(row['tran_Date'])
-        money.reporting_period = reporting_period
-        money.benefactor_zip = bf_zip_code
-        money.benefactor = benefactor
-        money.beneficiary = beneficiary
+        assert money.amount == float(row['tran_Amt1']), \
+            "%s != %s" % (money.amount, float(row['tran_Amt1']))
+        assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
+            "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
+        if verbosity:
+            print("Skipping existing row %s/%s" % (
+                money.source, money.source_xact_id))
+
     except models.IndependentMoney.DoesNotExist:
+        benefactor, bf_zip_code = parse_benefactor(
+            row, verbosity=verbosity)
+        reporting_period = parse_form_and_report_period(
+            row, verbosity=verbosity)
+        beneficiary = parse_beneficiary(
+            row, agency=agency, verbosity=verbosity)
+        beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
+            row, locality=beneficiary.locality, verbosity=verbosity)
+        beneficiary.save()
+
+        # Now we have all the parts. Create and save it.
         money = models.IndependentMoney(
             source='NF',
             source_xact_id=row['netFileKey'],
@@ -295,10 +298,10 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
             benefactor_zip=bf_zip_code,
             benefactor=benefactor,
             beneficiary=beneficiary)
-    money.save()
+        money.save()
 
-    if verbosity:
-        print(str(money))
+        if verbosity:
+            print(str(money))
 
 
 def load_f460A_data(data, agency_fn, verbosity=1):  # noqa
