@@ -18,9 +18,10 @@ class Committee(SocialMediaMixin, AddressMixin):
     committees have official designations.
     """
     COMMITTEE_TYPES = (
-        ('OF', 'Primarily-formed Official Committee'),
-        ('PF', 'Primarily-formed Committee'),
-        ('IC', 'Independent Committee')
+        ('CC', 'Candidate Controlled Committee'),
+        ('PF', 'Primarily Formed Committees'),
+        ('IC', 'General Purpose Committees'),
+        ('BM', 'Ballot Measure Committee')
     )
     name = models.CharField(max_length=255)
     filer_id = models.CharField(max_length=16, null=True, default=None,
