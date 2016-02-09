@@ -113,8 +113,7 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
         'locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
-        return (ReverseLookupStringMixin.__str__(self) or
-                self.benefactor_type)
+        return ReverseLookupStringMixin.__str__(self)
 
     class Meta:
         ordering = ('benefactor_locality__name',
