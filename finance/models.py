@@ -28,7 +28,7 @@ class Committee(SocialMediaMixin, AddressMixin):
                                 help_text="Official government ID "
                                           "(none if unknown)")
     type = models.CharField(max_length=2, choices=COMMITTEE_TYPES)
-    locality = models.ForeignKey('locality.Locality', null=True, default=None)
+    locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -43,7 +43,7 @@ class OtherMixin(SocialMediaMixin, AddressMixin):
     Information about a commerical entity (OTH)
     """
     name = models.CharField(max_length=255)
-    locality = models.ForeignKey('locality.Locality', null=True, default=None)
+    locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
         return self.name
@@ -69,7 +69,7 @@ class Form(models.Model):
     text_id = models.CharField(max_length=32, help_text='e.g. 460 Schedule A')
     submission_frequency = models.CharField(
         max_length=2, choices=FREQUENCY_TYPES)
-    locality = models.ForeignKey('locality.Locality', null=True, default=None,
+    locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None,
                                  help_text="Only set when a form is specific "
                                            "to a locality.")
 
@@ -95,7 +95,7 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
     benefactor_type = models.CharField(max_length=2, choices=BENEFACTOR_TYPES)
     benefactor_locality = models.ForeignKey(
-        'locality.Locality', null=True, default=None)
+        'locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
         return (ReverseLookupStringMixin.__str__(self) or
@@ -107,7 +107,7 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
 
 
 @python_2_unicode_compatible
-class PersonBenefactor(Benefactor, PersonMixin):
+class PersonBenefactor(Benefactor, PersonMixin, AddressMixin):
     """
     Individual who contributes to a committee.
     """
