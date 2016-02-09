@@ -10,11 +10,8 @@ California Civic Lab Disclosure Backend
 This is the back-end Django application for scraping ballot measure funding data (from NetFile and CalAccess), pushing it to our database, and exposing the data to our front-end apps via a RESTful API.
 
 Helpful links:
-* [Technical Overview](https://github.com/caciviclab/caciviclab.github.io/wiki/Technical%20Overview) - gives details on the overall app technical design and status.
-* [Mock-ups](https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups) - example tables and visualizations representing information we want to share with users.
-* [Branch summary](https://github.com/caciviclab/caciviclab.github.io/wiki/Branch%20summary) - summarizes what each code branch is doing, and where it's at.
-* [Django REST Swagger](http://django-rest-swagger.readthedocs.org/en/latest/index.html) - generates a [swagger spec](http://swagger.io/) for our [API](http://admin.caciviclab.org/docs/), consumed by swagger clients, and helps to round out our API.
-* [Django REST Framework](http://www.django-rest-framework.org/) - does the heavy lifting for the API. Django REST Swagger is built on top of the Framework.
+* [How to contribute](CONTRIBUTING.md) - links to the overall app technical design and status, as well as information on how to contribute ocde.
+* [Adding your city](https://github.com/caciviclab/caciviclab.github.io/wiki/On-boarding-a-new-city) - How to test and add your city's disclosure information to this app.
 
 See below for server setup. Here are mock-ups for data tables that this app intends to support:
 
