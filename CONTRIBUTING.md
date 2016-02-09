@@ -1,6 +1,17 @@
 This project has a number of non-obvious aspects to contributing; this document is designed to outline the issues!
 
-## Supported Interactions
+## Project overview
+
+Technical docs are kept in our wiki. Important docs to be familiar with include:
+* A [glossary of terms](https://github.com/caciviclab/caciviclab.github.io/wiki/Glossary) we use in the app. Use these for naming variables, functions, and objects in the code.
+* An [outdated schema](https://github.com/caciviclab/caciviclab.github.io/wiki/Data-relationships---Database-schema) of the database/model structure. 
+* A simple [technical overview](https://github.com/caciviclab/caciviclab.github.io/wiki/Technical-Overview) of the project
+
+Non-technical docs are also available to understand the complex space of campaign finance. These include:
+* A [campaign finance summary](https://github.com/caciviclab/caciviclab.github.io/wiki/Campaign-Finance)
+
+
+## Testing code changes
 
 There are three different ways for users interact with this code; for two, documentation and output strings become very important. Each must be tested independently for verification.
 
