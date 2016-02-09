@@ -7,6 +7,11 @@ Technical docs are kept in our wiki. Important docs to be familiar with include:
 * An [outdated schema](https://github.com/caciviclab/caciviclab.github.io/wiki/Data-relationships---Database-schema) of the database/model structure. 
 * A simple [technical overview](https://github.com/caciviclab/caciviclab.github.io/wiki/Technical-Overview) of the project
 
+The project works on top of a number of existing packages, including:
+* [Django (v1.8)](https://docs.djangoproject.com/en/1.8/) - Our web server for serving HTTP requests, making URL routing through views, which access objects that tap into a back-end database, simple and structured.
+* [Django REST Framework](http://www.django-rest-framework.org/) - does the heavy lifting for the API. Django REST Swagger is built on top of the Framework.
+* [Django REST Swagger](http://django-rest-swagger.readthedocs.org/en/latest/index.html) - generates a [swagger spec](http://swagger.io/) for our [API](http://admin.caciviclab.org/docs/), consumed by swagger clients, and helps to round out our API.
+
 Non-technical docs are also available to understand the complex space of campaign finance. These include:
 * A [campaign finance summary](https://github.com/caciviclab/caciviclab.github.io/wiki/Campaign-Finance)
 
