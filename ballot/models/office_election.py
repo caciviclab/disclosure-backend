@@ -15,10 +15,10 @@ class SocialMediaMixin(models.Model):
     """
     Abstract class to represent social media information.
     """
-    photo_url = models.ImageField(null=True, default=None)
-    website_url = models.URLField(null=True, default=None)
-    facebook_url = models.URLField(null=True, default=None)
-    twitter_url = models.URLField(null=True, default=None)
+    photo_url = models.ImageField(blank=True, null=True, default=None)
+    website_url = models.URLField(blank=True, null=True, default=None)
+    facebook_url = models.URLField(blank=True, null=True, default=None)
+    twitter_url = models.URLField(blank=True, null=True, default=None)
 
     class Meta:
         abstract = True
@@ -47,7 +47,8 @@ class PersonMixin(SocialMediaMixin):
     """
     first_name = models.CharField(max_length=255, null=True, default=None,
                                   help_text="The person's first name.")
-    middle_name = models.CharField(max_length=255, null=True, default=None,
+    middle_name = models.CharField(max_length=255, blank=True,
+                                   null=True, default=None,
                                    help_text="The person's middle name.")
     last_name = models.CharField(max_length=255,
                                  help_text="The person's last name.")
@@ -113,7 +114,7 @@ class Candidate(BallotItemSelection, PersonMixin):
     A person running for office.
     """
     office_election = models.ForeignKey('OfficeElection')
-    party = models.ForeignKey('Party', null=True, default=None)
+    party = models.ForeignKey('Party', blank=True, null=True, default=None)
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)

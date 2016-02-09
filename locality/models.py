@@ -27,8 +27,8 @@ class Locality(models.Model, ReverseLookupStringMixin):
     A base table that gives a globally unique ID to any
     location (city, state, etc)
     """
-    name = models.CharField(max_length=128, null=True, default=None)
-    short_name = models.CharField(max_length=32, null=True, default=None)
+    name = models.CharField(max_length=128, blank=True, null=True, default=None)
+    short_name = models.CharField(max_length=32, blank=True, null=True, default=None)
 
     def __str__(self):
         return (ReverseLookupStringMixin.__str__(self) or
@@ -43,7 +43,7 @@ class FipsMixin(Locality):
     """
     Abstract class, for any model that has a fips_id
     """
-    fips_id = models.IntegerField(null=True, default=None)
+    fips_id = models.IntegerField(blank=True, null=True, default=None)
 
     class Meta:
         abstract = True
@@ -54,7 +54,7 @@ class City(FipsMixin):
     """
     City
     """
-    county = models.ForeignKey('County', null=True, default=None)
+    county = models.ForeignKey('County', blank=True, null=True, default=None)
     state = models.ForeignKey('State')
 
     def __str__(self):
@@ -95,9 +95,9 @@ class ZipCode(Locality):
     """
     A Static set of ZIP code to "metro" name mappings.
     """
-    city = models.ForeignKey('City', null=True, default=None)
-    county = models.ForeignKey('County', null=True, default=None)
-    state = models.ForeignKey('State', null=True, default=None)
+    city = models.ForeignKey('City', blank=True, null=True, default=None)
+    county = models.ForeignKey('County', blank=True, null=True, default=None)
+    state = models.ForeignKey('State', blank=True, null=True, default=None)
 
     def __str__(self):
         return self.short_name or self.name
@@ -109,13 +109,13 @@ class AddressMixin(models.Model):
     """
     street = models.CharField(max_length=1024, null=True, default=None)
     city = models.ForeignKey(
-        'City', null=True, default=None,
+        'City', blank=True, null=True, default=None,
         related_name='%(app_label)s_%(class)s_address_city')
     state = models.ForeignKey(
-        'State', null=True, default=None,
+        'State', blank=True, null=True, default=None,
         related_name='%(app_label)s_%(class)s_address_state')
     zip_code = models.ForeignKey(
-        'ZipCode', null=True, default=None,
+        'ZipCode', blank=True, null=True, default=None,
         related_name='%(app_label)s_%(class)s_address_zip_code')
 
     class Meta:
