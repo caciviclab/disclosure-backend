@@ -36,6 +36,9 @@ def parse_benefactor(row, verbosity=1):
     bf_zip_code, _ = ZipCode.objects.get_or_create(
         short_name=str(row.get('tran_Zip4', 'Unknown-Zip')), state=bf_state)
 
+    # Make sure row type is of the known types
+    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM')
+
     if row['entity_Cd'] == 'IND':  # individual
         benefactor = models.PersonBenefactor(
             first_name=row.get('tran_NamF', None),
@@ -57,16 +60,13 @@ def parse_benefactor(row, verbosity=1):
         benefactor = get_committee_benefactor(row)
         filer_id = clean_filer_id(row.get('cmte_Id', ''))
         if filer_id is not None and benefactor.filer_id != filer_id:
-            if benefactor.filer_id is None:
-                if verbosity:
-                    print("\n\nFIXED ID for %s\n\n" % benefactor.name)
-                benefactor.filer_id = filer_id
-            else:
-                raise Exception("Conflicting committee ID for %s: "
-                                "%s (saved) vs. %s (current)" % (
-                                    benefactor.name,
-                                    benefactor.filer_id,
-                                    filer_id))
+            # No filer ID; add one!
+            assert benefactor.filer_id is None, \
+                "Conflicting committee ID for %s: %s (saved) vs. %s (current)" % (
+                    benefactor.name, benefactor.filer_id, filer_id)
+            benefactor.filer_id = filer_id
+            if verbosity:
+                print("\n\nFIXED ID for %s\n\n" % benefactor.name)
 
         # of=official, pf=primarily, ic=independent
         benefactor.name = row['tran_NamL'].strip()
@@ -77,14 +77,6 @@ def parse_benefactor(row, verbosity=1):
         benefactor.zip_code = bf_zip_code
         benefactor.locality = benefactor.benefactor_locality = bf_city
         benefactor.save()
-
-    elif row['entity_Cd'] == 'PTY':  # political party
-        raise NotImplementedError("Form 460 Sched. A contributions "
-                                  "from political parties.")
-
-    else:
-        raise ValueError("Entity type not expected: %s" % (
-            row['entity_Cd']))
 
     return benefactor, bf_zip_code
 
@@ -106,18 +98,17 @@ def parse_form_and_report_period(row, verbosity=1):
 
 def parse_beneficiary(row, agency, verbosity=1):
     # Parse and save the beneficiary, contribution.
-    if agency:
-        state, _ = State.objects.get_or_create(short_name='CA')
-        if state.name is None or state.name == '':
-            state.name = 'California'
-            state.save()
-        locality, _ = City.objects.get_or_create(
-            name=agency['name'],
-            state=state)
-        locality.short_name = agency['shortcut']
-        locality.save()
-    else:
-        locality = None
+    assert agency is not None, "Agency should be set."
+
+    state, _ = State.objects.get_or_create(short_name='CA')
+    if state.name is None or state.name == '':
+        state.name = 'California'
+        state.save()
+    locality, _ = City.objects.get_or_create(
+        name=agency['name'],
+        state=state)
+    locality.short_name = agency['shortcut']
+    locality.save()
 
     beneficiary = get_committee_beneficiary(row)
     beneficiary.locality = locality
