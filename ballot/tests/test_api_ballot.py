@@ -9,7 +9,7 @@ class BallotAPITests(WithForm460ADataTest, APITestCase):
 
     @classmethod
     def setUpClass(cls):
-        # WithForm460ADataTest.setUpClass()
+        WithForm460ADataTest.setUpClass()
         APITestCase.setUpClass()
 
     def test_ballot(self):
@@ -17,7 +17,7 @@ class BallotAPITests(WithForm460ADataTest, APITestCase):
         resp = self.client.get(ballot_url)
 
         self.assertIn('date', resp.data)
-        self.assertIn('ballot_id', resp.data)
+        self.assertIn('id', resp.data)
         self.assertIn('locality_id', resp.data)
         self.assertIn('ballot_items', resp.data)
 
@@ -26,6 +26,6 @@ class BallotAPITests(WithForm460ADataTest, APITestCase):
         resp = self.client.get(ballot_url)
 
         self.assertIn('date', resp.data)
-        self.assertIn('ballot_id', resp.data)
+        self.assertIn('id', resp.data)
         self.assertIn('locality_id', resp.data)
         self.assertIn('ballot_items', resp.data)
