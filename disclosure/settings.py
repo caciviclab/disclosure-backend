@@ -12,7 +12,9 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
 ]
-STATIC_ROOT = op.join(BASE_DIR, ".static")
+STATIC_ROOT = op.join(REPO_DIR, "static")
+MEDIA_ROOT = op.join(REPO_DIR, "media")
+
 # Set this to the path where cronrunner.py is dumping its logs, or "None" to
 # imply that this machine will not be runinng cronjobs.
 CRON_LOGS_DIR = None
@@ -98,6 +100,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 _script_dir = op.dirname(__file__)
 _settings_local_path = op.join(_script_dir, 'settings_local.py')

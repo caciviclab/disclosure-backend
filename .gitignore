@@ -5,6 +5,8 @@ data/
 
 # Django
 settings_local.py
+media/
+.static/
 
 # Generated docs
 docs/

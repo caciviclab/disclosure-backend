@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, patterns, url
+from django.conf.urls.static import static
 from django.contrib import admin
 
 from . import views
@@ -46,3 +47,5 @@ urlpatterns = patterns(
     url(r'candidate/(?P<candidate_id>[0-9]+)/opposing$',
         views.CandidateViewSet.as_view(actions={'get': 'opposing'}),
         name='candidate_opposing'))
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
