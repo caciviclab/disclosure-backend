@@ -1,9 +1,22 @@
 from rest_framework import serializers
+from ..models import Ballot, BallotItem
+
+
+class BallotItemSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField()
+    contest_type = serializers.CharField(source='get_contest_type_display')
+    name = serializers.CharField(source='*', read_only=True)
+
+    class Meta:
+        model = BallotItem
 
 
 class BallotSerializer(serializers.Serializer):
-    date = serializers.DateField
-    ballot_id = serializers.IntegerField
+    id = serializers.IntegerField()
     locality_id = serializers.CharField(max_length=50)
-    ballot_items = serializers.ListField(
-        child=serializers.DictField())
+    date = serializers.DateField()
+    ballot_items = BallotItemSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Ballot

@@ -50,11 +50,10 @@ class BallotItem(models.Model, ReverseLookupStringMixin):
         max_length=1, choices=CONTEST_TYPES,
         help_text='Office if the contest is for a person, referendum if '
                   'the contest is for an issue.')
-    ballot = models.ForeignKey('Ballot')
+    ballot = models.ForeignKey(Ballot, related_name='ballot_items')
 
     def __str__(self):
-        return (ReverseLookupStringMixin.__str__(self) or
-                str(self.ballot_item))
+        return (ReverseLookupStringMixin.__str__(self))
 
     class Meta:
         ordering = ('ballot__date', 'ballot__locality__short_name',
