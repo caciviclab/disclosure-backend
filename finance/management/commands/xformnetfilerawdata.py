@@ -271,6 +271,8 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
 
         assert money.amount == float(row['tran_Amt1']), \
             "%s != %s" % (money.amount, float(row['tran_Amt1']))
+        assert money.cumulative_amount == float(row['tran_Amt2']), \
+            "%s != %s" % (money.cumulative_amount, float(row['tran_Amt2']))
         assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
             "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
         if verbosity:
@@ -293,6 +295,7 @@ def load_f460A_row(row, agency, verbosity=1):  # noqa
             source='NF',
             source_xact_id=row['netFileKey'],
             amount=float(row['tran_Amt1']),
+            cumulative_amount=float(row['tran_Amt2']),
             report_date=date_parse(row['tran_Date']),
             reporting_period=reporting_period,
             benefactor_zip=bf_zip_code,

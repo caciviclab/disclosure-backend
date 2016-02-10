@@ -201,6 +201,9 @@ class IndependentMoney(models.Model):
         ('NF', 'Netfile'),
     )
     amount = models.FloatField(help_text="Monetary value of the benefit.")
+    cumulative_amount = models.FloatField(help_text="Total monetary value of "
+                                          "provided benefits, to date of this "
+                                          "transaction.")
     reporting_period = models.ForeignKey('ReportingPeriod')
     report_date = models.DateField()
 
