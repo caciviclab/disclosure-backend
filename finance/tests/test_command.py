@@ -47,3 +47,14 @@ class XformNetfileRawDataTest(TestCase):
         Tests a single file download, with verbosity=1
         """
         self.test_xformnetfilerawdata(verbosity=1)
+
+    def test_xformnetfilerawdata_twice(self):
+        """
+        Tests a single file download, with verbosity=1
+        """
+        self.test_xformnetfilerawdata()
+        num_rows = IndependentMoney.objects.all().count()
+
+        self.test_xformnetfilerawdata(verbosity=1)  # print "skip"
+        self.assertEqual(num_rows, IndependentMoney.objects.all().count(),
+                         'no new rows after running twice')
