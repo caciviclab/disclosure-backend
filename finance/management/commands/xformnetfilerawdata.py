@@ -263,7 +263,10 @@ def clean_filer_id(filer_id):
         return str(int(filer_id))
     elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
         filer_id = filer_id[1:]
-    return filer_id or None  # don't do blank.
+    elif filer_id.lower() == 'pending':
+        return None
+    else:
+        return filer_id or None  # don't do blank.
 
 
 @transaction.atomic
