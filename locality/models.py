@@ -107,7 +107,7 @@ class AddressMixin(models.Model):
     """
     A street address.
     """
-    street = models.CharField(max_length=1024, null=True, default=None)
+    street = models.CharField(max_length=1024, blank=True, null=True, default=None)
     city = models.ForeignKey(
         'City', blank=True, null=True, default=None,
         related_name='%(app_label)s_%(class)s_address_city')
