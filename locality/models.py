@@ -89,6 +89,9 @@ class State(FipsMixin):
     def __str__(self):
         return self.short_name or self.name
 
+    class Meta:
+        ordering = ('short_name', 'name')
+
 
 @python_2_unicode_compatible
 class ZipCode(Locality):
