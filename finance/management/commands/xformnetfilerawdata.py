@@ -27,6 +27,15 @@ def isnone(val):
     return val is None or val == 'None'
 
 
+def clean_name(str):
+    """BEN CIP => Ben Cip"""
+    if str is None or str == '':
+        return str
+    return ' '.join([n[0].upper() + n[1:].lower()
+                     for n in str.strip().split(' ')
+                     if n != ''])
+
+
 def parse_benefactor(row, verbosity=1):
     # Benefactor info
     bf_state, _ = State.objects.get_or_create(
@@ -40,17 +49,21 @@ def parse_benefactor(row, verbosity=1):
     assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM')
 
     if row['entity_Cd'] == 'IND':  # individual
+        raw_name = clean_name(row.get('tran_NamF')) or ''
+        first_name = raw_name.split(' ')[0]
+        middle_name = raw_name[len(first_name):].strip()
         benefactor = models.PersonBenefactor(
-            first_name=row.get('tran_NamF', None),
-            last_name=row['tran_NamL'],
-            occupation=row.get('tran_Occ'))
+            first_name=first_name, middle_name=middle_name,
+            last_name=clean_name(row['tran_NamL']),
+            occupation=clean_name(row.get('tran_Occ')))
+
         # TODO: get_or_create?
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
-            .get_or_create(name=row['tran_NamL'])
+            .get_or_create(name=clean_name(row['tran_NamL']))
         # Todo: parse Other locality
         # benefactor.benefactor_locality = benefactor.locality
         # benefactor.save()
@@ -69,7 +82,7 @@ def parse_benefactor(row, verbosity=1):
                 print("\n\nFIXED ID for %s\n\n" % benefactor.name)
 
         # of=official, pf=primarily, ic=independent
-        benefactor.name = row['tran_NamL'].strip()
+        benefactor.name = clean_name(row['tran_NamL'])
         benefactor.type = benefactor.type or 'PF'  # TODO: fix
         benefactor.benefactor_type = benefactor.type
         benefactor.city = bf_city
@@ -112,7 +125,7 @@ def parse_beneficiary(row, agency, verbosity=1):
 
     beneficiary = get_committee_beneficiary(row)
     beneficiary.locality = locality
-    beneficiary.name = row['filerName'].strip()
+    beneficiary.name = clean_name(row['filerName'])
     beneficiary.type = 'PF'  # ok
     # beneficiary.address = '?'  # TODO: fix
     beneficiary.save()
@@ -130,7 +143,7 @@ def parse_candidate_and_office(row, verbosity=1):
 
     # Either find a match, or raise an error.
     for re_str in res:
-        matches = re.match(re_str, row['filerName'])
+        matches = re.match(re_str, clean_name(row['filerName']))
         if matches is not None:
             matches = matches.groupdict()
             break
@@ -173,7 +186,7 @@ def parse_ballot_info(row, locality, verbosity=1):
 
     # Figure out beneficiary from past entries.
     past_money = models.IndependentMoney.objects.filter(
-        beneficiary__name=row['filerName'],
+        beneficiary__name=clean_name(row['filerName']),
         beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
     if past_money.count() > 0:
         # Figure it out from past contributions.
@@ -195,7 +208,7 @@ def get_committee_benefactor(row):
     """Utility function to identify a committee benefactor.
     """
     return models.CommitteeBenefactor.objects.get_or_create(
-        name=row['tran_NamL'].strip(),
+        name=clean_name(row['tran_NamL']),
         filer_id=clean_filer_id(row.get('cmte_Id', '')))[0]
 
 
@@ -209,7 +222,7 @@ def get_committee_beneficiary(row):
         filer_id = filer_id
 
     return models.Beneficiary.objects.get_or_create(
-        name=row['filerName'].strip(), filer_id=filer_id)[0]
+        name=clean_name(row['filerName']), filer_id=filer_id)[0]
 
 
 def clean_filer_id(filer_id):
