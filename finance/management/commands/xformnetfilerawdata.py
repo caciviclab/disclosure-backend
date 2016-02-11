@@ -36,14 +36,46 @@ def clean_name(str):
                      if n != ''])
 
 
+def clean_city(city):
+    """ALAMEDA, CA => Alameda"""
+    if city is None:
+        return city
+    city = city.strip().split(',')[0].strip()
+    return clean_name(city)
+
+
+def clean_state(state):
+    """Ca => CA"""
+    if state is None:
+        return state
+    state = state.strip().upper()
+    if len(state) != 2:
+        print("WARNING: strange state: %s" % state)
+    return state
+
+
+def clean_zip(zip_code):
+    """92110-0123, CA => 92110"""
+    if zip_code is None:
+        return zip_code
+    zip_code = zip_code.strip()
+    zip_code = zip_code.split(',')[0].strip()
+    zip_code = zip_code.split('-')[0].strip()
+    if len(zip_code) != 5:
+        print("WARNING: strange zip code: %s" % zip_code)
+    return zip_code
+
+
 def parse_benefactor(row, verbosity=1):
     # Benefactor info
     bf_state, _ = State.objects.get_or_create(
-        short_name=row.get('tran_ST', 'Unknown-State'))
+        short_name=clean_state(row.get('tran_ST')) or 'Unknown-State')
     bf_city, _ = City.objects.get_or_create(
-        name=row.get('tran_City', 'Unknown-City'), state=bf_state)
+        name=clean_city(row.get('tran_City')) or 'Unknown-City',
+        state=bf_state)
     bf_zip_code, _ = ZipCode.objects.get_or_create(
-        short_name=str(row.get('tran_Zip4', 'Unknown-Zip')), state=bf_state)
+        short_name=clean_zip(str(row.get('tran_Zip4') or '')) or 'Unknown-Zip',
+        state=bf_state)
 
     # Make sure row type is of the known types
     assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM')
