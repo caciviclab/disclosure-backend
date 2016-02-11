@@ -58,7 +58,7 @@ def clean_zip(zip_code):
     """92110-0123, CA => 92110"""
     if zip_code is None:
         return zip_code
-    zip_code = zip_code.strip()
+    zip_code = str(zip_code).strip().upper()  # foreign zips
     zip_code = zip_code.split(',')[0].strip()
     zip_code = zip_code.split('-')[0].strip()
     if len(zip_code) != 5:
