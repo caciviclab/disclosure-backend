@@ -3,16 +3,16 @@ from django.contrib import admin
 from . import models
 
 
-class CommitteeBenefactorAdmin(admin.ModelAdmin):
-    exclude = ('benefactor_type', 'benefactor_locality')
+class BenefactorAdmin(admin.ModelAdmin):
+    exclude = ('benefactor_type',)
 
 
-class OtherBenefactorAdmin(admin.ModelAdmin):
-    exclude = ['benefactor_locality']
-
+class CommitteeBenefactorAdmin(BenefactorAdmin):
+    exclude = BenefactorAdmin.exclude + ('benefactor_locality',)
 
 admin.site.register(models.Beneficiary)
-admin.site.register(models.PersonBenefactor)
-admin.site.register(models.OtherBenefactor)
-admin.site.register(models.CommitteeBenefactor)
+admin.site.register(models.PersonBenefactor, BenefactorAdmin)
+admin.site.register(models.PartyBenefactor, BenefactorAdmin)
+admin.site.register(models.OtherBenefactor, BenefactorAdmin)
+admin.site.register(models.CommitteeBenefactor, CommitteeBenefactorAdmin)
 admin.site.register(models.IndependentMoney)
