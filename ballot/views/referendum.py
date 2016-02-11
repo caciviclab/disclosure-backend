@@ -23,5 +23,5 @@ class ReferendumViewSet(viewsets.ViewSet):
         return Response({
             'id': int(referendum_id),
             'number': 'BB',
-            'name': 'Ethics Commission Authority Increase Charter Amendment',
+            'title': 'Ethics Commission Authority Increase Charter Amendment',
         })
