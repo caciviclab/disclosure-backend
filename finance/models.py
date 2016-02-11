@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
-from ballot.models import SocialMediaMixin, PersonMixin
+from ballot.models import PersonMixin, SocialMediaMixin
 from locality.models import AddressMixin, ReverseLookupStringMixin
 
 
@@ -89,7 +89,7 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
         ('PF', 'Primarily-formed committee'),
         ('IF', 'Independently-formed committee'),
         ('IN', 'Individual'),
-        ('CO', 'Corporation'),
+        ('PY', 'Political Party'),
         ('OT', 'Other')
     )
     benefactor_id = models.AutoField(primary_key=True)  # avoids id clash
@@ -160,6 +160,26 @@ class CommitteeBenefactor(Benefactor, Committee):
 
     class Meta:
         ordering = Benefactor._meta.ordering + Committee._meta.ordering
+
+
+@python_2_unicode_compatible
+class PartyBenefactor(Benefactor):
+    """
+    Political Party that contributes to a committee.
+    """
+    name = models.CharField(max_length=256)
+    party = models.ForeignKey('ballot.Party')
+
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
+        self.benefactor_type = 'PY'
+
+    def __str__(self):
+        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
+        return self.name
+
+    class Meta:
+        ordering = ('name', 'party__name') + Benefactor._meta.ordering
 
 
 class Beneficiary(Committee):
