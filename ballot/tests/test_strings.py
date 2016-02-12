@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from finance.tests.test_command import WithForm460ADataTest
+from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
 from ballot.models import (Ballot, BallotItem, BallotItemSelection,
                            Party)
 

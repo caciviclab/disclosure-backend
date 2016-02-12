@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.test.utils import override_settings
 
 from ballot.models import Candidate
-from finance.tests.test_command import WithForm460ADataTest
+from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp(), DEBUG=True)

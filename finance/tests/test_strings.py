@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .test_command import WithForm460ADataTest
+from .test_xformnetfilerawdata import WithForm460ADataTest
 from finance.models import (IndependentMoney, Beneficiary, CommitteeBenefactor,
                             OtherBenefactor, PersonBenefactor, PartyBenefactor,
                             Benefactor, Form, Committee, ReportingPeriod)

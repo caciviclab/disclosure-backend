@@ -3,7 +3,7 @@ from django.db.models import Q
 from rest_framework.test import APITestCase
 
 from finance.models import Committee
-from finance.tests.test_command import WithForm460ADataTest
+from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
 
 
 class CommitteeAPITests(WithForm460ADataTest, APITestCase):

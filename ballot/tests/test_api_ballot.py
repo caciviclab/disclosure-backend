@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 
 from rest_framework.test import APITestCase
 
-from finance.tests.test_command import WithForm460ADataTest
+from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
 
 
 class BallotAPITests(WithForm460ADataTest, APITestCase):

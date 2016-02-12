@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 
 from finance.models import IndependentMoney
 
-from finance.tests.test_command import WithForm460ADataTest
+from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
 
 
 class ContributorsAPITests(WithForm460ADataTest, APITestCase):
