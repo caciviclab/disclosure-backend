@@ -1,16 +1,19 @@
+import os.path as op
 import tempfile
 
 from django.core.management import call_command
 from django.test import TestCase, override_settings
 
 import numpy as np
+import pandas as pd
 
 from ballot.models import Ballot, BallotItem, BallotItemSelection
-from ballot.models import OfficeElection, Candidate
+from ballot.models import Candidate, OfficeElection, Party
 from ballot.models import Referendum, ReferendumSelection
 from finance.models import IndependentMoney
 from finance.management.commands.xformnetfilerawdata import (
-    clean_city, clean_name, clean_state, clean_zip, isnan, isnone)
+    clean_city, clean_name, clean_state, clean_zip, isnan, isnone,
+    parse_benefactor)
 
 
 @override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
@@ -110,3 +113,18 @@ class XformNetfileRawDataTest(TestCase):
         self.test_xformnetfilerawdata(verbosity=1)  # print "skip"
         self.assertEqual(num_rows, IndependentMoney.objects.all().count(),
                          'no new rows after running twice')
+
+
+class XformNetfileRawDataPTYTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        TestCase.setUpClass()
+        cls.PTY_CSV_FILE = op.join(
+            op.dirname(__file__), 'data', 'test_PTY.csv')
+
+    def test_PTY(self):
+        self.data = pd.read_csv(self.PTY_CSV_FILE)
+        row = self.data.iloc[0]
+        benefactor, _ = parse_benefactor(row)
+        self.assertEqual(benefactor.benefactor_type, 'PY')
+        self.assertEqual(Party.objects.all().count(), 1)

@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from .test_command import WithForm460ADataTest
 from finance.models import (IndependentMoney, Beneficiary, CommitteeBenefactor,
-                            OtherBenefactor, PersonBenefactor,
+                            OtherBenefactor, PersonBenefactor, PartyBenefactor,
                             Benefactor, Form, Committee, ReportingPeriod)
 
 
@@ -20,7 +20,7 @@ class IndependentMoneyStringTests(WithForm460ADataTest, TestCase):
 
         for cls in [IndependentMoney, Beneficiary, CommitteeBenefactor,
                     OtherBenefactor, PersonBenefactor, Benefactor,
-                    Form, Committee, ReportingPeriod]:
+                    PartyBenefactor, Form, Committee, ReportingPeriod]:
             if cls.objects.all().count() == 0:  # bad :(
                 continue
             obj = cls.objects.all()[0]

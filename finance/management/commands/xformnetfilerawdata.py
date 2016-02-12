@@ -13,7 +13,7 @@ from django.db import transaction
 
 from ... import models
 from ballot.models import Ballot
-from ballot.models import Candidate, Office, OfficeElection
+from ballot.models import Candidate, Office, OfficeElection, Party
 from ballot.models import Referendum, ReferendumSelection
 from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
@@ -78,7 +78,7 @@ def parse_benefactor(row, verbosity=1):
         state=bf_state)
 
     # Make sure row type is of the known types
-    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM')
+    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY')
 
     if row['entity_Cd'] == 'IND':  # individual
         raw_name = clean_name(row.get('tran_NamF')) or ''
@@ -123,7 +123,31 @@ def parse_benefactor(row, verbosity=1):
         benefactor.locality = benefactor.benefactor_locality = bf_city
         benefactor.save()
 
+    elif row['entity_Cd'] in ['PTY']:
+        name = clean_name(row['tran_NamL'])
+        party = parse_party_from_name(name)
+        benefactor, _ = models.PartyBenefactor.objects \
+            .get_or_create(name=name, party=party)
+
+        benefactor.city = bf_city
+        benefactor.state = bf_state
+        benefactor.zip_code = bf_zip_code
+        benefactor.locality = benefactor.benefactor_locality = bf_city
+        benefactor.save()
+
     return benefactor, bf_zip_code
+
+
+def parse_party_from_name(committee_name):
+    known_parties = dict(
+        Republican=('Republican',),
+        Democrat=('Democrat', 'Democratic'))
+
+    # San Diego County Democratic Party
+    for key, val in known_parties.items():
+        if np.any([s.lower() in committee_name.lower() for s in val]):
+            return Party.objects.get_or_create(name=key)[0]
+    return Party.objects.get_or_create(name='Unknown')[0]
 
 
 def parse_form_and_report_period(row, verbosity=1):
