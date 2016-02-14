@@ -96,8 +96,6 @@ class OfficeElection(BallotItem):
     def __init__(self, *args, **kwargs):
         super(OfficeElection, self).__init__(*args, **kwargs)
         self.contest_type = 'O'
-        # set BallotItem fields from Office
-        self.name = str(self)
 
     def __str__(self):
         return "Election of %s in %s (on %s)" % (
@@ -118,12 +116,15 @@ class Candidate(BallotItemSelection, PersonMixin):
 
     def __init__(self, *args, **kwargs):
         super(Candidate, self).__init__(*args, **kwargs)
-        if getattr(self, 'ballot_item', None) is None:
-            self.ballot_item = self.office_election
-        elif getattr(self, 'office_election', None) is None:
-            self.office_election = self.ballot_item
-        else:
+        has_ballot_item = getattr(self, 'ballot_item', None) is not None
+        has_office_election = getattr(self, 'office_election', None) is not None
+
+        if has_ballot_item and has_office_election:
             assert self.ballot_item.id == self.office_election.id
+        elif has_ballot_item:
+            self.office_election = self.ballot_item
+        elif has_office_election:
+            self.ballot_item = self.office_election
 
     def __str__(self):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
