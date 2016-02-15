@@ -1,11 +1,19 @@
 from django.test import TestCase
 
-from ballot.models import Ballot
-from ballot.models import Candidate, OfficeElection, Office
+from ballot.models import Ballot, Candidate, Office, OfficeElection
 from locality.models import City, State
 
 
+class ObjectCreateTest(TestCase):
+    def test_create_empty(self):
+        # Regression for #204. Smoke tests
+        candidate = Candidate()  # noqa
+        office = Office()  # noqa
+        office_election = OfficeElection()  # noqa
+
+
 class OfficeElectionTest(TestCase):
+
     def test_create_candidate(self):
         """
         Candidates have extra logic in their initializer. Play with it.

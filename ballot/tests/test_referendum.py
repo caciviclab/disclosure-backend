@@ -4,6 +4,12 @@ from ballot.models import Ballot, Referendum, ReferendumSelection
 from locality.models import City, State
 
 
+class ObjectCreateTest(TestCase):
+    def test_create_empty(self):
+        referendum = Referendum()  # noqa
+        referendum_selection = ReferendumSelection()  # noqa
+
+
 class ReferendumTest(TestCase):
     def test_create_candidate(self):
         """
