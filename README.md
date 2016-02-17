@@ -12,6 +12,7 @@ This is the back-end Django application for scraping ballot measure funding data
 Helpful links:
 * [How to contribute](CONTRIBUTING.md) - links to the overall app technical design and status, as well as information on how to contribute ocde.
 * [Adding your city](https://github.com/caciviclab/caciviclab.github.io/wiki/On-boarding-a-new-city) - How to test and add your city's disclosure information to this app.
+* [Example Dataset](https://data.oaklandnet.com/dataset/Campaign-Finance-FPPC-Form-460-Schedule-A-Monetary/3xq4-ermg) - This is a sample Form 460 for Oakland. If you want to dive into the data, please check this out!
 
 See below for server setup. Here are mock-ups for data tables that this app intends to support:
 
