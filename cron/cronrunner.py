@@ -50,7 +50,7 @@ def RunCommand(args, name, output_dir):
     retvalue = proc.wait()
   template = django.template.loader.get_template('output.tmpl')
   context = django.template.Context(dict(
-      args=args, name=name, now=now, retvalue=retvalue,
+      command=" ".join(args), name=name, now=now, retvalue=retvalue,
       stderr=file(stderr_path, 'r').read(),
       stdout=file(stdout_path, 'r').read()))
   rendered = template.render(context)
