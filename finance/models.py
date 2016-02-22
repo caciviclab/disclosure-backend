@@ -119,10 +119,10 @@ class PersonBenefactor(Benefactor, PersonMixin, AddressMixin):
 
     def __str__(self):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
-        return PersonMixin.__unicode__(self)
+        return '%s @ %s' % (PersonMixin.__unicode__(self), self.benefactor_locality)
 
     class Meta:
-        ordering = Benefactor._meta.ordering + PersonMixin._meta.ordering
+        ordering = PersonMixin._meta.ordering + Benefactor._meta.ordering
 
 
 @python_2_unicode_compatible

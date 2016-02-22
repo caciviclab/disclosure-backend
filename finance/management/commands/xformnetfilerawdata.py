@@ -84,14 +84,11 @@ def parse_benefactor(row, verbosity=1):
         raw_name = clean_name(row.get('tran_NamF')) or ''
         first_name = raw_name.split(' ')[0]
         middle_name = raw_name[len(first_name):].strip()
-        benefactor = models.PersonBenefactor(
+        benefactor, _ = models.PersonBenefactor.objects.get_or_create(
             first_name=first_name, middle_name=middle_name,
             last_name=clean_name(row['tran_NamL']),
-            occupation=clean_name(row.get('tran_Occ')))
-
-        # TODO: get_or_create?
-        benefactor.benefactor_locality = bf_city
-        benefactor.save()
+            occupation=clean_name(row.get('tran_Occ')),
+            benefactor_locality=bf_city)
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
