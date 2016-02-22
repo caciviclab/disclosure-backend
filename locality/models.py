@@ -94,10 +94,13 @@ class State(FipsMixin):
 
 
 @python_2_unicode_compatible
-class ZipCode(Locality):
+class ZipCode(models.Model):
     """
     A Static set of ZIP code to "metro" name mappings.
     """
+    name = models.CharField(max_length=128, blank=True, null=True, default=None)
+    short_name = models.CharField(max_length=32, blank=True, null=True, default=None)
+
     city = models.ForeignKey('City', blank=True, null=True, default=None)
     county = models.ForeignKey('County', blank=True, null=True, default=None)
     state = models.ForeignKey('State', blank=True, null=True, default=None)
