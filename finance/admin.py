@@ -49,14 +49,14 @@ class BeneficiaryAdmin(admin.ModelAdmin):
 
 
 class IndependentMoneyAdmin(admin.ModelAdmin):
-    fields = ('benefactor', 'benefactor_zip', 'beneficiary',
-              'amount', 'cumulative_amount', 'report_date', 'reporting_period',
-              'source', 'source_xact_id')
+    readonly_fields = ('benefactor', 'benefactor_zip', 'beneficiary',
+                       'amount', 'cumulative_amount', 'report_date', 'reporting_period',
+                       'source', 'source_xact_id')
 
     assert len(models.IndependentMoney._meta.get_fields()) - \
-        len(fields) == 1, \
+        len(readonly_fields) == 1, \
         "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.IndependentMoney._meta.get_fields()))
+        (len(readonly_fields), len(models.IndependentMoney._meta.get_fields()))
 
 
 admin.site.register(models.Beneficiary, BeneficiaryAdmin)
