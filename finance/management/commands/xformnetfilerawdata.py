@@ -229,7 +229,7 @@ def parse_candidate_info(row, ballot, verbosity=1):
 
 def parse_referendum_info(row, ballot, verbosity=1):
     referendum, _ = Referendum.objects.get_or_create(
-        name='Unknown', ballot=ballot)
+        title='Unknown', ballot=ballot)
     selection, _ = ReferendumSelection.objects.get_or_create(
         ballot_item=referendum,
         in_favor=True)

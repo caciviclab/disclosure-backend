@@ -16,5 +16,5 @@ class MeasureAPITests(WithForm460ADataTest, APITestCase):
         resp = self.client.get(reverse('referendum_get', kwargs={'referendum_id': 1}))
 
         self.assertIn('id', resp.data)
-        self.assertIn('name', resp.data)
+        self.assertIn('title', resp.data)
         self.assertIn('number', resp.data)
