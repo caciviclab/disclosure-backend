@@ -2,4 +2,7 @@ from django.contrib import admin
 
 from . import models
 
-admin.site.register(models.ElectionDay)
+
+class ElectionDayAdmin(admin.ModelAdmin):
+    list_display = ('Ballot.date', 'Ballot.locality')
+admin.site.register(models.ElectionDay, ElectionDayAdmin)

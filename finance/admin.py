@@ -34,7 +34,8 @@ class IndependentMoneyAdmin(admin.ModelAdmin):
                        'amount', 'cumulative_amount', 'report_date',
                        'reporting_period', 'source', 'source_xact_id')
 
-
+admin.site.register(models.Committee)
+admin.site.register(models.Employer)
 validate_and_register_admin(
     models.Beneficiary, BeneficiaryAdmin, num_hidden_fields=5)
 validate_and_register_admin(
