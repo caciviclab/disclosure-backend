@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from ..models import office_election as models
+from _django_utils import validate_and_register_admin
 
 
 class CandidateAdmin(admin.ModelAdmin):
@@ -14,5 +15,6 @@ class CandidateAdmin(admin.ModelAdmin):
         (len(fields), len(models.Candidate._meta.get_fields()))
 
 
-admin.site.register(models.Candidate, CandidateAdmin)
 admin.site.register(models.OfficeElection)
+validate_and_register_admin(
+    models.Candidate, CandidateAdmin, num_hidden_fields=4)
