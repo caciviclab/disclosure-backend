@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from . import models
+from _django_utils import validate_and_register_admin
 
 
 class CommitteeBenefactorAdmin(admin.ModelAdmin):
@@ -10,20 +11,10 @@ class CommitteeBenefactorAdmin(admin.ModelAdmin):
     fields = ('name', 'type', 'filer_id', 'street', 'city', 'zip_code',
               'photo_url', 'website_url', 'facebook_url', 'twitter_url')
 
-    assert len(models.CommitteeBenefactor._meta.get_fields()) - \
-        len(fields) == 9, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.CommitteeBenefactor._meta.get_fields()))
-
 
 class OtherBenefactorAdmin(admin.ModelAdmin):
     fields = ('name', 'benefactor_type', 'street', 'city', 'zip_code',
               'photo_url', 'website_url', 'facebook_url', 'twitter_url')
-
-    assert len(models.OtherBenefactor._meta.get_fields()) - \
-        len(fields) == 6, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.OtherBenefactor._meta.get_fields()))
 
 
 class PersonBenefactorAdmin(admin.ModelAdmin):
@@ -31,36 +22,26 @@ class PersonBenefactorAdmin(admin.ModelAdmin):
               'benefactor_type', 'street', 'city', 'zip_code',
               'photo_url', 'website_url', 'facebook_url', 'twitter_url')
 
-    assert len(models.PersonBenefactor._meta.get_fields()) - \
-        len(fields) == 5, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.PersonBenefactor._meta.get_fields()))
-
 
 class BeneficiaryAdmin(admin.ModelAdmin):
     fields = ('name', 'type', 'filer_id', 'support', 'ballot_item_selection',
               'street', 'city', 'zip_code',
               'photo_url', 'website_url', 'facebook_url', 'twitter_url')
 
-    assert len(models.Beneficiary._meta.get_fields()) - \
-        len(fields) == 5, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.Beneficiary._meta.get_fields()))
-
 
 class IndependentMoneyAdmin(admin.ModelAdmin):
     readonly_fields = ('benefactor', 'benefactor_zip', 'beneficiary',
-                       'amount', 'cumulative_amount', 'report_date', 'reporting_period',
-                       'source', 'source_xact_id')
-
-    assert len(models.IndependentMoney._meta.get_fields()) - \
-        len(readonly_fields) == 1, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(readonly_fields), len(models.IndependentMoney._meta.get_fields()))
+                       'amount', 'cumulative_amount', 'report_date',
+                       'reporting_period', 'source', 'source_xact_id')
 
 
-admin.site.register(models.Beneficiary, BeneficiaryAdmin)
-admin.site.register(models.PersonBenefactor, PersonBenefactorAdmin)
-admin.site.register(models.OtherBenefactor, OtherBenefactorAdmin)
-admin.site.register(models.CommitteeBenefactor, CommitteeBenefactorAdmin)
-admin.site.register(models.IndependentMoney, IndependentMoneyAdmin)
+validate_and_register_admin(
+    models.Beneficiary, BeneficiaryAdmin, num_hidden_fields=5)
+validate_and_register_admin(
+    models.PersonBenefactor, PersonBenefactorAdmin, num_hidden_fields=5)
+validate_and_register_admin(
+    models.OtherBenefactor, OtherBenefactorAdmin, num_hidden_fields=6)
+validate_and_register_admin(
+    models.CommitteeBenefactor, CommitteeBenefactorAdmin, num_hidden_fields=9)
+validate_and_register_admin(
+    models.IndependentMoney, IndependentMoneyAdmin, num_hidden_fields=1)
