@@ -81,16 +81,20 @@ def parse_benefactor(row, verbosity=1):
     assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY')
 
     if row['entity_Cd'] == 'IND':  # individual
+        employer_name = clean_name(row.get('tran_Emp'))
+        if employer_name:
+            employer, _ = models.Employer.objects.get_or_create(name=employer_name)
+        else:
+            employer = None
         raw_name = clean_name(row.get('tran_NamF')) or ''
         first_name = raw_name.split(' ')[0]
         middle_name = raw_name[len(first_name):].strip()
-        benefactor = models.PersonBenefactor(
+        benefactor, _ = models.PersonBenefactor.objects.get_or_create(
             first_name=first_name, middle_name=middle_name,
             last_name=clean_name(row['tran_NamL']),
-            occupation=clean_name(row.get('tran_Occ')))
-
-        # TODO: get_or_create?
-        benefactor.benefactor_locality = bf_city
+            employer=employer,
+            benefactor_locality=bf_city)
+        benefactor.occupation = clean_name(row.get('tran_Occ'))
         benefactor.save()
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other

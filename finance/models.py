@@ -11,6 +11,21 @@ from locality.models import AddressMixin, ReverseLookupStringMixin
 
 
 @python_2_unicode_compatible
+class Employer(SocialMediaMixin, AddressMixin):
+    """
+    Placeholder from the tran_Emp field from Netfile.
+    Making a model out of it will allow explicit entity resolution.
+    """
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('name',)
+
+
+@python_2_unicode_compatible
 class Committee(SocialMediaMixin, AddressMixin):
     """
     Official entity that spends money in support or
@@ -111,7 +126,8 @@ class PersonBenefactor(Benefactor, PersonMixin, AddressMixin):
     """
     Individual who contributes to a committee.
     """
-    occupation = models.CharField(max_length=64, null=True)
+    occupation = models.CharField(max_length=64, null=True, default=None, blank=True)
+    employer = models.ForeignKey('Employer', null=True, default=None, blank=True)
 
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
@@ -119,10 +135,10 @@ class PersonBenefactor(Benefactor, PersonMixin, AddressMixin):
 
     def __str__(self):
         # See https://code.djangoproject.com/ticket/25218 on why __unicode__
-        return PersonMixin.__unicode__(self)
+        return '%s @ %s' % (PersonMixin.__unicode__(self), self.benefactor_locality)
 
     class Meta:
-        ordering = Benefactor._meta.ordering + PersonMixin._meta.ordering
+        ordering = PersonMixin._meta.ordering + Benefactor._meta.ordering
 
 
 @python_2_unicode_compatible

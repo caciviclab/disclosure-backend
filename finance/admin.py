@@ -19,7 +19,7 @@ class OtherBenefactorAdmin(admin.ModelAdmin):
 
 class PersonBenefactorAdmin(admin.ModelAdmin):
     fields = ('first_name', 'middle_name', 'last_name', 'occupation',
-              'benefactor_type', 'street', 'city', 'zip_code',
+              'benefactor_type', 'street', 'city', 'zip_code', 'employer',
               'photo_url', 'website_url', 'facebook_url', 'twitter_url')
 
 
