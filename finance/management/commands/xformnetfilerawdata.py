@@ -299,7 +299,7 @@ def clean_filer_id(filer_id):
     """Utility function to scrub committee IDs."""
     if isinstance(filer_id, Number):
         filer_id = str(int(filer_id))
-    elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
+    elif filer_id and np.any([filer_id.startswith(c) for c in ('C', '#')]):
         filer_id = filer_id[1:]
 
     # Filer ID should be an int.
@@ -409,8 +409,9 @@ def load_f460A_data(data, agency_fn, verbosity=1):  # noqa
             agency = agency_fn(minimal_row)
             load_f460A_row(minimal_row, agency=agency, verbosity=verbosity)
         except Exception as ex:
-            raise
             error_rows.append((ri, raw_row, minimal_row, ex))
+            # TODO: Store errors, for review later.
+            raise
 
     return error_rows
 
