@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from ..models import referendum as models
+from _django_utils import validate_and_register_admin
 
 
 class ReferendumAdmin(admin.ModelAdmin):
@@ -9,9 +10,5 @@ class ReferendumAdmin(admin.ModelAdmin):
     fields = ('title', 'number', 'ballot',
               'website_url', 'facebook_url', 'twitter_url')
 
-    assert len(models.Referendum._meta.get_fields()) - len(fields) == 5, \
-        "Make sure there are no new fields. %r %r " % \
-        (len(fields), len(models.Referendum._meta.get_fields()))
-
-
-admin.site.register(models.Referendum, ReferendumAdmin)
+validate_and_register_admin(
+    models.Referendum, ReferendumAdmin, num_hidden_fields=5)
