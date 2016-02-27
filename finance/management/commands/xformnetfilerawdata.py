@@ -370,8 +370,8 @@ def load_form_row(row, agency, form, verbosity=1):  # noqa
         assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
             "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
         if verbosity:
-            print("Skipping existing row %s/%s" % (
-                money.source, money.source_xact_id))
+            print("Skipping existing [%s] row, %s/%s" % (
+                form['form_name'], money.source, money.source_xact_id))
 
     except models.IndependentMoney.DoesNotExist:
         benefactor, bf_zip_code = parse_benefactor(
