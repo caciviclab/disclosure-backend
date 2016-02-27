@@ -7,6 +7,7 @@ See https://netfile.com/Filer/Content/docs/cal_format_201.pdf for documentation.
 import datetime
 import warnings
 from dateutil.parser import parse as date_parse
+from itertools import izip_longest
 from numbers import Number
 from optparse import make_option
 
@@ -413,6 +414,29 @@ def minimize_row(raw_row):
     return minimal_row
 
 
+def grouper(n, iterable, fillvalue=None):
+    """
+    Group an interable into chunks of size n.
+    """
+    args = [iter(iterable)] * n
+    return izip_longest(fillvalue=fillvalue, *args)
+
+
+def find_unloaded_rows(data, skip_rate=100, verbosity=1):
+    """
+    Get a list of 0 to skip_rate rows of transactions not in the DB.
+    """
+    xact_keys = data['netFileKey']
+    for xacts in grouper(skip_rate, xact_keys):
+        vals = [v['source_xact_id'] for v in models.IndependentMoney.objects.filter(
+            source='NF', source_xact_id__in=xacts).values('source_xact_id')]
+        if verbosity:
+            for val in vals:
+                print("Skipping NF/%s" % val)
+
+        yield set(xacts) - set(vals)  # missing set
+
+
 def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # noqa
     """
     """
@@ -424,7 +448,16 @@ def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # 
 
     # Parse out the contributor information.
     error_rows = []
+    xact_key_generator = find_unloaded_rows(data, verbosity=verbosity)
+    xact_keys = []
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
+        # Quickly get near an unloaded row.
+        while not xact_keys and xact_keys is not None:
+            xact_keys = next(xact_key_generator)
+        if xact_keys is None or raw_row['netFileKey'] not in xact_keys:
+            continue
+        xact_keys = xact_keys - set([raw_row['netFileKey']])
+
         minimal_row = minimize_row(raw_row)
         assert minimal_row.get('rec_Type') in ('RCPT', 'S497')
 
