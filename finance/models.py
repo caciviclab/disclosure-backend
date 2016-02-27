@@ -191,8 +191,7 @@ class PartyBenefactor(Benefactor):
         self.benefactor_type = 'PY'
 
     def __str__(self):
-        # See https://code.djangoproject.com/ticket/25218 on why __unicode__
-        return self.name
+        return '%s party' % self.name
 
     class Meta:
         ordering = ('name', 'party__name') + Benefactor._meta.ordering
