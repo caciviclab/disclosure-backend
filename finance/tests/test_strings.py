@@ -22,8 +22,13 @@ class IndependentMoneyStringTests(WithForm460ADataTest, TestCase):
                     OtherBenefactor, PersonBenefactor, Benefactor,
                     PartyBenefactor, Form, Committee, ReportingPeriod]:
             if cls.objects.all().count() == 0:  # bad :(
-                continue
-            obj = cls.objects.all()[0]
+                try:
+                    obj = cls()
+                except:
+                    continue
+            else:
+                obj = cls.objects.all()[0]
+
             self.assertNotIn('Object', str(obj), cls.__name__)
             self.assertNotIn('Object', unicode(obj), cls.__name__)
 
