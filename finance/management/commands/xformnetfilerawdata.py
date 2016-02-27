@@ -107,25 +107,18 @@ def parse_benefactor(row, verbosity=1):
     elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
         # Get by name
         benefactor = get_committee_benefactor(row)
-        filer_id = clean_filer_id(row.get('cmte_Id', ''))
-        if filer_id is not None and benefactor.filer_id != filer_id:
-            # No filer ID; add one!
-            assert benefactor.filer_id is None, \
-                "Conflicting committee ID for %s: %s (saved) vs. %s (current)" % (
-                    benefactor.name, benefactor.filer_id, filer_id)
-            benefactor.filer_id = filer_id
-            if verbosity:
-                print("\n\nFIXED ID for %s\n\n" % benefactor.name)
-
-        # of=official, pf=primarily, ic=independent
-        benefactor.name = clean_name(row['tran_NamL'])
-        benefactor.type = benefactor.type or 'PF'  # TODO: fix
         benefactor.benefactor_type = benefactor.type
         benefactor.city = bf_city
         benefactor.state = bf_state
         benefactor.zip_code = bf_zip_code
         benefactor.locality = benefactor.benefactor_locality = bf_city
         benefactor.save()
+
+        # Now validate that there aren't dups
+        queryset = models.CommitteeBenefactor.objects.filter(
+            name=benefactor.name, filer_id=benefactor.filer_id,
+            locality=bf_city, type=benefactor.type)
+        assert queryset.count() == 1, "Avoid duplicate committees"
 
     elif row['entity_Cd'] in ['PTY']:
         name = clean_name(row['tran_NamL'])
@@ -267,9 +260,26 @@ def parse_ballot_info(row, locality, verbosity=1):
 def get_committee_benefactor(row):
     """Utility function to identify a committee benefactor.
     """
-    return models.CommitteeBenefactor.objects.get_or_create(
-        name=clean_name(row['tran_NamL']),
-        filer_id=clean_filer_id(row.get('cmte_Id', '')))[0]
+    filer_id = clean_filer_id(row.get('cmte_Id'))
+    name = clean_name(row['tran_NamL'])
+
+    if filer_id is not None:
+        # By ID
+        benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
+            filer_id=filer_id)
+        benefactor.name = name
+
+    else:
+        # By name
+        benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
+            name=name)
+        if benefactor.filer_id is not None:
+            raise ValueError('Parsed a null filer_id from %s, but filer_id in the db is %s' % (
+                row.get('cmte_Id'), benefactor.filer_id))
+
+    # of=official, pf=primarily, ic=independent
+    benefactor.type = benefactor.type or 'PF'  # TODO: fix
+    return benefactor
 
 
 def get_committee_beneficiary(row):
@@ -288,13 +298,15 @@ def get_committee_beneficiary(row):
 def clean_filer_id(filer_id):
     """Utility function to scrub committee IDs."""
     if isinstance(filer_id, Number):
-        return str(int(filer_id))
+        filer_id = str(int(filer_id))
     elif np.any([filer_id.startswith(c) for c in ('C', '#')]):
         filer_id = filer_id[1:]
-    elif filer_id.lower() == 'pending':
+
+    # Filer ID should be an int.
+    try:
+        return str(int(filer_id))
+    except:
         return None
-    else:
-        return filer_id or None  # don't do blank.
 
 
 @transaction.atomic
