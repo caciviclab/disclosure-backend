@@ -99,16 +99,18 @@ def parse_benefactor(row, verbosity=1):
             first_name=first_name, middle_name=middle_name,
             last_name=clean_name(row['tran_NamL']),
             employer=employer,
+            city=bf_city,
+            state=bf_state,
+            zip_code=bf_zip_code,
             benefactor_locality=bf_city)
-        benefactor.occupation = clean_name(row.get('tran_Occ'))
+        benefactor.occupation = clean_name(row.get('tran_Occ'))  # Not reliable
         benefactor.save()
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
             .get_or_create(name=clean_name(row['tran_NamL']))
-        # Todo: parse Other locality
-        # benefactor.benefactor_locality = benefactor.locality
-        # benefactor.save()
+        benefactor.benefactor_locality = bf_city
+        benefactor.save()
 
     elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
         # Get by name
