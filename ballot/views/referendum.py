@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
+from ..models import Referendum
 from ..serializers import ReferendumSerializer  # noqa
 
 
@@ -20,8 +22,5 @@ class ReferendumViewSet(viewsets.ViewSet):
         Referendum text / details
         ---
         """
-        return Response({
-            'id': int(referendum_id),
-            'number': 'BB',
-            'title': 'Ethics Commission Authority Increase Charter Amendment',
-        })
+        referendum = get_object_or_404(Referendum, id=referendum_id)
+        return Response(ReferendumSerializer(referendum).data)
