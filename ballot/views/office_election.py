@@ -1,7 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
+from ..models import Candidate, OfficeElection
 from ..serializers import OfficeElectionSerializer, CandidateSerializer  # noqa
 
 
@@ -19,22 +21,8 @@ class OfficeElectionViewSet(viewsets.ViewSet):
         """
         Office Election text / details
         """
-        return Response({
-            'id': int(office_election_id),
-            'office': 'Mayor',
-            'candidates': [
-                {
-                    'id': 1,
-                    'first_name': 'Cand',
-                    'last_name': 'One'
-                },
-                {
-                    'id': 2,
-                    'first_name': 'Other',
-                    'last_name': 'Cand'
-                }
-            ]
-        })
+        office_election = get_object_or_404(OfficeElection, id=office_election_id)
+        return Response(OfficeElectionSerializer(office_election).data)
 
 
 class CandidateViewSet(viewsets.ViewSet):
@@ -51,10 +39,5 @@ class CandidateViewSet(viewsets.ViewSet):
         """
         Candidate text / details
         """
-        return Response({
-            'id': int(candidate_id),
-            'first_name': 'Ben',
-            'middle_name': '',
-            'last_name': 'Cip',
-            'party': None,
-        })
+        candidate = get_object_or_404(Candidate, id=candidate_id)
+        return Response(CandidateSerializer(candidate).data)
