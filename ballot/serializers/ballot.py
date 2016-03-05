@@ -1,22 +1,18 @@
 from rest_framework import serializers
 from ..models import Ballot, BallotItem
+from _django_utils import MagicModelSerializerializer
 
 
-class BallotItemSerializer(serializers.Serializer):
-
-    id = serializers.IntegerField()
+class BallotItemSerializer(MagicModelSerializerializer):
     contest_type = serializers.CharField(source='get_contest_type_display')
-    name = serializers.CharField(source='*', read_only=True)
 
     class Meta:
         model = BallotItem
 
 
-class BallotSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    locality_id = serializers.CharField(max_length=50)
-    date = serializers.DateField()
-    ballot_items = BallotItemSerializer(many=True, read_only=True)
+class BallotSerializer(MagicModelSerializerializer):
+    ballot_items = BallotItemSerializer(many=True, read_only=True, exclude_fields=['ballot'])
 
     class Meta:
         model = Ballot
+        rename_fields = dict(locality='locality_id')

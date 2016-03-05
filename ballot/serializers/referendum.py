@@ -1,11 +1,9 @@
-from rest_framework import serializers
-
 from .. import models
+from _django_utils.serializers import MagicModelSerializerializer
 
 
-class ReferendumSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=255)
-    number = serializers.CharField(max_length=5)
-
+class ReferendumSerializer(MagicModelSerializerializer):
     class Meta:
         model = models.Referendum
+        exclude_fields = ('contest_type',)
+        rename_fields = dict(ballot='ballot_id')
