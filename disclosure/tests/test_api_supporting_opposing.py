@@ -1,9 +1,8 @@
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from rest_framework.test import APITestCase
 
 from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
-from ballot.models import Candidate, Referendum
+from finance.models import Beneficiary
 
 
 class OpposingTests(WithForm460ADataTest, APITestCase):
@@ -13,50 +12,48 @@ class OpposingTests(WithForm460ADataTest, APITestCase):
         WithForm460ADataTest.setUpClass(test_agency='COS', test_year='2015')
         APITestCase.setUpClass()
 
-    def test_candidate_opposing_list(self):
-        candidate = Candidate.objects.filter(~Q(last_name=None))[0]
-        opposing_url = reverse('candidate_opposing',
-                               kwargs={'candidate_id': candidate.id})
-        resp = self.client.get(opposing_url)
+    def do_the_thing_for_candidates(self, support):
+        beneficiary = Beneficiary.objects.filter(
+            ballot_item_selection__ballot_item__contest_type='O')[0]
+        beneficiary.support = support
+        beneficiary.save()
+        candidate = beneficiary.ballot_item_selection.reverse_lookup()
+
+        url = reverse('candidate_%s' % ('supporting' if support else 'opposing'),
+                      kwargs={'candidate_id': candidate.id})
+        resp = self.client.get(url)
         self.assertTrue(len(resp.data) > 0)
 
         # TODO: replace dummy tests with live data tests.
         row = resp.data[0]
         self.assertIn('name', row)
-        self.assertIn('contributions', row)
+        self.assertIn('contributions_received', row)
+
+    def test_candidate_opposing_list(self):
+        return self.do_the_thing_for_candidates(support=False)
 
     def test_candidate_supporting_list(self):
-        candidate = Candidate.objects.filter(~Q(last_name=None))[0]
-        supporting_url = reverse('candidate_supporting',
-                                 kwargs={'candidate_id': candidate.id})
-        resp = self.client.get(supporting_url)
+        return self.do_the_thing_for_candidates(support=True)
+
+    def do_the_thing_for_referendums(self, support):
+        beneficiary = Beneficiary.objects.filter(
+            ballot_item_selection__ballot_item__contest_type='R')[0]
+        beneficiary.support = support
+        beneficiary.save()
+
+        referendum = beneficiary.ballot_item_selection.ballot_item.reverse_lookup()
+        url = reverse('referendum_%s' % ('supporting' if support else 'opposing'),
+                      kwargs={'referendum_id': referendum.id})
+        resp = self.client.get(url)
         self.assertTrue(len(resp.data) > 0)
 
         # TODO: replace dummy tests with live data tests.
         row = resp.data[0]
         self.assertIn('name', row)
-        self.assertIn('contributions', row)
+        self.assertIn('contributions_received', row)
 
     def test_referendum_opposing_list(self):
-        referendum = Referendum.objects.all()[0]
-        opposing_url = reverse('referendum_opposing',
-                               kwargs={'referendum_id': referendum.id})
-        resp = self.client.get(opposing_url)
-        self.assertTrue(len(resp.data) > 0)
-
-        # TODO: replace dummy tests with live data tests.
-        row = resp.data[0]
-        self.assertIn('name', row)
-        self.assertIn('contributions', row)
+        return self.do_the_thing_for_referendums(support=False)
 
     def test_referendum_supporting_list(self):
-        referendum = Referendum.objects.all()[0]
-        supporting_url = reverse('referendum_supporting',
-                                 kwargs={'referendum_id': referendum.id})
-        resp = self.client.get(supporting_url)
-        self.assertTrue(len(resp.data) > 0)
-
-        # TODO: replace dummy tests with live data tests.
-        row = resp.data[0]
-        self.assertIn('name', row)
-        self.assertIn('contributions', row)
+        return self.do_the_thing_for_referendums(support=True)

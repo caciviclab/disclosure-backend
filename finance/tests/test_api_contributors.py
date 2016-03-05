@@ -26,7 +26,7 @@ class ContributorsAPITests(WithForm460ADataTest, APITestCase):
         row = resp.data[0]
         self.assertIn('name', row)
         self.assertTrue('expenditures' in row or 'contributions' in row)
-        self.assertIn('type', row)
+        self.assertIn('benefactor_type', row)
 
     def test_contributors_summary(self):
         committee_url = reverse('contributors_summary',
