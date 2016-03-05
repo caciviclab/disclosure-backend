@@ -116,6 +116,13 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
     def __str__(self):
         return ReverseLookupStringMixin.__str__(self)
 
+    def get_contributions(self, beneficiary=None):
+        money = IndependentMoney.objects.filter(benefactor=self)
+        if beneficiary is not None:
+            money = money.filter(beneficiary=beneficiary)
+        total = money.aggregate(models.Sum('amount')) or 0
+        return as_money(total.values()[0])
+
     class Meta:
         ordering = ('benefactor_locality__name',
                     'benefactor_locality__short_name')

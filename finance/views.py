@@ -9,7 +9,6 @@ from rest_framework.decorators import detail_route, list_route
 from .models import Benefactor, Beneficiary, Committee, IndependentMoney
 from .serializers import BenefactorSerializer, CommitteeSerializer, IndependentMoneySerializer
 from _django_utils.serializers import as_money
-from swagger_nickname_registry import swagger_nickname
 
 
 class CommitteeViewSet(viewsets.ViewSet):
@@ -38,8 +37,7 @@ class BenefactorViewSet(viewsets.ViewSet):
     queryset = IndependentMoney.objects.all()
 
     @list_route(['GET'])
-    @swagger_nickname('contributions')
-    def list(self, request, committee_id):
+    def contributions(self, request, committee_id):
         """List all contributions made"""
         obj = IndependentMoney.objects.filter(
             benefactor__committeebenefactor__id=committee_id)
@@ -106,7 +104,8 @@ class BeneficiaryViewSet(viewsets.ViewSet):
         """List of all contributors to a committee."""
         beneficiary = get_object_or_404(Beneficiary, id=committee_id)
         benefits = Benefactor.objects.filter(independentmoney__beneficiary=beneficiary)
-        return Response(BenefactorSerializer(benefits, many=True).data)
+        # TODO: aggregate/group money benefactor
+        return Response(BenefactorSerializer(benefits, beneficiary=beneficiary, many=True).data)
 
     @list_route(['GET'])
     def contributions_received(self, request, committee_id):

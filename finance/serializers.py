@@ -21,10 +21,25 @@ class CommitteeSerializer(AddressSerializer):
 
 class BenefactorSerializer(MagicModelSerializerializer):
     benefactor_locality = serializers.CharField(max_length=50, source='benefactor_locality.name')
+    benefactor_type = serializers.CharField(max_length=50, source='get_benefactor_type_display')
+    name = serializers.CharField(source='__str__')
+    contributions = serializers.FloatField()
+    total_contributions = serializers.FloatField(source='get_contributions')
+
+    def __init__(self, models=None, beneficiary=None, *args, **kwargs):
+        self.beneficiary = beneficiary
+        super(BenefactorSerializer, self).__init__(models, *args, **kwargs)
+
+    def to_representation(self, instance):
+        if not hasattr(instance, 'contributions'):
+            instance.contributions = instance.get_contributions(beneficiary=self.beneficiary)
+        return super(BenefactorSerializer, self).to_representation(instance)
+
+    def foo(self, data):
+        pass
 
     class Meta:
         model = Benefactor
-        exclude_fields = ('benefactor_type',)
 
 
 class BeneficiarySerializer(MagicModelSerializerializer):
@@ -38,3 +53,4 @@ class IndependentMoneySerializer(MagicModelSerializerializer):
 
     class Meta:
         model = IndependentMoney
+        exclude_fields = ('benefactor_zip',)
