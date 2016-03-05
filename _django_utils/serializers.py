@@ -1,6 +1,12 @@
 from rest_framework import serializers
 
 
+def as_money(num, precision=0.01):
+    if num is None:
+        return None
+    return round(num / precision) * precision
+
+
 class MagicModelSerializerializer(serializers.ModelSerializer):
     """ModelSerializer with 'Meta.exclude_fields', 'Meta.renamed_fields' properties."""
 
