@@ -88,11 +88,13 @@ We're going to create an environment with Python 2.7.9 for the project
   Change the password field to the password you chose when you installed MySQL.
 
 
-3. Run the database migration scripts
+3. Run the server setup script
   ```
-  python manage.py migrate
-  python manage.py migrate --database calaccess_raw
+  python manage.py setuptestserver
   ```
+
+  This will run database migrations, add a superuser (username: `admin`, password: `admin`),
+  and other setup steps.
 
   OSX: If you get the following error `django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: dlopen(_mysql.so, 2): Library not loaded: libssl.1.0.0.dylib`
 
@@ -159,7 +161,6 @@ python manage.py downloadcalaccessrawdata
 To run for the purposes of development, accessing Django's admin interface:
 
 ```
-python manage.py createsuperuser  # create a username/password for yourself
 python manage.py runserver
 ```
 
