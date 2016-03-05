@@ -19,7 +19,7 @@ class ReferendumViewSet(viewsets.ViewSet):
     @detail_route(['GET'])
     def retrieve(self, request, referendum_id, locality_id=None):
         """
-        Referendum text / details
+        Details for a single referendum.
         ---
         """
         referendum = get_object_or_404(Referendum, id=referendum_id)

@@ -19,7 +19,7 @@ class OfficeElectionViewSet(viewsets.ViewSet):
     @detail_route(['GET'])
     def retrieve(self, request, office_election_id):
         """
-        Office Election text / details
+        Details for a single office election, including all candidates.
         """
         office_election = get_object_or_404(OfficeElection, id=office_election_id)
         return Response(OfficeElectionSerializer(office_election).data)
@@ -37,7 +37,7 @@ class CandidateViewSet(viewsets.ViewSet):
     @detail_route(['GET'])
     def retrieve(self, request, candidate_id):
         """
-        Candidate text / details
+        Details for a single candidate.
         """
         candidate = get_object_or_404(Candidate, id=candidate_id)
         return Response(CandidateSerializer(candidate).data)
