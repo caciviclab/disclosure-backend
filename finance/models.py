@@ -155,7 +155,7 @@ class OtherBenefactor(Benefactor, OtherMixin):
     """
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.benefactor_type = 'CO'
+        self.benefactor_type = 'OT'
         self.benefactor_locality = self.locality
 
     def __str__(self):

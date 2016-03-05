@@ -50,7 +50,7 @@ def summarize_money(locality, benefits):
     total_benefits = benefits.aggregate(total=Sum(F('amount')))['total']
 
     # Summary measures by benefactor type
-    key_map = dict(IN='individual', CO='corporation',
+    key_map = dict(IN='individual', OT='other',
                    PF='recipient_committee', PY='political_party',
                    IC='independent_committee')
     benefits_groupedby_type = benefits \
