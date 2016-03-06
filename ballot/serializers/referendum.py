@@ -1,8 +1,8 @@
 from .. import models
-from _django_utils.serializers import MagicModelSerializer
+from _django_utils.serializers import ExtendedModelSerializer
 
 
-class ReferendumSerializer(MagicModelSerializer):
+class ReferendumSerializer(ExtendedModelSerializer):
     class Meta:
         model = models.Referendum
         exclude = ('contest_type',)

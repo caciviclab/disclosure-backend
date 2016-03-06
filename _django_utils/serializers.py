@@ -7,16 +7,16 @@ def as_money(num, precision=0.01):
     return round(num / precision) * precision
 
 
-class MagicModelSerializer(serializers.ModelSerializer):
+class ExtendedModelSerializer(serializers.ModelSerializer):
     """ModelSerializer with '__init__(exclude)', '__init__(rename)', Meta.rename."""
 
     def __init__(self, model=None, exclude=None, rename=None, *args, **kwargs):
         self.exclude = exclude or tuple()
         self.rename = rename or dict()
-        return super(MagicModelSerializer, self).__init__(model, *args, **kwargs)
+        return super(ExtendedModelSerializer, self).__init__(model, *args, **kwargs)
 
     def get_fields(self):
-        fields = super(MagicModelSerializer, self).get_fields()
+        fields = super(ExtendedModelSerializer, self).get_fields()
 
         try:
             # Removing fields: local (class-level taken care of by super call)

@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
 from .models import Benefactor, Beneficiary, Committee, IndependentMoney
-from _django_utils.serializers import MagicModelSerializer
+from _django_utils.serializers import ExtendedModelSerializer
 from locality.serializers import LocalitySerializer
 
 
-class AddressSerializer(MagicModelSerializer):
+class AddressSerializer(ExtendedModelSerializer):
     city = serializers.CharField(max_length=50, source='city.short_name')
     state = serializers.CharField(max_length=50, source='state.short_name')
     zip_code = serializers.CharField(max_length=50, source='zip_code.short_name')
@@ -19,7 +19,7 @@ class CommitteeSerializer(AddressSerializer):
         model = Committee
 
 
-class BenefactorSerializer(MagicModelSerializer):
+class BenefactorSerializer(ExtendedModelSerializer):
     benefactor_locality = serializers.CharField(max_length=50, source='benefactor_locality.name')
     benefactor_type = serializers.CharField(max_length=50, source='get_benefactor_type_display')
     name = serializers.CharField(source='__str__')
@@ -44,12 +44,12 @@ class BenefactorSerializer(MagicModelSerializer):
         model = Benefactor
 
 
-class BeneficiarySerializer(MagicModelSerializer):
+class BeneficiarySerializer(ExtendedModelSerializer):
     class Meta:
         model = Beneficiary
 
 
-class IndependentMoneySerializer(MagicModelSerializer):
+class IndependentMoneySerializer(ExtendedModelSerializer):
     benefactor = BenefactorSerializer()
     beneficiary = BeneficiarySerializer()
 

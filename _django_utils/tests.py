@@ -1,7 +1,7 @@
 from django.db import models
 from django.test import TestCase
 
-from _django_utils.serializers import as_money, MagicModelSerializer
+from _django_utils.serializers import as_money, ExtendedModelSerializer
 
 
 class AsMoneyTest(TestCase):
@@ -24,21 +24,21 @@ class DummyModel(models.Model):
     f2 = models.IntegerField()
 
 
-class MagicModelSerializerTest(TestCase):
+class ExtendedModelSerializerTest(TestCase):
     def test_exclude_field(self):
-        class DummySerializer(MagicModelSerializer):
+        class DummySerializer(ExtendedModelSerializer):
             class Meta:
                 model = DummyModel
-                exclude_fields = ['f2']
+                exclude = ['f2']
 
         self.assertIn('f1', DummySerializer().get_fields())
         self.assertNotIn('f2', DummySerializer().get_fields())
 
     def test_rename_field(self):
-        class DummySerializer(MagicModelSerializer):
+        class DummySerializer(ExtendedModelSerializer):
             class Meta:
                 model = DummyModel
-                rename_fields = dict(f2='foo')
+                rename = dict(f2='foo')
 
         self.assertIn('foo', DummySerializer().get_fields())
         self.assertNotIn('f2', DummySerializer().get_fields())
