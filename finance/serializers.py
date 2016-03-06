@@ -31,12 +31,14 @@ class BenefactorSerializer(MagicModelSerializer):
         super(BenefactorSerializer, self).__init__(models, *args, **kwargs)
 
     def to_representation(self, instance):
+        """
+        Add the 'contributions' property to a benefactor, for this particular beneficiary.
+
+        TODO: fix this; this is hacky.
+        """
         if not hasattr(instance, 'contributions'):
             instance.contributions = instance.get_contributions(beneficiary=self.beneficiary)
         return super(BenefactorSerializer, self).to_representation(instance)
-
-    def foo(self, data):
-        pass
 
     class Meta:
         model = Benefactor
@@ -53,4 +55,4 @@ class IndependentMoneySerializer(MagicModelSerializer):
 
     class Meta:
         model = IndependentMoney
-        exclude_fields = ('benefactor_zip',)
+        exclude = ('benefactor_zip',)

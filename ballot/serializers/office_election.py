@@ -16,5 +16,5 @@ class OfficeElectionSerializer(MagicModelSerializer):
 
     class Meta:
         model = models.OfficeElection
-        exclude_fields = ['contest_type']
-        rename_fields = dict(ballot='ballot_id')
+        exclude = ('contest_type',)
+        rename = dict(ballot='ballot_id')

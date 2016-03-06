@@ -12,8 +12,8 @@ class BallotItemSerializer(MagicModelSerializer):
 
 
 class BallotSerializer(MagicModelSerializer):
-    ballot_items = BallotItemSerializer(many=True, read_only=True, exclude_fields=['ballot'])
+    ballot_items = BallotItemSerializer(many=True, read_only=True, exclude=['ballot'])
 
     class Meta:
         model = Ballot
-        rename_fields = dict(locality='locality_id')
+        rename = dict(locality='locality_id')
