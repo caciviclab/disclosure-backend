@@ -5,7 +5,7 @@ from django.test import TestCase
 
 class TestServerSetupTest(TestCase):
 
-    def test_generate_calaccess_model_docs(self):
+    def test_setup_test_server(self):
         """ Test setuptestserver"""
         call_command('setuptestserver')
         # Didn't throw; check some minimum level of output.
