@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from _django_utils.serializers import as_money
 from ballot.models import PersonMixin, SocialMediaMixin
 from locality.models import AddressMixin, ReverseLookupStringMixin
 
@@ -113,8 +114,14 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
         'locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
-        return (ReverseLookupStringMixin.__str__(self) or
-                self.benefactor_type)
+        return ReverseLookupStringMixin.__str__(self)
+
+    def get_contributions(self, beneficiary=None):
+        money = IndependentMoney.objects.filter(benefactor=self)
+        if beneficiary is not None:
+            money = money.filter(beneficiary=beneficiary)
+        total = money.aggregate(models.Sum('amount')) or 0
+        return as_money(total.values()[0])
 
     class Meta:
         ordering = ('benefactor_locality__name',
@@ -148,7 +155,7 @@ class OtherBenefactor(Benefactor, OtherMixin):
     """
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.benefactor_type = 'CO'
+        self.benefactor_type = 'OT'
         self.benefactor_locality = self.locality
 
     def __str__(self):
@@ -208,6 +215,11 @@ class Beneficiary(Committee):
                                                 "(Y) or oppose (N)")
     ballot_item_selection = models.ForeignKey(
         'ballot.BallotItemSelection', null=True, default=None)
+
+    def get_total_contributions_received(self):
+        money = IndependentMoney.objects.filter(beneficiary=self)
+        total = money.aggregate(models.Sum('amount')) or 0
+        return as_money(total.values()[0])
 
     class Meta:
         verbose_name_plural = 'beneficiaries'

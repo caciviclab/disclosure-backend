@@ -111,7 +111,7 @@ class Candidate(BallotItemSelection, PersonMixin):
     """
     A person running for office.
     """
-    office_election = models.ForeignKey('OfficeElection')
+    office_election = models.ForeignKey('OfficeElection', related_name='candidates')
     party = models.ForeignKey('Party', blank=True, null=True, default=None)
 
     def __init__(self, *args, **kwargs):

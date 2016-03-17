@@ -17,9 +17,13 @@ urlpatterns = patterns(
         name='contributors_summary'),
 
     url(r'committee/(?P<committee_id>[0-9]+)/contributors',
-        views.BeneficiaryViewSet.as_view(actions={'get': 'list'}),
+        views.BeneficiaryViewSet.as_view(actions={'get': 'contributors'}),
         name='contributors_list'),
 
+    url(r'committee/(?P<committee_id>[0-9]+)/contributions_received$',
+        views.BeneficiaryViewSet.as_view(actions={'get': 'contributions_received'}),
+        name='contributions_received_list'),
+
     url(r'committee/(?P<committee_id>[0-9]+)/contributions$',
-        views.BenefactorViewSet.as_view(actions={'get': 'list'}),
+        views.BenefactorViewSet.as_view(actions={'get': 'contributions'}),
         name='contributions_list'))

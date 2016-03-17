@@ -1,7 +1,7 @@
 import os
 
 from django.conf import settings
-from django.db.models import F, Q, Sum
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
@@ -10,9 +10,11 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view, list_route
 from rest_framework.response import Response
 
-from ballot.models import Ballot
-from finance.models import IndependentMoney
-from locality.models import City
+from .serializers import BeneficiaryMoneyReceivedSerializer
+from ballot.models import Ballot, BallotItemSelection
+from finance.models import Beneficiary, IndependentMoney
+from finance.views import summarize_money
+from locality.models import City, Locality
 from locality.serializers import LocalitySerializer
 from swagger_nickname_registry import swagger_nickname
 
@@ -21,7 +23,7 @@ from swagger_nickname_registry import swagger_nickname
 @swagger_nickname('search')
 def search_view(request):
     """
-    Search for a location with ballot/disclosure data.
+    List of locations with ballot/disclosure data.
     ---
 
     parameters:
@@ -43,7 +45,7 @@ def search_view(request):
 @swagger_nickname('disclosure_summary')
 def locality_disclosure_summary_view(request, ballot_id):
     """
-    Display summarized disclosure information for a ballot
+    Summarized disclosure information for a ballot
     ---
     parameters:
       - name: ballot_id
@@ -54,119 +56,121 @@ def locality_disclosure_summary_view(request, ballot_id):
     """
     # TODO: set up ElectionDay app.
     ballot = get_object_or_404(Ballot, id=ballot_id)
-    locality = City.objects.get(id=ballot.locality_id)
+    locality = Locality.objects.get(id=ballot.locality_id).reverse_lookup()
 
     # Get all relevant rows of IndependentMoney
     benefits = IndependentMoney.objects.filter(
         beneficiary__ballot_item_selection__ballot_item__ballot=ballot)
 
-    # Simple measures
-    num_contributions = benefits.count()
-    total_benefits = benefits.aggregate(total=Sum(F('amount')))['total']
+    data_dict = summarize_money(locality=locality, benefits=benefits)
+    data_dict['location']['next_election_date'] = ballot.date if ballot else None
 
-    # Summary measures by benefactor type
-    key_map = dict(IN='individual', CO='corporation',
-                   PF='recipient_committee')
-    benefits_groupedby_type = benefits \
-        .values_list('benefactor__benefactor_type') \
-        .annotate(total=Sum(F('amount')))
-    benefits_by_type = dict([(key_map[vals[0]], vals[1])  # alias keys
-                             for vals in benefits_groupedby_type])
-
-    # Summarize by locality.
-    results_by_locality = dict(
-        unknown_location=benefits
-        .filter(benefactor__benefactor_locality=None),
-        inside_location=benefits
-        .filter(benefactor__benefactor_locality=locality),
-        inside_state=benefits
-        .filter(benefactor__benefactor_locality__city__state=locality.state),
-        outside_state=benefits
-        .exclude(benefactor__benefactor_locality=None)
-        .exclude(benefactor__benefactor_locality__city__state=locality.state))
-    total_by_locality = dict(
-        [(key, val.aggregate(tot=Sum(F('amount')))['tot'] or 0)  # 0 for empty
-         for key, val in results_by_locality.items()])
-
-    return Response({
+    return Response(data_dict)
+    """
+    return Response({  # done, manually
         "location": {
             "name": locality.name or locality.short_name,
             "id": locality.id,
-            "next_election": ballot.date if ballot else None
+            "next_election_date": ballot.date if ballot else None
         },
         "contribution_total": total_benefits,
         "contribution_count": num_contributions,
         "contribution_by_type": benefits_by_type,
         "contribution_by_area": total_by_locality,
     })
+    """
 
 
-class BallotItemResponseViewSet(viewsets.ViewSet):
+class BallotItemSelectionViewSet(viewsets.ViewSet):
     """
     Abstract class serving both candidates and referendums
     """
-
-    def supporting(self, request, ballot_item_response_id):
-        """
-        Display summarized supporting committee information
-        """
-        return Response([
-            {'id': 1, 'name': 'Citizens for a Better Oakland', 'contributions': 185859},  # noqa
-            {'id': 2, 'name': 'Oaklanders for Ethical Government', 'contributions': 152330},  # noqa
-            {'id': 3, 'name': 'Americans for Liberty', 'contributions': 83199},
-            {'id': 4, 'name': 'Golden State Citizens for Positive Reform',
-             'contributions': 23988}
-        ], content_type='application/json')
+    def _show_relevant_beneficiaries(self, request, ballot_item_selection_id, supporting):
+        ballot_item_selection = get_object_or_404(BallotItemSelection, id=ballot_item_selection_id)
+        beneficiary = Beneficiary.objects.filter(
+            ballot_item_selection=ballot_item_selection,
+            support=supporting)
+        return Response(BeneficiaryMoneyReceivedSerializer(beneficiary, many=True).data)
 
     @list_route(['GET'])
-    def opposing(self, request, ballot_item_response_id):
+    def supporting(self, request, ballot_item_selection_id):
         """
-        Display summarized opposing committee information
+        List of supporting committees, and level of benefits given.
+
+        response_serializer: CommitteeWithContributionsSerializer
         """
-        return Response([
-            {'id': 5, 'name': 'The Public Commission for Ethical Civic Reform',
-             'contributions': 15040},
-            {'id': 6, 'name': 'The Committee of True Americans who Dearly '
-                      'Love America and Liberty', 'contributions': 7943}
-        ])
+        return self._show_relevant_beneficiaries(
+            request=request,
+            ballot_item_selection_id=ballot_item_selection_id,
+            supporting=True)
+
+    @list_route(['GET'])
+    def opposing(self, request, ballot_item_selection_id):
+        """
+        List of opposing committees, and level of benefits given.
+        """
+        return self._show_relevant_beneficiaries(
+            request=request,
+            ballot_item_selection_id=ballot_item_selection_id,
+            supporting=False)
 
 
-class ReferendumViewSet(BallotItemResponseViewSet):
+class ReferendumViewSet(BallotItemSelectionViewSet):
+    """
+    Money surrounding particular referendums.
+    ---
+
+    supporting:
+        response_serializer: BeneficiaryMoneyReceivedSerializer
+
+    opposing:
+        response_serializer: BeneficiaryMoneyReceivedSerializer
+    """
     @list_route(['GET'])
     def supporting(self, request, referendum_id):
         """
-        Groups making contributions/expenditures in support of a referendum.
+        List of committees supporting a referendum, and level of benefits given.
         """
-        # ballot_item_response_id =   # query from referendumresponse model
+        # ballot_item_selection_id =   # query from referendumresponse model
         return super(ReferendumViewSet, self).supporting(
-            request, ballot_item_response_id=1)
+            request, ballot_item_selection_id=referendum_id)
 
     @list_route(['GET'])
     def opposing(self, request, referendum_id):
         """
-        Groups making contributions/expenditures in opposition to a referendum.
+        List of committees opposing a referendum, and level of benefits given.
         """
-        # ballot_item_response_id =   # query from referendumresponse model
+        # ballot_item_selection_id =   # query from referendumresponse model
         return super(ReferendumViewSet, self).opposing(
-            request, ballot_item_response_id=1)
+            request, ballot_item_selection_id=referendum_id)
 
 
-class CandidateViewSet(BallotItemResponseViewSet):
+class CandidateViewSet(BallotItemSelectionViewSet):
+    """
+    Money surrounding particular candidates.
+    ---
+
+    supporting:
+        response_serializer: BeneficiaryMoneyReceivedSerializer
+
+    opposing:
+        response_serializer: BeneficiaryMoneyReceivedSerializer
+    """
     @list_route(['GET'])
     def supporting(self, request, candidate_id):
         """
-        Groups making contributions/expenditures in support of a candidate.
+        List of committees supporting a candidate, and level of benefits given.
         """
         return super(CandidateViewSet, self).supporting(
-            request, ballot_item_response_id=candidate_id)
+            request, ballot_item_selection_id=candidate_id)
 
     @list_route(['GET'])
     def opposing(self, request, candidate_id):
         """
-        Groups making contributions/expenditures in opposition to a referendum.
+        List of committees opposing a candidate, and level of benefits given.
         """
         return super(CandidateViewSet, self).opposing(
-            request, ballot_item_response_id=candidate_id)
+            request, ballot_item_selection_id=candidate_id)
 
 
 def homepage_view(request):

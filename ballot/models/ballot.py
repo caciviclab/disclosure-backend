@@ -72,8 +72,7 @@ class BallotItemSelection(models.Model, ReverseLookupStringMixin):
     ballot_item = models.ForeignKey('BallotItem')
 
     def __str__(self):
-        return (ReverseLookupStringMixin.__str__(self) or
-                str(self.ballot_item))
+        return ReverseLookupStringMixin.__str__(self)
 
     class Meta:
         ordering = ('ballot_item__ballot__date',
