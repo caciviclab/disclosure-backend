@@ -303,14 +303,16 @@ def get_committee_benefactor(row):
 def get_committee_beneficiary(row):
     """Utility function to identify a committee beneficiary.
     """
-    filer_id = row['filerId']
-    if '-' in filer_id:
+    filer_id = row.get('filerId') or row.get('filerLocalId')
+    if filer_id is None:
+        raise Exception('Did the Netfile schema change again??')
+    elif '-' in filer_id:
         filer_id = '-'.join(filer_id.split('-')[1:])
     else:
         filer_id = filer_id
 
     return models.Beneficiary.objects.get_or_create(
-        name=clean_name(row['filerName']), filer_id=filer_id)[0]
+        name=clean_name(row.get('filerName')), filer_id=filer_id)[0]
 
 
 def clean_filer_id(filer_id):
@@ -546,7 +548,7 @@ class Command(downloadnetfilerawdata.Command):
         for form_info in self.forms:
             error_rows = load_form_data(
                 data=self.data, verbosity=self.verbosity,
-                agency_fn=lambda row: self.get_agency(row['filerId'].split('-')[0]),
+                agency_fn=lambda row: self.get_agency(row['agency_shortcut']),
                 **form_info)
 
             # Report errors  TODO: push to the database.
