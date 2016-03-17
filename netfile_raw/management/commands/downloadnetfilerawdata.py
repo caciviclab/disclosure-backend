@@ -152,12 +152,12 @@ class Command(loadcalaccessrawfile.Command):
             self.years = []
         else:
             self.years = options['years'].split(',')
-        years = ['2014', '2015']
+        years = ['2014', '2015', '2016']
         years_not_found = set(self.years) - set(years)
         if len(self.years) == 0:
             self.years = years
         elif len(years_not_found) > 0:
-            warnings.warn('Could not find these years: %s' % (
+            warnings.warn('Did not recognize these years as valid: %s' % (
                 ','.join(years_not_found)))
             self.years = list(set(self.years) - years_not_found)
 
