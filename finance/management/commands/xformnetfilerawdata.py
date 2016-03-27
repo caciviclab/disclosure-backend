@@ -89,7 +89,7 @@ def parse_benefactor(row, verbosity=1):
         state=bf_state)
 
     # Make sure row type is of the known types
-    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY')
+    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY', 'CRT')
 
     if row['entity_Cd'] == 'IND':  # individual
         employer_name = clean_name(row.get('tran_Emp'))
@@ -117,7 +117,8 @@ def parse_benefactor(row, verbosity=1):
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
-    elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
+    elif row['entity_Cd'] in ['SCC', 'COM', 'CRT']:
+        # committee or commitee receipt, for 460D
         # Get by name
         benefactor = get_committee_benefactor(row)
         benefactor.benefactor_type = benefactor.type
@@ -289,7 +290,7 @@ def get_committee_benefactor(row):
     """Utility function to identify a committee benefactor.
     """
     filer_id = clean_filer_id(row.get('cmte_Id'))
-    name = clean_name(row['tran_NamL'])
+    name = clean_name(row.get('cand_NamL') or row.get('tran_NamL'))
 
     if filer_id is not None:
         # By ID
@@ -318,11 +319,13 @@ def get_committee_benefactor(row):
 def get_committee_beneficiary(row):
     """Utility function to identify a committee beneficiary.
     """
-    filer_id = row.get('filerId') or row.get('filerLocalId')
+    filer_id = row.get('filerId') or row.get('filerLocalId') or row.get('filerStateId')
     if filer_id is None:
         raise Exception('Did the Netfile schema change again??')
     elif '-' in filer_id:
         filer_id = '-'.join(filer_id.split('-')[1:])
+    elif filer_id == 'pending':
+        filer_id = None
     else:
         filer_id = filer_id
 
@@ -381,49 +384,107 @@ def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # n
     tran_Zip4      : Transaction Entity's Zip Code, 63105,75702,75711,90036,90040,
     """
 
-    try:
-        # Get old money. If we have it, don't do anything--fast!!
-        money = models.IndependentMoney.objects.get(
-            source='NF',
-            source_xact_id=row['netFileKey'])
+    if not force:
+        try:
+            # Get old money. If we have it, don't do anything--fast!!
+            money = models.IndependentMoney.objects.get(
+                source='NF',
+                source_xact_id=row['netFileKey'])
 
-        assert money.amount == float(row['tran_Amt1']), \
-            "%s != %s" % (money.amount, float(row['tran_Amt1']))
-        assert money.cumulative_amount == (float(row.get('tran_Amt2', 0)) or None), \
-            "%s != %s" % (money.cumulative_amount, float(row.get('tran_Amt2', 0)) or None)
-        assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
-            "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
-        if verbosity:
-            print("Skipping existing [%s] row, %s/%s" % (
-                form['form_name'], money.source, money.source_xact_id))
+            assert money.amount == float(row['tran_Amt1']), \
+                "%s != %s" % (money.amount, float(row['tran_Amt1']))
+            assert money.cumulative_amount == (float(row.get('tran_Amt2', 0)) or None), \
+                "%s != %s" % (money.cumulative_amount, float(row.get('tran_Amt2', 0)) or None)
+            assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
+                "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
+            if verbosity:
+                print("Skipping existing [%s] row, %s/%s" % (
+                    reporting_period.form.name, money.source, money.source_xact_id))
 
-    except models.IndependentMoney.DoesNotExist:
-        benefactor, bf_zip_code = parse_benefactor(
-            row, verbosity=verbosity)
-        reporting_period = parse_form_and_report_period(
-            row, form, verbosity=verbosity)
-        beneficiary = parse_beneficiary(
-            row, agency=agency, verbosity=verbosity)
-        beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
-            row, locality=beneficiary.locality, verbosity=verbosity)
+            return money, False  # Did not load.
+
+        except models.IndependentMoney.DoesNotExist:
+            pass
+
+    benefactor, bf_zip_code = parse_benefactor(
+        row, verbosity=verbosity)
+    beneficiary = parse_beneficiary(
+        row, agency=agency, verbosity=verbosity)
+    beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
+        row, locality=beneficiary.locality, verbosity=verbosity)
+    beneficiary.save()
+
+    # Now we have all the parts. Create and save it.
+    money = models.IndependentMoney(
+        source='NF',
+        source_xact_id=row['netFileKey'],
+        filing_id=row.get('filingId'),
+        amount=float(row['tran_Amt1']),
+        cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
+        report_date=date_parse(row['tran_Date']),
+        reporting_period=reporting_period,
+        benefactor_zip=bf_zip_code,
+        benefactor=benefactor,
+        beneficiary=beneficiary)
+    money.save()
+
+    if verbosity:
+        print(str(money))
+
+    return money, True
+
+
+@transaction.atomic
+def load_form460d_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
+    """ Loads an individual row from Form 460 Schedule A. # noqa
+    This is where most of the magic happens!
+
+    Some metadata:
+    agency_shortcut                                                    CSD
+    amountType                                                           0
+    tran_Id                                                           D748
+    filingStartDate                      2015-01-01T00:00:00.0000000-08:00
+    tran_Amt1                                                        900.0
+    filingId                                                     155100606
+    sup_Opp_Cd                                                           S
+    memo_Code                                                        False
+    filingEndDate                        2015-05-12T00:00:00.0000000-07:00
+    transactionType                                                      5
+    calculated_Amount                                                  900
+    intr_Self                                                        False
+    tran_Amt2                                                        900.0
+    xref_Match                                                       False
+    tran_Code                                                          MON
+    form_Type                                                            D
+    tran_Date                            2015-05-11T00:00:00.0000000-07:00
+    latitude                                                             0
+    longitude                                                            0
+    rec_Type                                                          EXPN
+    filerLocalId                                                  CSD-5244
+    calculated_Date                      2015-05-11T00:00:00.0000000-07:00
+    filerName            Jan Goldsmith (As City Attorney, I do not have...
+    filerStateId                                                   pending
+    netFileKey                            aa3d5a02ccc646bd8187a4990078e1ba
+    cand_NamL                         Republican Party of San Diego County
+    tran_Self                                                        False
+    entity_Cd                                                          COM
+    """
+
+    money, loaded = load_form_row(
+        row=row, agency=agency, reporting_period=reporting_period,
+        force=force, verbosity=verbosity)
+
+    # We can load some info about support/oppose.
+    if loaded:
+        beneficiary = money.beneficiary
+        support = row.get('sup_Opp_Cd')
+        beneficiary.support = (support == 'S')
+        if beneficiary.ballot_item_selection is None:
+            beneficiary.ballot_item_selection, _ = parse_ballot_info(
+                row, locality=money.beneficiary.locality, verbosity=verbosity)
         beneficiary.save()
-
-        # Now we have all the parts. Create and save it.
-        money = models.IndependentMoney(
-            source='NF',
-            source_xact_id=row['netFileKey'],
-            filing_id=row.get('filingId'),
-            amount=float(row['tran_Amt1']),
-            cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
-            report_date=date_parse(row['tran_Date']),
-            reporting_period=reporting_period,
-            benefactor_zip=bf_zip_code,
-            benefactor=benefactor,
-            beneficiary=beneficiary)
-        money.save()
-
-        if verbosity:
-            print(str(money))
+        print(beneficiary)
+    return loaded
 
 
 def minimize_row(raw_row):
@@ -547,6 +608,7 @@ class Command(downloadnetfilerawdata.Command):
     FORM_TYPES = [
         {'form_name': "Form 460 Schedule A", 'form_type': 'A'},
         {'form_name': "Form 460 Schedule C", 'form_type': 'C'},
+        {'form_name': "Form 460 Schedule D", 'form_type': 'D'},
         {'form_name': "Form 496", 'form_type': 'F496P3'},
         {'form_name': "Form 497", 'form_type': 'F497P1'}
     ]
