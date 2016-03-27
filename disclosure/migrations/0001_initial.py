@@ -8,8 +8,8 @@ from django.db import migrations
 
 def load_ballot_data(apps, schema_editor):
     fixtures = (
-        ('locality', op.join(settings.FIXTURES_DIR, '2016_03_27_locality.json')),
-        ('ballot', op.join(settings.FIXTURES_DIR, '2016_03_27_ballot.json')),)
+        ('locality', op.join(settings.FIXTURES_DIR, '2016_05_02_locality.json')),
+        ('ballot', op.join(settings.FIXTURES_DIR, '2016_05_02_ballot.json')),)
 
     for app, path in fixtures:
         call_command('loaddata', path, app=app)
