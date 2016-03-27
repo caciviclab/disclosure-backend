@@ -82,7 +82,7 @@ class Form(models.Model):
     )
 
     name = models.CharField(max_length=255)
-    text_id = models.CharField(max_length=32, help_text='e.g. 460 Schedule A')
+    text_id = models.CharField(max_length=32, help_text='e.g. 460A')
     submission_frequency = models.CharField(
         max_length=2, choices=FREQUENCY_TYPES)
     locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None,
@@ -231,13 +231,23 @@ class ReportingPeriod(models.Model):
     """Model tracking form reporting periods."""
     period_start = models.DateField()
     period_end = models.DateField()
+    filing_deadline = models.DateField(blank=True, null=True, default=None)
     form = models.ForeignKey('Form')
+    locality = models.ForeignKey(
+        'locality.Locality', blank=True, null=True, default=None)
+    permanent = models.BooleanField(
+        default=True, help_text="Whether data is reported once, or re-reported.")
 
     def __str__(self):
-        return '%s: %s to %s' % (self.form, self.period_start or '', self.period_end or '')
+        locality_info = (' (%s)' % self.locality) if self.locality else ''
+        period_start_info = self.period_start or ''
+        period_end_info = self.period_end or ''
+        deadline_info = self.filing_deadline or ''
+        return '%s%s: %s to %s (due: %s)' % (
+            self.form, locality_info, period_start_info, period_end_info, deadline_info)
 
     class Meta:
-        ordering = ('period_start', 'period_end')
+        ordering = ('locality', 'period_start', 'period_end', 'form')
 
 
 @python_2_unicode_compatible

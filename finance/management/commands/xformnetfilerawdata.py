@@ -25,6 +25,11 @@ from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
 
 
+class SkipForm(Exception):
+    """Exception to indicate when form data should be skipped."""
+    pass
+
+
 def isnan(val):
     return isinstance(val, Number) and np.isnan(val)
 
@@ -155,24 +160,34 @@ def parse_party_from_name(committee_name):
     return Party.objects.get_or_create(name='Unknown')[0]
 
 
-def parse_form_and_report_period(row, form, verbosity=1):
+def parse_form_and_report_period(row, form, locality, verbosity=1):
     # Create/get the relevant form objects.
     form_name = form['form_name']
     form_type = form['form_type']
     if len(form_type) == 1:
         form_type = '460' + form_type
 
-    f460A, _ = models.Form.objects.get_or_create(  # noqa
-        name=form_name, text_id=form_type,
-        submission_frequency='SA')
+    form, _ = models.Form.objects.get_or_create(
+        name=form_name, text_id=form_type)
 
     report_date = date_parse(row['tran_Date'])
-    reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
-        form=f460A,
-        period_start=datetime.datetime(report_date.year, 1, 1),
-        period_end=datetime.datetime(report_date.year, 12, 31))
+    reporting_periods = models.ReportingPeriod.objects.filter(
+        form=form, locality=locality,
+        period_start__lte=report_date, period_end__gte=report_date)
 
-    return reporting_period
+    if len(reporting_periods) == 0:
+        raise Exception(("You must add a reporting period for form '%s', "
+                        "locality '%s', containing date %s") % (
+                            form, locality, report_date))
+
+    elif len(reporting_periods) > 1:
+        raise Exception("More than one reporting period matches; please "
+                        "review.")
+
+    # datetime.datetime(report_date.year, 1, 1),
+    #     period_end=datetime.datetime(report_date.year, 12, 31))
+
+    return reporting_periods[0]
 
 
 def parse_beneficiary(row, agency, verbosity=1):
@@ -330,9 +345,13 @@ def clean_filer_id(filer_id):
 
 
 @transaction.atomic
-def load_form_row(row, agency, form, verbosity=1):  # noqa
+def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
     """ Loads an individual row from Form 460 Schedule A. # noqa
     This is where most of the magic happens!
+
+    Returns IndependentMoney instance, and
+    True if data was loaded into the database,
+    False if skipped b/c data already is there.
 
     Some metadata:
     ^ calculated_Amount: None, -294.84,-200.0,50.0,99.0,100.0
@@ -455,6 +474,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         print("Loading %d rows of %s data." % (len(data), form_name))
 
     # Parse out the contributor information.
+    reporting_period = None  # Set on first valid row.
     error_rows = []
     xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
@@ -467,13 +487,39 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         xact_keys = xact_keys - set([raw_row['netFileKey']])
 
         minimal_row = minimize_row(raw_row)
-        assert minimal_row.get('rec_Type') in ('RCPT', 'S497')
+
+        assert minimal_row.get('rec_Type') in ('RCPT', 'S497', 'EXPN')
+        # print minimal_row
 
         try:
             agency = agency_fn(minimal_row)
-            load_form_row(
-                minimal_row, agency=agency, verbosity=verbosity,
-                form=dict(form_name=form_name, form_type=form_type))
+
+            if reporting_period is None:
+                # Query form period.
+                form = dict(form_name=form_name, form_type=form_type)
+                locality = City.objects.get(short_name=agency['shortcut'])
+                reporting_period = parse_form_and_report_period(
+                    minimal_row, form, locality=locality, verbosity=verbosity)
+
+                # Verify that the data from this form are relevant.
+                now = datetime.datetime.date(datetime.datetime.now())
+                time_to_skip = (now < reporting_period.period_start or
+                                now > reporting_period.period_end)
+
+                if not reporting_period.permanent and time_to_skip:
+                    # No longer relevant. Skip this.
+                    raise SkipForm()
+
+            # 460D data is different...
+            if form_type == 'D':
+                minimal_row['entity_Cd'] = minimal_row.get('entity_Cd', 'CRT')
+                load_form460d_row(
+                    minimal_row, agency=agency, reporting_period=reporting_period,
+                    force=force, verbosity=verbosity)
+            else:
+                load_form_row(
+                    minimal_row, agency=agency, reporting_period=reporting_period,
+                    force=force, verbosity=verbosity)
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
             # TODO: Store errors, for review later.
@@ -550,15 +596,20 @@ class Command(downloadnetfilerawdata.Command):
             warnings.warn("Some data don't have form_Type set.")
 
         for form_info in self.forms:
-            error_rows = load_form_data(
-                data=self.data, verbosity=self.verbosity,
-                agency_fn=lambda row: self.get_agency(row['agency_shortcut']),
-                **form_info)
+            try:
+                error_rows = load_form_data(
+                    data=self.data, verbosity=self.verbosity, force=self.force,
+                    agency_fn=lambda row: self.get_agency(row['agency_shortcut']),
+                    **form_info)
 
-            # Report errors  TODO: push to the database.
-            if len(error_rows) > 0:
-                print("Encountered %d errors; debug!" % len(error_rows))
-                print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+                # Report errors  TODO: push to the database.
+                if len(error_rows) > 0:
+                    print("Encountered %d errors; debug!" % len(error_rows))
+                    print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+            except SkipForm:
+                if self.verbosity > 0:
+                    print("Skipping irrelevant form data from %s" % form_info)
+                continue
 
     def get_agency(self, agency_shortcut):
         agency_matches = filter(lambda a: a['shortcut'] == agency_shortcut,
