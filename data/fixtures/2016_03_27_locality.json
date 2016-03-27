@@ -1,0 +1,1 @@
+[{"fields": {"true_model_id": null, "name": "California", "short_name": "CA"}, "model": "locality.locality", "pk": 1}, {"fields": {"true_model_id": null, "name": "San Diego", "short_name": "CSD"}, "model": "locality.locality", "pk": 2}]

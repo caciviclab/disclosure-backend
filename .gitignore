@@ -1,7 +1,8 @@
 *.pyc
 
 # Data
-data/
+data/calaccess
+data/netfile
 
 # Django
 settings_local.py
