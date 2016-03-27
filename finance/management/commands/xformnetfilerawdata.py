@@ -426,7 +426,7 @@ def grouper(n, iterable, fillvalue=None):
     return izip_longest(fillvalue=fillvalue, *args)
 
 
-def find_unloaded_rows(data, skip_rate=100, verbosity=1):
+def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
     """
     Get a list of 0 to skip_rate rows of transactions not in the DB.
     """
@@ -438,10 +438,14 @@ def find_unloaded_rows(data, skip_rate=100, verbosity=1):
             for val in vals:
                 print("Skipping NF/%s" % val)
 
-        yield set(xacts) - set(vals)  # missing set
+        if force:
+            yield set(xacts)
+        else:
+            yield set(xacts) - set(vals)  # missing set
 
 
-def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # noqa
+def load_form_data(data, agency_fn, form_name, form_type=None,
+                   force=False, verbosity=1):
     """
     """
     if form_type is not None:
@@ -452,7 +456,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # 
 
     # Parse out the contributor information.
     error_rows = []
-    xact_key_generator = find_unloaded_rows(data, verbosity=verbosity)
+    xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
         # Quickly get near an unloaded row.
