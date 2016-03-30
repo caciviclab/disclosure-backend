@@ -526,6 +526,16 @@ def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
             yield set(xacts) - set(vals)  # missing set
 
 
+def delete_form_data(reporting_period, verbosity=1):
+    rows_to_delete = models.IndependentMoney.objects.filter(
+        reporting_period=reporting_period)
+    if verbosity > 0:
+        print("Deleting %d rows of irrelevant %s data from between %s and %s." % (
+            rows_to_delete.count(), reporting_period.form,
+            reporting_period.period_start, reporting_period.period_end))
+    rows_to_delete.delete()
+
+
 def load_form_data(data, agency_fn, form_name, form_type=None,
                    force=False, verbosity=1):
     """
@@ -534,7 +544,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         data = data[data['form_Type'] == form_type]
 
     if verbosity > 0:
-        print("Loading %d rows of %s data." % (len(data), form_name))
+        print("Attempting to load %d rows of %s data." % (len(data), form_name))
 
     # Parse out the contributor information.
     reporting_period = None  # Set on first valid row.
@@ -570,7 +580,8 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
                                 now > reporting_period.period_end)
 
                 if not reporting_period.permanent and time_to_skip:
-                    # No longer relevant. Skip this.
+                    # No longer relevant. Delete any existing data, and skip this.
+                    delete_form_data(reporting_period)
                     raise SkipForm()
 
             # 460D data is different...
