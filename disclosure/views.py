@@ -14,7 +14,7 @@ from .serializers import BeneficiaryMoneyReceivedSerializer
 from ballot.models import Ballot, BallotItemSelection
 from finance.models import Beneficiary, IndependentMoney
 from finance.views import summarize_money
-from locality.models import City, Locality
+from locality.models import Locality
 from locality.serializers import LocalitySerializer
 from swagger_nickname_registry import swagger_nickname
 
@@ -36,7 +36,7 @@ def search_view(request):
         LocalitySerializer
     """
     query = request.query_params.get('q', '')
-    query_set = City.objects.filter(~Q(ballot=None), name__icontains=query)
+    query_set = Locality.objects.filter(~Q(ballot=None), name__icontains=query)
     serializer = LocalitySerializer(query_set, many=True)
     return Response(serializer.data)
 
