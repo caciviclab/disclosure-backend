@@ -289,24 +289,30 @@ def parse_ballot_info(row, locality, verbosity=1):
 def get_committee_benefactor(row):
     """Utility function to identify a committee benefactor.
     """
-    filer_id = clean_filer_id(row.get('cmte_Id'))
-    name = clean_name(row.get('cand_NamL') or row.get('tran_NamL'))
+    # $HACK; fields differ for contributions vs. expenditures!
+    if row.get('form_Type') == 'D':
+        filer_id = row.get('filerId') or row.get('filerLocalId') or row.get('filerStateId')
+        name = clean_name(row.get('filerName'))
+    else:
+        filer_id = clean_filer_id(row.get('cmte_Id'))
+        name = clean_name(row.get('cand_NamL') or row.get('tran_NamL') or row.get(''))
+
+    benefactor = None
 
     if filer_id is not None:
         # By ID
-        benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
+        benefactors = models.CommitteeBenefactor.objects.filter(
             filer_id=filer_id)
-        benefactor.name = name
+        if benefactors.count() > 0:
+            # Matched on filer_id
+            benefactor = benefactors[0]
+            benefactor.name = name
 
-    else:
+    if benefactor is None:
         # By name
         benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
             name=name)
-        if benefactor.filer_id is not None:
-            # Parsed a null filer_id from %s, "
-            # but filer_id in the db is %s" % (
-            # row.get('cmte_Id'), benefactor.filer_id)
-            benefactor.filer_id = filer_id
+        benefactor.filer_id = filer_id or benefactor.filer_id
 
     # CC=candidate-controlled, pf=primarily, ic=general purpose, BM=ballot measure
     if row['form_Type'] in ['F496P3']:  # TODO: take form info OUT of code
@@ -622,7 +628,6 @@ class Command(downloadnetfilerawdata.Command):
         {'form_name': "Form 460 Schedule A", 'form_type': 'A'},
         {'form_name': "Form 460 Schedule C", 'form_type': 'C'},
         {'form_name': "Form 460 Schedule D", 'form_type': 'D'},
-        {'form_name': "Form 496", 'form_type': 'F496P3'},
         {'form_name': "Form 497", 'form_type': 'F497P1'}
     ]
 
