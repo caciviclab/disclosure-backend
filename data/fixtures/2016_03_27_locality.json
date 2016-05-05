@@ -16,5 +16,14 @@
     },
     "model": "locality.locality",
     "pk": 2
+  },
+  {
+    "fields": {
+      "true_model_id": null,
+      "name": "Oakland",
+      "short_name": "COAK"
+    },
+    "model": "locality.locality",
+    "pk": 117
   }
 ]
