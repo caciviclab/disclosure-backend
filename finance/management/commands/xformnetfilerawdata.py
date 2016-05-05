@@ -25,6 +25,11 @@ from locality.models import City, State, ZipCode
 from netfile_raw.management.commands import downloadnetfilerawdata
 
 
+class SkipForm(Exception):
+    """Exception to indicate when form data should be skipped."""
+    pass
+
+
 def isnan(val):
     return isinstance(val, Number) and np.isnan(val)
 
@@ -84,7 +89,7 @@ def parse_benefactor(row, verbosity=1):
         state=bf_state)
 
     # Make sure row type is of the known types
-    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY')
+    assert row['entity_Cd'] in ('IND', 'OTH', 'SCC', 'COM', 'PTY', 'CRT')
 
     if row['entity_Cd'] == 'IND':  # individual
         employer_name = clean_name(row.get('tran_Emp'))
@@ -112,7 +117,8 @@ def parse_benefactor(row, verbosity=1):
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
-    elif row['entity_Cd'] in ['SCC', 'COM']:  # committee
+    elif row['entity_Cd'] in ['SCC', 'COM', 'CRT']:
+        # committee or commitee receipt, for 460D
         # Get by name
         benefactor = get_committee_benefactor(row)
         benefactor.benefactor_type = benefactor.type
@@ -155,24 +161,34 @@ def parse_party_from_name(committee_name):
     return Party.objects.get_or_create(name='Unknown')[0]
 
 
-def parse_form_and_report_period(row, form, verbosity=1):
+def parse_form_and_report_period(row, form, locality, verbosity=1):
     # Create/get the relevant form objects.
     form_name = form['form_name']
     form_type = form['form_type']
     if len(form_type) == 1:
         form_type = '460' + form_type
 
-    f460A, _ = models.Form.objects.get_or_create(  # noqa
-        name=form_name, text_id=form_type,
-        submission_frequency='SA')
+    form, _ = models.Form.objects.get_or_create(
+        name=form_name, text_id=form_type)
 
     report_date = date_parse(row['tran_Date'])
-    reporting_period, _ = models.ReportingPeriod.objects.get_or_create(
-        form=f460A,
-        period_start=datetime.datetime(report_date.year, 1, 1),
-        period_end=datetime.datetime(report_date.year, 12, 31))
+    reporting_periods = models.ReportingPeriod.objects.filter(
+        form=form, locality=locality,
+        period_start__lte=report_date, period_end__gte=report_date)
 
-    return reporting_period
+    if len(reporting_periods) == 0:
+        raise Exception(("You must add a reporting period for form '%s', "
+                        "locality '%s', containing date %s") % (
+                            form, locality, report_date))
+
+    elif len(reporting_periods) > 1:
+        raise Exception("More than one reporting period matches; please "
+                        "review.")
+
+    # datetime.datetime(report_date.year, 1, 1),
+    #     period_end=datetime.datetime(report_date.year, 12, 31))
+
+    return reporting_periods[0]
 
 
 def parse_beneficiary(row, agency, verbosity=1):
@@ -273,22 +289,30 @@ def parse_ballot_info(row, locality, verbosity=1):
 def get_committee_benefactor(row):
     """Utility function to identify a committee benefactor.
     """
-    filer_id = clean_filer_id(row.get('cmte_Id'))
-    name = clean_name(row['tran_NamL'])
+    # $HACK; fields differ for contributions vs. expenditures!
+    if row.get('form_Type') == 'D':
+        filer_id = row.get('filerId') or row.get('filerLocalId') or row.get('filerStateId')
+        name = clean_name(row.get('filerName'))
+    else:
+        filer_id = clean_filer_id(row.get('cmte_Id'))
+        name = clean_name(row.get('cand_NamL') or row.get('tran_NamL') or row.get(''))
+
+    benefactor = None
 
     if filer_id is not None:
         # By ID
-        benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
+        benefactors = models.CommitteeBenefactor.objects.filter(
             filer_id=filer_id)
-        benefactor.name = name
+        if benefactors.count() > 0:
+            # Matched on filer_id
+            benefactor = benefactors[0]
+            benefactor.name = name
 
-    else:
+    if benefactor is None:
         # By name
         benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
             name=name)
-        if benefactor.filer_id is not None:
-            raise ValueError('Parsed a null filer_id from %s, but filer_id in the db is %s' % (
-                row.get('cmte_Id'), benefactor.filer_id))
+        benefactor.filer_id = filer_id or benefactor.filer_id
 
     # CC=candidate-controlled, pf=primarily, ic=general purpose, BM=ballot measure
     if row['form_Type'] in ['F496P3']:  # TODO: take form info OUT of code
@@ -303,11 +327,13 @@ def get_committee_benefactor(row):
 def get_committee_beneficiary(row):
     """Utility function to identify a committee beneficiary.
     """
-    filer_id = row.get('filerId') or row.get('filerLocalId')
+    filer_id = row.get('filerId') or row.get('filerLocalId') or row.get('filerStateId')
     if filer_id is None:
         raise Exception('Did the Netfile schema change again??')
     elif '-' in filer_id:
         filer_id = '-'.join(filer_id.split('-')[1:])
+    elif filer_id == 'pending':
+        filer_id = None
     else:
         filer_id = filer_id
 
@@ -330,9 +356,13 @@ def clean_filer_id(filer_id):
 
 
 @transaction.atomic
-def load_form_row(row, agency, form, verbosity=1):  # noqa
+def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
     """ Loads an individual row from Form 460 Schedule A. # noqa
     This is where most of the magic happens!
+
+    Returns IndependentMoney instance, and
+    True if data was loaded into the database,
+    False if skipped b/c data already is there.
 
     Some metadata:
     ^ calculated_Amount: None, -294.84,-200.0,50.0,99.0,100.0
@@ -362,49 +392,107 @@ def load_form_row(row, agency, form, verbosity=1):  # noqa
     tran_Zip4      : Transaction Entity's Zip Code, 63105,75702,75711,90036,90040,
     """
 
-    try:
-        # Get old money. If we have it, don't do anything--fast!!
-        money = models.IndependentMoney.objects.get(
-            source='NF',
-            source_xact_id=row['netFileKey'])
+    if not force:
+        try:
+            # Get old money. If we have it, don't do anything--fast!!
+            money = models.IndependentMoney.objects.get(
+                source='NF',
+                source_xact_id=row['netFileKey'])
 
-        assert money.amount == float(row['tran_Amt1']), \
-            "%s != %s" % (money.amount, float(row['tran_Amt1']))
-        assert money.cumulative_amount == (float(row.get('tran_Amt2', 0)) or None), \
-            "%s != %s" % (money.cumulative_amount, float(row.get('tran_Amt2', 0)) or None)
-        assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
-            "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
-        if verbosity:
-            print("Skipping existing [%s] row, %s/%s" % (
-                form['form_name'], money.source, money.source_xact_id))
+            assert money.amount == float(row['tran_Amt1']), \
+                "%s != %s" % (money.amount, float(row['tran_Amt1']))
+            assert money.cumulative_amount == (float(row.get('tran_Amt2', 0)) or None), \
+                "%s != %s" % (money.cumulative_amount, float(row.get('tran_Amt2', 0)) or None)
+            assert str(date_parse(row['tran_Date'])).startswith(str(money.report_date)), \
+                "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
+            if verbosity:
+                print("Skipping existing [%s] row, %s/%s" % (
+                    reporting_period.form.name, money.source, money.source_xact_id))
 
-    except models.IndependentMoney.DoesNotExist:
-        benefactor, bf_zip_code = parse_benefactor(
-            row, verbosity=verbosity)
-        reporting_period = parse_form_and_report_period(
-            row, form, verbosity=verbosity)
-        beneficiary = parse_beneficiary(
-            row, agency=agency, verbosity=verbosity)
-        beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
-            row, locality=beneficiary.locality, verbosity=verbosity)
+            return money, False  # Did not load.
+
+        except models.IndependentMoney.DoesNotExist:
+            pass
+
+    benefactor, bf_zip_code = parse_benefactor(
+        row, verbosity=verbosity)
+    beneficiary = parse_beneficiary(
+        row, agency=agency, verbosity=verbosity)
+    beneficiary.ballot_item_selection, beneficiary.support = parse_ballot_info(
+        row, locality=beneficiary.locality, verbosity=verbosity)
+    beneficiary.save()
+
+    # Now we have all the parts. Create and save it.
+    money = models.IndependentMoney(
+        source='NF',
+        source_xact_id=row['netFileKey'],
+        filing_id=row.get('filingId'),
+        amount=float(row['tran_Amt1']),
+        cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
+        report_date=date_parse(row['tran_Date']),
+        reporting_period=reporting_period,
+        benefactor_zip=bf_zip_code,
+        benefactor=benefactor,
+        beneficiary=beneficiary)
+    money.save()
+
+    if verbosity:
+        print(str(money))
+
+    return money, True
+
+
+@transaction.atomic
+def load_form460d_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
+    """ Loads an individual row from Form 460 Schedule A. # noqa
+    This is where most of the magic happens!
+
+    Some metadata:
+    agency_shortcut                                                    CSD
+    amountType                                                           0
+    tran_Id                                                           D748
+    filingStartDate                      2015-01-01T00:00:00.0000000-08:00
+    tran_Amt1                                                        900.0
+    filingId                                                     155100606
+    sup_Opp_Cd                                                           S
+    memo_Code                                                        False
+    filingEndDate                        2015-05-12T00:00:00.0000000-07:00
+    transactionType                                                      5
+    calculated_Amount                                                  900
+    intr_Self                                                        False
+    tran_Amt2                                                        900.0
+    xref_Match                                                       False
+    tran_Code                                                          MON
+    form_Type                                                            D
+    tran_Date                            2015-05-11T00:00:00.0000000-07:00
+    latitude                                                             0
+    longitude                                                            0
+    rec_Type                                                          EXPN
+    filerLocalId                                                  CSD-5244
+    calculated_Date                      2015-05-11T00:00:00.0000000-07:00
+    filerName            Jan Goldsmith (As City Attorney, I do not have...
+    filerStateId                                                   pending
+    netFileKey                            aa3d5a02ccc646bd8187a4990078e1ba
+    cand_NamL                         Republican Party of San Diego County
+    tran_Self                                                        False
+    entity_Cd                                                          COM
+    """
+
+    money, loaded = load_form_row(
+        row=row, agency=agency, reporting_period=reporting_period,
+        force=force, verbosity=verbosity)
+
+    # We can load some info about support/oppose.
+    if loaded:
+        beneficiary = money.beneficiary
+        support = row.get('sup_Opp_Cd')
+        beneficiary.support = (support == 'S')
+        if beneficiary.ballot_item_selection is None:
+            beneficiary.ballot_item_selection, _ = parse_ballot_info(
+                row, locality=money.beneficiary.locality, verbosity=verbosity)
         beneficiary.save()
-
-        # Now we have all the parts. Create and save it.
-        money = models.IndependentMoney(
-            source='NF',
-            source_xact_id=row['netFileKey'],
-            filing_id=row.get('filingId'),
-            amount=float(row['tran_Amt1']),
-            cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
-            report_date=date_parse(row['tran_Date']),
-            reporting_period=reporting_period,
-            benefactor_zip=bf_zip_code,
-            benefactor=benefactor,
-            beneficiary=beneficiary)
-        money.save()
-
-        if verbosity:
-            print(str(money))
+        print(beneficiary)
+    return loaded
 
 
 def minimize_row(raw_row):
@@ -426,7 +514,7 @@ def grouper(n, iterable, fillvalue=None):
     return izip_longest(fillvalue=fillvalue, *args)
 
 
-def find_unloaded_rows(data, skip_rate=100, verbosity=1):
+def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
     """
     Get a list of 0 to skip_rate rows of transactions not in the DB.
     """
@@ -438,21 +526,36 @@ def find_unloaded_rows(data, skip_rate=100, verbosity=1):
             for val in vals:
                 print("Skipping NF/%s" % val)
 
-        yield set(xacts) - set(vals)  # missing set
+        if force:
+            yield set(xacts)
+        else:
+            yield set(xacts) - set(vals)  # missing set
 
 
-def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # noqa
+def delete_form_data(reporting_period, verbosity=1):
+    rows_to_delete = models.IndependentMoney.objects.filter(
+        reporting_period=reporting_period)
+    if verbosity > 0:
+        print("Deleting %d rows of irrelevant %s data from between %s and %s." % (
+            rows_to_delete.count(), reporting_period.form,
+            reporting_period.period_start, reporting_period.period_end))
+    rows_to_delete.delete()
+
+
+def load_form_data(data, agency_fn, form_name, form_type=None,
+                   force=False, verbosity=1):
     """
     """
     if form_type is not None:
         data = data[data['form_Type'] == form_type]
 
     if verbosity > 0:
-        print("Loading %d rows of %s data." % (len(data), form_name))
+        print("Attempting to load %d rows of %s data." % (len(data), form_name))
 
     # Parse out the contributor information.
+    reporting_period = None  # Set on first valid row.
     error_rows = []
-    xact_key_generator = find_unloaded_rows(data, verbosity=verbosity)
+    xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
         # Quickly get near an unloaded row.
@@ -463,13 +566,40 @@ def load_form_data(data, agency_fn, form_name, form_type=None, verbosity=1):  # 
         xact_keys = xact_keys - set([raw_row['netFileKey']])
 
         minimal_row = minimize_row(raw_row)
-        assert minimal_row.get('rec_Type') in ('RCPT', 'S497')
+
+        assert minimal_row.get('rec_Type') in ('RCPT', 'S497', 'EXPN')
+        # print minimal_row
 
         try:
             agency = agency_fn(minimal_row)
-            load_form_row(
-                minimal_row, agency=agency, verbosity=verbosity,
-                form=dict(form_name=form_name, form_type=form_type))
+
+            if reporting_period is None:
+                # Query form period.
+                form = dict(form_name=form_name, form_type=form_type)
+                locality = City.objects.get(short_name=agency['shortcut'])
+                reporting_period = parse_form_and_report_period(
+                    minimal_row, form, locality=locality, verbosity=verbosity)
+
+                # Verify that the data from this form are relevant.
+                now = datetime.datetime.date(datetime.datetime.now())
+                time_to_skip = (now < reporting_period.period_start or
+                                now > reporting_period.period_end)
+
+                if not reporting_period.permanent and time_to_skip:
+                    # No longer relevant. Delete any existing data, and skip this.
+                    delete_form_data(reporting_period)
+                    raise SkipForm()
+
+            # 460D data is different...
+            if form_type == 'D':
+                minimal_row['entity_Cd'] = minimal_row.get('entity_Cd', 'CRT')
+                load_form460d_row(
+                    minimal_row, agency=agency, reporting_period=reporting_period,
+                    force=force, verbosity=verbosity)
+            else:
+                load_form_row(
+                    minimal_row, agency=agency, reporting_period=reporting_period,
+                    force=force, verbosity=verbosity)
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
             # TODO: Store errors, for review later.
@@ -497,7 +627,7 @@ class Command(downloadnetfilerawdata.Command):
     FORM_TYPES = [
         {'form_name': "Form 460 Schedule A", 'form_type': 'A'},
         {'form_name': "Form 460 Schedule C", 'form_type': 'C'},
-        {'form_name': "Form 496", 'form_type': 'F496P3'},
+        {'form_name': "Form 460 Schedule D", 'form_type': 'D'},
         {'form_name': "Form 497", 'form_type': 'F497P1'}
     ]
 
@@ -546,15 +676,20 @@ class Command(downloadnetfilerawdata.Command):
             warnings.warn("Some data don't have form_Type set.")
 
         for form_info in self.forms:
-            error_rows = load_form_data(
-                data=self.data, verbosity=self.verbosity,
-                agency_fn=lambda row: self.get_agency(row['agency_shortcut']),
-                **form_info)
+            try:
+                error_rows = load_form_data(
+                    data=self.data, verbosity=self.verbosity, force=self.force,
+                    agency_fn=lambda row: self.get_agency(row['agency_shortcut']),
+                    **form_info)
 
-            # Report errors  TODO: push to the database.
-            if len(error_rows) > 0:
-                print("Encountered %d errors; debug!" % len(error_rows))
-                print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+                # Report errors  TODO: push to the database.
+                if len(error_rows) > 0:
+                    print("Encountered %d errors; debug!" % len(error_rows))
+                    print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+            except SkipForm:
+                if self.verbosity > 0:
+                    print("Skipping irrelevant form data from %s" % form_info)
+                continue
 
     def get_agency(self, agency_shortcut):
         agency_matches = filter(lambda a: a['shortcut'] == agency_shortcut,

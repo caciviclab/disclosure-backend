@@ -25,8 +25,10 @@ _calaccess_repo_dir = op.join(op.dirname(calaccess_raw.__file__),
 CALACCESS_TEST_DOWNLOAD_DIR = op.join(_calaccess_repo_dir,
                                       'example', 'test-data')
 
-CALACCESS_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'calaccess')
-NETFILE_DOWNLOAD_DIR = op.join(REPO_DIR, 'data', 'netfile')
+DATA_DIR = op.join(REPO_DIR, 'data')
+FIXTURES_DIR = op.join(DATA_DIR, 'fixtures')
+CALACCESS_DOWNLOAD_DIR = op.join(DATA_DIR, 'calaccess')
+NETFILE_DOWNLOAD_DIR = op.join(DATA_DIR, 'netfile')
 
 
 INSTALLED_APPS = (
