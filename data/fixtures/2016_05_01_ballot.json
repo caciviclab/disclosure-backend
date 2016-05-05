@@ -1,1 +1,3181 @@
-[{"fields": {"date": null, "locality": 2}, "model": "ballot.ballot", "pk": 1}, {"fields": {"date": null, "locality": 117}, "model": "ballot.ballot", "pk": 2}, {"fields": {"contest_type": "R", "ballot": 1}, "model": "ballot.ballotitem", "pk": 1}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 2}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 3}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 4}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 5}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 6}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 7}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 8}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 9}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 10}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 11}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 12}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 13}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 14}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 15}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 16}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 17}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 18}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 19}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 20}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 21}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 22}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 23}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 24}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 25}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 26}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 27}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 28}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 29}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 30}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 31}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 32}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 33}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 34}, {"fields": {"contest_type": "R", "ballot": 2}, "model": "ballot.ballotitem", "pk": 35}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 36}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 37}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 38}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 39}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 40}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 41}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 42}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 43}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 44}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 45}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 46}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 47}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 48}, {"fields": {"contest_type": "O", "ballot": 2}, "model": "ballot.ballotitem", "pk": 49}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 50}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 51}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 52}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 53}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 54}, {"fields": {"contest_type": "O", "ballot": 1}, "model": "ballot.ballotitem", "pk": 55}, {"fields": {"ballot_item": 1}, "model": "ballot.ballotitemselection", "pk": 1}, {"fields": {"ballot_item": 2}, "model": "ballot.ballotitemselection", "pk": 2}, {"fields": {"ballot_item": 3}, "model": "ballot.ballotitemselection", "pk": 3}, {"fields": {"ballot_item": 4}, "model": "ballot.ballotitemselection", "pk": 4}, {"fields": {"ballot_item": 5}, "model": "ballot.ballotitemselection", "pk": 5}, {"fields": {"ballot_item": 6}, "model": "ballot.ballotitemselection", "pk": 6}, {"fields": {"ballot_item": 7}, "model": "ballot.ballotitemselection", "pk": 7}, {"fields": {"ballot_item": 8}, "model": "ballot.ballotitemselection", "pk": 8}, {"fields": {"ballot_item": 9}, "model": "ballot.ballotitemselection", "pk": 9}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 10}, {"fields": {"ballot_item": 11}, "model": "ballot.ballotitemselection", "pk": 11}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 12}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 13}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 14}, {"fields": {"ballot_item": 5}, "model": "ballot.ballotitemselection", "pk": 15}, {"fields": {"ballot_item": 12}, "model": "ballot.ballotitemselection", "pk": 16}, {"fields": {"ballot_item": 13}, "model": "ballot.ballotitemselection", "pk": 17}, {"fields": {"ballot_item": 14}, "model": "ballot.ballotitemselection", "pk": 18}, {"fields": {"ballot_item": 15}, "model": "ballot.ballotitemselection", "pk": 19}, {"fields": {"ballot_item": 16}, "model": "ballot.ballotitemselection", "pk": 20}, {"fields": {"ballot_item": 17}, "model": "ballot.ballotitemselection", "pk": 21}, {"fields": {"ballot_item": 18}, "model": "ballot.ballotitemselection", "pk": 22}, {"fields": {"ballot_item": 19}, "model": "ballot.ballotitemselection", "pk": 23}, {"fields": {"ballot_item": 20}, "model": "ballot.ballotitemselection", "pk": 24}, {"fields": {"ballot_item": 21}, "model": "ballot.ballotitemselection", "pk": 25}, {"fields": {"ballot_item": 22}, "model": "ballot.ballotitemselection", "pk": 26}, {"fields": {"ballot_item": 23}, "model": "ballot.ballotitemselection", "pk": 27}, {"fields": {"ballot_item": 24}, "model": "ballot.ballotitemselection", "pk": 28}, {"fields": {"ballot_item": 21}, "model": "ballot.ballotitemselection", "pk": 29}, {"fields": {"ballot_item": 21}, "model": "ballot.ballotitemselection", "pk": 30}, {"fields": {"ballot_item": 25}, "model": "ballot.ballotitemselection", "pk": 31}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 32}, {"fields": {"ballot_item": 26}, "model": "ballot.ballotitemselection", "pk": 33}, {"fields": {"ballot_item": 25}, "model": "ballot.ballotitemselection", "pk": 34}, {"fields": {"ballot_item": 27}, "model": "ballot.ballotitemselection", "pk": 35}, {"fields": {"ballot_item": 28}, "model": "ballot.ballotitemselection", "pk": 36}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 37}, {"fields": {"ballot_item": 28}, "model": "ballot.ballotitemselection", "pk": 38}, {"fields": {"ballot_item": 21}, "model": "ballot.ballotitemselection", "pk": 39}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 40}, {"fields": {"ballot_item": 29}, "model": "ballot.ballotitemselection", "pk": 41}, {"fields": {"ballot_item": 26}, "model": "ballot.ballotitemselection", "pk": 42}, {"fields": {"ballot_item": 30}, "model": "ballot.ballotitemselection", "pk": 43}, {"fields": {"ballot_item": 31}, "model": "ballot.ballotitemselection", "pk": 44}, {"fields": {"ballot_item": 32}, "model": "ballot.ballotitemselection", "pk": 45}, {"fields": {"ballot_item": 33}, "model": "ballot.ballotitemselection", "pk": 46}, {"fields": {"ballot_item": 34}, "model": "ballot.ballotitemselection", "pk": 47}, {"fields": {"ballot_item": 35}, "model": "ballot.ballotitemselection", "pk": 48}, {"fields": {"ballot_item": 36}, "model": "ballot.ballotitemselection", "pk": 49}, {"fields": {"ballot_item": 37}, "model": "ballot.ballotitemselection", "pk": 50}, {"fields": {"ballot_item": 38}, "model": "ballot.ballotitemselection", "pk": 51}, {"fields": {"ballot_item": 39}, "model": "ballot.ballotitemselection", "pk": 52}, {"fields": {"ballot_item": 37}, "model": "ballot.ballotitemselection", "pk": 53}, {"fields": {"ballot_item": 40}, "model": "ballot.ballotitemselection", "pk": 54}, {"fields": {"ballot_item": 41}, "model": "ballot.ballotitemselection", "pk": 55}, {"fields": {"ballot_item": 37}, "model": "ballot.ballotitemselection", "pk": 56}, {"fields": {"ballot_item": 42}, "model": "ballot.ballotitemselection", "pk": 57}, {"fields": {"ballot_item": 43}, "model": "ballot.ballotitemselection", "pk": 58}, {"fields": {"ballot_item": 44}, "model": "ballot.ballotitemselection", "pk": 59}, {"fields": {"ballot_item": 45}, "model": "ballot.ballotitemselection", "pk": 60}, {"fields": {"ballot_item": 43}, "model": "ballot.ballotitemselection", "pk": 61}, {"fields": {"ballot_item": 45}, "model": "ballot.ballotitemselection", "pk": 62}, {"fields": {"ballot_item": 45}, "model": "ballot.ballotitemselection", "pk": 63}, {"fields": {"ballot_item": 46}, "model": "ballot.ballotitemselection", "pk": 64}, {"fields": {"ballot_item": 47}, "model": "ballot.ballotitemselection", "pk": 65}, {"fields": {"ballot_item": 48}, "model": "ballot.ballotitemselection", "pk": 66}, {"fields": {"ballot_item": 49}, "model": "ballot.ballotitemselection", "pk": 67}, {"fields": {"ballot_item": 48}, "model": "ballot.ballotitemselection", "pk": 68}, {"fields": {"ballot_item": 43}, "model": "ballot.ballotitemselection", "pk": 69}, {"fields": {"ballot_item": 46}, "model": "ballot.ballotitemselection", "pk": 70}, {"fields": {"ballot_item": 50}, "model": "ballot.ballotitemselection", "pk": 71}, {"fields": {"ballot_item": 51}, "model": "ballot.ballotitemselection", "pk": 72}, {"fields": {"ballot_item": 52}, "model": "ballot.ballotitemselection", "pk": 73}, {"fields": {"ballot_item": 11}, "model": "ballot.ballotitemselection", "pk": 74}, {"fields": {"ballot_item": 11}, "model": "ballot.ballotitemselection", "pk": 75}, {"fields": {"ballot_item": 27}, "model": "ballot.ballotitemselection", "pk": 76}, {"fields": {"ballot_item": 10}, "model": "ballot.ballotitemselection", "pk": 77}, {"fields": {"ballot_item": 53}, "model": "ballot.ballotitemselection", "pk": 78}, {"fields": {"ballot_item": 5}, "model": "ballot.ballotitemselection", "pk": 79}, {"fields": {"ballot_item": 30}, "model": "ballot.ballotitemselection", "pk": 80}, {"fields": {"ballot_item": 54}, "model": "ballot.ballotitemselection", "pk": 81}, {"fields": {"ballot_item": 55}, "model": "ballot.ballotitemselection", "pk": 82}, {"fields": {"ballot_item": 4}, "model": "ballot.ballotitemselection", "pk": 83}, {"fields": {"twitter_url": null, "facebook_url": null, "name": "Democrat", "website_url": null, "photo_url": ""}, "model": "ballot.party", "pk": 1}, {"fields": {"twitter_url": null, "facebook_url": null, "name": "Unknown", "website_url": null, "photo_url": ""}, "model": "ballot.party", "pk": 2}, {"fields": {"twitter_url": null, "facebook_url": null, "name": "Republican", "website_url": null, "photo_url": ""}, "model": "ballot.party", "pk": 3}, {"fields": {"locality": 2, "name": "To Protect Jobs & The Economy, Supporting Kevin Faulconer For Mayor", "description": ""}, "model": "ballot.office", "pk": 1}, {"fields": {"locality": 2, "name": "For Neighborhood Fairness, In Opposition To David Alvarez For Mayor", "description": ""}, "model": "ballot.office", "pk": 2}, {"fields": {"locality": 2, "name": "Mayor", "description": ""}, "model": "ballot.office", "pk": 3}, {"fields": {"locality": 2, "name": "For Mayor", "description": ""}, "model": "ballot.office", "pk": 4}, {"fields": {"locality": 2, "name": "And Justice Campaign Fund Working To Elect David Alvarez For Mayor", "description": ""}, "model": "ballot.office", "pk": 5}, {"fields": {"locality": 2, "name": "For A Better San Diego To Support David Alvarez For Mayor", "description": ""}, "model": "ballot.office", "pk": 6}, {"fields": {"locality": 2, "name": "For San Diego City Council", "description": ""}, "model": "ballot.office", "pk": 7}, {"fields": {"locality": 2, "name": "", "description": ""}, "model": "ballot.office", "pk": 8}, {"fields": {"locality": 2, "name": "For City Council", "description": ""}, "model": "ballot.office", "pk": 9}, {"fields": {"locality": 2, "name": "Council", "description": ""}, "model": "ballot.office", "pk": 10}, {"fields": {"locality": 2, "name": "Coastal Communities For Lorie Zapf For Council", "description": ""}, "model": "ballot.office", "pk": 11}, {"fields": {"locality": 2, "name": "Fairness & Jobs Supporting Chris Cate For Council", "description": ""}, "model": "ballot.office", "pk": 12}, {"fields": {"locality": 2, "name": "Supporting Chris Cate For Council", "description": ""}, "model": "ballot.office", "pk": 13}, {"fields": {"locality": 2, "name": "For A Better City Government Supporting Lorie Zapf For Council", "description": ""}, "model": "ballot.office", "pk": 14}, {"fields": {"locality": 2, "name": "Of Teachers Guild, Local", "description": ""}, "model": "ballot.office", "pk": 15}, {"fields": {"locality": 2, "name": "Alvarez", "description": ""}, "model": "ballot.office", "pk": 16}, {"fields": {"locality": 2, "name": "City Fire Fighters, Local", "description": ""}, "model": "ballot.office", "pk": 17}, {"fields": {"locality": 2, "name": "For Honesty And Integrity, A Committee To Defeat Pay-to-play Candidate Lorie Zapf For Council", "description": ""}, "model": "ballot.office", "pk": 18}, {"fields": {"locality": 2, "name": "Pollard For City Council", "description": ""}, "model": "ballot.office", "pk": 19}, {"fields": {"locality": 2, "name": "City Council", "description": ""}, "model": "ballot.office", "pk": 20}, {"fields": {"locality": 2, "name": "For Tomorrow's Economy Supporting The", "description": ""}, "model": "ballot.office", "pk": 21}, {"fields": {"locality": 2, "name": "For Assembly", "description": ""}, "model": "ballot.office", "pk": 22}, {"fields": {"locality": 2, "name": "For Council", "description": ""}, "model": "ballot.office", "pk": 23}, {"fields": {"locality": 2, "name": "For City Council District", "description": ""}, "model": "ballot.office", "pk": 24}, {"fields": {"locality": 2, "name": "City Attorney", "description": ""}, "model": "ballot.office", "pk": 25}, {"fields": {"locality": 2, "name": "For District", "description": ""}, "model": "ballot.office", "pk": 26}, {"fields": {"locality": 2, "name": "For San Diego City Council District", "description": ""}, "model": "ballot.office", "pk": 27}, {"fields": {"locality": 2, "name": "For City Attorney", "description": ""}, "model": "ballot.office", "pk": 28}, {"fields": {"locality": 2, "name": "For San Diego City Attorney", "description": ""}, "model": "ballot.office", "pk": 29}, {"fields": {"locality": 2, "name": "And Commercial Workers Union Local", "description": ""}, "model": "ballot.office", "pk": 30}, {"fields": {"locality": 2, "name": "Brown For City Council", "description": ""}, "model": "ballot.office", "pk": 31}, {"fields": {"locality": 117, "name": "Oakland Democratic Club-mg", "description": ""}, "model": "ballot.office", "pk": 32}, {"fields": {"locality": 117, "name": "For Mayor", "description": ""}, "model": "ballot.office", "pk": 33}, {"fields": {"locality": 117, "name": "Williams For Mayor Of Oakland", "description": ""}, "model": "ballot.office", "pk": 34}, {"fields": {"locality": 117, "name": "For City Council", "description": ""}, "model": "ballot.office", "pk": 35}, {"fields": {"locality": 117, "name": "Fund For Keep Oakland Firesafe", "description": ""}, "model": "ballot.office", "pk": 36}, {"fields": {"locality": 117, "name": "Desley Brooks For City Council", "description": ""}, "model": "ballot.office", "pk": 37}, {"fields": {"locality": 117, "name": "For Council", "description": ""}, "model": "ballot.office", "pk": 38}, {"fields": {"locality": 117, "name": "For Oakland City Attorney", "description": ""}, "model": "ballot.office", "pk": 39}, {"fields": {"locality": 117, "name": "Elect Renato Almanzor To The School Board In", "description": ""}, "model": "ballot.office", "pk": 40}, {"fields": {"locality": 117, "name": "Oakland Mayor", "description": ""}, "model": "ballot.office", "pk": 41}, {"fields": {"locality": 117, "name": "Mayor Of Oakland", "description": ""}, "model": "ballot.office", "pk": 42}, {"fields": {"locality": 117, "name": "Mayor", "description": ""}, "model": "ballot.office", "pk": 43}, {"fields": {"locality": 117, "name": "City Council", "description": ""}, "model": "ballot.office", "pk": 44}, {"fields": {"locality": 117, "name": "Oakland City Council", "description": ""}, "model": "ballot.office", "pk": 45}, {"fields": {"locality": 117, "name": "School Board", "description": ""}, "model": "ballot.office", "pk": 46}, {"fields": {"locality": 117, "name": "Council", "description": ""}, "model": "ballot.office", "pk": 47}, {"fields": {"locality": 2, "name": "For A Fair Economy Supporting Ray Ellis For Council", "description": ""}, "model": "ballot.office", "pk": 48}, {"fields": {"locality": 2, "name": "Good Government Supporting Barbara Bry For City Council", "description": ""}, "model": "ballot.office", "pk": 49}, {"fields": {"locality": 2, "name": "A Safe San Diego Supporting Bob Hickey For City Attorney", "description": ""}, "model": "ballot.office", "pk": 50}, {"fields": {"locality": 2, "name": "United Supporting Ricardo Flores For City Council", "description": ""}, "model": "ballot.office", "pk": 51}, {"fields": {"locality": 2, "name": "For Justice Supporting Rafael Castellanos For City Attorney", "description": ""}, "model": "ballot.office", "pk": 52}, {"fields": {"locality": 2, "name": "For Democratic Party Central Committee", "description": ""}, "model": "ballot.office", "pk": 53}, {"fields": {"office": 32}, "model": "ballot.officeelection", "pk": 33}, {"fields": {"office": 33}, "model": "ballot.officeelection", "pk": 34}, {"fields": {"office": 34}, "model": "ballot.officeelection", "pk": 36}, {"fields": {"office": 35}, "model": "ballot.officeelection", "pk": 37}, {"fields": {"office": 36}, "model": "ballot.officeelection", "pk": 38}, {"fields": {"office": 37}, "model": "ballot.officeelection", "pk": 39}, {"fields": {"office": 38}, "model": "ballot.officeelection", "pk": 40}, {"fields": {"office": 39}, "model": "ballot.officeelection", "pk": 41}, {"fields": {"office": 40}, "model": "ballot.officeelection", "pk": 42}, {"fields": {"office": 41}, "model": "ballot.officeelection", "pk": 43}, {"fields": {"office": 42}, "model": "ballot.officeelection", "pk": 44}, {"fields": {"office": 43}, "model": "ballot.officeelection", "pk": 45}, {"fields": {"office": 44}, "model": "ballot.officeelection", "pk": 46}, {"fields": {"office": 45}, "model": "ballot.officeelection", "pk": 47}, {"fields": {"office": 46}, "model": "ballot.officeelection", "pk": 48}, {"fields": {"office": 47}, "model": "ballot.officeelection", "pk": 49}, {"fields": {"office": 1}, "model": "ballot.officeelection", "pk": 2}, {"fields": {"office": 2}, "model": "ballot.officeelection", "pk": 3}, {"fields": {"office": 3}, "model": "ballot.officeelection", "pk": 4}, {"fields": {"office": 4}, "model": "ballot.officeelection", "pk": 5}, {"fields": {"office": 5}, "model": "ballot.officeelection", "pk": 6}, {"fields": {"office": 6}, "model": "ballot.officeelection", "pk": 7}, {"fields": {"office": 7}, "model": "ballot.officeelection", "pk": 8}, {"fields": {"office": 8}, "model": "ballot.officeelection", "pk": 9}, {"fields": {"office": 9}, "model": "ballot.officeelection", "pk": 10}, {"fields": {"office": 10}, "model": "ballot.officeelection", "pk": 11}, {"fields": {"office": 11}, "model": "ballot.officeelection", "pk": 12}, {"fields": {"office": 12}, "model": "ballot.officeelection", "pk": 13}, {"fields": {"office": 13}, "model": "ballot.officeelection", "pk": 14}, {"fields": {"office": 14}, "model": "ballot.officeelection", "pk": 15}, {"fields": {"office": 15}, "model": "ballot.officeelection", "pk": 16}, {"fields": {"office": 16}, "model": "ballot.officeelection", "pk": 17}, {"fields": {"office": 17}, "model": "ballot.officeelection", "pk": 18}, {"fields": {"office": 18}, "model": "ballot.officeelection", "pk": 19}, {"fields": {"office": 19}, "model": "ballot.officeelection", "pk": 20}, {"fields": {"office": 20}, "model": "ballot.officeelection", "pk": 21}, {"fields": {"office": 21}, "model": "ballot.officeelection", "pk": 22}, {"fields": {"office": 22}, "model": "ballot.officeelection", "pk": 23}, {"fields": {"office": 23}, "model": "ballot.officeelection", "pk": 24}, {"fields": {"office": 24}, "model": "ballot.officeelection", "pk": 25}, {"fields": {"office": 25}, "model": "ballot.officeelection", "pk": 26}, {"fields": {"office": 26}, "model": "ballot.officeelection", "pk": 27}, {"fields": {"office": 27}, "model": "ballot.officeelection", "pk": 28}, {"fields": {"office": 28}, "model": "ballot.officeelection", "pk": 29}, {"fields": {"office": 29}, "model": "ballot.officeelection", "pk": 30}, {"fields": {"office": 30}, "model": "ballot.officeelection", "pk": 31}, {"fields": {"office": 31}, "model": "ballot.officeelection", "pk": 32}, {"fields": {"office": 48}, "model": "ballot.officeelection", "pk": 50}, {"fields": {"office": 49}, "model": "ballot.officeelection", "pk": 51}, {"fields": {"office": 50}, "model": "ballot.officeelection", "pk": 52}, {"fields": {"office": 51}, "model": "ballot.officeelection", "pk": 53}, {"fields": {"office": 52}, "model": "ballot.officeelection", "pk": 54}, {"fields": {"office": 53}, "model": "ballot.officeelection", "pk": 55}, {"fields": {"first_name": "Cheri", "last_name": "Spigner", "middle_name": null, "twitter_url": null, "office_election": 48, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 66}, {"fields": {"first_name": "Shereda", "last_name": "Nosakhare", "middle_name": null, "twitter_url": null, "office_election": 46, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 64}, {"fields": {"first_name": "Barbara", "last_name": "Parker", "middle_name": null, "twitter_url": null, "office_election": 41, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 55}, {"fields": {"first_name": "Metropolitan", "last_name": "Greater", "middle_name": null, "twitter_url": null, "office_election": 33, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 46}, {"fields": {"first_name": "Jean", "last_name": "Quan", "middle_name": null, "twitter_url": null, "office_election": 44, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 59}, {"fields": {"first_name": "Andrew", "last_name": "Park", "middle_name": null, "twitter_url": null, "office_election": 37, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 56}, {"fields": {"first_name": null, "last_name": "Gonzales", "middle_name": null, "twitter_url": null, "office_election": 48, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 68}, {"fields": {"first_name": "Dana", "last_name": "King", "middle_name": null, "twitter_url": null, "office_election": 46, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 70}, {"fields": {"first_name": "Committee", "last_name": "To", "middle_name": null, "twitter_url": null, "office_election": 42, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 57}, {"fields": {"first_name": "Jean", "last_name": "Quan", "middle_name": null, "twitter_url": null, "office_election": 34, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 47}, {"fields": {"first_name": null, "last_name": "Quan", "middle_name": null, "twitter_url": null, "office_election": 45, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 60}, {"fields": {"first_name": "The", "last_name": "Oakland", "middle_name": null, "twitter_url": null, "office_election": 38, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 51}, {"fields": {"first_name": "Jill", "last_name": "Broadhurst", "middle_name": null, "twitter_url": null, "office_election": 49, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 67}, {"fields": {"first_name": "Anne Campbell", "last_name": "Washington", "middle_name": null, "twitter_url": null, "office_election": 47, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 65}, {"fields": {"first_name": "Courtney", "last_name": "Ruby", "middle_name": null, "twitter_url": null, "office_election": 43, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 58}, {"fields": {"first_name": "Charles", "last_name": "R.", "middle_name": null, "twitter_url": null, "office_election": 36, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 49}, {"fields": {"first_name": "Joe", "last_name": "Tuman", "middle_name": null, "twitter_url": null, "office_election": 45, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 62}, {"fields": {"first_name": "Friends", "last_name": "Of", "middle_name": null, "twitter_url": null, "office_election": 39, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 52}, {"fields": {"first_name": "Libby", "last_name": "Schaaf", "middle_name": null, "twitter_url": null, "office_election": 43, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 61}, {"fields": {"first_name": "Sokhom", "last_name": "Mao", "middle_name": null, "twitter_url": null, "office_election": 37, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 50}, {"fields": {"first_name": "Dan", "last_name": "Siegel", "middle_name": null, "twitter_url": null, "office_election": 45, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 63}, {"fields": {"first_name": "Libby", "last_name": "Schaaf", "middle_name": null, "twitter_url": null, "office_election": 40, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 54}, {"fields": {"first_name": null, "last_name": "Parker", "middle_name": null, "twitter_url": null, "office_election": 43, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 69}, {"fields": {"first_name": "Nicolas", "last_name": "Heidorn", "middle_name": null, "twitter_url": null, "office_election": 37, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 53}, {"fields": {"first_name": "Citizens", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 51, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 72}, {"fields": {"first_name": "American", "last_name": "Federation", "middle_name": null, "twitter_url": null, "office_election": 16, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 20}, {"fields": {"first_name": "San", "last_name": "Diegans", "middle_name": null, "twitter_url": null, "office_election": 2, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 2}, {"fields": {"first_name": "United", "last_name": "Food", "middle_name": null, "twitter_url": null, "office_election": 31, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 44}, {"fields": {"first_name": "Citizens", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 13, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 17}, {"fields": {"first_name": "Carol", "last_name": "Kim", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 14}, {"fields": {"first_name": "Hickey", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 26, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 33}, {"fields": {"first_name": "Scott", "last_name": "Sanborn", "middle_name": null, "twitter_url": null, "office_election": 21, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 25}, {"fields": {"first_name": "Carl", "last_name": "Demaio", "middle_name": null, "twitter_url": null, "office_election": 5, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 15}, {"fields": {"first_name": "Rebecca", "last_name": "Paida", "middle_name": null, "twitter_url": null, "office_election": 28, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 38}, {"fields": {"first_name": "Cate", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 11, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 11}, {"fields": {"first_name": "Todd", "last_name": "Gloria", "middle_name": null, "twitter_url": null, "office_election": 23, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 27}, {"fields": {"first_name": "Laborers", "last_name": "Local", "middle_name": null, "twitter_url": null, "office_election": 9, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 9}, {"fields": {"first_name": "Reelect", "last_name": "David", "middle_name": null, "twitter_url": null, "office_election": 17, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 21}, {"fields": {"first_name": "Working", "last_name": "Together", "middle_name": null, "twitter_url": null, "office_election": 3, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 3}, {"fields": {"first_name": "Citizens", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 52, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 73}, {"fields": {"first_name": "Blanca", "last_name": "Lopez", "middle_name": null, "twitter_url": null, "office_election": 32, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 45}, {"fields": {"first_name": "Neighborhood", "last_name": "Coalition", "middle_name": null, "twitter_url": null, "office_election": 14, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 18}, {"fields": {"first_name": "Cabrera", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 26, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 42}, {"fields": {"first_name": "Joe", "last_name": "Lacava", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 32}, {"fields": {"first_name": "Sherman", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 21, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 29}, {"fields": {"first_name": "Lori", "last_name": "Saldana", "middle_name": null, "twitter_url": null, "office_election": 5, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 79}, {"fields": {"first_name": "Rafael", "last_name": "Castellanos", "middle_name": null, "twitter_url": null, "office_election": 29, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 41}, {"fields": {"first_name": "Kersey", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 11, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 74}, {"fields": {"first_name": "Ray", "last_name": "Ellis", "middle_name": null, "twitter_url": null, "office_election": 24, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 28}, {"fields": {"first_name": "Mitz", "last_name": "Lee", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 10}, {"fields": {"first_name": "Urban", "last_name": "Neighbors", "middle_name": null, "twitter_url": null, "office_election": 53, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 78}, {"fields": {"first_name": "San", "last_name": "Diego", "middle_name": null, "twitter_url": null, "office_election": 18, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 22}, {"fields": {"first_name": "Faulconer", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 4, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 4}, {"fields": {"first_name": "Coastal", "last_name": "Communities", "middle_name": null, "twitter_url": null, "office_election": 50, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 71}, {"fields": {"first_name": "Neighbors", "last_name": "United", "middle_name": null, "twitter_url": null, "office_election": 15, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 19}, {"fields": {"first_name": "Justin", "last_name": "Decesare", "middle_name": null, "twitter_url": null, "office_election": 27, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 35}, {"fields": {"first_name": "Anthony", "last_name": "Bernal", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 37}, {"fields": {"first_name": "Flores", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 21, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 30}, {"fields": {"first_name": "Environmental", "last_name": "Health", "middle_name": null, "twitter_url": null, "office_election": 6, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 6}, {"fields": {"first_name": "Mara", "last_name": "Elliott", "middle_name": null, "twitter_url": null, "office_election": 30, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 43}, {"fields": {"first_name": "Mikas", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 11, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 75}, {"fields": {"first_name": "Jose", "last_name": "Caballero", "middle_name": null, "twitter_url": null, "office_election": 25, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 31}, {"fields": {"first_name": "Sarah", "last_name": "Boot", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 12}, {"fields": {"first_name": "San", "last_name": "Diegans", "middle_name": null, "twitter_url": null, "office_election": 54, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 81}, {"fields": {"first_name": "San", "last_name": "Diegans", "middle_name": null, "twitter_url": null, "office_election": 19, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 23}, {"fields": {"first_name": "Harris", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 4, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 83}, {"fields": {"first_name": "Sarah", "last_name": "Saez", "middle_name": null, "twitter_url": null, "office_election": 27, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 76}, {"fields": {"first_name": "Chris", "last_name": "Ward", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 40}, {"fields": {"first_name": "Gomez", "last_name": "For", "middle_name": null, "twitter_url": null, "office_election": 21, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 39}, {"fields": {"first_name": "Working", "last_name": "Families", "middle_name": null, "twitter_url": null, "office_election": 7, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 7}, {"fields": {"first_name": "Bryan", "last_name": "Pease", "middle_name": null, "twitter_url": null, "office_election": 30, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 80}, {"fields": {"first_name": "Coalition", "last_name": "Of", "middle_name": null, "twitter_url": null, "office_election": 12, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 16}, {"fields": {"first_name": "Barbara", "last_name": "Bry", "middle_name": null, "twitter_url": null, "office_election": 25, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 34}, {"fields": {"first_name": "Myrtle", "last_name": "Cole", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 13}, {"fields": {"first_name": "David", "last_name": "Alvarez", "middle_name": null, "twitter_url": null, "office_election": 55, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 82}, {"fields": {"first_name": "Brian", "last_name": "'barry'", "middle_name": null, "twitter_url": null, "office_election": 20, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 24}, {"fields": {"first_name": "David", "last_name": "Alvarez", "middle_name": null, "twitter_url": null, "office_election": 5, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 5}, {"fields": {"first_name": "Araceli", "last_name": "Martinez", "middle_name": null, "twitter_url": null, "office_election": 28, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 36}, {"fields": {"first_name": "Sam", "last_name": "Bedwell", "middle_name": null, "twitter_url": null, "office_election": 10, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 77}, {"fields": {"first_name": "Communities", "last_name": "United", "middle_name": null, "twitter_url": null, "office_election": 22, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 26}, {"fields": {"first_name": "Bruce", "last_name": "Williams", "middle_name": null, "twitter_url": null, "office_election": 8, "facebook_url": null, "party": null, "website_url": null, "photo_url": ""}, "model": "ballot.candidate", "pk": 8}, {"fields": {"title": "Unknown", "twitter_url": null, "facebook_url": null, "number": null, "website_url": null, "photo_url": ""}, "model": "ballot.referendum", "pk": 35}, {"fields": {"title": "Unknown", "twitter_url": null, "facebook_url": null, "number": null, "website_url": null, "photo_url": ""}, "model": "ballot.referendum", "pk": 1}, {"fields": {"twitter_url": null, "facebook_url": null, "in_favor": true, "website_url": null, "photo_url": ""}, "model": "ballot.referendumselection", "pk": 48}, {"fields": {"twitter_url": null, "facebook_url": null, "in_favor": true, "website_url": null, "photo_url": ""}, "model": "ballot.referendumselection", "pk": 1}]
+[
+  {
+    "fields": {
+      "date": null,
+      "locality": 2
+    },
+    "model": "ballot.ballot",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "date": null,
+      "locality": 117
+    },
+    "model": "ballot.ballot",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "contest_type": "R",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "contest_type": "R",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 2
+    },
+    "model": "ballot.ballotitem",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "contest_type": "O",
+      "ballot": 1
+    },
+    "model": "ballot.ballotitem",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "ballot_item": 1
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "ballot_item": 2
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "ballot_item": 3
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "ballot_item": 4
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "ballot_item": 5
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "ballot_item": 6
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "ballot_item": 7
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "ballot_item": 8
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "ballot_item": 9
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "ballot_item": 11
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "ballot_item": 5
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "ballot_item": 12
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "ballot_item": 13
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "ballot_item": 14
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "ballot_item": 15
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "ballot_item": 16
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "ballot_item": 17
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "ballot_item": 18
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "ballot_item": 19
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "ballot_item": 20
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "ballot_item": 21
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "ballot_item": 22
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "ballot_item": 23
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "ballot_item": 24
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "ballot_item": 21
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "ballot_item": 21
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "ballot_item": 25
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "ballot_item": 26
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "ballot_item": 25
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "ballot_item": 27
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "ballot_item": 28
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "ballot_item": 28
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "ballot_item": 21
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "ballot_item": 29
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "ballot_item": 26
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "ballot_item": 30
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "ballot_item": 31
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "ballot_item": 32
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "ballot_item": 33
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "ballot_item": 34
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "ballot_item": 35
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "ballot_item": 36
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "ballot_item": 37
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "ballot_item": 38
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "ballot_item": 39
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "ballot_item": 37
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "ballot_item": 40
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "ballot_item": 41
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "ballot_item": 37
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "ballot_item": 42
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "ballot_item": 43
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 58
+  },
+  {
+    "fields": {
+      "ballot_item": 44
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 59
+  },
+  {
+    "fields": {
+      "ballot_item": 45
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 60
+  },
+  {
+    "fields": {
+      "ballot_item": 43
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 61
+  },
+  {
+    "fields": {
+      "ballot_item": 45
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 62
+  },
+  {
+    "fields": {
+      "ballot_item": 45
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 63
+  },
+  {
+    "fields": {
+      "ballot_item": 46
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 64
+  },
+  {
+    "fields": {
+      "ballot_item": 47
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 65
+  },
+  {
+    "fields": {
+      "ballot_item": 48
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 66
+  },
+  {
+    "fields": {
+      "ballot_item": 49
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 67
+  },
+  {
+    "fields": {
+      "ballot_item": 48
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 68
+  },
+  {
+    "fields": {
+      "ballot_item": 43
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 69
+  },
+  {
+    "fields": {
+      "ballot_item": 46
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 70
+  },
+  {
+    "fields": {
+      "ballot_item": 50
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 71
+  },
+  {
+    "fields": {
+      "ballot_item": 51
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 72
+  },
+  {
+    "fields": {
+      "ballot_item": 52
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 73
+  },
+  {
+    "fields": {
+      "ballot_item": 11
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 74
+  },
+  {
+    "fields": {
+      "ballot_item": 11
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 75
+  },
+  {
+    "fields": {
+      "ballot_item": 27
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 76
+  },
+  {
+    "fields": {
+      "ballot_item": 10
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 77
+  },
+  {
+    "fields": {
+      "ballot_item": 53
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 78
+  },
+  {
+    "fields": {
+      "ballot_item": 5
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 79
+  },
+  {
+    "fields": {
+      "ballot_item": 30
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 80
+  },
+  {
+    "fields": {
+      "ballot_item": 54
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 81
+  },
+  {
+    "fields": {
+      "ballot_item": 55
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 82
+  },
+  {
+    "fields": {
+      "ballot_item": 4
+    },
+    "model": "ballot.ballotitemselection",
+    "pk": 83
+  },
+  {
+    "fields": {
+      "twitter_url": null,
+      "facebook_url": null,
+      "name": "Democrat",
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.party",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "twitter_url": null,
+      "facebook_url": null,
+      "name": "Unknown",
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.party",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "twitter_url": null,
+      "facebook_url": null,
+      "name": "Republican",
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.party",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "To Protect Jobs & The Economy, Supporting Kevin Faulconer For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Neighborhood Fairness, In Opposition To David Alvarez For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "And Justice Campaign Fund Working To Elect David Alvarez For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For A Better San Diego To Support David Alvarez For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For San Diego City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Coastal Communities For Lorie Zapf For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Fairness & Jobs Supporting Chris Cate For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Supporting Chris Cate For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For A Better City Government Supporting Lorie Zapf For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Of Teachers Guild, Local",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Alvarez",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "City Fire Fighters, Local",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Honesty And Integrity, A Committee To Defeat Pay-to-play Candidate Lorie Zapf For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Pollard For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Tomorrow's Economy Supporting The",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Assembly",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For City Council District",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For District",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For San Diego City Council District",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For San Diego City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "And Commercial Workers Union Local",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Brown For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Oakland Democratic Club-mg",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "For Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Williams For Mayor Of Oakland",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Fund For Keep Oakland Firesafe",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Desley Brooks For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "For Oakland City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Elect Renato Almanzor To The School Board In",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Oakland Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Mayor Of Oakland",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Mayor",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Oakland City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "School Board",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "locality": 117,
+      "name": "Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For A Fair Economy Supporting Ray Ellis For Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "Good Government Supporting Barbara Bry For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "A Safe San Diego Supporting Bob Hickey For City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "United Supporting Ricardo Flores For City Council",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Justice Supporting Rafael Castellanos For City Attorney",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "locality": 2,
+      "name": "For Democratic Party Central Committee",
+      "description": ""
+    },
+    "model": "ballot.office",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "office": 32
+    },
+    "model": "ballot.officeelection",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "office": 33
+    },
+    "model": "ballot.officeelection",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "office": 34
+    },
+    "model": "ballot.officeelection",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "office": 35
+    },
+    "model": "ballot.officeelection",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "office": 36
+    },
+    "model": "ballot.officeelection",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "office": 37
+    },
+    "model": "ballot.officeelection",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "office": 38
+    },
+    "model": "ballot.officeelection",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "office": 39
+    },
+    "model": "ballot.officeelection",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "office": 40
+    },
+    "model": "ballot.officeelection",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "office": 41
+    },
+    "model": "ballot.officeelection",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "office": 42
+    },
+    "model": "ballot.officeelection",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "office": 43
+    },
+    "model": "ballot.officeelection",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "office": 44
+    },
+    "model": "ballot.officeelection",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "office": 45
+    },
+    "model": "ballot.officeelection",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "office": 46
+    },
+    "model": "ballot.officeelection",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "office": 47
+    },
+    "model": "ballot.officeelection",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "office": 1
+    },
+    "model": "ballot.officeelection",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "office": 2
+    },
+    "model": "ballot.officeelection",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "office": 3
+    },
+    "model": "ballot.officeelection",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "office": 4
+    },
+    "model": "ballot.officeelection",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "office": 5
+    },
+    "model": "ballot.officeelection",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "office": 6
+    },
+    "model": "ballot.officeelection",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "office": 7
+    },
+    "model": "ballot.officeelection",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "office": 8
+    },
+    "model": "ballot.officeelection",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "office": 9
+    },
+    "model": "ballot.officeelection",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "office": 10
+    },
+    "model": "ballot.officeelection",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "office": 11
+    },
+    "model": "ballot.officeelection",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "office": 12
+    },
+    "model": "ballot.officeelection",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "office": 13
+    },
+    "model": "ballot.officeelection",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "office": 14
+    },
+    "model": "ballot.officeelection",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "office": 15
+    },
+    "model": "ballot.officeelection",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "office": 16
+    },
+    "model": "ballot.officeelection",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "office": 17
+    },
+    "model": "ballot.officeelection",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "office": 18
+    },
+    "model": "ballot.officeelection",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "office": 19
+    },
+    "model": "ballot.officeelection",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "office": 20
+    },
+    "model": "ballot.officeelection",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "office": 21
+    },
+    "model": "ballot.officeelection",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "office": 22
+    },
+    "model": "ballot.officeelection",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "office": 23
+    },
+    "model": "ballot.officeelection",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "office": 24
+    },
+    "model": "ballot.officeelection",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "office": 25
+    },
+    "model": "ballot.officeelection",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "office": 26
+    },
+    "model": "ballot.officeelection",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "office": 27
+    },
+    "model": "ballot.officeelection",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "office": 28
+    },
+    "model": "ballot.officeelection",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "office": 29
+    },
+    "model": "ballot.officeelection",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "office": 30
+    },
+    "model": "ballot.officeelection",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "office": 31
+    },
+    "model": "ballot.officeelection",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "office": 48
+    },
+    "model": "ballot.officeelection",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "office": 49
+    },
+    "model": "ballot.officeelection",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "office": 50
+    },
+    "model": "ballot.officeelection",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "office": 51
+    },
+    "model": "ballot.officeelection",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "office": 52
+    },
+    "model": "ballot.officeelection",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "office": 53
+    },
+    "model": "ballot.officeelection",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "first_name": "Cheri",
+      "last_name": "Spigner",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 48,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 66
+  },
+  {
+    "fields": {
+      "first_name": "Shereda",
+      "last_name": "Nosakhare",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 46,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 64
+  },
+  {
+    "fields": {
+      "first_name": "Barbara",
+      "last_name": "Parker",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 41,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "first_name": "Metropolitan",
+      "last_name": "Greater",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 33,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "first_name": "Jean",
+      "last_name": "Quan",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 44,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 59
+  },
+  {
+    "fields": {
+      "first_name": "Andrew",
+      "last_name": "Park",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 37,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "first_name": null,
+      "last_name": "Gonzales",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 48,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 68
+  },
+  {
+    "fields": {
+      "first_name": "Dana",
+      "last_name": "King",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 46,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 70
+  },
+  {
+    "fields": {
+      "first_name": "Committee",
+      "last_name": "To",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 42,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "first_name": "Jean",
+      "last_name": "Quan",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 34,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "first_name": null,
+      "last_name": "Quan",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 45,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 60
+  },
+  {
+    "fields": {
+      "first_name": "The",
+      "last_name": "Oakland",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 38,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "first_name": "Jill",
+      "last_name": "Broadhurst",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 49,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 67
+  },
+  {
+    "fields": {
+      "first_name": "Anne Campbell",
+      "last_name": "Washington",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 47,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 65
+  },
+  {
+    "fields": {
+      "first_name": "Courtney",
+      "last_name": "Ruby",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 43,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 58
+  },
+  {
+    "fields": {
+      "first_name": "Charles",
+      "last_name": "R.",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 36,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Tuman",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 45,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 62
+  },
+  {
+    "fields": {
+      "first_name": "Friends",
+      "last_name": "Of",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 39,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "first_name": "Libby",
+      "last_name": "Schaaf",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 43,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 61
+  },
+  {
+    "fields": {
+      "first_name": "Sokhom",
+      "last_name": "Mao",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 37,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "first_name": "Dan",
+      "last_name": "Siegel",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 45,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 63
+  },
+  {
+    "fields": {
+      "first_name": "Libby",
+      "last_name": "Schaaf",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 40,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "first_name": null,
+      "last_name": "Parker",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 43,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 69
+  },
+  {
+    "fields": {
+      "first_name": "Nicolas",
+      "last_name": "Heidorn",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 37,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "first_name": "Citizens",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 51,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 72
+  },
+  {
+    "fields": {
+      "first_name": "American",
+      "last_name": "Federation",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 16,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "first_name": "San",
+      "last_name": "Diegans",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 2,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "first_name": "United",
+      "last_name": "Food",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 31,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "first_name": "Citizens",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 13,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "first_name": "Carol",
+      "last_name": "Kim",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "first_name": "Hickey",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 26,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "first_name": "Scott",
+      "last_name": "Sanborn",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 21,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "first_name": "Carl",
+      "last_name": "Demaio",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 5,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "first_name": "Rebecca",
+      "last_name": "Paida",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 28,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "first_name": "Cate",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 11,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "first_name": "Todd",
+      "last_name": "Gloria",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 23,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "first_name": "Laborers",
+      "last_name": "Local",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 9,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "first_name": "Reelect",
+      "last_name": "David",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 17,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "first_name": "Working",
+      "last_name": "Together",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 3,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "first_name": "Citizens",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 52,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 73
+  },
+  {
+    "fields": {
+      "first_name": "Blanca",
+      "last_name": "Lopez",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 32,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "first_name": "Neighborhood",
+      "last_name": "Coalition",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 14,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "first_name": "Cabrera",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 26,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "first_name": "Joe",
+      "last_name": "Lacava",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "first_name": "Sherman",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 21,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "first_name": "Lori",
+      "last_name": "Saldana",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 5,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 79
+  },
+  {
+    "fields": {
+      "first_name": "Rafael",
+      "last_name": "Castellanos",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 29,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "first_name": "Kersey",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 11,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 74
+  },
+  {
+    "fields": {
+      "first_name": "Ray",
+      "last_name": "Ellis",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 24,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "first_name": "Mitz",
+      "last_name": "Lee",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "first_name": "Urban",
+      "last_name": "Neighbors",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 53,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 78
+  },
+  {
+    "fields": {
+      "first_name": "San",
+      "last_name": "Diego",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 18,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "first_name": "Faulconer",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 4,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "first_name": "Coastal",
+      "last_name": "Communities",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 50,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 71
+  },
+  {
+    "fields": {
+      "first_name": "Neighbors",
+      "last_name": "United",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 15,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "first_name": "Justin",
+      "last_name": "Decesare",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 27,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "first_name": "Anthony",
+      "last_name": "Bernal",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "first_name": "Flores",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 21,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "first_name": "Environmental",
+      "last_name": "Health",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 6,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "first_name": "Mara",
+      "last_name": "Elliott",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 30,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "first_name": "Mikas",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 11,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 75
+  },
+  {
+    "fields": {
+      "first_name": "Jose",
+      "last_name": "Caballero",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 25,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "first_name": "Sarah",
+      "last_name": "Boot",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "first_name": "San",
+      "last_name": "Diegans",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 54,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 81
+  },
+  {
+    "fields": {
+      "first_name": "San",
+      "last_name": "Diegans",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 19,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "first_name": "Harris",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 4,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 83
+  },
+  {
+    "fields": {
+      "first_name": "Sarah",
+      "last_name": "Saez",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 27,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 76
+  },
+  {
+    "fields": {
+      "first_name": "Chris",
+      "last_name": "Ward",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "first_name": "Gomez",
+      "last_name": "For",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 21,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "first_name": "Working",
+      "last_name": "Families",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 7,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "first_name": "Bryan",
+      "last_name": "Pease",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 30,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 80
+  },
+  {
+    "fields": {
+      "first_name": "Coalition",
+      "last_name": "Of",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 12,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "first_name": "Barbara",
+      "last_name": "Bry",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 25,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "first_name": "Myrtle",
+      "last_name": "Cole",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "first_name": "David",
+      "last_name": "Alvarez",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 55,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 82
+  },
+  {
+    "fields": {
+      "first_name": "Brian",
+      "last_name": "'barry'",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 20,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "first_name": "David",
+      "last_name": "Alvarez",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 5,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "first_name": "Araceli",
+      "last_name": "Martinez",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 28,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "first_name": "Sam",
+      "last_name": "Bedwell",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 10,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 77
+  },
+  {
+    "fields": {
+      "first_name": "Communities",
+      "last_name": "United",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 22,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "first_name": "Bruce",
+      "last_name": "Williams",
+      "middle_name": null,
+      "twitter_url": null,
+      "office_election": 8,
+      "facebook_url": null,
+      "party": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.candidate",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "title": "Unknown",
+      "twitter_url": null,
+      "facebook_url": null,
+      "number": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.referendum",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "title": "Unknown",
+      "twitter_url": null,
+      "facebook_url": null,
+      "number": null,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.referendum",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "twitter_url": null,
+      "facebook_url": null,
+      "in_favor": true,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.referendumselection",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "twitter_url": null,
+      "facebook_url": null,
+      "in_favor": true,
+      "website_url": null,
+      "photo_url": ""
+    },
+    "model": "ballot.referendumselection",
+    "pk": 1
+  }
+]
