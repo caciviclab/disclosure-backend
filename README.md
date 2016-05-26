@@ -14,16 +14,10 @@ Helpful links:
 * [Adding your city](https://github.com/caciviclab/caciviclab.github.io/wiki/On-boarding-a-new-city) - How to test and add your city's disclosure information to this app.
 * [Example Dataset](https://data.oaklandnet.com/dataset/Campaign-Finance-FPPC-Form-460-Schedule-A-Monetary/3xq4-ermg) - This is a sample Form 460 for Oakland. If you want to dive into the data, please check this out!
 
-See below for server setup. Here are mock-ups for data tables that this app intends to support:
+See below for server setup. 
 
--[![Mockup](/mockups/odca-mobile-09-ballot_measure-small.jpeg)](/mockups/odca-mobile-09-ballot_measure.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 2-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 2.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 3-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 3.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 4-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 4.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 5-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 5.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 6-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 6.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 7-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 7.jpeg)
--[![Mockup](/mockups/odca-mobile-09-ballot_measure 8-small.jpeg)](/mockups/odca-mobile-09-ballot_measure 8.jpeg)
+Mock-ups for data tables that this app intends to support are here: https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups
+
 
 ## Setting up the app.
 
