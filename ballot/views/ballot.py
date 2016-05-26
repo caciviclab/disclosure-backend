@@ -14,7 +14,7 @@ class BallotViewSet(viewsets.ViewSet):
       response_serializer: BallotSerializer
     """
     @detail_route(['GET'])
-    def retrieve(self, request, ballot_id, locality_id=None):
+    def retrieve(self, request, ballot_id):
         """
         Get metadata and list of ballot items
         """
@@ -36,5 +36,5 @@ class CurrentBallotViewSet(BallotViewSet):
         """
         Get the currently active ballot
         """
-        return super(CurrentBallotViewSet, self).retrieve(
-            request=request, ballot_id=1, locality_id=locality_id)
+        ballot = get_object_or_404(Ballot, locality_id=locality_id)
+        return Response(BallotSerializer(ballot).data)
