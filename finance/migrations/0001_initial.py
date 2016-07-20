@@ -65,20 +65,8 @@ class Migration(migrations.Migration):
                 ('source_xact_id', models.CharField(help_text='Transaction ID (specific to data source)', max_length=32)),
             ],
             options={
-                'ordering': ('-reporting_period__period_start', '-reporting_period__period_end', '-beneficiary__ballot_item_selection__ballot_item__ballot__date', '-report_date'),
+                'ordering': ('-beneficiary__ballot_item_selection__ballot_item__ballot__date', '-report_date'),
                 'verbose_name_plural': 'independent money',
-            },
-        ),
-        migrations.CreateModel(
-            name='ReportingPeriod',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('period_start', models.DateField()),
-                ('period_end', models.DateField()),
-                ('form', models.ForeignKey(to='finance.Form')),
-            ],
-            options={
-                'ordering': ('period_start', 'period_end'),
             },
         ),
         migrations.CreateModel(
@@ -168,11 +156,6 @@ class Migration(migrations.Migration):
             model_name='independentmoney',
             name='benefactor_zip',
             field=models.ForeignKey(to='locality.ZipCode'),
-        ),
-        migrations.AddField(
-            model_name='independentmoney',
-            name='reporting_period',
-            field=models.ForeignKey(to='finance.ReportingPeriod'),
         ),
         migrations.AddField(
             model_name='committee',

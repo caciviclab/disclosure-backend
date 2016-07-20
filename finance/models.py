@@ -225,31 +225,6 @@ class Beneficiary(Committee):
         verbose_name_plural = 'beneficiaries'
         ordering = Committee._meta.ordering
 
-
-@python_2_unicode_compatible
-class ReportingPeriod(models.Model):
-    """Model tracking form reporting periods."""
-    period_start = models.DateField()
-    period_end = models.DateField()
-    filing_deadline = models.DateField(blank=True, null=True, default=None)
-    form = models.ForeignKey('Form')
-    locality = models.ForeignKey(
-        'locality.Locality', blank=True, null=True, default=None)
-    permanent = models.BooleanField(
-        default=True, help_text="Whether data is reported once, or re-reported.")
-
-    def __str__(self):
-        locality_info = (' (%s)' % self.locality) if self.locality else ''
-        period_start_info = self.period_start or ''
-        period_end_info = self.period_end or ''
-        deadline_info = self.filing_deadline or ''
-        return '%s%s: %s to %s (due: %s)' % (
-            self.form, locality_info, period_start_info, period_end_info, deadline_info)
-
-    class Meta:
-        ordering = ('locality', 'period_start', 'period_end', 'form')
-
-
 @python_2_unicode_compatible
 class IndependentMoney(models.Model):
     """
@@ -261,10 +236,6 @@ class IndependentMoney(models.Model):
     cumulative_amount = models.FloatField(
         help_text="Total monetary value of provided benefits, to date of this transaction.",
         blank=True, null=True, default=None)
-    reporting_period = models.ForeignKey(
-        'ReportingPeriod',
-        help_text="Form + date range",
-        verbose_name="Form & Reporting Period")
     report_date = models.DateField()
 
     benefactor_zip = models.ForeignKey('locality.ZipCode')
@@ -289,13 +260,9 @@ class IndependentMoney(models.Model):
             val += " in %s [%s]" % (
                 'support of' if self.beneficiary.support else 'opposition to',
                 self.beneficiary.ballot_item_selection)
-        val += ", reported via %s on %s" % (
-            self.reporting_period.form, self.report_date)
         return val
 
     class Meta:
         verbose_name_plural = 'independent money'
-        ordering = ('-reporting_period__period_start',
-                    '-reporting_period__period_end',
-                    '-beneficiary__ballot_item_selection__ballot_item__ballot__date',  # noqa
+        ordering = ('-beneficiary__ballot_item_selection__ballot_item__ballot__date',  # noqa
                     '-report_date', )
