@@ -80,16 +80,17 @@ We're going to create an environment with Python 2.7.9 for the project
    pip install -r requirements.txt
    pip install -r requirements_dev.txt
    ```
-* Did you encounter an error that says something like  ` fatal error: 'graphviz/cgraph.h' file not found` ? Run:
- ``` 
- cd /usr/local/Cellar/graphviz/2.38.0/include/graphviz/
- mkdir graphviz
- cp cgraph.h graphviz/
- ```
- Then try
- ```
- pip install -r requirements_dev.txt
- ```
+  * Did you encounter an error that says something like  ` fatal error: 'graphviz/cgraph.h' file not found` ? 
+    Run:
+    ```
+    cd /usr/local/Cellar/graphviz/2.38.0/include/graphviz/
+    mkdir graphviz
+    cp cgraph.h graphviz/
+    ```
+    Then try
+    ```
+    pip install -r requirements_dev.txt
+    ```
 
 ### Database setup
 
