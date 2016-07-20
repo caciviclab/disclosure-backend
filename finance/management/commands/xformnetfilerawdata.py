@@ -4,7 +4,6 @@ Command to download and load California campaign finance data from Netfile.
 See https://netfile.com/Filer/Content/docs/cal_format_201.pdf for documentation.
 """
 
-import datetime
 import warnings
 from dateutil.parser import parse as date_parse
 from itertools import izip_longest
@@ -409,7 +408,6 @@ def load_form_row(row, agency, force=False, verbosity=1):  # noqa
         print row
         raise E
 
-
     if verbosity:
         if created:
             print "created"
@@ -505,6 +503,7 @@ def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
             yield set(xacts)
         else:
             yield set(xacts) - set(vals)  # missing set
+
 
 def load_form_data(data, agency_fn, form_name, form_type=None,
                    force=False, verbosity=1):

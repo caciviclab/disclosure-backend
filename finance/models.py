@@ -225,6 +225,7 @@ class Beneficiary(Committee):
         verbose_name_plural = 'beneficiaries'
         ordering = Committee._meta.ordering
 
+
 @python_2_unicode_compatible
 class IndependentMoney(models.Model):
     """
