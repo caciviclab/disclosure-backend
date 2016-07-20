@@ -102,7 +102,7 @@ def parse_benefactor(row, verbosity=1):
         middle_name = raw_name[len(first_name):].strip()
         benefactor, _ = models.PersonBenefactor.objects.get_or_create(
             first_name=first_name, middle_name=middle_name,
-            last_name=clean_name(row['tran_NamL']),
+            last_name=clean_name(row.get('tran_NamL')) or '',
             employer=employer,
             city=bf_city,
             state=bf_state,
@@ -113,7 +113,7 @@ def parse_benefactor(row, verbosity=1):
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
-            .get_or_create(name=clean_name(row['tran_NamL']))
+            .get_or_create(name=clean_name(row.get('tran_NamL')) or '')
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
@@ -135,7 +135,7 @@ def parse_benefactor(row, verbosity=1):
         assert queryset.count() == 1, "Avoid duplicate committees"
 
     elif row['entity_Cd'] in ['PTY']:
-        name = clean_name(row['tran_NamL'])
+        name = clean_name(row.get('tran_NamL')) or ''
         party = parse_party_from_name(name)
         benefactor, _ = models.PartyBenefactor.objects \
             .get_or_create(name=name, party=party)
