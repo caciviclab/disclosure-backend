@@ -28,8 +28,17 @@ We're going to create an environment with Python 2.7.9 for the project
 ### Software Installation
 
 0. Clone `disclosure-backend` (or your fork of it) to your own local copy.
-1. Install `python` and `pip` (if using Anaconda, pip is already installed)
-2. Create an environment for this project:
+
+1. Install `python` or `anaconda` or `conda`  (If using OSX (Mac) python is already installed, if using Linux, install anaconda, if using Windows, you can choose between conda and python but we recommend python)
+ * [Anaconda Distribution] (https://docs.continuum.io/anaconda/install)
+ * [Python Distribution - Windows] (http://www.howtogeek.com/197947/how-to-install-python-on-windows/) - install version 2.7.9
+
+2. Install `pip` (if using Anaconda, pip is already installed.)
+    ```
+    sudo easy_install pip
+    ```
+ 
+3. Create an environment for this project:
   * For non-Anaconda Python distribution
     ```
     sudo pip install virtualenv
@@ -43,46 +52,60 @@ We're going to create an environment with Python 2.7.9 for the project
     source activate ODB
     ```
 
-  (you will have to activate this environment (or virtualenv) every time you want to start working)
+  You will have to activate this environment (or virtualenv) every time you want to start working. You activate using:
+ ```
+ source env/bin/activate
+ ```
+ Or
+ ```
+ source activate ODB
+ ```
 
-3. Install mysql and other system dependencies
+4. Install mysql and other system dependencies
 
   OSX:
    ```
-   brew install mysql
-   brew install libssl
-   brew install graphviz
+    brew install pkg-config
+    pkg-config --cflags-only-I libcgraph
+ 
+    brew install mysql
+    brew install libssl
+    brew install graphviz
    ```
+  * If ```brew install libssl``` does not work don't worry about it.
   * When prompted for a password, remember it because you'll need it.
 
-4. Install project requirements with:
+5. Install project requirements with:
    ```
    pip install -r requirements.txt
    pip install -r requirements_dev.txt
    ```
-
+  * Did you encounter an error that says something like  ` fatal error: 'graphviz/cgraph.h' file not found` ? 
+    Run
+ 
+    ```
+    cd /usr/local/Cellar/graphviz/2.38.0/include/graphviz/
+    mkdir graphviz
+    cp cgraph.h graphviz/
+    ```
+ 
+    Then try
+ 
+    ```
+    pip install -r requirements_dev.txt
+    ```
 
 ### Database setup
 
 1. Create the database
   ```
-  mysql -p --user root
+  mysql -u root
   mysql> create database opendisclosure;
   mysql> create database calaccess_raw;
   mysql> \q
   ```
 
-2. Create `disclosure/settings_local.py`
-
-  ```
-  DATABASES['default']['PASSWORD'] = ''  # replace with your password.
-  DATABASES['calaccess_raw']['PASSWORD'] = ''  # replace with your password.
-  ```
-
-  Change the password field to the password you chose when you installed MySQL.
-
-
-3. Run the server setup script
+2. Run the server setup script
   ```
   python manage.py setuptestserver
   ```
@@ -138,15 +161,6 @@ jurisdictions will have data.
 python manage.py downloadnetfilerawdata
 # Process NETFILE_CAL201_TRANSACTION into opendisclosure
 python manage.py xformnetfilerawdata
-```
-
-#### Cal-Access
-
-Cal-Access is the state data. It's ~750MB of data and takes over an hour to
-trim, clean and process.
-
-```
-python manage.py downloadcalaccessrawdata
 ```
 
 
