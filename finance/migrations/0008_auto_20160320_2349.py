@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='reportingperiod',
-            name='permanent',
-            field=models.BooleanField(default=True),
-        ),
         migrations.AlterField(
             model_name='form',
             name='text_id',
