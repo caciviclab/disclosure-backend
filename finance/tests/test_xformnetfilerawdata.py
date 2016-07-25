@@ -120,6 +120,10 @@ class XformNetfileRawDataPTYTest(TestCase):
     @classmethod
     def setUpClass(cls):
         TestCase.setUpClass()
+
+        # A count of Party objects is used in test assertion
+        Party.objects.all().delete()
+
         cls.PTY_CSV_FILE = op.join(
             op.dirname(__file__), 'data', 'test_PTY.csv')
 
