@@ -36,7 +36,6 @@ class IndependentMoneyAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Committee)
 admin.site.register(models.Employer)
-admin.site.register(models.Form)
 
 validate_and_register_admin(
     models.Beneficiary, BeneficiaryAdmin, num_hidden_fields=5)

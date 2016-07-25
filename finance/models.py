@@ -70,33 +70,6 @@ class OtherMixin(SocialMediaMixin, AddressMixin):
 
 
 @python_2_unicode_compatible
-class Form(models.Model):
-    """
-    Information about finance reporting forms.
-    """
-    FREQUENCY_TYPES = (
-        ('24', '24 hours'),
-        ('SA', 'Semi-annual'),
-        ('QU', 'Quarterly'),
-        ('OT', 'Other')
-    )
-
-    name = models.CharField(max_length=255)
-    text_id = models.CharField(max_length=32, help_text='e.g. 460A')
-    submission_frequency = models.CharField(
-        max_length=2, choices=FREQUENCY_TYPES)
-    locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None,
-                                 help_text="Only set when a form is specific "
-                                           "to a locality.")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ('locality__name', 'locality__short_name', 'name')
-
-
-@python_2_unicode_compatible
 class Benefactor(models.Model, ReverseLookupStringMixin):
     """
     Main list of benefactors.
