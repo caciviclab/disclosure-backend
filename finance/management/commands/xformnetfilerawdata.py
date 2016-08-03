@@ -286,9 +286,6 @@ def get_committee_benefactor(row):
         # By name
         benefactor, _ = models.CommitteeBenefactor.objects.get_or_create(
             name=name)
-        if benefactor.filer_id is not None:
-            raise ValueError('Parsed a null filer_id from %s, but filer_id in the db is %s' % (
-                row.get('cmte_Id'), benefactor.filer_id))
 
     # CC=candidate-controlled, pf=primarily, ic=general purpose, BM=ballot measure
     if row['form_Type'] in ['F496P3']:  # TODO: take form info OUT of code
