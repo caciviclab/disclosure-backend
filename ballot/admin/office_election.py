@@ -15,6 +15,7 @@ class CandidateAdmin(admin.ModelAdmin):
         (len(fields), len(models.Candidate._meta.get_fields()))
 
 
+admin.site.register(models.Office)
 admin.site.register(models.OfficeElection)
 validate_and_register_admin(
     models.Candidate, CandidateAdmin, num_hidden_fields=4)

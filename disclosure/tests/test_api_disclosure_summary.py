@@ -30,6 +30,7 @@ class LocationTests(WithForm460ADataTest, APITestCase):
         self.assertEqual(data['location']['name'], city.name)
         self.assertEqual(data['location']['id'], city.id)
 
+        # TODO: validate individual sub-fields exist.
         self.assertIn('contribution_by_type', data)
         self.assertIn('contribution_by_area', data)
 

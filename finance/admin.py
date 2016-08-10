@@ -36,6 +36,9 @@ class IndependentMoneyAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Committee)
 admin.site.register(models.Employer)
+admin.site.register(models.Form)
+admin.site.register(models.ReportingPeriod)
+
 validate_and_register_admin(
     models.Beneficiary, BeneficiaryAdmin, num_hidden_fields=5)
 validate_and_register_admin(
@@ -45,4 +48,4 @@ validate_and_register_admin(
 validate_and_register_admin(
     models.CommitteeBenefactor, CommitteeBenefactorAdmin, num_hidden_fields=9)
 validate_and_register_admin(
-    models.IndependentMoney, IndependentMoneyAdmin, num_hidden_fields=1)
+    models.IndependentMoney, IndependentMoneyAdmin, num_hidden_fields=2)

@@ -19,7 +19,7 @@ class LocalityViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, locality_id):
         """
-        Groups making contributions/expenditures in support of a candidate.
+        Details for a locality.
         """
         obj = get_object_or_404(Locality, id=locality_id)
         return Response(LocalitySerializer(obj).data)

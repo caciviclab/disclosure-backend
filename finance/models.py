@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+from _django_utils.serializers import as_money
 from ballot.models import PersonMixin, SocialMediaMixin
 from locality.models import AddressMixin, ReverseLookupStringMixin
 
@@ -46,7 +47,7 @@ class Committee(SocialMediaMixin, AddressMixin):
     locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
-        return self.name
+        return '[%s] %s' % (self.type, self.name)
 
     class Meta:
         ordering = ('name', 'locality__name', 'locality__short_name')
@@ -81,7 +82,7 @@ class Form(models.Model):
     )
 
     name = models.CharField(max_length=255)
-    text_id = models.CharField(max_length=32, help_text='e.g. 460 Schedule A')
+    text_id = models.CharField(max_length=32, help_text='e.g. 460A')
     submission_frequency = models.CharField(
         max_length=2, choices=FREQUENCY_TYPES)
     locality = models.ForeignKey('locality.Locality', blank=True, null=True, default=None,
@@ -113,8 +114,14 @@ class Benefactor(models.Model, ReverseLookupStringMixin):
         'locality.Locality', blank=True, null=True, default=None)
 
     def __str__(self):
-        return (ReverseLookupStringMixin.__str__(self) or
-                self.benefactor_type)
+        return ReverseLookupStringMixin.__str__(self)
+
+    def get_contributions(self, beneficiary=None):
+        money = IndependentMoney.objects.filter(benefactor=self)
+        if beneficiary is not None:
+            money = money.filter(beneficiary=beneficiary)
+        total = money.aggregate(models.Sum('amount')) or 0
+        return as_money(total.values()[0])
 
     class Meta:
         ordering = ('benefactor_locality__name',
@@ -148,7 +155,7 @@ class OtherBenefactor(Benefactor, OtherMixin):
     """
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.benefactor_type = 'CO'
+        self.benefactor_type = 'OT'
         self.benefactor_locality = self.locality
 
     def __str__(self):
@@ -209,6 +216,11 @@ class Beneficiary(Committee):
     ballot_item_selection = models.ForeignKey(
         'ballot.BallotItemSelection', null=True, default=None)
 
+    def get_total_contributions_received(self):
+        money = IndependentMoney.objects.filter(beneficiary=self)
+        total = money.aggregate(models.Sum('amount')) or 0
+        return as_money(total.values()[0])
+
     class Meta:
         verbose_name_plural = 'beneficiaries'
         ordering = Committee._meta.ordering
@@ -219,13 +231,23 @@ class ReportingPeriod(models.Model):
     """Model tracking form reporting periods."""
     period_start = models.DateField()
     period_end = models.DateField()
+    filing_deadline = models.DateField(blank=True, null=True, default=None)
     form = models.ForeignKey('Form')
+    locality = models.ForeignKey(
+        'locality.Locality', blank=True, null=True, default=None)
+    permanent = models.BooleanField(
+        default=True, help_text="Whether data is reported once, or re-reported.")
 
     def __str__(self):
-        return '%s to %s' % (self.period_start or '', self.period_end or '')
+        locality_info = (' (%s)' % self.locality) if self.locality else ''
+        period_start_info = self.period_start or ''
+        period_end_info = self.period_end or ''
+        deadline_info = self.filing_deadline or ''
+        return '%s%s: %s to %s (due: %s)' % (
+            self.form, locality_info, period_start_info, period_end_info, deadline_info)
 
     class Meta:
-        ordering = ('period_start', 'period_end')
+        ordering = ('locality', 'period_start', 'period_end', 'form')
 
 
 @python_2_unicode_compatible
@@ -236,10 +258,13 @@ class IndependentMoney(models.Model):
         ('NF', 'Netfile'),
     )
     amount = models.FloatField(help_text="Monetary value of the benefit.")
-    cumulative_amount = models.FloatField(help_text="Total monetary value of "
-                                          "provided benefits, to date of this "
-                                          "transaction.")
-    reporting_period = models.ForeignKey('ReportingPeriod')
+    cumulative_amount = models.FloatField(
+        help_text="Total monetary value of provided benefits, to date of this transaction.",
+        blank=True, null=True, default=None)
+    reporting_period = models.ForeignKey(
+        'ReportingPeriod',
+        help_text="Form + date range",
+        verbose_name="Form & Reporting Period")
     report_date = models.DateField()
 
     benefactor_zip = models.ForeignKey('locality.ZipCode')
@@ -250,8 +275,11 @@ class IndependentMoney(models.Model):
         max_length=2, choices=SOURCE_TYPES, help_text="e.g. Netfile")
     source_xact_id = models.CharField(
         max_length=32, help_text="Transaction ID (specific to data source)")
-
     unique_together = ("source", "source_xact_id")
+
+    filing_id = models.CharField(
+        max_length=32, help_text="Transaction ID (specific to government processing entity)",
+        blank=True, null=True, default=None)
 
     def __str__(self):
         val = "[%s] gave $%.2f to [%s] @ %s" % (
