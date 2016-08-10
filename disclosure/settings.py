@@ -26,7 +26,7 @@ CALACCESS_TEST_DOWNLOAD_DIR = op.join(_calaccess_repo_dir,
                                       'example', 'test-data')
 
 DATA_DIR = op.join(REPO_DIR, 'data')
-FIXTURES_DIR = op.join(DATA_DIR, 'fixtures')
+FIXTURES_DIR = op.join(REPO_DIR, 'disclosure', 'fixtures')
 CALACCESS_DOWNLOAD_DIR = op.join(DATA_DIR, 'calaccess')
 NETFILE_DOWNLOAD_DIR = op.join(DATA_DIR, 'netfile')
 
