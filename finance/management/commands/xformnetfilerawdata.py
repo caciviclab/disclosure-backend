@@ -605,9 +605,6 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
                     force=force, verbosity=verbosity)
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
-            # TODO: Store errors, for review later.
-            print repr(raw_row)
-            raise
 
     return error_rows
 
