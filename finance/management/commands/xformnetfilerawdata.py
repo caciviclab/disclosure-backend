@@ -113,7 +113,7 @@ def parse_benefactor(row, verbosity=1):
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
-            .get_or_create(name=clean_name(row['tran_NamL']))
+            .get_or_create(name=clean_name(row.get('tran_NamL', '')))
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
@@ -603,6 +603,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
             # TODO: Store errors, for review later.
+            print repr(raw_row)
             raise
 
     return error_rows
