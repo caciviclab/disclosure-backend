@@ -2000,7 +2000,7 @@
     {
         "fields": {
             "name": "Alameda",
-            "short_name": null,
+            "short_name": "COA",
             "true_model_id": null
         },
         "model": "locality.locality",
