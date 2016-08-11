@@ -212,7 +212,8 @@ class Command(loadcalaccessrawfile.Command):
                         headers_written = headers
                     else:
                         # make sure things don't go all wierd between files.
-                        assert headers == headers_written
+                        assert headers == headers_written, \
+                            'Headers in %s do not match the first written csv' % (csv_path,)
 
                     for line in agency_csv.readlines():
                         combined_csv.write(','.join([agency, line]))
