@@ -576,7 +576,10 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
             if reporting_period is None:
                 # Query form period.
                 form = dict(form_name=form_name, form_type=form_type)
-                locality = City.objects.get(short_name=agency['shortcut'])
+                locality = City.objects.filter(short_name=agency['shortcut'])
+                if not locality:
+                    raise RuntimeError('Locality not found: %s' % (agency['shortcut'],))
+                locality = locality[0]
                 reporting_period = parse_form_and_report_period(
                     minimal_row, form, locality=locality, verbosity=verbosity)
 
