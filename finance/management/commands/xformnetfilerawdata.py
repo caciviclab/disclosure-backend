@@ -686,7 +686,7 @@ class Command(downloadnetfilerawdata.Command):
                 # Report errors  TODO: push to the database.
                 if len(error_rows) > 0:
                     print("Encountered %d errors; debug!" % len(error_rows))
-                    print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+                    print("Errors:\n%s" % ",\n".join([str(e[-1]) for e in error_rows]))
             except SkipForm:
                 if self.verbosity > 0:
                     print("Skipping irrelevant form data from %s" % form_info)
