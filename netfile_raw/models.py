@@ -36,9 +36,7 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     """
     Netfile 201 data.
     """
-    agency_shortcut = models.CharField(
-        max_length=32,
-        db_column='agency_shortcut')
+    agency_shortcut = models.CharField(max_length=32, db_column='agency_shortcut')
     filerId = models.CharField(
         max_length=32,
         db_column='filerId')
@@ -299,9 +297,9 @@ class NetFileCal201Transaction(CalAccessBaseModel):
         max_length=3,
         db_column='entity_Cd')
     filerStateId = models.CharField(
-        max_length=2,
         null=True,
-        db_column='filerStateId')
+        db_column='filerStateId',
+        max_length=32)
     tres_Adr1 = models.CharField(
         max_length=256,
         db_column='tres_Adr1')
