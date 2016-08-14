@@ -36,9 +36,7 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     """
     Netfile 201 data.
     """
-    agency_shortcut = models.CharField(
-        max_length=32,
-        db_column='agency_shortcut')
+    agency_shortcut = models.CharField(max_length=32, db_column='agency_shortcut')
     filerId = models.CharField(
         max_length=32,
         db_column='filerId')
@@ -75,6 +73,8 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     tran_NamT = models.CharField(
         max_length=256,
         db_column='tran_NamT')
+    filingStartDate = models.DateField(
+        db_column='filingStartDate')
     tran_Dscr = models.CharField(
         max_length=256,
         db_column='tran_Dscr')
@@ -150,6 +150,8 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     intr_NamF = models.CharField(
         max_length=256,
         db_column='intr_NamF')
+    filingEndDate = models.DateField(
+        db_column='filingEndDate')
     transactionType = models.IntegerField(
         null=True,
         db_column='transactionType')
@@ -255,6 +257,9 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     int_CmteId = models.CharField(
         max_length=32,
         db_column='int_CmteId')
+    filerLocalId = models.CharField(
+        max_length=32,
+        db_column='filerLocalId')
     calculated_Date = models.DateField(
         null=True,
         db_column='calculated_Date')
@@ -288,6 +293,9 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     entity_Cd = models.CharField(
         max_length=3,
         db_column='entity_Cd')
+    filerStateId = models.CharField(
+        db_column='filerStateId',
+        max_length=32)
     tres_Adr1 = models.CharField(
         max_length=256,
         db_column='tres_Adr1')
