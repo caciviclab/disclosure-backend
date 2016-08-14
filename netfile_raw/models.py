@@ -75,6 +75,9 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     tran_NamT = models.CharField(
         max_length=256,
         db_column='tran_NamT')
+    filingStartDate = models.DateField(
+        null=True,
+        db_column='filingStartDate')
     tran_Dscr = models.CharField(
         max_length=256,
         db_column='tran_Dscr')
@@ -150,6 +153,9 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     intr_NamF = models.CharField(
         max_length=256,
         db_column='intr_NamF')
+    filingEndDate = models.DateField(
+        null=True,
+        db_column='filingEndDate')
     transactionType = models.IntegerField(
         null=True,
         db_column='transactionType')
@@ -255,6 +261,10 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     int_CmteId = models.CharField(
         max_length=32,
         db_column='int_CmteId')
+    filerLocalId = models.CharField(
+        null=True,
+        max_length=32,
+        db_column='filerLocalId')
     calculated_Date = models.DateField(
         null=True,
         db_column='calculated_Date')
@@ -288,6 +298,10 @@ class NetFileCal201Transaction(CalAccessBaseModel):
     entity_Cd = models.CharField(
         max_length=3,
         db_column='entity_Cd')
+    filerStateId = models.CharField(
+        max_length=2,
+        null=True,
+        db_column='filerStateId')
     tres_Adr1 = models.CharField(
         max_length=256,
         db_column='tres_Adr1')

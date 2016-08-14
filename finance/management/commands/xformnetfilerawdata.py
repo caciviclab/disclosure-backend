@@ -5,6 +5,7 @@ See https://netfile.com/Filer/Content/docs/cal_format_201.pdf for documentation.
 """
 
 import warnings
+import logging
 from dateutil.parser import parse as date_parse
 from itertools import izip_longest
 from numbers import Number
@@ -408,10 +409,10 @@ def load_form_row(row, agency, force=False, verbosity=1):  # noqa
         print row
         raise E
 
-    if verbosity:
-        if created:
-            print "created"
-        print(str(money))
+    c = ""
+    if created:
+        c = "created "
+    logging.debug("%s%s", c,  str(money))
 
     return money, True
 
@@ -495,9 +496,8 @@ def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
     for xacts in grouper(skip_rate, xact_keys):
         vals = [v['source_xact_id'] for v in models.IndependentMoney.objects.filter(
             source='NF', source_xact_id__in=xacts).values('source_xact_id')]
-        if verbosity:
-            for val in vals:
-                print("Skipping NF/%s" % val)
+        for val in vals:
+            logging.debug("Skipping NF/%s", val)
 
         if force:
             yield set(xacts)
@@ -519,6 +519,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
     error_rows = []
     xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
+    count = 0;
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
         # Quickly get near an unloaded row.
         while not xact_keys and xact_keys is not None:
@@ -547,6 +548,10 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
             error_rows.append((ri, raw_row, minimal_row, ex))
             # TODO: Store errors, for review later.
             raise
+
+        count += 1
+        if (count % 1000) == 0:
+            print("Loaded %d records" % count)
 
     return error_rows
 
