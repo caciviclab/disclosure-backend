@@ -278,6 +278,7 @@ class Command(loadcalaccessrawfile.Command):
             'Aid': agency_id,
             'Year': year,
             'sortOrder': 1,  # DateDescending
+            'ShowSuperceded': True,
         }
 
         return self.connect2.postpubliccampaignexportcal201transactionyear(

@@ -1,0 +1,42 @@
+[
+    {
+        "fields": {
+            "locality": null,
+            "name": "Form 460 Schedule A",
+            "submission_frequency": "",
+            "text_id": "460A"
+        },
+        "model": "finance.form",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "locality": null,
+            "name": "Form 460 Schedule C",
+            "submission_frequency": "",
+            "text_id": "460C"
+        },
+        "model": "finance.form",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "locality": null,
+            "name": "Form 460 Schedule D",
+            "submission_frequency": "",
+            "text_id": "460D"
+        },
+        "model": "finance.form",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "locality": null,
+            "name": "Form 497",
+            "submission_frequency": "",
+            "text_id": "F497P1"
+        },
+        "model": "finance.form",
+        "pk": 4
+    }
+]

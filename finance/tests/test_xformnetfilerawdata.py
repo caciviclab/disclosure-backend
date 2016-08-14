@@ -24,7 +24,7 @@ class WithForm460ADataTest(TestCase):
     The default values point to a small, but relatively rich, csv.
     """
     @classmethod
-    def setUpClass(cls, test_agency='CMA', test_year='2015'):
+    def setUpClass(cls, test_agency='CSD', test_year='2015'):
         call_command('xformnetfilerawdata',
                      agencies=test_agency, years=test_year,
                      forms='A', verbosity=0)

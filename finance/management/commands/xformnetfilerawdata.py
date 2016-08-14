@@ -546,8 +546,6 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
                     minimal_row, agency=agency, force=force, verbosity=verbosity)
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
-            # TODO: Store errors, for review later.
-            raise
 
         count += 1
         if (count % 1000) == 0:
@@ -633,7 +631,7 @@ class Command(downloadnetfilerawdata.Command):
                 # Report errors  TODO: push to the database.
                 if len(error_rows) > 0:
                     print("Encountered %d errors; debug!" % len(error_rows))
-                    print("Errors:\n%s" % ','.join([e[-1] for e in error_rows]))
+                    print("Errors:\n%s" % ",\n".join([str(e[-1]) for e in error_rows]))
             except SkipForm:
                 if self.verbosity > 0:
                     print("Skipping irrelevant form data from %s" % form_info)

@@ -1,0 +1,98 @@
+[
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 1,
+            "locality": 2,
+            "period_end": "2016-12-31",
+            "period_start": "2016-01-01",
+            "permanent": false
+        },
+        "model": "finance.reportingperiod",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 2,
+            "locality": 2,
+            "period_end": "2016-12-31",
+            "period_start": "2016-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 3,
+            "locality": 2,
+            "period_end": "2016-12-31",
+            "period_start": "2016-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 4,
+            "locality": 2,
+            "period_end": "2016-12-31",
+            "period_start": "2016-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 1,
+            "locality": 2,
+            "period_end": "2015-12-31",
+            "period_start": "2015-01-01",
+            "permanent": false
+        },
+        "model": "finance.reportingperiod",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 2,
+            "locality": 2,
+            "period_end": "2015-12-31",
+            "period_start": "2015-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 3,
+            "locality": 2,
+            "period_end": "2015-12-31",
+            "period_start": "2015-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "filing_deadline": null,
+            "form": 4,
+            "locality": 2,
+            "period_end": "2015-12-31",
+            "period_start": "2015-01-01",
+            "permanent": true
+        },
+        "model": "finance.reportingperiod",
+        "pk": 8
+    }
+]
