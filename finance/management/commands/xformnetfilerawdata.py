@@ -113,7 +113,7 @@ def parse_benefactor(row, verbosity=1):
 
     elif row['entity_Cd'] == 'OTH':  # Commerial benefactor or Other
         benefactor, _ = models.OtherBenefactor.objects \
-            .get_or_create(name=clean_name(row.get('tran_NamL')) or '')
+            .get_or_create(name=clean_name(row.get('tran_NamL', '')))
         benefactor.benefactor_locality = bf_city
         benefactor.save()
 
@@ -412,7 +412,7 @@ def load_form_row(row, agency, force=False, verbosity=1):  # noqa
     c = ""
     if created:
         c = "created "
-    logging.debug("%s%s", c,  str(money))
+    logging.debug("%s%s", c, str(money))
 
     return money, True
 
@@ -519,7 +519,7 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
     error_rows = []
     xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
-    count = 0;
+    count = 0
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
         # Quickly get near an unloaded row.
         while not xact_keys and xact_keys is not None:
