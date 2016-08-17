@@ -42,7 +42,6 @@ class BallotAPITest(WithForm460ADataTest, APITestCase):
         ballot_url = reverse(
             'current_ballot', kwargs={'locality_id': self.ballot.locality_id})
         resp = self.client.get(ballot_url)
-
         self.assertEqual(self.ballot.id, resp.data['id'])
         self.assertEqual(self.ballot.date, resp.data['date'])
         self.assertEqual(self.ballot.locality.id, resp.data['locality_id'])

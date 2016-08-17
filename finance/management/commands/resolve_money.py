@@ -22,5 +22,5 @@ class Command(BaseCommand):
             print related_money.index(im), str(im)
             for rm in related_money:
                 print "\t%s %10s %s %s %s" % (
-                    rm.report_date, str(rm.reporting_period)[:10], rm.filing_id,
+                    rm.report_date, rm.filing_id,
                     rm.source_xact_id, rm.benefactor)

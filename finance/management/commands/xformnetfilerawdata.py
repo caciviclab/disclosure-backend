@@ -4,8 +4,8 @@ Command to download and load California campaign finance data from Netfile.
 See https://netfile.com/Filer/Content/docs/cal_format_201.pdf for documentation.
 """
 
-import datetime
 import warnings
+import logging
 from dateutil.parser import parse as date_parse
 from itertools import izip_longest
 from numbers import Number
@@ -102,7 +102,7 @@ def parse_benefactor(row, verbosity=1):
         middle_name = raw_name[len(first_name):].strip()
         benefactor, _ = models.PersonBenefactor.objects.get_or_create(
             first_name=first_name, middle_name=middle_name,
-            last_name=clean_name(row['tran_NamL']),
+            last_name=clean_name(row.get('tran_NamL')) or '',
             employer=employer,
             city=bf_city,
             state=bf_state,
@@ -135,7 +135,7 @@ def parse_benefactor(row, verbosity=1):
         assert queryset.count() == 1, "Avoid duplicate committees"
 
     elif row['entity_Cd'] in ['PTY']:
-        name = clean_name(row['tran_NamL'])
+        name = clean_name(row.get('tran_NamL')) or ''
         party = parse_party_from_name(name)
         benefactor, _ = models.PartyBenefactor.objects \
             .get_or_create(name=name, party=party)
@@ -159,36 +159,6 @@ def parse_party_from_name(committee_name):
         if np.any([s.lower() in committee_name.lower() for s in val]):
             return Party.objects.get_or_create(name=key)[0]
     return Party.objects.get_or_create(name='Unknown')[0]
-
-
-def parse_form_and_report_period(row, form, locality, verbosity=1):
-    # Create/get the relevant form objects.
-    form_name = form['form_name']
-    form_type = form['form_type']
-    if len(form_type) == 1:
-        form_type = '460' + form_type
-
-    form, _ = models.Form.objects.get_or_create(
-        name=form_name, text_id=form_type)
-
-    report_date = date_parse(row['tran_Date'])
-    reporting_periods = models.ReportingPeriod.objects.filter(
-        form=form, locality=locality,
-        period_start__lte=report_date, period_end__gte=report_date)
-
-    if len(reporting_periods) == 0:
-        raise Exception(("You must add a reporting period for form '%s', "
-                        "locality '%s', containing date %s") % (
-                            form, locality, report_date))
-
-    elif len(reporting_periods) > 1:
-        raise Exception("More than one reporting period matches; please "
-                        "review.")
-
-    # datetime.datetime(report_date.year, 1, 1),
-    #     period_end=datetime.datetime(report_date.year, 12, 31))
-
-    return reporting_periods[0]
 
 
 def parse_beneficiary(row, agency, verbosity=1):
@@ -356,7 +326,7 @@ def clean_filer_id(filer_id):
 
 
 @transaction.atomic
-def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
+def load_form_row(row, agency, force=False, verbosity=1):  # noqa
     """ Loads an individual row from Form 460 Schedule A. # noqa
     This is where most of the magic happens!
 
@@ -407,7 +377,7 @@ def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # n
                 "%s != %s" % (money.report_date, date_parse(row['tran_Date']))
             if verbosity:
                 print("Skipping existing [%s] row, %s/%s" % (
-                    reporting_period.form.name, money.source, money.source_xact_id))
+                    money.source, money.source_xact_id))
 
             return money, False  # Did not load.
 
@@ -423,27 +393,32 @@ def load_form_row(row, agency, reporting_period, force=False, verbosity=1):  # n
     beneficiary.save()
 
     # Now we have all the parts. Create and save it.
-    money = models.IndependentMoney(
-        source='NF',
-        source_xact_id=row['netFileKey'],
-        filing_id=row.get('filingId'),
-        amount=float(row['tran_Amt1']),
-        cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
-        report_date=date_parse(row['tran_Date']),
-        reporting_period=reporting_period,
-        benefactor_zip=bf_zip_code,
-        benefactor=benefactor,
-        beneficiary=beneficiary)
-    money.save()
+    try:
+        money, created = models.IndependentMoney.objects.get_or_create(
+            source='NF',
+            source_xact_id=row['netFileKey'],
+            filing_id=row.get('filingId'),
+            amount=float(row['tran_Amt1']),
+            cumulative_amount=float(row.get('tran_Amt2', 0)) or None,
+            report_date=date_parse(row['tran_Date']),
+            benefactor_zip=bf_zip_code,
+            benefactor=benefactor,
+            beneficiary=beneficiary)
+    except Exception as E:
+        print str(E)
+        print row
+        raise E
 
-    if verbosity:
-        print(str(money))
+    c = ""
+    if created:
+        c = "created "
+    logging.debug("%s%s", c, str(money))
 
     return money, True
 
 
 @transaction.atomic
-def load_form460d_row(row, agency, reporting_period, force=False, verbosity=1):  # noqa
+def load_form460d_row(row, agency, force=False, verbosity=1):  # noqa
     """ Loads an individual row from Form 460 Schedule A. # noqa
     This is where most of the magic happens!
 
@@ -479,8 +454,7 @@ def load_form460d_row(row, agency, reporting_period, force=False, verbosity=1): 
     """
 
     money, loaded = load_form_row(
-        row=row, agency=agency, reporting_period=reporting_period,
-        force=force, verbosity=verbosity)
+        row=row, agency=agency, force=force, verbosity=verbosity)
 
     # We can load some info about support/oppose.
     if loaded:
@@ -522,24 +496,13 @@ def find_unloaded_rows(data, skip_rate=100, force=False, verbosity=1):
     for xacts in grouper(skip_rate, xact_keys):
         vals = [v['source_xact_id'] for v in models.IndependentMoney.objects.filter(
             source='NF', source_xact_id__in=xacts).values('source_xact_id')]
-        if verbosity:
-            for val in vals:
-                print("Skipping NF/%s" % val)
+        for val in vals:
+            logging.debug("Skipping NF/%s", val)
 
         if force:
             yield set(xacts)
         else:
             yield set(xacts) - set(vals)  # missing set
-
-
-def delete_form_data(reporting_period, verbosity=1):
-    rows_to_delete = models.IndependentMoney.objects.filter(
-        reporting_period=reporting_period)
-    if verbosity > 0:
-        print("Deleting %d rows of irrelevant %s data from between %s and %s." % (
-            rows_to_delete.count(), reporting_period.form,
-            reporting_period.period_start, reporting_period.period_end))
-    rows_to_delete.delete()
 
 
 def load_form_data(data, agency_fn, form_name, form_type=None,
@@ -553,10 +516,10 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         print("Attempting to load %d rows of %s data." % (len(data), form_name))
 
     # Parse out the contributor information.
-    reporting_period = None  # Set on first valid row.
     error_rows = []
     xact_key_generator = find_unloaded_rows(data, force=force, verbosity=verbosity)
     xact_keys = []
+    count = 0
     for ri, (_, raw_row) in enumerate(data.T.iteritems()):
         # Quickly get near an unloaded row.
         while not xact_keys and xact_keys is not None:
@@ -573,38 +536,20 @@ def load_form_data(data, agency_fn, form_name, form_type=None,
         try:
             agency = agency_fn(minimal_row)
 
-            if reporting_period is None:
-                # Query form period.
-                form = dict(form_name=form_name, form_type=form_type)
-                locality = City.objects.filter(short_name=agency['shortcut'])
-                if not locality:
-                    raise RuntimeError('Locality not found: %s' % (agency['shortcut'],))
-                locality = locality[0]
-                reporting_period = parse_form_and_report_period(
-                    minimal_row, form, locality=locality, verbosity=verbosity)
-
-                # Verify that the data from this form are relevant.
-                now = datetime.datetime.date(datetime.datetime.now())
-                time_to_skip = (now < reporting_period.period_start or
-                                now > reporting_period.period_end)
-
-                if not reporting_period.permanent and time_to_skip:
-                    # No longer relevant. Delete any existing data, and skip this.
-                    delete_form_data(reporting_period)
-                    raise SkipForm()
-
             # 460D data is different...
             if form_type == 'D':
                 minimal_row['entity_Cd'] = minimal_row.get('entity_Cd', 'CRT')
                 load_form460d_row(
-                    minimal_row, agency=agency, reporting_period=reporting_period,
-                    force=force, verbosity=verbosity)
+                    minimal_row, agency=agency, force=force, verbosity=verbosity)
             else:
                 load_form_row(
-                    minimal_row, agency=agency, reporting_period=reporting_period,
-                    force=force, verbosity=verbosity)
+                    minimal_row, agency=agency, force=force, verbosity=verbosity)
         except Exception as ex:
             error_rows.append((ri, raw_row, minimal_row, ex))
+
+        count += 1
+        if (count % 1000) == 0:
+            print("Loaded %d records" % count)
 
     return error_rows
 

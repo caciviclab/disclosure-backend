@@ -14,25 +14,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='netfilecal201transaction',
             name='filerLocalId',
-            field=models.CharField(default='Unknown', max_length=32, db_column='filerLocalId'),
-            preserve_default=False,
+            field=models.CharField(max_length=32, null=True, db_column='filerLocalId'),
         ),
         migrations.AddField(
             model_name='netfilecal201transaction',
             name='filerStateId',
-            field=models.CharField(default='Unknown', max_length=32, db_column='filerStateId'),
-            preserve_default=False,
+            field=models.CharField(max_length=2, null=True, db_column='filerStateId'),
         ),
         migrations.AddField(
             model_name='netfilecal201transaction',
             name='filingEndDate',
-            field=models.DateField(default='1970-01-01', db_column='filingEndDate'),
-            preserve_default=False,
+            field=models.DateField(null=True, db_column='filingEndDate'),
         ),
         migrations.AddField(
             model_name='netfilecal201transaction',
             name='filingStartDate',
-            field=models.DateField(default='1970-01-01', db_column='filingStartDate'),
-            preserve_default=False,
+            field=models.DateField(null=True, db_column='filingStartDate'),
         ),
     ]

@@ -32,12 +32,10 @@ class BeneficiaryAdmin(admin.ModelAdmin):
 class IndependentMoneyAdmin(admin.ModelAdmin):
     readonly_fields = ('benefactor', 'benefactor_zip', 'beneficiary',
                        'amount', 'cumulative_amount', 'report_date',
-                       'reporting_period', 'source', 'source_xact_id')
+                       'source', 'source_xact_id')
 
 admin.site.register(models.Committee)
 admin.site.register(models.Employer)
-admin.site.register(models.Form)
-admin.site.register(models.ReportingPeriod)
 
 validate_and_register_admin(
     models.Beneficiary, BeneficiaryAdmin, num_hidden_fields=5)
