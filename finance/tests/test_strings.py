@@ -1,17 +1,13 @@
 from django.test import TestCase
 
-from .test_xformnetfilerawdata import WithForm460ADataTest
+from .utils import with_form460A_data
 from finance.models import (IndependentMoney, Beneficiary, CommitteeBenefactor,
                             OtherBenefactor, PersonBenefactor, PartyBenefactor,
                             Benefactor, Committee)
 
 
-class IndependentMoneyStringTests(WithForm460ADataTest, TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        TestCase.setUpClass()
-        WithForm460ADataTest.setUpClass()
+@with_form460A_data
+class IndependentMoneyStringTests(TestCase):
 
     def test_strings(self):
         """

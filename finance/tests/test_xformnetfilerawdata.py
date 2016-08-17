@@ -16,20 +16,6 @@ from finance.management.commands.xformnetfilerawdata import (
     parse_benefactor)
 
 
-@override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
-class WithForm460ADataTest(TestCase):
-    """
-    Abstract test class for loading a netfile csv into the database.
-
-    The default values point to a small, but relatively rich, csv.
-    """
-    @classmethod
-    def setUpClass(cls, test_agency='CSD', test_year='2015'):
-        call_command('xformnetfilerawdata',
-                     agencies=test_agency, years=test_year,
-                     forms='A', verbosity=0)
-
-
 class XformNetfileRawDataUnitTest(TestCase):
     """Unit tests on generic methods within the command file."""
     def test_isnan(self):
@@ -75,51 +61,10 @@ class XformNetfileRawDataUnitTest(TestCase):
         self.assertEqual(clean_zip(12345), '12345')
 
 
-@override_settings(NETFILE_DOWNLOAD_DIR=tempfile.mkdtemp())
-class XformNetfileRawDataTest(TestCase):
-
-    def test_xformnetfilerawdata(self, test_agency='CSA', test_year='2015',
-                                 verbosity=0):
-        """
-        Tests a single file download
-        """
-
-        # Smoke test--make sure there are no errors.
-        call_command('xformnetfilerawdata', verbosity=0,
-                     agencies=test_agency, years=test_year,
-                     forms='A')
-
-        # Check data
-        for model in [Ballot, BallotItem, BallotItemSelection,
-                      Referendum, ReferendumSelection,
-                      OfficeElection, Candidate,
-                      IndependentMoney]:
-
-            self.assertTrue(model.objects.all().count() > 0,
-                            '%ss exist after parse' % model.__class__.__name__)
-
-    def test_xformnetfilerawdata_verbose(self):
-        """
-        Tests a single file download, with verbosity=1
-        """
-        self.test_xformnetfilerawdata(verbosity=1)
-
-    def test_xformnetfilerawdata_twice(self):
-        """
-        Tests a single file download, with verbosity=1
-        """
-        self.test_xformnetfilerawdata()
-        num_rows = IndependentMoney.objects.all().count()
-
-        self.test_xformnetfilerawdata(verbosity=1)  # print "skip"
-        self.assertEqual(num_rows, IndependentMoney.objects.all().count(),
-                         'no new rows after running twice')
-
-
 class XformNetfileRawDataPTYTest(TestCase):
     @classmethod
     def setUpClass(cls):
-        TestCase.setUpClass()
+        super(XformNetfileRawDataPTYTest, cls).setUpClass()
 
         # A count of Party objects is used in test assertion
         Party.objects.all().delete()

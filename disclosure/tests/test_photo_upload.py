@@ -8,16 +8,16 @@ from django.contrib.auth.models import User
 from django.test.utils import override_settings
 
 from ballot.models import Candidate
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 
 
+@with_form460A_data
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp(), DEBUG=True)
-class ImageUploadTests(WithForm460ADataTest, StaticLiveServerTestCase):
+class ImageUploadTests(StaticLiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        WithForm460ADataTest.setUpClass()
-        StaticLiveServerTestCase.setUpClass()
+        super(ImageUploadTests, cls).setUpClass()
 
         cls.username = 'admin'
         cls.passwd = 'admin'
