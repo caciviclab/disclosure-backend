@@ -1,4 +1,5 @@
 """Test utils for loading finance data."""
+from functools import wraps
 import os
 import os.path as op
 import shutil
@@ -7,8 +8,11 @@ from unittest import TestCase
 
 from django.conf import settings
 from django.core.management import call_command
+from django.utils.decorators import available_attrs
 
-# From django 1.10, django.test.utils https://docs.djangoproject.com/en/1.10/_modules/django/test/utils/
+
+# From django 1.10, django.test.utils
+# https://docs.djangoproject.com/en/1.10/_modules/django/test/utils/
 class TestContextDecorator(object):
     """
     A base class that can either be used as a context manager during tests
@@ -91,7 +95,9 @@ class with_form460A_data(TestContextDecorator):
         # fixture data so the test has full control over what it's setting up
         test_fixture_src = op.join(op.dirname(__file__), 'data', 'test_%s.csv' % self.test_agency)
         if op.exists(test_fixture_src):
-            test_fixture_dst = op.join(settings.NETFILE_DOWNLOAD_DIR, 'csv', 'netfile_%s_%s_cal201_export.csv' % (self.test_year, self.test_agency))
+            test_fixture_dst = op.join(
+                settings.NETFILE_DOWNLOAD_DIR, 'csv',
+                'netfile_%s_%s_cal201_export.csv' % (self.test_year, self.test_agency))
             os.mkdir(op.dirname(test_fixture_dst))
             shutil.copyfile(test_fixture_src, test_fixture_dst)
 

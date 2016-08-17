@@ -1,16 +1,11 @@
 import os.path as op
-import tempfile
 
-from django.core.management import call_command
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
 import numpy as np
 import pandas as pd
 
-from ballot.models import Ballot, BallotItem, BallotItemSelection
-from ballot.models import Candidate, OfficeElection, Party
-from ballot.models import Referendum, ReferendumSelection
-from finance.models import IndependentMoney
+from ballot.models import Party
 from finance.management.commands.xformnetfilerawdata import (
     clean_city, clean_name, clean_state, clean_zip, isnan, isnone,
     parse_benefactor)
