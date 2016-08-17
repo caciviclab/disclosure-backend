@@ -14,7 +14,7 @@ class SearchTests(WithForm460ADataTest, APITestCase):
 
     def test_search_city_with_data(self):
         # Get first city with non-None name
-        city = City.objects.get(name='Murrieta')
+        city = City.objects.get(name='Oakland')
 
         search_url = '%s?q=%s' % (reverse('search'), city.name)
         resp = self.client.get(search_url)
