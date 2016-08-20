@@ -27,7 +27,7 @@ install:
 
 script: # Run test or deploy
   - 'if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then make test; fi'
-  - 'if [ "$TRAVIS_EVENT_TYPE" == "push" ]; then make deploy; fi'
+  - 'if [ "$TRAVIS_EVENT_TYPE" == "push" -a "$TRAVIS_BRANCH" == "master" ]; then make deploy; fi'
 
 after_success: # Upload coverage to coveralls.io
   - 'if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then coveralls; fi'
