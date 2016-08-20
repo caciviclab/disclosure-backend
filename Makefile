@@ -18,6 +18,9 @@ deploy.pem: deploy.pem.enc .travis.yml
 	chmod 600 deploy.pem
 
 deploy: deploy.pem
-	ssh -i deploy.pem backend@admin.caciviclab.org /usr/local/bin/deploy-backend
+	ssh -o UserKnownHostsFile=./deploy.known_hosts \
+		-i deploy.pem \
+		backend@admin.caciviclab.org \
+		/usr/local/bin/deploy-backend
 
 .PHONY: build run test
