@@ -5,7 +5,7 @@ from finance.tests.utils import with_form460A_data
 from finance.models import Beneficiary
 
 
-@with_form460A_data(test_agency='COS', test_year='2015')
+@with_form460A_data(test_agency='CSD', test_year='2015')
 class OpposingTests(APITestCase):
 
     def do_the_thing_for_candidates(self, support):
