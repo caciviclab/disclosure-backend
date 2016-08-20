@@ -13,4 +13,11 @@ test:
 clean:
 	find . -name \*.pyc -exec rm \{\} \;
 
+deploy.pem: deploy.pem.enc .travis.yml
+	openssl aes-256-cbc -K ${encrypted_997553aff5ab_key} -iv ${encrypted_997553aff5ab_iv} -in deploy.pem.enc -out deploy.pem -d
+	chmod 600 deploy.pem
+
+deploy: deploy.pem
+	ssh -i deploy.pem backend@admin.caciviclab.org /usr/local/bin/deploy-backend
+
 .PHONY: build run test

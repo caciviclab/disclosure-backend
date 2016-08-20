@@ -25,8 +25,9 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements_dev.txt
 
-script: # Run test
-  - make test
+script: # Run test or deploy
+  - '[ "$TRAVIS_EVENT_TYPE" == "pull_request" ] && make test'
+  - '[ "$TRAVIS_EVENT_TYPE" == "push" ] && make deploy'
 
 after_success: # Upload coverage to coveralls.io
-  - coveralls
+  - '[ "$TRAVIS_EVENT_TYPE" == "pull_request" ] && coveralls'
