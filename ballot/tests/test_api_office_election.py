@@ -2,16 +2,12 @@ from django.core.urlresolvers import reverse
 
 from rest_framework.test import APITestCase
 
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 from ballot.models import Candidate, OfficeElection
 
 
-class OfficeElectionAPITest(WithForm460ADataTest, APITestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        WithForm460ADataTest.setUpClass()
-        APITestCase.setUpClass()
+@with_form460A_data
+class OfficeElectionAPITest(APITestCase):
 
     def test_office_election_with_id(self):
         office_election = OfficeElection.objects.all()[0]
@@ -32,11 +28,8 @@ class OfficeElectionAPITest(WithForm460ADataTest, APITestCase):
         self.assertEqual(resp.status_code, 404)
 
 
-class CandidateAPITest(WithForm460ADataTest, APITestCase):
-    @classmethod
-    def setUpClass(cls):
-        WithForm460ADataTest.setUpClass()
-        APITestCase.setUpClass()
+@with_form460A_data
+class CandidateAPITest(APITestCase):
 
     def test_candidate_with_id(self):
         candidate = Candidate.objects.all()[0]

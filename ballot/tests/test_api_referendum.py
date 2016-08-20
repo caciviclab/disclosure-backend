@@ -2,16 +2,12 @@ from django.core.urlresolvers import reverse
 
 from rest_framework.test import APITestCase
 
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 from ballot.models import Ballot, Referendum
 
 
-class ReferendumAPITest(WithForm460ADataTest, APITestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        WithForm460ADataTest.setUpClass()
-        APITestCase.setUpClass()
+@with_form460A_data
+class ReferendumAPITest(APITestCase):
 
     def test_referendum_with_id(self):
         # referendum = Referendum.objects.all()[0]

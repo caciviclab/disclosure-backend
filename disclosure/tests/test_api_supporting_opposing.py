@@ -1,16 +1,12 @@
 from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 from finance.models import Beneficiary
 
 
-class OpposingTests(WithForm460ADataTest, APITestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        WithForm460ADataTest.setUpClass(test_agency='COS', test_year='2015')
-        APITestCase.setUpClass()
+@with_form460A_data(test_agency='COS', test_year='2015')
+class OpposingTests(APITestCase):
 
     def do_the_thing_for_candidates(self, support):
         beneficiary = Beneficiary.objects.filter(

@@ -1,16 +1,12 @@
 from django.test import TestCase
 
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 from ballot.models import (Ballot, BallotItem, BallotItemSelection,
                            Party)
 
 
-class BallotStringTests(WithForm460ADataTest, TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        TestCase.setUpClass()
-        WithForm460ADataTest.setUpClass()
+@with_form460A_data
+class BallotStringTests(TestCase):
 
     def test_strings(self):
         """

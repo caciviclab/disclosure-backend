@@ -2,15 +2,15 @@ from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 
 from finance.models import IndependentMoney
-from finance.tests.test_xformnetfilerawdata import WithForm460ADataTest
+from finance.tests.utils import with_form460A_data
 
 
-class ContributionsAPITests(WithForm460ADataTest, APITestCase):
+@with_form460A_data
+class ContributionsAPITests(APITestCase):
 
     @classmethod
     def setUpClass(cls):
-        WithForm460ADataTest.setUpClass()
-        APITestCase.setUpClass()
+        super(ContributionsAPITests, cls).setUpClass()
 
         for m in IndependentMoney.objects.all():
             if hasattr(m.benefactor, 'committeebenefactor'):
