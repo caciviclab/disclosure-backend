@@ -5,7 +5,7 @@ from finance.tests.utils import with_form460A_data
 from finance.models import Beneficiary
 
 
-@with_form460A_data(test_agency='CSD', test_year='2015')
+@with_form460A_data(test_agency='COS', test_year='2015')
 class OpposingTests(APITestCase):
 
     def do_the_thing_for_candidates(self, support):
@@ -42,6 +42,7 @@ class OpposingTests(APITestCase):
                       kwargs={'referendum_id': referendum.id})
         resp = self.client.get(url)
         self.assertTrue(len(resp.data) > 0)
+        print(resp.data)
 
         # TODO: replace dummy tests with live data tests.
         row = resp.data[0]
