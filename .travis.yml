@@ -27,8 +27,8 @@ install:
 
 script: make test
 
-after_success: # Upload coverage to coveralls.io
-  - 'if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then coveralls; fi'
+after_success:
+  - coveralls # Upload coverage to coveralls.io
 
 deploy:
   provider: script
