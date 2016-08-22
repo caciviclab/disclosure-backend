@@ -145,7 +145,7 @@ class ReferendumViewSet(BallotItemSelectionViewSet):
         """
         ballot_item_selection = get_object_or_404(
             ReferendumSelection,
-            in_favor=False,
+            in_favor=True,
             ballot_item__id=referendum_id)
         return super(ReferendumViewSet, self).opposing(
             request, ballot_item_selection_id=ballot_item_selection.id)

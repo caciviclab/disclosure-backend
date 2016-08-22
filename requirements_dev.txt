@@ -3,3 +3,4 @@ flake8
 coverage
 pygraphviz
 graphviz
+factory-boy==2.7.0
