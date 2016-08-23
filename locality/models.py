@@ -42,19 +42,9 @@ class Locality(DedupeMixin, ReverseLookupStringMixin):
         ordering = ('name', 'short_name')
 
 
-class FipsMixin(Locality):
-    """
-    Abstract class, for any model that has a fips_id
-    """
-    fips_id = models.IntegerField(blank=True, null=True, default=None)
-
-    class Meta:
-        abstract = True
-
-
 @python_2_unicode_compatible
 @add_dedupe_signals
-class City(FipsMixin):
+class City(Locality):
     """
     City
     """
@@ -70,7 +60,7 @@ class City(FipsMixin):
 
 
 @python_2_unicode_compatible
-class County(FipsMixin):
+class County(Locality):
     """
     County
     """
@@ -86,7 +76,7 @@ class County(FipsMixin):
 
 
 @python_2_unicode_compatible
-class State(FipsMixin):
+class State(Locality):
     """
     State
     """
