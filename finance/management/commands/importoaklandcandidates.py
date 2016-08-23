@@ -10,11 +10,15 @@ from ballot.models.referendum import Referendum
 
 
 HUMAN_CANDIDATES_URL = \
-    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI/pub?gid=0&single=true&output=tsv'
+    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI' \
+    '/pub?gid=0&single=true&output=tsv'
 BALLOT_MEASURES_URL = \
-    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI/pub?gid=1693935349&single=true&output=tsv'
+    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI' \
+    '/pub?gid=1693935349&single=true&output=tsv'
 NON_CONTROLLED_COMMITTEE_URL = \
-    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI/pub?gid=1995437960&single=true&output=tsv'
+    'https://docs.google.com/spreadsheets/d/1272oaLyQhKwQa6RicA5tBso6wFruum-mgrNm3O3VogI' \
+    '/pub?gid=1995437960&single=true&output=tsv'
+
 
 class Command(BaseCommand):
     help = 'Import the Oakland Candidates from the spreadsheet'
