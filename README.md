@@ -7,29 +7,38 @@ California Civic Lab Disclosure Backend
 
 ## Overview
 
-This is the back-end Django application for scraping ballot measure funding data (from NetFile and CalAccess), pushing it to our database, and exposing the data to our front-end apps via a RESTful API.
+This is the back-end Django application for scraping ballot measure funding
+data (from NetFile and CalAccess), pushing it to our database, and exposing the
+data to our front-end apps via a RESTful API.
 
 Helpful links:
-* [How to contribute](CONTRIBUTING.md) - links to the overall app technical design and status, as well as information on how to contribute ocde.
-* [Adding your city](https://github.com/caciviclab/caciviclab.github.io/wiki/On-boarding-a-new-city) - How to test and add your city's disclosure information to this app.
-* [Example Dataset](https://data.oaklandnet.com/dataset/Campaign-Finance-FPPC-Form-460-Schedule-A-Monetary/3xq4-ermg) - This is a sample Form 460 for Oakland. If you want to dive into the data, please check this out!
+* [How to contribute](CONTRIBUTING.md) - links to the overall app technical
+  design and status, as well as information on how to contribute ocde.
+* [Adding your city][adding]
+  \- How to test and add your city's disclosure information to this app.
+* [Example Dataset][example_data]
+  \- This is a sample Form 460 for Oakland. If you want to dive into the data,
+  please check this out!
 
-See below for server setup. 
+See below for server setup.
 
-Mock-ups for data tables that this app intends to support are here: https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups
+Mock-ups for data tables that this app intends to support are here:
+https://github.com/caciviclab/caciviclab.github.io/wiki/Mock-ups
 
 
 ## Setting up the app.
 
-If you've worked with Django and python before, these steps should be familiar to you.
-We're going to create an environment with Python 2.7.9 for the project
+If you've worked with Django and python before, these steps should be familiar
+to you.  We're going to create an environment with Python 2.7.9 for the project
 
 
 ### Software Installation
 
 0. Clone `disclosure-backend` (or your fork of it) to your own local copy.
 
-1. Install `python` or `anaconda` or `conda`  (If using OSX (Mac) python is already installed, if using Linux, install anaconda, if using Windows, you can choose between conda and python but we recommend python)
+1. Install `python` or `anaconda` or `conda`  (If using OSX (Mac) python is
+   already installed, if using Linux, install anaconda, if using Windows, you
+   can choose between conda and python but we recommend python)
  * [Anaconda Distribution] (https://docs.continuum.io/anaconda/install)
  * [Python Distribution - Windows] (http://www.howtogeek.com/197947/how-to-install-python-on-windows/) - install version 2.7.9
 
@@ -182,3 +191,6 @@ For deployment to the official website:
 ```
 ssh opencal.opendisclosure.io /usr/local/bin/deploy-backend
 ```
+
+[adding]: https://github.com/caciviclab/caciviclab.github.io/wiki/On-boarding-a-new-city
+[example_data]: https://data.oaklandnet.com/dataset/Campaign-Finance-FPPC-Form-460-Schedule-A-Monetary/3xq4-ermg
