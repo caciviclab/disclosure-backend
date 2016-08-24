@@ -1,36 +1,9 @@
 from rest_framework import serializers
-from ..models import Ballot, BallotItem, Candidate, Office, OfficeElection, Referendum
+
+from .office_election import OfficeElectionSerializer
+from .referendum import ReferendumSerializer
+from .. import models
 from _django_utils import ExtendedModelSerializer
-
-
-class CandidateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Candidate
-
-
-class OfficeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Office
-
-
-class ReferendumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Referendum
-        exclude = ('ballot',)
-
-
-class OfficeElectionSerializer(serializers.ModelSerializer):
-    candidates = CandidateSerializer(many=True)
-
-    class Meta:
-        model = OfficeElection
-        exclude = ('ballot', 'office')
-
-    def to_representation(self, obj):
-        office = OfficeSerializer(obj.office).data
-        office_election = super(OfficeElectionSerializer, self).to_representation(obj)
-        office.update(office_election)
-        return office
 
 
 class BallotItemSerializer(serializers.ModelSerializer):
@@ -48,7 +21,7 @@ class BallotItemSerializer(serializers.ModelSerializer):
         return subclass_data
 
     class Meta:
-        model = BallotItem
+        model = models.BallotItem
         exclude = ('ballot',)
 
 
@@ -56,5 +29,5 @@ class BallotSerializer(ExtendedModelSerializer):
     ballot_items = BallotItemSerializer(many=True, read_only=True)
 
     class Meta:
-        model = Ballot
+        model = models.Ballot
         rename = dict(locality='locality_id')
