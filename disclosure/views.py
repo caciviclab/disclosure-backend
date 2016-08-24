@@ -5,7 +5,6 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template import loader
-
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, list_route
 from rest_framework.response import Response
