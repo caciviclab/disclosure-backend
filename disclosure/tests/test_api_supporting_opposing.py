@@ -1,55 +1,109 @@
 from django.core.urlresolvers import reverse
 from rest_framework.test import APITestCase
 
-from finance.tests.utils import with_form460A_data
-from finance.models import Beneficiary
+from ballot.tests.factory import CandidateFactory, OfficeElectionFactory, \
+    ReferendumFactory, ReferendumSelectionFactory
+from finance.tests.factory import BeneficiaryFactory, IndependentMoneyFactory
 
 
-@with_form460A_data(test_agency='CSD', test_year='2015')
-class OpposingTests(APITestCase):
-
-    def do_the_thing_for_candidates(self, support):
-        beneficiary = Beneficiary.objects.filter(
-            ballot_item_selection__ballot_item__contest_type='O')[0]
-        beneficiary.support = support
-        beneficiary.save()
-        candidate = beneficiary.ballot_item_selection.reverse_lookup()
-
-        url = reverse('candidate_%s' % ('supporting' if support else 'opposing'),
-                      kwargs={'candidate_id': candidate.id})
-        resp = self.client.get(url)
-        self.assertTrue(len(resp.data) > 0)
-
-        # TODO: replace dummy tests with live data tests.
-        row = resp.data[0]
-        self.assertIn('name', row)
-        self.assertIn('contributions_received', row)
+class SupportingOpposingCandidateTests(APITestCase):
+    def setUp(self):
+        self.office_election = OfficeElectionFactory()
+        self.candidate = CandidateFactory(
+            ballot_item=self.office_election
+        )
 
     def test_candidate_opposing_list(self):
-        return self.do_the_thing_for_candidates(support=False)
+        beneficiary = BeneficiaryFactory(
+            support=False,
+            ballot_item_selection=self.candidate,
+        )
+        money = IndependentMoneyFactory(
+            beneficiary=beneficiary,
+            amount=30.5,
+        )
 
-    def test_candidate_supporting_list(self):
-        return self.do_the_thing_for_candidates(support=True)
-
-    def do_the_thing_for_referendums(self, support):
-        beneficiary = Beneficiary.objects.filter(
-            ballot_item_selection__ballot_item__contest_type='R')[0]
-        beneficiary.support = support
-        beneficiary.save()
-
-        referendum = beneficiary.ballot_item_selection.ballot_item.reverse_lookup()
-        url = reverse('referendum_%s' % ('supporting' if support else 'opposing'),
-                      kwargs={'referendum_id': referendum.id})
+        url = reverse('candidate_opposing',
+                      kwargs={'candidate_id': self.candidate.id})
         resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
         self.assertTrue(len(resp.data) > 0)
 
         # TODO: replace dummy tests with live data tests.
         row = resp.data[0]
         self.assertIn('name', row)
         self.assertIn('contributions_received', row)
+        self.assertEqual(row.get('contributions_received'), money.amount)
+
+    def test_candidate_supporting_list(self):
+        beneficiary = BeneficiaryFactory(
+            support=True,
+            ballot_item_selection=self.candidate,
+        )
+        money = IndependentMoneyFactory(
+            beneficiary=beneficiary,
+            amount=15.5,
+        )
+
+        url = reverse('candidate_supporting',
+                      kwargs={'candidate_id': self.candidate.id})
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(len(resp.data) > 0)
+
+        # TODO: replace dummy tests with live data tests.
+        row = resp.data[0]
+        self.assertIn('name', row)
+        self.assertIn('contributions_received', row)
+        self.assertEqual(row.get('contributions_received'), money.amount)
+
+
+class SupportingOpposingReferendumTests(APITestCase):
+    def setUp(self):
+        self.referendum = referendum = ReferendumFactory()
+        self.referendum_selection = ReferendumSelectionFactory(
+            in_favor=True,
+            ballot_item=referendum
+        )
 
     def test_referendum_opposing_list(self):
-        return self.do_the_thing_for_referendums(support=False)
+        beneficiary = BeneficiaryFactory(
+            support=False,
+            ballot_item_selection=self.referendum_selection,
+        )
+        IndependentMoneyFactory(
+            beneficiary=beneficiary,
+            amount=40.5,
+        )
+
+        url = reverse('referendum_opposing',
+                      kwargs={'referendum_id': self.referendum.id})
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(len(resp.data) > 0)
+
+        row = resp.data[0]
+        self.assertIn('name', row)
+        self.assertIn('contributions_received', row)
+        self.assertEqual(row.get('contributions_received'), 40.5)
 
     def test_referendum_supporting_list(self):
-        return self.do_the_thing_for_referendums(support=True)
+        beneficiary = BeneficiaryFactory(
+            support=True,
+            ballot_item_selection=self.referendum_selection,
+        )
+        IndependentMoneyFactory(
+            beneficiary=beneficiary,
+            amount=55.5,
+        )
+
+        url = reverse('referendum_supporting',
+                      kwargs={'referendum_id': self.referendum.id})
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(len(resp.data) > 0)
+
+        row = resp.data[0]
+        self.assertIn('name', row)
+        self.assertIn('contributions_received', row)
+        self.assertEqual(row.get('contributions_received'), 55.5)

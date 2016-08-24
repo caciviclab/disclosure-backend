@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view, list_route
 from rest_framework.response import Response
 
 from .serializers import BeneficiaryMoneyReceivedSerializer
-from ballot.models import Ballot, BallotItemSelection
+from ballot.models import Ballot, BallotItemSelection, ReferendumSelection
 from finance.models import Beneficiary, IndependentMoney
 from finance.views import summarize_money
 from locality.models import Locality
@@ -130,18 +130,24 @@ class ReferendumViewSet(BallotItemSelectionViewSet):
         """
         List of committees supporting a referendum, and level of benefits given.
         """
-        # ballot_item_selection_id =   # query from referendumresponse model
+        ballot_item_selection = get_object_or_404(
+            ReferendumSelection,
+            in_favor=True,
+            ballot_item__id=referendum_id)
         return super(ReferendumViewSet, self).supporting(
-            request, ballot_item_selection_id=referendum_id)
+            request, ballot_item_selection_id=ballot_item_selection.id)
 
     @list_route(['GET'])
     def opposing(self, request, referendum_id):
         """
         List of committees opposing a referendum, and level of benefits given.
         """
-        # ballot_item_selection_id =   # query from referendumresponse model
+        ballot_item_selection = get_object_or_404(
+            ReferendumSelection,
+            in_favor=True,
+            ballot_item__id=referendum_id)
         return super(ReferendumViewSet, self).opposing(
-            request, ballot_item_selection_id=referendum_id)
+            request, ballot_item_selection_id=ballot_item_selection.id)
 
 
 class CandidateViewSet(BallotItemSelectionViewSet):
