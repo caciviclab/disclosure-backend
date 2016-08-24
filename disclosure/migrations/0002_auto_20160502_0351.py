@@ -12,8 +12,8 @@ def load_ballot_data(apps, schema_editor):
     fixtures = (
         ('ballot', op.join(settings.FIXTURES_DIR, '2016_05_01_ballot.json')),)
 
-    for app, path in fixtures:
-        call_command('loaddata', path, app=app)
+    # for app, path in fixtures:
+    #     call_command('loaddata', path, app=app)
 
 
 class Migration(migrations.Migration):
