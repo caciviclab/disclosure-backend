@@ -29,7 +29,7 @@ class OfficeElectionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.OfficeElection
-        exclude = ('ballot', 'office')
+        exclude = ('ballot', 'contest_type', 'office')
         rename = dict(locality='locality_id', ballot_item='ballot_item_id')
 
     def to_representation(self, obj):
