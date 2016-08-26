@@ -20,7 +20,7 @@ class ReferendumAPITest(APITestCase):
         self.assertIsNotNone(referendum.title)
         self.assertEqual(resp.data.get('id'), referendum.id)
         self.assertEqual(resp.data.get('title'), referendum.title)
-        self.assertEqual(resp.data.get('number'),  referendum.number)
+        self.assertEqual(resp.data.get('number'), referendum.number)
         self.assertEqual(resp.data.get('ballot_id'), referendum.ballot.id)
         self.assertNotIn('ballot', resp.data)
 

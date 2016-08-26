@@ -2,8 +2,6 @@ from django.core.urlresolvers import reverse
 
 from rest_framework.test import APITestCase
 
-from ballot.models import Ballot
-
 from . import factory
 
 
@@ -25,9 +23,11 @@ class BallotAPITest(APITestCase):
         self.assertIn('ballot_items', resp.data)
 
         # Find the first office_election
-        office_election = next(b for b in resp.data.get('ballot_items') if b['contest_type'] == 'Office')
+        office_election = next(b for b in resp.data.get('ballot_items')
+                               if b['contest_type'] == 'Office')
         # Find the first referendum
-        referendum = next(b for b in resp.data.get('ballot_items') if b['contest_type'] == 'Referendum')
+        referendum = next(b for b in resp.data.get('ballot_items')
+                          if b['contest_type'] == 'Referendum')
 
         self.assertIn('id', office_election)
         self.assertIn('name', office_election)
@@ -56,9 +56,11 @@ class BallotAPITest(APITestCase):
         self.assertIn('ballot_items', resp.data)
 
         # Find the first office_election
-        office_election = next(b for b in resp.data.get('ballot_items') if b['contest_type'] == 'Office')
+        office_election = next(b for b in resp.data.get('ballot_items')
+                               if b['contest_type'] == 'Office')
         # Find the first referendum
-        referendum = next(b for b in resp.data.get('ballot_items') if b['contest_type'] == 'Referendum')
+        referendum = next(b for b in resp.data.get('ballot_items')
+                          if b['contest_type'] == 'Referendum')
 
         self.assertIn('id', office_election)
         self.assertIn('name', office_election)
