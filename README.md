@@ -1,3 +1,8 @@
+**This project is deprecated and no longer maintained. We are consolidating
+efforts into a static generated website approach using
+[disclosure-backend-static](https://github.com/caciviclab/disclosure-backend-static)
+and [odca-jekyll](https://github.com/caciviclab/odca-jekyll).**
+
 [![Build
 Status](https://travis-ci.org/caciviclab/disclosure-backend.svg?branch=master)](https://travis-ci.org/caciviclab/disclosure-backend)
 [![Coverage Status](https://coveralls.io/repos/caciviclab/disclosure-backend/badge.svg?branch=master&service=github)](https://coveralls.io/github/caciviclab/disclosure-backend?branch=master)
